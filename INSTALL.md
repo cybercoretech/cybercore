@@ -5,7 +5,7 @@ theme quality, compatibility, and portable theme packs. Install Rust and Cargo
 first, then run:
 
 ```sh
-curl -fsSL https://cybercore-tech.github.io/cybercore/install.sh | sh
+curl -fsSL https://cybercoretech.github.io/cybercore/install.sh | sh
 ```
 
 The installer requires Cargo and installs only the `cybercore-theme` binary. It
