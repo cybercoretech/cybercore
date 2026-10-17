@@ -17,19 +17,19 @@ jobs:
       matrix:
         include:
           - name: Cyberdeck Hub
-            repository: cybercore-tech/cyberdeck-hub
+            repository: cybercoretech/cyberdeck-hub
             manifest: Cargo.toml
           - name: DaemonHall
-            repository: cybercore-tech/DaemonHall
+            repository: cybercoretech/DaemonHall
             manifest: Cargo.toml
           - name: Cyberdesk
-            repository: cybercore-tech/cyberdesk
+            repository: cybercoretech/cyberdesk
             manifest: Cargo.toml
           - name: Dockspace
-            repository: cybercore-tech/dockspace
+            repository: cybercoretech/dockspace
             manifest: Cargo.toml
           - name: Cyberterm
-            repository: cybercore-tech/cyberterm
+            repository: cybercoretech/cyberterm
             manifest: Cargo.toml
     steps:
       - name: Checkout consumer
