@@ -83,6 +83,6 @@ All notable changes to `cybercore` are documented in this file.
 ### Changed
 
 - Metadata patch: repository and homepage links point to
-  `github.com/cybercore-tech/cybercore`. No code changes from 0.4.0.
+  `github.com/cybercoretech/cybercore`. No code changes from 0.4.0.
 
 Earlier releases are tagged in Git (`v0.1.0` to `v0.4.0`).

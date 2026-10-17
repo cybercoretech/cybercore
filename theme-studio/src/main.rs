@@ -227,7 +227,7 @@ fn namespaced_curated_pack(id: &str, mut themes: Vec<ThemeDocument>) -> ThemePac
             author: "Cybercore".into(),
             version: "1.0.0".into(),
             license: "MIT".into(),
-            homepage: "https://github.com/cybercore-tech/cybercore".into(),
+            homepage: "https://github.com/cybercoretech/cybercore".into(),
             compatibility: "0.8+".into(),
             preview: themes
                 .first()

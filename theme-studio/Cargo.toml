@@ -5,7 +5,7 @@ edition = "2021"
 rust-version = "1.85"
 description = "Standalone local theme creator for the Cybercore Systems Framework"
 license = "MIT"
-repository = "https://github.com/cybercore-tech/cybercore"
+repository = "https://github.com/cybercoretech/cybercore"
 publish = false
 
 [[bin]]

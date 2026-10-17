@@ -7,7 +7,7 @@
     "author": "Cybercore",
     "version": "1.0.0",
     "license": "MIT",
-    "homepage": "https://github.com/cybercore-tech/cybercore",
+    "homepage": "https://github.com/cybercoretech/cybercore",
     "compatibility": "0.8+",
     "preview": ["#000000", "#ffffff", "#ff00ff", "#ffffff", "#ff00ff"]
   },

@@ -649,7 +649,7 @@ impl ThemeCatalog {
                 author: "Cybercore Theme Studio".into(),
                 version: "1.0.0".into(),
                 license: "MIT".into(),
-                homepage: "https://github.com/cybercore-tech/cybercore".into(),
+                homepage: "https://github.com/cybercoretech/cybercore".into(),
                 compatibility: "0.8+".into(),
                 preview: pack_preview(&themes),
             },
