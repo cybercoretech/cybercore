@@ -111,7 +111,7 @@ appearance variants, and portable packs. See
 storage rules, API, and integration notes. Install the checker with:
 
 ```sh
-curl -fsSL https://cybercoretech.github.io/cybercore/install.sh | sh
+curl -fsSL https://cybercoretech.github.io/install.sh | sh
 ```
 
 This requires Rust/Cargo and installs only the `cybercore-theme` CLI. For a

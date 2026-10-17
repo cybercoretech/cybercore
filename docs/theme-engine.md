@@ -92,7 +92,7 @@ remain responsible for checking their own component states.
 Install the checker with the public installer (requires Rust and Cargo):
 
 ```sh
-curl -fsSL https://cybercoretech.github.io/cybercore/install.sh | sh
+curl -fsSL https://cybercoretech.github.io/install.sh | sh
 ```
 
 The equivalent direct command is `cargo install --locked cybercore --bin
