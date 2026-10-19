@@ -2,6 +2,13 @@
 
 All notable changes to `cybercore` are documented in this file.
 
+## [0.8.1] - 2026-10-18
+
+### Changed
+
+- Refresh crates.io repository and homepage metadata for the `cybercoretech`
+  organization; no API or runtime changes.
+
 ## [0.8.0] - 2026-10-05
 
 ### Added
