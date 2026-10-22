@@ -38,6 +38,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
+          targets: wasm32-unknown-unknown
 
       - name: Cache Rust
         uses: Swatinem/rust-cache@v2
@@ -50,6 +51,12 @@ jobs:
 
       - name: Check without optional features
         run: cargo check --workspace --all-targets
+
+      - name: Test the browser core without filesystem support
+        run: cargo test -p cybercore --no-default-features
+
+      - name: Build browser bindings
+        run: cargo build --locked -p cybercore-theme-wasm --target wasm32-unknown-unknown --release
 
       - name: Clippy
         run: cargo clippy --workspace --all-targets --all-features -- -D warnings

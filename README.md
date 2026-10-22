@@ -242,3 +242,14 @@ The crate release workflow and required checks are documented in
 ## License
 
 MIT
+
+### Browser and in-memory themes
+
+The default `fs` feature enables native theme persistence. Disable default features
+to use `ThemeCatalog::builtin()`, `insert_custom`, `set_active`,
+`set_active_appearance`, `remove_custom_entry`, and `import_pack_in_memory` without
+filesystem access. Existing default-feature consumers keep their current behavior.
+The optional `status` feature remains a native API and is independent of `fs`.
+
+The [`wasm/` bindings](wasm/README.md) expose theme validation, quality reports, CSS,
+family packs, and collision-aware import to browser apps such as DarkskyForge.

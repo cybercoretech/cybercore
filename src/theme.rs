@@ -9,9 +9,13 @@ use crate::schema::{self, Palette};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 use std::fmt;
+#[cfg(feature = "fs")]
 use std::fs::{self, OpenOptions};
+#[cfg(feature = "fs")]
 use std::io::Write;
+#[cfg(feature = "fs")]
 use std::path::{Path, PathBuf};
+#[cfg(feature = "fs")]
 use std::time::{SystemTime, UNIX_EPOCH};
 
 pub const FORMAT_VERSION: u32 = 1;
@@ -510,8 +514,8 @@ pub struct ThemeEntry {
     pub builtin: bool,
 }
 
-/// Read-only theme index. Built-ins come from the crate's embedded schema;
-/// custom documents are discovered from the shared user theme directory.
+/// Theme index with embedded built-ins and optional custom documents.
+/// In-memory operations never read environment variables or access the filesystem.
 #[derive(Debug, Clone)]
 pub struct ThemeCatalog {
     entries: BTreeMap<String, ThemeEntry>,
@@ -520,7 +524,8 @@ pub struct ThemeCatalog {
 }
 
 impl ThemeCatalog {
-    pub fn load() -> Result<Self, ThemeError> {
+    /// Create a catalog from embedded themes, without accessing disk or environment.
+    pub fn builtin() -> Result<Self, ThemeError> {
         let schema = schema::load();
         let mut entries = BTreeMap::new();
         for (id, palette) in &schema.themes {
@@ -538,6 +543,18 @@ impl ThemeCatalog {
                 },
             );
         }
+        Ok(Self {
+            entries,
+            active: schema.active.clone(),
+            appearance: Appearance::default(),
+        })
+    }
+
+    /// Load embedded themes, user themes, and the persisted native selection.
+    #[cfg(feature = "fs")]
+    pub fn load() -> Result<Self, ThemeError> {
+        let mut catalog = Self::builtin()?;
+        let entries = &mut catalog.entries;
         let root = user_themes_dir()?;
         if root.is_dir() {
             for item in fs::read_dir(&root).map_err(ThemeError::Io)? {
@@ -582,12 +599,10 @@ impl ThemeCatalog {
                     .map(|value| value.id.clone())
                     .filter(|id| entries.contains_key(id))
             })
-            .unwrap_or_else(|| schema.active.clone());
-        Ok(Self {
-            entries,
-            active: preferred,
-            appearance: selection.map(|value| value.appearance).unwrap_or_default(),
-        })
+            .unwrap_or_else(|| catalog.active.clone());
+        catalog.active = preferred;
+        catalog.appearance = selection.map(|value| value.appearance).unwrap_or_default();
+        Ok(catalog)
     }
 
     pub fn get(&self, id: &str) -> Option<&ThemeEntry> {
@@ -678,10 +693,29 @@ impl ThemeCatalog {
 
     /// Import a validated pack after resolving all ID collisions up front.
     /// Reject policy guarantees no writes occur if any ID conflicts.
+    #[cfg(feature = "fs")]
     pub fn import_pack(
         &mut self,
         pack: ThemePackDocument,
         policy: PackConflictPolicy,
+    ) -> Result<PackImportReport, ThemeError> {
+        self.import_pack_with(pack, policy, Self::save)
+    }
+
+    /// Import into memory. Validation and collision checks precede all mutations.
+    pub fn import_pack_in_memory(
+        &mut self,
+        pack: ThemePackDocument,
+        policy: PackConflictPolicy,
+    ) -> Result<PackImportReport, ThemeError> {
+        self.import_pack_with(pack, policy, Self::insert_custom)
+    }
+
+    fn import_pack_with(
+        &mut self,
+        pack: ThemePackDocument,
+        policy: PackConflictPolicy,
+        insert: fn(&mut Self, ThemeDocument) -> Result<(), ThemeError>,
     ) -> Result<PackImportReport, ThemeError> {
         pack.validate()?;
         let conflicts = self.pack_conflicts(&pack);
@@ -711,13 +745,14 @@ impl ThemeCatalog {
                 report.skipped.push(id);
                 continue;
             }
-            self.save(theme)?;
+            insert(self, theme)?;
             report.imported.push(id);
         }
         Ok(report)
     }
 
     /// Save a portable custom theme to the shared user theme folder.
+    #[cfg(feature = "fs")]
     pub fn save(&mut self, document: ThemeDocument) -> Result<(), ThemeError> {
         document.validate()?;
         if self
@@ -734,6 +769,19 @@ impl ThemeCatalog {
             &path,
             &serde_json::to_vec_pretty(&document).map_err(ThemeError::Json)?,
         )?;
+        self.insert_custom(document)
+    }
+
+    /// Insert or replace a custom theme without persisting it. Built-ins are protected.
+    pub fn insert_custom(&mut self, document: ThemeDocument) -> Result<(), ThemeError> {
+        document.validate()?;
+        if self
+            .entries
+            .get(&document.metadata.id)
+            .is_some_and(|entry| entry.builtin)
+        {
+            return Err(ThemeError::ReservedId(document.metadata.id));
+        }
         self.entries.insert(
             document.metadata.id.clone(),
             ThemeEntry {
@@ -744,21 +792,37 @@ impl ThemeCatalog {
         Ok(())
     }
 
+    #[cfg(feature = "fs")]
     pub fn select(&mut self, id: &str) -> Result<(), ThemeError> {
         if !self.entries.contains_key(id) {
             return Err(ThemeError::UnknownTheme(id.into()));
         }
         write_active_selection(id, self.appearance)?;
+        self.set_active(id)
+    }
+
+    /// Select a theme in memory without persisting it.
+    pub fn set_active(&mut self, id: &str) -> Result<(), ThemeError> {
+        if !self.entries.contains_key(id) {
+            return Err(ThemeError::UnknownTheme(id.into()));
+        }
         self.active = id.into();
         Ok(())
     }
 
+    #[cfg(feature = "fs")]
     pub fn set_appearance(&mut self, appearance: Appearance) -> Result<(), ThemeError> {
         write_active_selection(&self.active, appearance)?;
-        self.appearance = appearance;
+        self.set_active_appearance(appearance);
         Ok(())
     }
 
+    /// Change appearance in memory without persisting it.
+    pub fn set_active_appearance(&mut self, appearance: Appearance) {
+        self.appearance = appearance;
+    }
+
+    #[cfg(feature = "fs")]
     pub fn remove_custom(&mut self, id: &str) -> Result<bool, ThemeError> {
         let Some(entry) = self.entries.get(id) else {
             return Ok(false);
@@ -772,6 +836,21 @@ impl ThemeCatalog {
             let fallback = schema::load().active.clone();
             write_active_selection(&fallback, self.appearance)?;
             self.active = fallback;
+        }
+        Ok(true)
+    }
+
+    /// Remove a custom entry in memory, falling back to the embedded default if active.
+    pub fn remove_custom_entry(&mut self, id: &str) -> Result<bool, ThemeError> {
+        let Some(entry) = self.entries.get(id) else {
+            return Ok(false);
+        };
+        if entry.builtin {
+            return Err(ThemeError::ReservedId(id.into()));
+        }
+        self.entries.remove(id);
+        if self.active == id {
+            self.active = schema::load().active.clone();
         }
         Ok(true)
     }
@@ -896,6 +975,7 @@ fn engine_compatibility_supported(requirement: &str) -> bool {
     (required_major, required_minor) <= (current_major, current_minor)
 }
 
+#[cfg(feature = "fs")]
 fn user_config_dir() -> Result<PathBuf, ThemeError> {
     if let Some(path) = std::env::var_os("CYBERCORE_CONFIG_DIR") {
         return Ok(PathBuf::from(path));
@@ -908,14 +988,17 @@ fn user_config_dir() -> Result<PathBuf, ThemeError> {
         .ok_or(ThemeError::MissingConfigHome)
 }
 
+#[cfg(feature = "fs")]
 fn user_themes_dir() -> Result<PathBuf, ThemeError> {
     Ok(user_config_dir()?.join("themes"))
 }
 
+#[cfg(feature = "fs")]
 fn active_path() -> Result<PathBuf, ThemeError> {
     Ok(user_config_dir()?.join("active-theme.json"))
 }
 
+#[cfg(feature = "fs")]
 fn read_active_selection() -> Result<Option<ActiveTheme>, ThemeError> {
     let path = active_path()?;
     if !path.exists() {
@@ -926,6 +1009,7 @@ fn read_active_selection() -> Result<Option<ActiveTheme>, ThemeError> {
     Ok(Some(value))
 }
 
+#[cfg(feature = "fs")]
 fn write_active_selection(id: &str, appearance: Appearance) -> Result<(), ThemeError> {
     let path = active_path()?;
     let parent = path.parent().ok_or(ThemeError::MissingConfigHome)?;
@@ -938,6 +1022,7 @@ fn write_active_selection(id: &str, appearance: Appearance) -> Result<(), ThemeE
     atomic_write(&path, &value)
 }
 
+#[cfg(feature = "fs")]
 #[derive(Serialize, Deserialize)]
 struct ActiveTheme {
     id: String,
@@ -945,6 +1030,7 @@ struct ActiveTheme {
     appearance: Appearance,
 }
 
+#[cfg(feature = "fs")]
 fn atomic_write(path: &Path, bytes: &[u8]) -> Result<(), ThemeError> {
     let parent = path.parent().ok_or(ThemeError::MissingConfigHome)?;
     let nonce = SystemTime::now()
@@ -1205,7 +1291,7 @@ mod pack_tests {
         assert_eq!(conflicts.builtin, vec!["core-default"]);
         assert_eq!(conflicts.custom, vec!["user-custom"]);
         assert!(catalog
-            .import_pack(pack, PackConflictPolicy::Reject)
+            .import_pack_in_memory(pack, PackConflictPolicy::Reject)
             .is_err());
         assert_eq!(catalog.entries.len(), 2);
         assert!(!catalog.entries.contains_key("new-theme"));
@@ -1218,7 +1304,9 @@ mod pack_tests {
             theme("core-default", "replacement"),
             theme("user-custom", "replacement"),
         ]);
-        let report = catalog.import_pack(pack, PackConflictPolicy::Skip).unwrap();
+        let report = catalog
+            .import_pack_in_memory(pack, PackConflictPolicy::Skip)
+            .unwrap();
         assert!(report.imported.is_empty());
         assert_eq!(report.skipped, vec!["core-default", "user-custom"]);
         assert_eq!(catalog.entries.len(), 2);
@@ -1231,5 +1319,69 @@ mod pack_tests {
         assert_eq!(pack.metadata.id, "night-ops");
         assert_eq!(pack.themes.len(), 1);
         assert_eq!(pack.themes[0].metadata.id, "user-custom");
+    }
+}
+
+#[cfg(test)]
+mod memory_tests {
+    use super::*;
+
+    #[test]
+    fn memory_catalog_protects_builtins_and_recovers_active_selection() {
+        let mut catalog = ThemeCatalog::builtin().unwrap();
+        let default = catalog.active_id().to_owned();
+        let builtin = catalog.get(&default).unwrap().document.clone();
+        assert!(catalog.insert_custom(builtin.clone()).is_err());
+        assert!(catalog.remove_custom_entry(&default).is_err());
+        assert!(catalog.set_active("does-not-exist").is_err());
+        let mut custom = builtin;
+        custom.metadata.id = "test-custom".into();
+        catalog.insert_custom(custom).unwrap();
+        catalog.set_active("test-custom").unwrap();
+        catalog.set_active_appearance(Appearance::Light);
+        assert!(catalog.remove_custom_entry("test-custom").unwrap());
+        assert_eq!(catalog.active_id(), default);
+        assert_eq!(catalog.active_appearance(), Appearance::Light);
+        assert!(!catalog.remove_custom_entry("test-custom").unwrap());
+    }
+
+    #[test]
+    fn memory_pack_import_is_atomic_on_validation_and_collision_failure() {
+        let mut catalog = ThemeCatalog::builtin().unwrap();
+        let mut document = catalog.iter().next().unwrap().1.document.clone();
+        let family = document.metadata.family.clone();
+        let mut pack = catalog.export_family(&family).unwrap();
+        document.metadata.id = "new-custom".into();
+        pack.themes.insert(0, document.clone());
+        let before = catalog.revision();
+        assert!(catalog
+            .import_pack_in_memory(pack.clone(), PackConflictPolicy::Reject)
+            .is_err());
+        assert_eq!(catalog.revision(), before);
+        assert!(catalog
+            .import_pack_in_memory(pack.clone(), PackConflictPolicy::ReplaceCustom)
+            .is_err());
+        assert_eq!(catalog.revision(), before);
+        let report = catalog
+            .import_pack_in_memory(pack.clone(), PackConflictPolicy::Skip)
+            .unwrap();
+        assert_eq!(report.imported, ["new-custom"]);
+        pack.themes = vec![document.clone()];
+        pack.themes[0].metadata.name = "Updated".into();
+        catalog
+            .import_pack_in_memory(pack.clone(), PackConflictPolicy::ReplaceCustom)
+            .unwrap();
+        assert_eq!(
+            catalog.get("new-custom").unwrap().document.metadata.name,
+            "Updated"
+        );
+        document.metadata.id = "second-custom".into();
+        pack.themes.insert(0, document);
+        pack.themes[1].palette.bg = "invalid".into();
+        let before = catalog.revision();
+        assert!(catalog
+            .import_pack_in_memory(pack, PackConflictPolicy::ReplaceCustom)
+            .is_err());
+        assert_eq!(catalog.revision(), before);
     }
 }
