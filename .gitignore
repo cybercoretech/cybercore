@@ -2,3 +2,4 @@
 Cargo.lock
 # The standalone Theme Studio is an application; keep its workspace lockfile.
 !/Cargo.lock
+/wasm/pkg/

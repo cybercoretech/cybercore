@@ -157,6 +157,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "cybercore-theme-wasm"
+version = "0.1.0"
+dependencies = [
+ "cybercore",
+ "serde",
+ "serde_json",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "find-msvc-tools"
 version = "0.1.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"

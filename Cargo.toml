@@ -34,7 +34,9 @@ chrono = { version = "0.4", default-features = false, features = ["clock", "std"
 hostname = { version = "0.4", optional = true }
 
 [features]
-default = []
+default = ["fs"]
+# Native theme persistence; disable for browser / in-memory consumers.
+fs = []
 # Tool status contract: atomic per-tool status JSON (see src/status.rs).
 status = ["dep:chrono", "dep:hostname"]
 
@@ -45,12 +47,13 @@ required-features = ["status"]
 [[bin]]
 name = "cybercore-theme"
 path = "src/bin/cybercore-theme.rs"
+required-features = ["fs"]
 
 [package.metadata.docs.rs]
 all-features = true
 
 [workspace]
-members = ["theme-studio"]
+members = ["theme-studio", "wasm"]
 resolver = "2"
 
 [build-dependencies]
