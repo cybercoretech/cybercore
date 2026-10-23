@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/cybercore-effects-card.svg" alt="Cybercore Effects — governed motion recipes with fallback and reduced-motion variants">
+  <img src="https://raw.githubusercontent.com/cybercoretech/cybercore/feat/wasm-theme-core/crates/cybercore-effects/assets/cybercore-effects-card.svg" alt="Cybercore Effects — governed motion recipes with fallback and reduced-motion variants">
 </p>
 
 <p align="center">

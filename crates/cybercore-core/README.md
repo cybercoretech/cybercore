@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/cybercore-core-card.svg" alt="Cybercore Core — schema, themes, validation, paths and pack contracts">
+  <img src="https://raw.githubusercontent.com/cybercoretech/cybercore/feat/wasm-theme-core/crates/cybercore-core/assets/cybercore-core-card.svg" alt="Cybercore Core — schema, themes, validation, paths and pack contracts">
 </p>
 
 <p align="center">

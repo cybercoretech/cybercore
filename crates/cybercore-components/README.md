@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/cybercore-components-card.svg" alt="Cybercore Components — theme-driven shared UI contracts">
+  <img src="https://raw.githubusercontent.com/cybercoretech/cybercore/feat/wasm-theme-core/crates/cybercore-components/assets/cybercore-components-card.svg" alt="Cybercore Components — theme-driven shared UI contracts">
 </p>
 
 <p align="center">

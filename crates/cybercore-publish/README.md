@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/cybercore-publish-card.svg" alt="Cybercore Publish — safe release plans for resource packs and Web Kit consumers">
+  <img src="https://raw.githubusercontent.com/cybercoretech/cybercore/feat/wasm-theme-core/crates/cybercore-publish/assets/cybercore-publish-card.svg" alt="Cybercore Publish — safe release plans for resource packs and Web Kit consumers">
 </p>
 
 <p align="center">

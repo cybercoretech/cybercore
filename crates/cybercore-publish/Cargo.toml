@@ -1,6 +1,6 @@
 [package]
 name = "cybercore-publish"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 rust-version = "1.85"
 description = "Cybercore publish plans, pack checks, and consumer packaging contracts"
@@ -10,5 +10,5 @@ homepage = "https://cybercoretech.github.io/cybercore/"
 readme = "README.md"
 
 [dependencies]
-cybercore-core = { version = "0.1.1", path = "../cybercore-core" }
+cybercore-core = { version = "0.1.2", path = "../cybercore-core" }
 serde = { version = "1", features = ["derive"] }
