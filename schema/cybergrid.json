@@ -468,6 +468,66 @@
       "image.cyberdark.core-reactor",
       "image.cyberdark.orbital-compute"
     ],
+    "dark-futurism-afterlight": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid"
+    ],
+    "dark-futurism-black-ice": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "dark-futurism-chrome-cathedral": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "dark-futurism-ghost-protocol": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "dark-futurism-gridfall": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "dark-futurism-hyperion-drift": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "dark-futurism-neon-wasteland": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge"
+    ],
+    "dark-futurism-night-circuit": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "dark-futurism-null-horizon": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "dark-futurism-redline-habitat": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
+    ],
+    "dark-futurism-singularity": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "dark-futurism-void-bloom": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network"
+    ],
     "dark-skylines-alpha": [
       "image.cyberdark.darkmesh-node",
       "image.cyberdark.blacksite-command",
@@ -1134,6 +1194,20 @@
       "cyborg-synthetic-dawn",
       "cyborg-titanium-pulse",
       "cyborg-wired-ghost"
+    ],
+    "dark-futurism": [
+      "dark-futurism-neon-wasteland",
+      "dark-futurism-ghost-protocol",
+      "dark-futurism-chrome-cathedral",
+      "dark-futurism-null-horizon",
+      "dark-futurism-black-ice",
+      "dark-futurism-hyperion-drift",
+      "dark-futurism-gridfall",
+      "dark-futurism-night-circuit",
+      "dark-futurism-void-bloom",
+      "dark-futurism-singularity",
+      "dark-futurism-afterlight",
+      "dark-futurism-redline-habitat"
     ],
     "dystopian-frontier": [
       "dystopian-frontier-ashfall",
