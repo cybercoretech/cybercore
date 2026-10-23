@@ -1,0 +1,57 @@
+name: Validate Web Kit
+
+on:
+  push:
+    branches:
+      - main
+      - "feat/**"
+    paths:
+      - "web/**"
+      - "css/**"
+      - "schema/webkit.json"
+      - "tools/build-web-kit.sh"
+      - ".github/workflows/web-kit.yml"
+  pull_request:
+    paths:
+      - "web/**"
+      - "css/**"
+      - "schema/webkit.json"
+      - "tools/build-web-kit.sh"
+      - ".github/workflows/web-kit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate and package Web Kit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate source files
+        run: |
+          node --check web/cybercore.js
+          jq empty schema/webkit.json
+          bash -n tools/build-web-kit.sh
+
+      - name: Generate static distribution
+        run: |
+          DEST="$RUNNER_TEMP/cybercore-kit"
+          tools/build-web-kit.sh "$DEST"
+          test -s "$DEST/cybercore.js"
+          test -s "$DEST/tokens.css"
+          test -s "$DEST/components.css"
+          test -s "$DEST/effects.css"
+          test -s "$DEST/webkit.json"
+          node --check "$DEST/cybercore.js"
+
+      - name: Package crate with Web Kit sources
+        run: cargo package --locked
