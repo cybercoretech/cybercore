@@ -1,0 +1,147 @@
+{
+  "format_version": 1,
+  "id": "cybercore-demo",
+  "name": "Cybercore Demo Workspace",
+  "resources": [
+    {
+      "id": "theme.vault-midnight-lock",
+      "kind": "theme",
+      "version": "1.0.0",
+      "status": "approved",
+      "title": "Vault Midnight Lock",
+      "path": "resources/themes/vault-midnight-lock.json",
+      "license": "MIT",
+      "provenance": {
+        "source": "Cybercore Theme Studio",
+        "author": "Cybercore",
+        "license": "MIT",
+        "reviewed": true
+      },
+      "tags": ["security", "dark", "android"],
+      "dependencies": [],
+      "platforms": ["web", "terminal", "android"],
+      "preview": "previews/vault-midnight-lock.png",
+      "metadata": {
+        "family": "vault",
+        "appearance": ["dark"]
+      }
+    },
+    {
+      "id": "asset.cybervault-phone",
+      "kind": "asset",
+      "version": "1.0.0",
+      "status": "review",
+      "title": "CyberVault Phone Hero",
+      "path": "resources/assets/cybervault-phone.svg",
+      "license": "MIT",
+      "provenance": {
+        "source": "DarkskyForge",
+        "author": "Cybercore",
+        "license": "MIT",
+        "reviewed": false
+      },
+      "tags": ["phone", "hero", "cybervault"],
+      "dependencies": ["theme.vault-midnight-lock"],
+      "platforms": ["web", "android"],
+      "preview": "previews/cybervault-phone.png",
+      "metadata": {
+        "export": ["svg", "png"]
+      }
+    },
+    {
+      "id": "component.phone-shell",
+      "kind": "component",
+      "version": "1.0.0",
+      "status": "draft",
+      "title": "Realistic Phone Shell",
+      "path": "resources/components/phone-shell.json",
+      "license": "MIT",
+      "provenance": {
+        "source": "Cybercore Component Forge",
+        "author": "Cybercore",
+        "license": "MIT",
+        "reviewed": false
+      },
+      "tags": ["device", "hero", "responsive"],
+      "dependencies": ["theme.vault-midnight-lock"],
+      "platforms": ["web"],
+      "preview": "previews/phone-shell.png",
+      "metadata": {
+        "fallback": "static-image",
+        "reduced_motion": "static"
+      }
+    },
+    {
+      "id": "effect.telemetry-pulse",
+      "kind": "effect",
+      "version": "1.0.0",
+      "status": "approved",
+      "title": "Telemetry Pulse",
+      "path": "resources/effects/telemetry-pulse.json",
+      "license": "MIT",
+      "provenance": {
+        "source": "Cybercore Web Kit",
+        "author": "Cybercore",
+        "license": "MIT",
+        "reviewed": true
+      },
+      "tags": ["motion", "telemetry", "neon"],
+      "dependencies": [],
+      "platforms": ["web"],
+      "preview": null,
+      "metadata": {
+        "motion_profile": "full",
+        "reduced_motion": "none"
+      }
+    },
+    {
+      "id": "snippet.install-console",
+      "kind": "snippet",
+      "version": "1.0.0",
+      "status": "approved",
+      "title": "Verified Install Console",
+      "path": "resources/snippets/install-console.html",
+      "license": "MIT",
+      "provenance": {
+        "source": "Cybercore Web Kit",
+        "author": "Cybercore",
+        "license": "MIT",
+        "reviewed": true
+      },
+      "tags": ["install", "curl", "sha256"],
+      "dependencies": ["component.phone-shell"],
+      "platforms": ["web"],
+      "preview": null,
+      "metadata": {
+        "validation": ["copy-button", "sha256", "fallback"]
+      }
+    }
+  ],
+  "sites": [
+    {
+      "id": "site.cybervault-android",
+      "repository": "security/cybervault-android-app",
+      "theme": "theme.vault-midnight-lock",
+      "resources": [
+        "component.phone-shell",
+        "effect.telemetry-pulse",
+        "snippet.install-console",
+        "asset.cybervault-phone"
+      ],
+      "motion": "full",
+      "fallback": "static"
+    },
+    {
+      "id": "site.cyberdeck-hub",
+      "repository": "core/cyberdeck-hub",
+      "theme": "theme.vault-midnight-lock",
+      "resources": ["effect.telemetry-pulse"],
+      "motion": "reduced",
+      "fallback": "static"
+    }
+  ],
+  "settings": {
+    "control_plane_version": "0.1.0",
+    "default_platforms": ["web", "terminal"]
+  }
+}

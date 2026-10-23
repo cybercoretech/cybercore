@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "format": "cybercore-control-plane",
+  "description": "Shared workspace manifest for Cybercore themes, creative assets, reusable code, and site profiles.",
+  "resource_kinds": [
+    "theme",
+    "component",
+    "effect",
+    "snippet",
+    "asset",
+    "font",
+    "site-profile"
+  ],
+  "resource_statuses": [
+    "draft",
+    "review",
+    "approved",
+    "deprecated"
+  ],
+  "required_resource_fields": [
+    "id",
+    "kind",
+    "version",
+    "status",
+    "title",
+    "path",
+    "license",
+    "provenance"
+  ],
+  "provenance_fields": [
+    "source",
+    "author",
+    "license",
+    "reviewed"
+  ],
+  "workspace": {
+    "required_fields": [
+      "format_version",
+      "id",
+      "name",
+      "resources",
+      "sites"
+    ],
+    "resource_path": ".cybercore/resources",
+    "site_path": ".cybercore/sites",
+    "default_manifest": ".cybercore/workspace.json"
+  },
+  "compatibility": {
+    "minimum_control_plane": "0.1.0",
+    "unknown_fields": "preserve"
+  }
+}

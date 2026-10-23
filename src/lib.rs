@@ -13,6 +13,7 @@
 //! theme files freely; everything else follows, no Rust code to touch.
 
 pub mod components;
+pub mod control_plane;
 pub mod palette;
 pub mod paths;
 pub mod schema;
