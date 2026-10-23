@@ -8,6 +8,7 @@ use axum::{
     routing::{delete, get, post},
     Json, Router,
 };
+use cybercore::control_plane::ControlPlaneWorkspace;
 use cybercore::theme::{
     Appearance, PackConflictPolicy, ThemeCatalog, ThemeDocument, ThemeError, ThemePackDocument,
 };
@@ -22,6 +23,7 @@ const PAGE: &str = include_str!("../static/index.html");
 async fn main() {
     let app = Router::new()
         .route("/", get(index))
+        .route("/api/control-plane/workspace", get(control_plane_workspace))
         .route("/api/themes", get(list_themes).post(save_theme))
         .route("/api/events", get(theme_events))
         .route("/api/themes/:id", delete(delete_theme))
@@ -74,6 +76,41 @@ fn is_local_host(value: &str) -> bool {
 
 async fn index() -> Html<&'static str> {
     Html(PAGE)
+}
+
+async fn control_plane_workspace() -> Response {
+    let path = std::env::var_os("CYBERCORE_WORKSPACE")
+        .map(std::path::PathBuf::from)
+        .unwrap_or_else(|| {
+            std::env::var_os("CYBERCORE_CONFIG_DIR")
+                .map(std::path::PathBuf::from)
+                .unwrap_or_else(|| dirs_fallback_config_dir().join("cybercore"))
+                .join("workspace.json")
+        });
+    match ControlPlaneWorkspace::load(&path) {
+        Ok(workspace) => Json(json!({
+            "loaded": true,
+            "path": path,
+            "workspace": workspace,
+        }))
+        .into_response(),
+        Err(error) => Json(json!({
+            "loaded": false,
+            "path": path,
+            "workspace": ControlPlaneWorkspace::new("cybercore-local", "Local Cybercore Workspace"),
+            "error": error.to_string(),
+        }))
+        .into_response(),
+    }
+}
+
+fn dirs_fallback_config_dir() -> std::path::PathBuf {
+    std::env::var_os("XDG_CONFIG_HOME")
+        .map(std::path::PathBuf::from)
+        .or_else(|| {
+            std::env::var_os("HOME").map(|home| std::path::PathBuf::from(home).join(".config"))
+        })
+        .unwrap_or_else(|| std::path::PathBuf::from(".config"))
 }
 
 fn catalog_error(error: impl ToString) -> Response {
@@ -425,7 +462,7 @@ async fn theme_css(Path(id): Path<String>, Query(query): Query<CssQuery>) -> Res
 
 #[cfg(test)]
 mod tests {
-    use super::{is_local_host, namespaced_curated_pack, ThemeDocument};
+    use super::{dirs_fallback_config_dir, is_local_host, namespaced_curated_pack, ThemeDocument};
 
     #[test]
     fn permits_loopback_hostnames_and_ports() {
@@ -474,5 +511,11 @@ mod tests {
             theme.metadata.id.starts_with("curated-cyberpunk-")
                 && theme.metadata.family == "curated-cyberpunk"
         }));
+    }
+
+    #[test]
+    fn config_fallback_is_relative_to_a_user_config_root() {
+        let path = dirs_fallback_config_dir();
+        assert!(path.ends_with(".config") || path.to_string_lossy().contains("config"));
     }
 }
