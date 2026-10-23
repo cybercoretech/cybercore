@@ -1,0 +1,14 @@
+[package]
+name = "cybercore-effects"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+description = "Governed Cybercore visual effect recipes and reduced-motion adapters"
+license = "MIT"
+repository = "https://github.com/cybercoretech/cybercore"
+homepage = "https://cybercoretech.github.io/cybercore/"
+readme = "README.md"
+
+[dependencies]
+cybercore-core = { version = "0.1.0", path = "../cybercore-core" }
+

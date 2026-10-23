@@ -1,6 +1,9 @@
 # Cybercore Theme Studio
 
 Cybercore Theme Studio is the standalone visual creator for CYBERGRID themes.
+The built-in registry contains 224 themes across the curated families, and
+each built-in theme exposes governed CyberDark wallpaper options when the
+Control Plane metadata is available.
 It is a small local Rust web app that uses the `cybercore::theme::ThemeCatalog`
 directly, so themes it saves are immediately available to Cyberdeck Hub,
 Cyberdesk, and other apps using the same Cybercore user configuration.
@@ -44,3 +47,28 @@ Themes and active selection use the same storage contract documented in the
 [Cybercore theme engine guide](../docs/theme-engine.md):
 `$XDG_CONFIG_HOME/cybercore` or `~/.config/cybercore`, with
 `CYBERCORE_CONFIG_DIR` available for an explicit config root.
+
+## Dashboard telemetry connectors
+
+The dashboard keeps local Cybercore telemetry available without credentials.
+Optional provider requests run server-side, are cached for five minutes, and
+return `NOT CONFIGURED` or `ERROR` instead of fake zeroes. Configure only the
+providers you want before starting Theme Studio:
+
+```bash
+export GITHUB_TOKEN=...
+export GITHUB_REPOSITORY=owner/repository
+
+export CLOUDFLARE_API_TOKEN=...
+export CLOUDFLARE_ZONE_ID=...
+
+export GOOGLE_PAGESPEED_URL=https://example.com
+export GOOGLE_PAGESPEED_API_KEY=... # optional
+```
+
+GitHub reports repository basics, Cloudflare verifies the token and zone
+access, and PageSpeed reports Lighthouse scores and core audit values. The
+Google Analytics and Search Console variables are reserved for their
+OAuth-backed adapters; they remain explicitly unavailable until those
+property credentials are configured. Never put any of these values in the
+browser or commit them to the repository.

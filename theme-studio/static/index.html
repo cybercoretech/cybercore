@@ -9,7 +9,7 @@
     :root { color-scheme:dark;--bg:#090b12;--fg:#edf1f7;--panel:#111622;--line:#283243;--muted:#8591a4;--acid:#c8ff52;--pink:#ff4778;--cyan:#45e6dc;--purple:#a58bff;--orange:#ffad5c;--red:#ff5d68;--radius:8px;--font-ui:Inter,sans-serif;--font-mono:"JetBrains Mono",monospace;--font-display:Oxanium,sans-serif;--density:1;--dur-mid:.22s; }
     *{box-sizing:border-box}html{scrollbar-color:var(--purple) var(--bg);scrollbar-width:thin}body{margin:0;min-height:100vh;background:var(--bg);color:var(--fg);font:13px/1.55 var(--font-ui);position:relative}button,input,select{font:inherit}button,.button{color:var(--fg);background:linear-gradient(145deg,color-mix(in srgb,var(--panel) 92%,white 3%),var(--panel));border:1px solid var(--line);border-radius:6px;padding:.62rem .9rem;cursor:pointer;text-decoration:none;letter-spacing:.02em;transition:all var(--dur-mid);white-space:nowrap}button:hover,.button:hover{border-color:var(--acid);color:var(--acid);box-shadow:0 0 22px color-mix(in srgb,var(--acid) 16%,transparent);transform:translateY(-1px)}button.primary{background:var(--acid);color:#11180a;border-color:var(--acid);font-weight:800}button.primary:hover{color:#11180a;box-shadow:0 0 28px color-mix(in srgb,var(--acid) 35%,transparent)}button.quiet{background:transparent}input,select{background:#0b1019;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:.64rem .72rem;width:100%;min-width:0}input:focus,select:focus{outline:1px solid var(--cyan);border-color:var(--cyan);box-shadow:0 0 0 3px color-mix(in srgb,var(--cyan) 11%,transparent)}
     .bg-scanlines,.bg-glow{position:fixed;inset:0;pointer-events:none}.bg-scanlines{z-index:0;opacity:.32;background:repeating-linear-gradient(to bottom,#fff04 0 1px,transparent 1px 5px)}.bg-glow{z-index:0;background:radial-gradient(ellipse 52% 48% at 47% -10%,color-mix(in srgb,var(--purple) 17%,transparent),transparent 66%),radial-gradient(ellipse 30% 32% at 100% 0%,color-mix(in srgb,var(--cyan) 8%,transparent),transparent 72%)}header,main{position:relative;z-index:1}.topbar{height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 24px;border-bottom:1px solid #ffffff12;background:#090b12e8;backdrop-filter:blur(18px);position:sticky;top:0;z-index:5}.brand{display:flex;align-items:center;gap:.72rem;letter-spacing:.13em;font:700 .82rem var(--font-mono);color:#f4f6fb}.brand-mark{display:grid;place-items:center;width:30px;height:30px;border:1px solid color-mix(in srgb,var(--acid) 65%,transparent);border-radius:8px;color:var(--acid);box-shadow:inset 0 0 14px color-mix(in srgb,var(--acid) 12%,transparent);font-size:1rem}.brand b{color:var(--acid)}.brand small{color:var(--muted);font:500 .66rem var(--font-mono);letter-spacing:.08em;margin-left:.18rem}.header-actions{display:flex;align-items:center;gap:.55rem}.header-actions button,.header-actions .button{font-size:.68rem;text-transform:uppercase}.main-shell{max-width:1800px;margin:auto;padding:22px 24px 40px}.intro{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;margin:0 0 18px}.intro h1{margin:0;font:600 clamp(1.55rem,2.5vw,2.15rem)/1.12 var(--font-display);letter-spacing:-.045em}.intro p{margin:.4rem 0 0;color:var(--muted);font-size:.86rem}.intro .eyebrow,.eyebrow{color:var(--cyan);font:600 .65rem var(--font-mono);letter-spacing:.14em;text-transform:uppercase}.intro-actions{display:flex;gap:.55rem}.workspace{display:grid;grid-template-columns:250px minmax(360px,1fr) 360px;gap:14px;align-items:stretch;min-height:calc(100vh - 175px)}.panel{background:linear-gradient(160deg,color-mix(in srgb,var(--panel) 94%,white 2%),color-mix(in srgb,var(--bg) 72%,var(--panel)));border:1px solid #ffffff14;border-radius:10px;box-shadow:0 18px 55px #0005,inset 0 1px #ffffff08;min-width:0}.library{padding:14px;display:flex;flex-direction:column;gap:12px}.panel-title{display:flex;align-items:center;justify-content:space-between;gap:.6rem}.panel-title h2,.inspector-title{font-size:.79rem;text-transform:uppercase;letter-spacing:.09em;margin:0}.count{font:600 .65rem var(--font-mono);color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:.2rem .48rem}.search-wrap{position:relative}.search-wrap:before{content:'⌕';position:absolute;left:11px;top:5px;color:var(--muted);font-size:1.2rem}.search-wrap input{padding-left:34px}.theme-picker-wrap{display:grid;gap:7px}.theme-row{display:flex;gap:6px}.theme-row select{flex:1}.theme-row button{padding:.55rem .65rem}.library-list{display:grid;gap:7px;overflow:auto;max-height:34vh;padding:2px}.theme-card{padding:10px;border:1px solid #ffffff10;border-radius:8px;background:#ffffff04;cursor:pointer;transition:.18s}.theme-card:hover,.theme-card.selected{border-color:color-mix(in srgb,var(--acid) 45%,var(--line));background:color-mix(in srgb,var(--acid) 5%,var(--panel))}.theme-card.selected{box-shadow:inset 2px 0 var(--acid)}.theme-card-head{display:flex;justify-content:space-between;align-items:center;gap:.5rem}.theme-card-name{font-weight:650;font-size:.8rem}.theme-card-tag{color:var(--muted);font:500 .57rem var(--font-mono);text-transform:uppercase}.theme-card-swatches{display:flex;gap:4px;margin-top:8px}.theme-card-swatches i{height:8px;flex:1;border-radius:4px;background:var(--swatch);border:1px solid #fff2}.library-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}.library-actions button{font-size:.62rem;padding:.55rem .35rem}.divider{height:1px;background:#ffffff12;margin:1px 0}.pack-controls{display:grid;gap:7px}.pack-controls .actions{display:grid;grid-template-columns:1fr;gap:6px}.actions{display:flex;flex-wrap:wrap;gap:.5rem;margin:.65rem 0}.pack-controls button{font-size:.64rem}.pack-controls .field{margin:0}.preview{padding:0;overflow:hidden;display:flex;flex-direction:column}.preview-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:14px 17px;border-bottom:1px solid #ffffff12}.preview-head{display:flex;align-items:center;gap:.7rem}.preview-head h2{font-size:.84rem;margin:0}.live-dot{width:7px;height:7px;border-radius:50%;background:var(--acid);box-shadow:0 0 11px var(--acid)}.view-tabs,.editor-tabs{display:flex;gap:3px;padding:3px;background:#080b12;border:1px solid #ffffff10;border-radius:7px}.view-tabs button,.editor-tabs button{border:0;background:transparent;padding:.42rem .65rem;color:var(--muted);font:600 .62rem var(--font-mono);text-transform:uppercase}.view-tabs button.active,.editor-tabs button.active{background:#1c2533;color:var(--fg);box-shadow:inset 0 0 0 1px #ffffff12}.canvas{flex:1;padding:22px;min-height:520px;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--purple) 7%,transparent),transparent 65%);display:grid;place-items:center}.device{width:min(100%,760px);min-height:430px;border:1px solid #ffffff20;border-radius:12px;background:#0a0d14;box-shadow:0 25px 80px #0009;overflow:hidden;transition:.22s}.device-bar{height:35px;display:flex;align-items:center;gap:6px;padding:0 12px;background:#ffffff06;border-bottom:1px solid #ffffff10}.device-bar i{width:7px;height:7px;border-radius:50%;background:#ff5e65}.device-bar i:nth-child(2){background:#ffbd4b}.device-bar i:nth-child(3){background:#56d994}.device-url{margin:auto;width:44%;text-align:center;color:var(--muted);font:500 .58rem var(--font-mono);background:#0003;border-radius:99px;padding:.2rem}.sample-app{padding:22px;min-height:390px;background:var(--bg);color:var(--fg);font-family:var(--font-ui)}.sample-nav{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--line);font:600 .65rem var(--font-mono);letter-spacing:.1em}.sample-nav strong{color:var(--acid)}.sample-nav span{color:var(--muted)}.sample-hero{padding:24px 0 18px}.sample-hero .eyebrow{color:var(--cyan)}.sample-hero h3{margin:.45rem 0;font:650 1.55rem/1.1 var(--font-display)}.sample-hero p{max-width:480px;color:var(--muted);margin:.55rem 0 1rem;font-size:.78rem}.sample-hero button{background:var(--acid);color:var(--bg);border:0;font-weight:700}.sample-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.sample-card{background:color-mix(in srgb,var(--bg) 55%,var(--panel));border:1px solid var(--line);border-radius:var(--radius);padding:calc(13px * var(--density,1));min-width:0}.sample-card h3{margin:.15rem 0 .4rem;font-size:.86rem}.sample-card p{color:var(--muted);font-size:.7rem;margin:.35rem 0}.mono{font-family:var(--font-mono)}.badge{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:.22rem .55rem;color:var(--acid);background:color-mix(in srgb,var(--acid) 10%,transparent);border:1px solid color-mix(in srgb,var(--acid) 34%,transparent);font:.6rem var(--font-mono);text-transform:uppercase;letter-spacing:.07em}.palette-strip{display:flex;gap:4px;margin-top:.65rem}.palette-strip i{height:20px;flex:1;border-radius:4px;border:1px solid #ffffff22}.preview-foot{display:flex;justify-content:space-between;gap:1rem;padding:11px 16px;border-top:1px solid #ffffff12;color:var(--muted);font:.61rem var(--font-mono)}.preview-foot strong{color:var(--cyan);font-weight:500}.inspector{padding:14px;display:flex;flex-direction:column;gap:12px;overflow:auto}.inspector-head{display:flex;justify-content:space-between;align-items:center}.inspector-head .eyebrow{margin-bottom:3px}.editor-tabs{overflow:auto}.editor-tabs button{flex:1}.editor-pane{display:none}.editor-pane.active{display:block}.pane-intro{color:var(--muted);font-size:.71rem;margin:.1rem 0 .8rem}.field{display:grid;gap:.32rem;margin:.62rem 0}.field label,.eyebrow{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase}.field label{color:#bdc7d5;font-family:var(--font-mono)}.field small{color:var(--muted);font-size:.65rem}.row{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}.swatches{display:grid;grid-template-columns:1fr;gap:5px;margin-top:.5rem}.swatch{display:grid;grid-template-columns:minmax(85px,1fr) 34px minmax(80px,.8fr);align-items:center;gap:7px;color:#c5cedb;font:500 .65rem var(--font-mono);text-transform:capitalize;border-bottom:1px solid #ffffff09;padding:4px 0}.swatch input[type=color]{width:34px;height:29px;padding:3px;border-radius:5px}.swatch input[type=text]{font: .65rem var(--font-mono);padding:.45rem}.contrast-box{padding:9px 10px;background:#0a0e15;border:1px solid #ffffff12;border-radius:7px;margin-top:10px}#contrast{color:#b6c2d0;min-height:1.5rem;font-size:.68rem}#contrast.warning{color:var(--orange)}.quality-label{font:600 .6rem var(--font-mono);color:var(--cyan);letter-spacing:.08em;text-transform:uppercase}.status{min-height:1.25rem;color:var(--muted);font-size:.69rem;margin:.4rem 0}.status.error{color:var(--pink)}.status.ok{color:var(--acid)}.design-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 .6rem}.choice-row{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.choice-row button{font-size:.6rem;padding:.55rem .3rem}.utility-stack{display:grid;gap:8px}.utility-stack .actions{margin:0;display:grid;grid-template-columns:1fr 1fr}.utility-stack button{font-size:.63rem;padding:.55rem .4rem}.pack-preview{display:grid;gap:.35rem;padding:.65rem;margin:.4rem 0;border:1px solid var(--line);border-radius:7px;background:#080b12;color:var(--muted);font-size:.66rem}.pack-preview[hidden]{display:none}.pack-swatches{display:flex;gap:.3rem}.pack-swatches i{width:1.2rem;height:1.2rem;border:1px solid var(--line);border-radius:4px}.statusline{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:8px 12px;border:1px solid #ffffff10;border-radius:7px;background:#ffffff04;color:var(--muted);font:.59rem var(--font-mono)}.statusline .ready{color:var(--acid)}
-    .theme-picker{position:relative;display:flex;align-items:center;gap:.45rem}.theme-label{color:var(--muted);font:600 .58rem var(--font-mono);letter-spacing:.1em}.theme-button{max-width:220px;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase;font-size:.66rem!important}.theme-menu{position:fixed;z-index:20;width:220px;max-height:60vh;overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:3px;box-shadow:0 16px 40px #0008;padding:.3rem}.theme-menu[hidden]{display:none}.theme-group-label{padding:.45rem .55rem .25rem;color:var(--muted);font:600 .56rem var(--font-mono);letter-spacing:.08em;text-transform:uppercase}.theme-option{display:block;width:100%;padding:.42rem .55rem;border:0;border-radius:2px;background:transparent;text-align:left;color:var(--fg);font:500 .63rem var(--font-mono);text-transform:uppercase}.theme-option:hover,.theme-option[aria-selected=true]{background:color-mix(in srgb,var(--acid) 18%,var(--panel));color:var(--acid);box-shadow:none;transform:none}
+    .theme-picker{position:relative;display:flex;align-items:center;gap:.45rem}.theme-label{color:var(--muted);font:600 .58rem var(--font-mono);letter-spacing:.1em}.theme-button{max-width:220px;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase;font-size:.66rem!important}.theme-menu{position:fixed;z-index:20;width:220px;max-height:min(70vh,560px);overflow-y:scroll;overscroll-behavior:contain;scrollbar-gutter:stable;background:var(--panel);border:1px solid var(--line);border-radius:3px;box-shadow:0 16px 40px #0008;padding:.3rem}.theme-menu[hidden]{display:none}.theme-group-label{padding:.45rem .55rem .25rem;color:var(--muted);font:600 .56rem var(--font-mono);letter-spacing:.08em;text-transform:uppercase}.theme-option{display:block;width:100%;padding:.42rem .55rem;border:0;border-radius:2px;background:transparent;text-align:left;color:var(--fg);font:500 .63rem var(--font-mono);text-transform:uppercase}.theme-option:hover,.theme-option[aria-selected=true]{background:color-mix(in srgb,var(--acid) 18%,var(--panel));color:var(--acid);box-shadow:none;transform:none}
     .control-nav{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px;padding:6px;border:1px solid #ffffff12;border-radius:9px;background:#0b1019}.control-nav button{font:600 .65rem var(--font-mono);text-transform:uppercase;color:var(--muted)}.control-nav button.active{color:var(--acid);border-color:color-mix(in srgb,var(--acid) 50%,var(--line));background:color-mix(in srgb,var(--acid) 8%,var(--panel))}.control-view[hidden]{display:none}.control-dashboard{display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:14px}.control-card{padding:18px}.control-card h2,.control-card h3{margin:0 0 .4rem;font:650 1rem var(--font-display)}.control-card h2{font-size:1.35rem}.control-card p{color:var(--muted);font-size:.76rem}.control-card strong{color:var(--cyan);font:600 .7rem var(--font-mono)}.resource-list{display:grid;gap:6px;margin-top:.8rem}.resource-list span{display:flex;justify-content:space-between;gap:1rem;padding:.45rem .55rem;border:1px solid #ffffff10;border-radius:5px;font:.68rem var(--font-mono)}.resource-list em{color:var(--acid);font-style:normal}.module-message{max-width:72rem;padding:2rem;border:1px dashed var(--line);border-radius:10px;color:var(--muted)}.module-message strong{display:block;margin-bottom:.7rem;color:var(--cyan);font:650 1.15rem var(--font-display)}.module-toolbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin:1rem 0}.module-toolbar button{font-size:.65rem}.module-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:10px;margin-top:1rem}.resource-card{padding:1rem;border:1px solid #ffffff12;border-radius:8px;background:#ffffff04}.resource-card h3{margin:0 0 .35rem;color:var(--fg);font:650 .9rem var(--font-display)}.resource-card p{margin:.25rem 0;color:var(--muted);font-size:.72rem}.resource-meta{display:flex;gap:.35rem;flex-wrap:wrap;margin:.55rem 0}.resource-meta span{padding:.2rem .4rem;border:1px solid var(--line);border-radius:99px;color:var(--cyan);font:.58rem var(--font-mono)}.resource-card pre{max-height:13rem;overflow:auto;margin:.7rem 0 0;padding:.7rem;border:1px solid #ffffff12;border-radius:5px;background:#070a10;color:var(--acid);font:.65rem/1.5 var(--font-mono);white-space:pre-wrap}.resource-card .copy-resource{margin-top:.6rem;font-size:.62rem}.validation-list{display:grid;gap:8px;margin-top:1rem}.validation-list div{display:flex;justify-content:space-between;gap:1rem;padding:.7rem;border:1px solid #ffffff12;border-radius:6px;font:.7rem var(--font-mono)}.pass{color:var(--acid)}.fail{color:var(--pink)}.publish-output{margin-top:1rem;padding:1rem;border:1px solid var(--line);background:#070a10;font:.68rem/1.6 var(--font-mono);white-space:pre-wrap}@media(max-width:900px){.control-dashboard{grid-template-columns:1fr 1fr}.control-card:first-child{grid-column:1/-1}}@media(max-width:520px){.control-dashboard{grid-template-columns:1fr}}
     .sample-hero .create-theme-action{display:inline-flex;align-items:center;padding:.62rem .9rem;border-radius:6px;background:var(--acid);color:var(--bg);font-size:.78rem;font-weight:700;text-decoration:none;transition:filter .18s,transform .18s}.sample-hero .create-theme-action:hover{filter:brightness(1.12);transform:translateY(-1px)}
     .intro-actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:7px}.intro-actions button{font-size:.65rem}.intro-actions button:disabled{opacity:.38;cursor:not-allowed;transform:none;box-shadow:none}.draft-state{display:inline-flex;align-items:center;gap:6px;padding:.48rem .68rem;border:1px solid #ffffff18;border-radius:6px;color:var(--cyan);font:600 .59rem var(--font-mono);letter-spacing:.06em;white-space:nowrap}.draft-state:before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}.draft-state[data-state="dirty"]{color:var(--orange);border-color:color-mix(in srgb,var(--orange) 30%,transparent)}.draft-state[data-state="saved"]{color:var(--acid)}.preview-tools{display:flex;align-items:center;justify-content:flex-end;gap:6px;flex-wrap:wrap}.preview-tools>button{font-size:.57rem;padding:.48rem .55rem}.canvas{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}.canvas-actions{width:min(100%,760px);display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #ffffff15;border-radius:8px;background:#0a0d14}.canvas-actions>div{display:grid;gap:2px;flex:1}.canvas-actions strong{font:600 .58rem var(--font-mono);letter-spacing:.08em;color:var(--cyan)}.canvas-actions span{color:var(--muted);font-size:.66rem}.canvas-actions .create-theme-action{flex:none}.focus-hint{font:500 .56rem var(--font-mono);white-space:nowrap}.device.grayscale .sample-app{filter:grayscale(1)}.sample-app :focus-visible,.sample-app.show-focus :focus{outline:3px solid var(--cyan);outline-offset:3px;box-shadow:0 0 0 5px color-mix(in srgb,var(--cyan) 19%,transparent)}.sample-action{margin-top:.35rem;padding:.45rem .65rem;font-size:.67rem}.preview-foot strong{color:var(--cyan)}
@@ -20,6 +20,148 @@
   </style>
   <style id="theme-css"></style>
   <style id="draft-css"></style>
+  <style id="control-plane-catalog-css">
+    .resource-pagination{display:flex;align-items:center;justify-content:center;gap:.7rem;margin:1rem 0}.resource-pagination span{min-width:4rem;text-align:center;color:var(--cyan);font:600 .62rem var(--font-mono)}.resource-pagination button{font-size:.62rem;padding:.45rem .65rem}.resource-pagination button:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+    .resource-meta span{color:#55f6ff;border-color:#55f6ff88;background:#55f6ff12;text-shadow:0 0 7px #55f6ff99}.resource-meta span:nth-child(4n+1){color:#b6ff4a;border-color:#b6ff4a99;background:#b6ff4a15;text-shadow:0 0 7px #b6ff4aaa}.resource-meta span:nth-child(4n+2){color:#55f6ff;border-color:#55f6ff99;background:#55f6ff15}.resource-meta span:nth-child(4n+3){color:#ff62d2;border-color:#ff62d299;background:#ff62d215;text-shadow:0 0 7px #ff62d2aa}.resource-meta span:nth-child(4n){color:#b58cff;border-color:#b58cff99;background:#b58cff15;text-shadow:0 0 7px #b58cffaa}.resource-card .copy-resource{border-color:#55f6ff99;color:#55f6ff;background:#55f6ff12;box-shadow:inset 0 0 12px #55f6ff12,0 0 10px #55f6ff18;text-shadow:0 0 6px #55f6ff88}.resource-card .copy-resource:hover{color:#b6ff4a;border-color:#b6ff4a;box-shadow:0 0 18px #b6ff4a55;text-shadow:0 0 7px #b6ff4aaa}
+    .resource-card pre{color:#b5ffdc;background:linear-gradient(110deg,#071016,#0b0e18);border-color:#203348;box-shadow:inset 3px 0 var(--cyan);text-shadow:0 0 5px color-mix(in srgb,var(--cyan) 24%,transparent)}.resource-card pre::selection{background:color-mix(in srgb,var(--purple) 50%,transparent);color:var(--fg)}
+    .site-actions{display:flex;align-items:center;justify-content:space-between;gap:.7rem;flex-wrap:wrap;margin:1rem 0}.site-actions .actions{margin:0}.site-actions button{font-size:.62rem}.site-card{padding:1.15rem;border-color:#55f6ff30;background:linear-gradient(145deg,#08131a,#0b0d15 62%,#111021);box-shadow:inset 0 0 24px #55f6ff08,0 12px 32px #0005}.site-card:hover{border-color:#55f6ff88;box-shadow:inset 0 0 28px #55f6ff12,0 14px 38px #0008}.site-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.7rem}.site-glyph{display:grid;place-items:center;width:2.2rem;height:2.2rem;border:1px solid #55f6ff88;border-radius:8px;color:#55f6ff;background:#55f6ff12;font:700 .7rem var(--font-mono);box-shadow:0 0 14px #55f6ff22}.site-card h3{margin:.1rem 0 .25rem}.site-repository{color:var(--muted);font:.62rem var(--font-mono);overflow-wrap:anywhere}.site-status{display:inline-flex;padding:.25rem .45rem;border-radius:99px;font:700 .56rem var(--font-mono);letter-spacing:.06em}.site-status.ready{color:#b6ff4a;border:1px solid #b6ff4a88;background:#b6ff4a12}.site-status.stale{color:#ffad5c;border:1px solid #ffad5c88;background:#ffad5c12}.site-status.missing{color:#ff62d2;border:1px solid #ff62d288;background:#ff62d212}.site-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem;margin:.9rem 0}.site-detail{padding:.5rem;border:1px solid #ffffff12;border-radius:6px;background:#ffffff04}.site-detail small{display:block;color:var(--muted);font:.54rem var(--font-mono);text-transform:uppercase}.site-detail strong{display:block;margin-top:.15rem;color:var(--fg);font:.65rem var(--font-mono);overflow-wrap:anywhere}.site-contract{display:flex;gap:.3rem;flex-wrap:wrap;margin:.65rem 0}.site-contract span{padding:.25rem .4rem;border:1px solid #b58cff66;border-radius:99px;color:#d0c4ff;background:#b58cff10;font:.56rem var(--font-mono)}.site-issue{min-height:1.2rem;color:#ffad5c;font-size:.66rem}.site-card-actions{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.8rem}.site-card-actions button{font-size:.58rem;padding:.45rem .55rem}.site-dialog{width:min(640px,calc(100vw - 2rem));border:1px solid #55f6ff66;border-radius:10px;background:#0b1019;color:var(--fg);box-shadow:0 24px 80px #000c}.site-dialog::backdrop{background:#02040acc;backdrop-filter:blur(4px)}.site-dialog h2{margin:0;color:#55f6ff;font:650 1.1rem var(--font-display)}.site-dialog p{color:var(--muted);font-size:.72rem}.site-dialog-actions{display:flex;justify-content:flex-end;gap:.5rem;margin-top:1rem}.site-step[hidden]{display:none}
+    .workspace[hidden]{display:none!important}.control-view{width:100%;max-width:1180px;margin:0 auto}.control-view.module-message{min-height:calc(100vh - 210px);padding:2rem 2.2rem}.control-only .main-shell{max-width:1280px}.control-only .intro{display:none}.control-only .control-view{margin-top:1rem}
+    .control-only button.primary{background:var(--cyan);border-color:var(--cyan);color:var(--bg);box-shadow:0 0 18px color-mix(in srgb,var(--cyan) 22%,transparent)}.control-only button.primary:hover{background:var(--pink);border-color:var(--pink);color:var(--bg);box-shadow:0 0 24px color-mix(in srgb,var(--pink) 28%,transparent)}.control-only .control-nav button.active{color:var(--cyan);border-color:color-mix(in srgb,var(--cyan) 55%,var(--line));background:color-mix(in srgb,var(--cyan) 9%,var(--panel))}.control-only .pass,.control-only .site-status.ready,.control-only .site-health strong{color:var(--cyan)}.control-only .site-status.ready,.control-only .site-health{border-color:color-mix(in srgb,var(--cyan) 55%,var(--line));background:color-mix(in srgb,var(--cyan) 8%,transparent)}.control-only .site-status.missing,.control-only .fail{color:var(--pink)}.control-only .site-status.missing{border-color:color-mix(in srgb,var(--pink) 55%,var(--line));background:color-mix(in srgb,var(--pink) 8%,transparent)}.control-only .site-status.stale{color:var(--orange)}
+    .dashboard-telemetry{display:grid;gap:14px;margin-top:14px}.dashboard-section{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.dashboard-section.wide{grid-template-columns:1.4fr 1fr 1fr}.dashboard-section.two{grid-template-columns:1fr 1fr}.telemetry-card{padding:15px;min-width:0}.telemetry-card h3{margin:0 0 .7rem;color:var(--cyan);font:650 .72rem var(--font-mono);letter-spacing:.08em;text-transform:uppercase}.telemetry-value{color:var(--fg);font:650 1.5rem var(--font-display)}.telemetry-sub{margin-top:.2rem;color:var(--muted);font-size:.67rem}.telemetry-list{display:grid;gap:.42rem}.telemetry-row{display:flex;justify-content:space-between;gap:.8rem;padding:.42rem .5rem;border:1px solid #ffffff10;border-radius:5px;background:#ffffff03;font:.62rem var(--font-mono)}.telemetry-row strong{color:var(--acid);font-weight:600;text-align:right}.telemetry-row strong.neutral{color:var(--muted)}.connector-card{position:relative;overflow:hidden}.connector-card:after{content:'';position:absolute;inset:auto -20% -65% 35%;height:100%;background:radial-gradient(ellipse,#55f6ff18,transparent 68%);pointer-events:none}.connector-status{display:inline-flex;margin-bottom:.7rem;padding:.25rem .45rem;border:1px solid #ffad5c66;border-radius:99px;color:#ffad5c;background:#ffad5c10;font:700 .55rem var(--font-mono);letter-spacing:.06em}.connector-status.connected{color:#b6ff4a;border-color:#b6ff4a88;background:#b6ff4a10}.site-health-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.site-health{padding:.55rem;border:1px solid #b6ff4a44;border-radius:6px;background:#b6ff4a08}.site-health strong{display:block;color:#b6ff4a;font:.58rem var(--font-mono);text-transform:uppercase}.site-health span{display:block;margin-top:.25rem;color:var(--muted);font-size:.62rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.telemetry-empty{color:var(--muted);font-size:.68rem}.dashboard-refresh{float:right;font-size:.58rem;padding:.35rem .5rem}@media(max-width:900px){.dashboard-section,.dashboard-section.wide,.dashboard-section.two{grid-template-columns:1fr 1fr}.site-health-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:520px){.dashboard-section,.dashboard-section.wide,.dashboard-section.two{grid-template-columns:1fr}.site-health-grid{grid-template-columns:1fr 1fr}}
+  </style>
+  <style id="holodrive-control-plane-css">
+    /* HoloDrive-inspired Control Plane surface: all color remains CYBERGRID-driven. */
+    body:is(.control-only, .theme-editor-visible) {
+      background:
+        radial-gradient(ellipse 55% 40% at 6% 0%, color-mix(in srgb, var(--cyan) 18%, transparent), transparent 62%),
+        radial-gradient(ellipse 60% 45% at 96% 6%, color-mix(in srgb, var(--pink) 18%, transparent), transparent 62%),
+        var(--bg);
+      overflow-x: hidden;
+    }
+    body:is(.control-only, .theme-editor-visible)::after {
+      content: "";
+      position: fixed;
+      z-index: 0;
+      left: -50%;
+      right: -50%;
+      bottom: -12vh;
+      height: 32vh;
+      pointer-events: none;
+      opacity: .24;
+      transform: perspective(340px) rotateX(68deg);
+      transform-origin: 50% 100%;
+      background:
+        repeating-linear-gradient(90deg, color-mix(in srgb, var(--pink) 45%, transparent) 0 1px, transparent 1px 64px),
+        repeating-linear-gradient(0deg, color-mix(in srgb, var(--cyan) 35%, transparent) 0 1px, transparent 1px 64px);
+      mask-image: linear-gradient(to bottom, transparent, #000 55%);
+    }
+    body:is(.control-only, .theme-editor-visible) .bg-glow {
+      background:
+        radial-gradient(ellipse 55% 40% at 6% 0%, color-mix(in srgb, var(--cyan) 18%, transparent), transparent 62%),
+        radial-gradient(ellipse 60% 45% at 96% 6%, color-mix(in srgb, var(--pink) 18%, transparent), transparent 62%),
+        radial-gradient(ellipse 80% 50% at 50% 108%, color-mix(in srgb, var(--purple) 30%, transparent), transparent 70%);
+      animation: control-plane-breathe 12s ease-in-out infinite;
+    }
+    body:is(.control-only, .theme-editor-visible) .bg-scanlines {
+      inset: auto 0 0;
+      height: 22vh;
+      z-index: 0;
+      opacity: .18;
+      background: repeating-linear-gradient(to bottom, #fff3 0 1px, transparent 1px 3px);
+      mask-image: linear-gradient(to bottom, transparent, #000 42%);
+    }
+    body:is(.control-only, .theme-editor-visible) .topbar {
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom-color: var(--line);
+    }
+    body:is(.control-only, .theme-editor-visible) .topbar::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--pink), transparent);
+      opacity: .7;
+    }
+    body:is(.control-only, .theme-editor-visible) .brand-mark {
+      border-radius: 9px;
+      color: var(--cyan);
+      border-color: var(--cyan);
+      box-shadow: 0 0 14px color-mix(in srgb, var(--cyan) 35%, transparent);
+    }
+    body:is(.control-only, .theme-editor-visible) .brand b,
+    body:is(.control-only, .theme-editor-visible) .eyebrow,
+    body:is(.control-only, .theme-editor-visible) .telemetry-card h3 {
+      color: var(--cyan);
+      text-shadow: 0 0 10px color-mix(in srgb, var(--cyan) 45%, transparent);
+    }
+    body:is(.control-only, .theme-editor-visible) .control-nav,
+    body:is(.control-only, .theme-editor-visible) .telemetry-card,
+    body:is(.control-only, .theme-editor-visible) .module-message,
+    body:is(.control-only, .theme-editor-visible) .workspace > .panel {
+      background: color-mix(in srgb, var(--panel) 78%, transparent);
+      border-color: var(--line);
+      border-radius: 12px;
+      backdrop-filter: blur(14px);
+      box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--purple) 20%, transparent),
+        0 24px 70px #0009,
+        0 0 40px color-mix(in srgb, var(--pink) 10%, transparent);
+    }
+    body:is(.control-only, .theme-editor-visible) .control-nav {
+      position: relative;
+      z-index: 1;
+    }
+    body:is(.control-only, .theme-editor-visible) .control-nav button {
+      border-radius: 9px;
+      transition: border-color .15s, box-shadow .15s, background .15s, transform .1s;
+    }
+    body:is(.control-only, .theme-editor-visible) .control-nav button:hover,
+    body:is(.control-only, .theme-editor-visible) .control-nav button.active {
+      border-color: var(--cyan);
+      color: var(--fg);
+      background: color-mix(in srgb, var(--cyan) 12%, transparent);
+      box-shadow: 0 0 12px color-mix(in srgb, var(--cyan) 50%, transparent);
+    }
+    body:is(.control-only, .theme-editor-visible) .telemetry-card {
+      position: relative;
+      overflow: hidden;
+    }
+    body:is(.control-only, .theme-editor-visible) .telemetry-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--pink), transparent);
+      opacity: .7;
+    }
+    body:is(.control-only, .theme-editor-visible) .telemetry-card h3 {
+      letter-spacing: .12em;
+    }
+    body:is(.control-only, .theme-editor-visible) .telemetry-value {
+      text-shadow: 0 0 16px color-mix(in srgb, var(--pink) 45%, transparent);
+    }
+    body:is(.control-only, .theme-editor-visible) .telemetry-row {
+      background: color-mix(in srgb, var(--panel) 62%, transparent);
+      border-color: color-mix(in srgb, var(--line) 75%, transparent);
+      border-radius: 8px;
+    }
+    body:is(.control-only, .theme-editor-visible) .connector-status.connected {
+      color: var(--cyan);
+      border-color: var(--cyan);
+      background: color-mix(in srgb, var(--cyan) 12%, transparent);
+      box-shadow: 0 0 12px color-mix(in srgb, var(--cyan) 35%, transparent);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body:is(.control-only, .theme-editor-visible) .bg-glow { animation: none; }
+      body:is(.control-only, .theme-editor-visible)::after { display: none; }
+    }
+    @keyframes control-plane-breathe { 50% { opacity: .75; } }
+  </style>
 </head>
 <body>
   <div class="bg-scanlines" aria-hidden="true"></div><div class="bg-glow" aria-hidden="true"></div>
@@ -40,13 +182,44 @@
       <button type="button" data-control-view="validation">07 / Validation</button>
       <button type="button" data-control-view="publish">08 / Publish</button>
     </nav>
-    <section id="control-dashboard" class="control-view control-dashboard" hidden aria-labelledby="control-dashboard-title">
-      <article class="panel control-card"><strong>CYBERCORE CONTROL PLANE</strong><h2 id="control-dashboard-title">One workspace.<br>Every surface.</h2><p id="workspace-status">Loading workspace manifest…</p><div id="workspace-resources" class="resource-list"></div></article>
-      <article class="panel control-card"><strong>THEMES</strong><h3 id="dashboard-theme-count">—</h3><p>Palettes, tokens, variants, mashups.</p></article>
-      <article class="panel control-card"><strong>RESOURCES</strong><h3 id="dashboard-resource-count">—</h3><p>Components, effects, snippets, assets.</p></article>
-      <article class="panel control-card"><strong>SITE PROFILES</strong><h3 id="dashboard-site-count">—</h3><p>Repository-specific design contracts.</p></article>
+    <section id="control-dashboard" class="control-view" hidden aria-labelledby="control-dashboard-title">
+      <div class="dashboard-telemetry">
+        <div class="dashboard-section wide">
+          <article class="panel telemetry-card"><button id="refresh-telemetry" class="dashboard-refresh" type="button">Refresh</button><h3>CYBERCORE CONTROL PLANE</h3><h2 id="control-dashboard-title">One workspace.<br>Every surface.</h2><p id="workspace-status" class="telemetry-sub">Loading local telemetry…</p><div id="workspace-resources" class="resource-list"></div></article>
+          <article class="panel telemetry-card"><h3>RUNTIME</h3><div id="dashboard-uptime" class="telemetry-value">—</div><div class="telemetry-sub">Theme Studio uptime</div><div id="dashboard-runtime" class="telemetry-list"></div></article>
+          <article class="panel telemetry-card"><h3>SCHEMA</h3><div id="dashboard-version" class="telemetry-value">—</div><div class="telemetry-sub">Cybercore version</div><div id="dashboard-schema" class="telemetry-list"></div></article>
+        </div>
+        <div class="dashboard-section">
+          <article class="panel telemetry-card"><h3>THEMES</h3><div id="dashboard-theme-count" class="telemetry-value">—</div><div id="dashboard-active-theme" class="telemetry-sub">Active theme: —</div></article>
+          <article class="panel telemetry-card"><h3>RESOURCES</h3><div id="dashboard-resource-count" class="telemetry-value">—</div><div id="dashboard-resource-breakdown" class="telemetry-list"></div></article>
+          <article class="panel telemetry-card"><h3>SITES</h3><div id="dashboard-site-count" class="telemetry-value">—</div><div id="dashboard-site-breakdown" class="telemetry-list"></div></article>
+          <article class="panel telemetry-card"><h3>VALIDATION</h3><div id="dashboard-validation" class="telemetry-value">—</div><div id="dashboard-validation-detail" class="telemetry-sub">No run recorded</div></article>
+        </div>
+        <div class="dashboard-section two">
+          <article class="panel telemetry-card"><h3>SITE HEALTH MATRIX</h3><div id="dashboard-site-health" class="site-health-grid"></div></article>
+          <article class="panel telemetry-card"><h3>GOVERNANCE COVERAGE</h3><div id="dashboard-coverage" class="telemetry-list"></div></article>
+        </div>
+        <div class="dashboard-section">
+          <article class="panel telemetry-card connector-card"><h3>CLOUDFLARE</h3><div id="connector-cloudflare" class="connector-status">NOT CONFIGURED</div><p class="telemetry-sub">Web Analytics, Workers, DNS, cache, security, and service health.</p><div id="connector-metrics-cloudflare" class="telemetry-list"></div></article>
+          <article class="panel telemetry-card connector-card"><h3>GOOGLE</h3><div id="connector-google" class="connector-status">NOT CONFIGURED</div><p class="telemetry-sub">GA4, Search Console, and PageSpeed Insights.</p><div id="connector-metrics-google" class="telemetry-list"></div></article>
+          <article class="panel telemetry-card connector-card"><h3>GITHUB</h3><div id="connector-github" class="connector-status">NOT CONFIGURED</div><p class="telemetry-sub">Repositories, pull requests, Actions, releases, and rate limits.</p><div id="connector-metrics-github" class="telemetry-list"></div></article>
+          <article class="panel telemetry-card"><h3>API HEALTH</h3><div id="dashboard-response" class="telemetry-value">—</div><div id="dashboard-errors" class="telemetry-sub">No errors recorded</div></article>
+        </div>
+        <div class="dashboard-section two">
+          <article class="panel telemetry-card"><h3>RECENT CONTROL PLANE ACTIVITY</h3><div id="dashboard-activity" class="telemetry-list"><span class="telemetry-empty">No activity recorded yet.</span></div></article>
+          <article class="panel telemetry-card"><h3>SYNC POLICY</h3><div class="telemetry-list"><span class="telemetry-row"><span>External data</span><strong class="neutral">Explicit connector only</strong></span><span class="telemetry-row"><span>Unavailable metrics</span><strong class="neutral">NOT CONFIGURED</strong></span><span class="telemetry-row"><span>Privacy mode</span><strong>Local-first</strong></span></div></article>
+        </div>
+        <div class="dashboard-section two">
+          <article class="panel telemetry-card"><h3>RUNNING SERVICES</h3><div id="dashboard-services" class="telemetry-list"><span class="telemetry-empty">Loading services…</span></div></article>
+          <article class="panel telemetry-card"><h3>UPDATES</h3><div id="dashboard-updates" class="telemetry-list"><span class="telemetry-empty">Loading update state…</span></div></article>
+        </div>
+        <div class="dashboard-section">
+          <article class="panel telemetry-card"><h3>WARNINGS &amp; ACTIONS</h3><div id="dashboard-warnings" class="telemetry-list"><span class="telemetry-empty">No warnings.</span></div></article>
+        </div>
+      </div>
     </section>
-    <section id="control-placeholder" class="control-view module-message" hidden><strong id="module-title">Control Plane module</strong><span id="module-copy">This workspace is registered and ready for its editor.</span><div class="module-toolbar"><span id="module-count"></span><div><input id="resource-search" type="search" placeholder="Search resources…" aria-label="Search resources"><select id="resource-category" aria-label="Filter by category"><option value="">All categories</option></select><select id="resource-tag" aria-label="Filter by tag"><option value="">All tags</option></select><button id="validate-control-plane" type="button">Run validation</button><button id="publish-control-plane" type="button">Build publish plan</button></div></div><div id="module-resources" class="module-grid"></div><div id="validation-results" class="validation-list"></div><pre id="publish-output" class="publish-output" hidden></pre></section>
+    <section id="control-placeholder" class="control-view module-message" hidden><strong id="module-title">Control Plane module</strong><span id="module-copy">This workspace is registered and ready for its editor.</span><div id="generic-module-toolbar" class="module-toolbar"><span id="module-count"></span><div><input id="resource-search" type="search" placeholder="Search resources…" aria-label="Search resources"><select id="resource-category" aria-label="Filter by category"><option value="">All categories</option></select><select id="resource-tag" aria-label="Filter by tag"><option value="">All tags</option></select><button id="validate-control-plane" type="button">Run validation</button><button id="publish-control-plane" type="button">Build publish plan</button></div></div><div id="site-actions" class="site-actions" hidden><span id="site-source" class="eyebrow">STARTER PROFILES · LOCAL ONLY</span><div class="actions"><button id="create-site-profile" class="primary" type="button">＋ Create site profile</button><button id="validate-sites" type="button">Validate all sites</button></div></div><div id="resource-pagination" class="resource-pagination" hidden><button id="resource-prev" type="button">← Previous</button><span id="resource-page"></span><button id="resource-next" type="button">Next →</button></div><div id="module-resources" class="module-grid"></div><div id="validation-results" class="validation-list"></div><pre id="publish-output" class="publish-output" hidden></pre></section>
+    <dialog id="site-profile-dialog" class="site-dialog"><form method="dialog" id="site-profile-form"><h2>Create site profile</h2><p>Build a local profile in six governed steps. It will remain a draft until you explicitly publish it.</p><div class="site-step" data-site-step="1"><div class="field"><label for="site-repository">Repository</label><input id="site-repository" required placeholder="owner/repository"></div><div class="field"><label for="site-platform">Platform</label><select id="site-platform"><option>web</option><option>web-kit</option><option>rust-gui</option><option>terminal</option><option>vscode</option></select></div></div><div class="site-step" data-site-step="2" hidden><div class="field"><label for="site-theme">Active theme</label><input id="site-theme" value="cybercore-neon" required></div><div class="field"><label for="site-resources">Resources</label><input id="site-resources" placeholder="component.cyber-card, effect.neon-border"></div></div><div class="site-step" data-site-step="3" hidden><div class="field"><label for="site-motion">Motion and accessibility</label><select id="site-motion"><option>balanced</option><option>reduced</option><option>static</option></select><small>Profiles always retain keyboard-safe semantic fallbacks.</small></div><div class="field"><label for="site-fallback">Fallback mode</label><select id="site-fallback"><option>static-semantic</option><option>plain-content</option><option>safe-defaults</option></select></div></div><div class="site-dialog-actions"><button id="site-step-back" type="button" hidden>Back</button><button id="site-step-next" class="primary" type="button">Next</button><button id="site-create-submit" class="primary" type="submit" hidden>Create draft profile</button><button id="site-dialog-cancel" type="button">Cancel</button></div></form></dialog>
     <div class="workspace">
       <aside class="panel library" aria-label="Theme library">
         <div class="panel-title"><h2>Library</h2><span id="theme-count" class="count">—</span></div>
@@ -153,7 +326,7 @@ function renderThemeList() {
   el('theme-count').textContent=themes.length+' THEMES';
   el('theme-list').replaceChildren(...visible.map(theme=>{
     const card=document.createElement('div');card.className='theme-card'+(theme.id===el('theme-picker').value?' selected':'');card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','Edit '+theme.document.metadata.name);
-    const head=document.createElement('div');head.className='theme-card-head';const name=document.createElement('span');name.className='theme-card-name';name.textContent=theme.document.metadata.name;const tag=document.createElement('span');tag.className='theme-card-tag';tag.textContent=theme.builtin?'BUILT IN':'CUSTOM';head.append(name,tag);
+    const head=document.createElement('div');head.className='theme-card-head';const name=document.createElement('span');name.className='theme-card-name';name.textContent=theme.document.metadata.name;const tag=document.createElement('span');tag.className='theme-card-tag';const wallpaperCount=theme.document.metadata.wallpapers?.length || 0;tag.textContent=(theme.builtin?'BUILT IN':'CUSTOM')+(wallpaperCount?' · '+wallpaperCount+' WALLPAPERS':'');head.append(name,tag);
     const swatches=document.createElement('div');swatches.className='theme-card-swatches';for(const key of ['bg','panel','acid_green','hot_pink','cyan']){const chip=document.createElement('i');chip.style.setProperty('--swatch','#'+theme.document.palette[key]);swatches.append(chip);}card.append(head,swatches);
     const choose=()=>{if(!confirmDiscardDraft())return;el('theme-picker').value=theme.id;el('theme-picker').dispatchEvent(new Event('change'));editDocument(theme.document,theme.builtin?null:theme.id);resetHistory();renderThemeList();};card.addEventListener('click',choose);card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();choose();}});return card;
   }));
@@ -197,6 +370,7 @@ async function applyTheme(id) {
   const response=await fetch('/api/css/'+encodeURIComponent(id)+'?appearance='+sharedAppearance,{headers:{Accept:'text/css'}});
   if(!response.ok) throw new Error('Theme stylesheet unavailable');
   el('theme-css').textContent=await response.text(); el('draft-css').textContent=''; activeId=id;
+  document.documentElement.dataset.cybercoreTheme=id;
   const selected=themes.find(theme=>theme.id===id);if(selected)el('preview-theme-name').textContent=selected.document.metadata.name.toUpperCase();
   document.documentElement.style.colorScheme=sharedAppearance;
 }
@@ -367,7 +541,14 @@ el('top-theme-picker').addEventListener('change',event=>applySharedTheme(event.t
 el('top-theme-button').addEventListener('click',()=>{
   const menu=el('top-theme-menu'), opening=menu.hidden;
   menu.hidden=!opening; el('top-theme-button').setAttribute('aria-expanded',String(opening));
-  if(opening){const button=menu.querySelector('[aria-selected="true"]');if(button)menu.scrollTop=button.offsetTop-menu.clientHeight/2;}
+  if(opening){
+    const rect=el('top-theme-button').getBoundingClientRect();
+    const margin=8;
+    menu.style.top=Math.min(rect.bottom+margin,window.innerHeight-margin-menu.offsetHeight)+'px';
+    menu.style.left=Math.max(margin,Math.min(rect.right-menu.offsetWidth,window.innerWidth-margin-menu.offsetWidth))+'px';
+    const selected=menu.querySelector('[aria-selected="true"]');
+    if(selected) selected.scrollIntoView({block:'center'});
+  }
 });
 document.addEventListener('pointerdown',event=>{if(!event.target.closest('#top-theme-picker-wrap')&&!event.target.closest('.theme-picker'))closeTopThemeMenu();});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!el('top-theme-menu').hidden){closeTopThemeMenu();el('top-theme-button').focus();}});
@@ -393,8 +574,17 @@ Promise.all([refreshLibrary().then(()=>newTheme()),loadCuratedLibrary()]).catch(
   const resourceSearch = document.getElementById('resource-search');
   const resourceCategory = document.getElementById('resource-category');
   const resourceTag = document.getElementById('resource-tag');
+  const resourcePagination = document.getElementById('resource-pagination');
+  const resourcePageLabel = document.getElementById('resource-page');
+  const resourcePrev = document.getElementById('resource-prev');
+  const resourceNext = document.getElementById('resource-next');
+  const genericModuleToolbar = document.getElementById('generic-module-toolbar');
+  const siteActions = document.getElementById('site-actions');
+  const siteSource = document.getElementById('site-source');
+  const siteDialog = document.getElementById('site-profile-dialog');
   const moduleResources = { creative: ['asset'], components: ['component'], effects: ['effect'], vault: ['snippet', 'asset'], sites: [], validation: [], publish: [] };
-  let catalog = [], siteProfiles = [], activeView = 'dashboard';
+  let catalog = [], siteProfiles = [], siteProfilesSource = '', activeView = 'dashboard', resourcePage = 0;
+  const resourcePageSize = 12;
   const labels = {
     creative: ['Creative Forge', 'DarkskyForge logo, glyph, font, and asset authoring will load here.'],
     components: ['Component Forge', 'Reusable Cybercore components will be previewed and governed here.'],
@@ -406,14 +596,19 @@ Promise.all([refreshLibrary().then(()=>newTheme()),loadCuratedLibrary()]).catch(
   };
   function show(view) {
     activeView = view;
+    resourcePage = 0;
     const dashboard = view === 'dashboard';
     const themes = view === 'themes';
     workspace.hidden = !themes;
+    document.body.classList.toggle('control-only', !themes);
+    document.body.classList.toggle('theme-editor-visible', themes);
     document.getElementById('control-dashboard').hidden = !dashboard;
     document.getElementById('control-placeholder').hidden = dashboard || themes;
     if (!dashboard && !themes) {
       title.textContent = labels[view]?.[0] || 'Control Plane module';
       copy.textContent = labels[view]?.[1] || 'This workspace is registered and ready for its editor.';
+      genericModuleToolbar.hidden = activeView === 'sites';
+      siteActions.hidden = activeView !== 'sites';
       renderModule();
       validationResults.replaceChildren();
       publishOutput.hidden = true;
@@ -431,11 +626,20 @@ Promise.all([refreshLibrary().then(()=>newTheme()),loadCuratedLibrary()]).catch(
         : [];
       if (activeView === 'sites') {
         moduleCount.textContent = `${siteProfiles.length} site profiles`;
+        siteSource.textContent = siteProfilesSource || 'LOCAL SITE PROFILES';
+        resourcePagination.hidden = true;
         resourceGrid.replaceChildren(...siteProfiles.map(renderSite));
         return;
       }
+      const pageCount = Math.max(1, Math.ceil(resources.length / resourcePageSize));
+      resourcePage = Math.min(resourcePage, pageCount - 1);
+      const page = resources.slice(resourcePage * resourcePageSize, (resourcePage + 1) * resourcePageSize);
       moduleCount.textContent = resources.length ? `${resources.length} governed resources` : 'Workspace operation';
-      resourceGrid.replaceChildren(...resources.map(renderResource));
+      resourcePagination.hidden = resources.length <= resourcePageSize;
+      resourcePageLabel.textContent = `${resourcePage + 1} / ${pageCount}`;
+      resourcePrev.disabled = resourcePage === 0;
+      resourceNext.disabled = resourcePage >= pageCount - 1;
+      resourceGrid.replaceChildren(...page.map(renderResource));
     }
     function refreshResourceFilters() {
       const values = catalog.filter(resource => (moduleResources[activeView] || []).includes(resource.kind));
@@ -484,18 +688,181 @@ Promise.all([refreshLibrary().then(()=>newTheme()),loadCuratedLibrary()]).catch(
   }
   function renderSite(site) {
     const card = document.createElement('article');
-    card.className = 'resource-card';
+    card.className = 'resource-card site-card';
+    const head = document.createElement('div');
+    head.className = 'site-card-head';
+    const identity = document.createElement('div');
+    const glyph = document.createElement('span');
+    glyph.className = 'site-glyph';
+    glyph.textContent = (site.id || 'site').slice(0, 2).toUpperCase();
     const heading = document.createElement('h3');
-    heading.textContent = site.id;
-    const details = document.createElement('p');
-    details.textContent = `${site.repository} · theme: ${site.theme || 'default'}`;
-    const contract = document.createElement('p');
-    contract.textContent = `motion: ${site.motion} · fallback: ${site.fallback}`;
+    heading.textContent = site.id.replaceAll('-', ' ');
+    const repository = document.createElement('div');
+    repository.className = 'site-repository';
+    repository.textContent = site.repository;
+    identity.append(heading, repository);
     const status = document.createElement('p');
-    status.className = site.stale ? 'fail' : 'pass';
-    status.textContent = site.stale ? `STALE · missing ${site.missing_resources.join(', ')}` : 'READY · all resources resolved';
-    card.append(heading, details, contract, status);
+    const statusKind = site.status === 'MISSING RESOURCES' ? 'missing' : site.status === 'STALE' ? 'stale' : 'ready';
+    status.className = `site-status ${statusKind}`;
+    status.textContent = site.status || (site.stale ? 'STALE' : 'READY');
+    head.append(glyph, identity, status);
+    const details = document.createElement('div');
+    details.className = 'site-details';
+    [['Platform', site.platform], ['Active theme', site.theme || 'default'], ['Motion', site.motion], ['Fallback', site.fallback], ['Resources', site.resources?.length || 0], ['Last validation', site.last_validation || 'Not validated']].forEach(([label, value]) => {
+      const item = document.createElement('div');
+      item.className = 'site-detail';
+      const small = document.createElement('small');
+      small.textContent = label;
+      const strong = document.createElement('strong');
+      strong.textContent = value;
+      item.append(small, strong);
+      details.append(item);
+    });
+    const contract = document.createElement('div');
+    contract.className = 'site-contract';
+    Object.entries(site.resource_contract || {}).filter(([, count]) => count > 0).forEach(([kind, count]) => {
+      const badge = document.createElement('span');
+      badge.textContent = `${kind}: ${count}`;
+      contract.append(badge);
+    });
+    const issue = document.createElement('div');
+    issue.className = 'site-issue';
+    issue.textContent = site.missing_resources?.length ? `Missing: ${site.missing_resources.join(', ')}` : 'All attached resources resolved';
+    const actions = document.createElement('div');
+    actions.className = 'site-card-actions';
+    [['Inspect', () => { details.hidden = !details.hidden; }], ['Validate', () => document.getElementById('validate-control-plane').click()], ['Preview', () => { copy.textContent = `${site.id} preview · ${site.platform} · ${site.theme || 'default'}`; }], ['Compare', () => { publishOutput.textContent = JSON.stringify({ site: site.id, compare: 'local draft vs starter profile', resources: site.resources }, null, 2); publishOutput.hidden = false; }], ['Publish plan', () => document.getElementById('publish-control-plane').click()]].forEach(([label, action]) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = label;
+      button.addEventListener('click', action);
+      actions.append(button);
+    });
+    card.append(head, details, contract, issue, actions);
     return card;
+  }
+  function renderTelemetry(data) {
+    const inventory = data.inventory || {};
+    const counts = inventory.kinds || {};
+    const statuses = inventory.statuses || {};
+    const sites = data.sites || {};
+    const siteStatuses = sites.statuses || {};
+    const set = (id, value) => { const node = document.getElementById(id); if (node) node.textContent = value; };
+    const rows = (id, entries) => {
+      const node = document.getElementById(id);
+      if (!node) return;
+      node.replaceChildren(...Object.entries(entries).map(([label, value]) => {
+        const row = document.createElement('span');
+        row.className = 'telemetry-row';
+        const key = document.createElement('span');
+        key.textContent = label.replaceAll('_', ' ');
+        const amount = document.createElement('strong');
+        amount.textContent = value;
+        row.append(key, amount);
+        return row;
+      }));
+    };
+    set('workspace-status', `${data.workspace?.manifest || 'UNKNOWN'} · ${data.workspace?.path || 'workspace path unavailable'}`);
+    set('dashboard-uptime', formatDuration(data.uptime_seconds));
+    set('dashboard-version', `v${data.cybercore_version || '—'}`);
+    set('dashboard-schema', `Control Plane ${data.control_plane_schema || '—'}`);
+    set('dashboard-theme-count', inventory.themes ?? '—');
+    set('dashboard-active-theme', `Active theme: ${inventory.active_theme || 'not selected'}`);
+    set('dashboard-resource-count', inventory.resources ?? '—');
+    set('dashboard-site-count', sites.total ?? '—');
+    set('dashboard-validation', data.validation?.passed ? 'PASS' : 'CHECK');
+    set('dashboard-validation-detail', data.validation?.last_run ? `Last run: ${formatTimestamp(data.validation.last_run.timestamp)}` : 'No run recorded');
+    set('dashboard-response', `${Math.round(data.response_ms || 0)} ms`);
+    set('dashboard-errors', `${data.errors?.api || 0} API errors · ${data.errors?.catalog || 0} catalog errors`);
+    rows('dashboard-runtime', { api_response: `${Math.round(data.response_ms || 0)} ms`, uptime: formatDuration(data.uptime_seconds), workspace: data.workspace?.valid ? 'VALID' : 'NOT CONFIGURED' });
+    rows('dashboard-schema', { schema: data.control_plane_schema || '—', manifest: data.workspace?.manifest || 'UNKNOWN' });
+    rows('dashboard-resource-breakdown', { components: counts.component || 0, effects: counts.effect || 0, snippets: counts.snippet || 0, assets: counts.asset || 0, fonts: counts.font || 0, svg: counts.svg || 0, packs: counts.pack || 0 });
+    rows('dashboard-site-breakdown', { ready: siteStatuses.READY || 0, stale: siteStatuses.STALE || 0, missing: siteStatuses['MISSING RESOURCES'] || 0 });
+    rows('dashboard-coverage', { license_provenance: `${data.coverage?.license_provenance_percent || 0}%`, accessibility_motion: `${data.coverage?.accessibility_reduced_motion_percent || 0}%`, approved: statuses.approved || 0, draft: statuses.draft || 0, review: statuses.review || 0 });
+    const health = document.getElementById('dashboard-site-health');
+    health.replaceChildren(...(sites.profiles || []).map(site => {
+      const item = document.createElement('div');
+      item.className = 'site-health';
+      const name = document.createElement('strong');
+      name.textContent = site.status || 'UNKNOWN';
+      const label = document.createElement('span');
+      label.textContent = site.id;
+      item.append(name, label);
+      return item;
+    }));
+    ['cloudflare', 'google', 'github'].forEach(provider => {
+      const connector = data.connectors?.[provider] || {};
+      const state = connector.status || 'NOT CONFIGURED';
+      const node = document.getElementById(`connector-${provider}`);
+      node.textContent = state;
+      node.classList.toggle('connected', state === 'CONNECTED');
+      const metrics = connector.metrics || {};
+      const entries = Object.fromEntries(Object.entries(metrics).filter(([, value]) => ['string', 'number', 'boolean'].includes(typeof value) && value !== ''));
+      rows(`connector-metrics-${provider}`, Object.keys(entries).length ? entries : { detail: connector.error || 'No metrics available' });
+    });
+    const activity = document.getElementById('dashboard-activity');
+    activity.replaceChildren(...(data.activity || []).slice().reverse().map(item => {
+      const row = document.createElement('span');
+      row.className = 'telemetry-row';
+      row.innerHTML = `<span>${item.label || item.kind}</span><strong>${formatTimestamp(item.timestamp)}</strong>`;
+      return row;
+    }));
+    if (!data.activity?.length) {
+      const empty = document.createElement('span');
+      empty.className = 'telemetry-empty';
+      empty.textContent = 'No activity recorded yet.';
+      activity.append(empty);
+    }
+    const services = document.getElementById('dashboard-services');
+    services.replaceChildren(...(data.services || []).map(service => {
+      const row = document.createElement('span');
+      row.className = 'telemetry-row';
+      const label = document.createElement('span');
+      label.textContent = service.name;
+      const state = document.createElement('strong');
+      state.textContent = service.status;
+      row.append(label, state);
+      return row;
+    }));
+    const updates = document.getElementById('dashboard-updates');
+    updates.replaceChildren(...Object.entries(data.updates || {}).map(([name, update]) => {
+      const row = document.createElement('span');
+      row.className = 'telemetry-row';
+      const label = document.createElement('span');
+      label.textContent = name.replaceAll('_', ' ');
+      const state = document.createElement('strong');
+      state.className = 'neutral';
+      state.textContent = `${update.current} · ${update.status}`;
+      row.append(label, state);
+      return row;
+    }));
+    const warnings = document.getElementById('dashboard-warnings');
+    warnings.replaceChildren(...(data.warnings || []).map(warning => {
+      const row = document.createElement('span');
+      row.className = 'telemetry-row';
+      const label = document.createElement('span');
+      label.textContent = warning.message;
+      const state = document.createElement('strong');
+      state.className = warning.level === 'warning' ? 'fail' : 'neutral';
+      state.textContent = warning.level.toUpperCase();
+      row.append(label, state);
+      return row;
+    }));
+    if (!data.warnings?.length) {
+      const empty = document.createElement('span');
+      empty.className = 'telemetry-empty';
+      empty.textContent = 'No warnings.';
+      warnings.append(empty);
+    }
+  }
+  function formatDuration(seconds) {
+    if (!Number.isFinite(seconds)) return '—';
+    if (seconds < 60) return `${Math.round(seconds)}s`;
+    return `${Math.floor(seconds / 60)}m ${Math.round(seconds % 60)}s`;
+  }
+  function formatTimestamp(value) {
+    if (!value) return '—';
+    const date = new Date(Number(value) * 1000);
+    return Number.isNaN(date.getTime()) ? '—' : date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
   nav.addEventListener('click', event => {
     const button = event.target.closest('[data-control-view]');
@@ -505,6 +872,7 @@ Promise.all([refreshLibrary().then(()=>newTheme()),loadCuratedLibrary()]).catch(
       renderModule();
     }
   });
+  show('dashboard');
   fetch('/api/control-plane/catalog').then(response => response.json()).then(data => {
     catalog = data.catalog?.resources || [];
     return fetch('/api/control-plane/workspace');
@@ -530,10 +898,14 @@ Promise.all([refreshLibrary().then(()=>newTheme()),loadCuratedLibrary()]).catch(
     return fetch('/api/control-plane/sites').then(response => response.ok ? response.json() : { sites: [] });
   }).then(data => {
     siteProfiles = data.sites || [];
+    siteProfilesSource = data.source || '';
+    document.getElementById('dashboard-site-count').textContent = siteProfiles.length;
     moduleCount.textContent = `${siteProfiles.length} site profiles`;
     refreshResourceFilters();
   }).catch(() => { document.getElementById('workspace-status').textContent = 'Control Plane catalog unavailable'; });
   [resourceSearch, resourceCategory, resourceTag].forEach(control => control.addEventListener('input', renderModule));
+  resourcePrev.addEventListener('click', () => { resourcePage -= 1; renderModule(); });
+  resourceNext.addEventListener('click', () => { resourcePage += 1; renderModule(); });
   document.getElementById('validate-control-plane').addEventListener('click', async () => {
     const response = await fetch('/api/control-plane/validate', { method: 'POST' });
     const result = await response.json();
@@ -557,6 +929,41 @@ Promise.all([refreshLibrary().then(()=>newTheme()),loadCuratedLibrary()]).catch(
     });
     publishOutput.textContent = JSON.stringify(await response.json(), null, 2);
     publishOutput.hidden = false;
+  });
+  async function refreshTelemetry() {
+    const response = await fetch('/api/control-plane/telemetry');
+    if (!response.ok) throw new Error('Telemetry unavailable');
+    renderTelemetry(await response.json());
+  }
+  document.getElementById('refresh-telemetry').addEventListener('click', () => refreshTelemetry().catch(() => {
+    document.getElementById('workspace-status').textContent = 'Local telemetry unavailable';
+  }));
+  refreshTelemetry().catch(() => { document.getElementById('workspace-status').textContent = 'Local telemetry unavailable'; });
+  const siteSteps = [...document.querySelectorAll('[data-site-step]')];
+  let siteStep = 1;
+  function renderSiteStep() {
+    siteSteps.forEach(step => { step.hidden = Number(step.dataset.siteStep) !== siteStep; });
+    document.getElementById('site-step-back').hidden = siteStep === 1;
+    document.getElementById('site-step-next').hidden = siteStep === siteSteps.length;
+    document.getElementById('site-create-submit').hidden = siteStep !== siteSteps.length;
+  }
+  document.getElementById('create-site-profile').addEventListener('click', () => { siteStep = 1; renderSiteStep(); siteDialog.showModal(); });
+  document.getElementById('site-step-next').addEventListener('click', () => { siteStep = Math.min(siteSteps.length, siteStep + 1); renderSiteStep(); });
+  document.getElementById('site-step-back').addEventListener('click', () => { siteStep = Math.max(1, siteStep - 1); renderSiteStep(); });
+  document.getElementById('site-dialog-cancel').addEventListener('click', () => siteDialog.close());
+  document.getElementById('site-profile-form').addEventListener('submit', event => {
+    event.preventDefault();
+    const repository = document.getElementById('site-repository').value.trim();
+    const id = repository.split('/').filter(Boolean).pop()?.replace(/[^a-z0-9]+/gi, '-').toLowerCase() || 'new-site';
+    siteProfiles = [{
+      id, repository, platform: document.getElementById('site-platform').value,
+      theme: document.getElementById('site-theme').value.trim(), resources: document.getElementById('site-resources').value.split(',').map(value => value.trim()).filter(Boolean),
+      resource_contract: {}, motion: document.getElementById('site-motion').value, fallback: document.getElementById('site-fallback').value,
+      last_validation: 'Draft · not validated', missing_resources: [], status: 'READY', stale: false
+    }, ...siteProfiles];
+    siteProfilesSource = 'LOCAL DRAFT · NOT PUBLISHED';
+    siteDialog.close();
+    renderModule();
   });
 })();
 </script>

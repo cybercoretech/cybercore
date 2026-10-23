@@ -179,6 +179,9 @@ pub struct ThemeMetadata {
     pub description: String,
     #[serde(default)]
     pub author: String,
+    /// Optional governed wallpaper resources associated with this theme.
+    #[serde(default)]
+    pub wallpapers: Vec<String>,
 }
 
 #[derive(Debug, Clone, Copy, Default, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
@@ -259,6 +262,7 @@ impl ThemeDocument {
                 family: default_family(),
                 description: String::new(),
                 author: String::new(),
+                wallpapers: Vec::new(),
             },
             palette,
             variants: BTreeMap::new(),
@@ -534,6 +538,11 @@ impl ThemeCatalog {
                 .theme_family(id)
                 .unwrap_or(BUILTIN_FAMILY)
                 .to_string();
+            document.metadata.wallpapers = schema
+                .wallpaper_options
+                .get(id)
+                .cloned()
+                .unwrap_or_default();
             document.validate()?;
             entries.insert(
                 id.clone(),

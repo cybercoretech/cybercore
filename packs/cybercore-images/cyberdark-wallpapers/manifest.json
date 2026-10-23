@@ -1,0 +1,296 @@
+{
+  "format_version": 1,
+  "id": "cybercore-images.cyberdark-wallpapers",
+  "version": "1.0.0",
+  "title": "CyberDark Wallpapers",
+  "kind": "images",
+  "description": "Twelve original dark industrial wallpapers inspired by server rooms, compute hardware, network topology, and Cybercore system telemetry.",
+  "cybercore": {
+    "minimum": "0.8.1",
+    "maximum": null
+  },
+  "categories": [
+    "wallpapers",
+    "system-tech",
+    "cyberdark"
+  ],
+  "tags": [
+    "dark",
+    "neon",
+    "server",
+    "pc",
+    "datacenter",
+    "blueprint",
+    "cybercore"
+  ],
+  "license": "MIT",
+  "provenance": {
+    "source": "Cybercore",
+    "author": "Cybercore Team",
+    "license": "MIT",
+    "reviewed": true
+  },
+  "platforms": [
+    "desktop",
+    "web",
+    "theme-studio",
+    "omarchy"
+  ],
+  "dependencies": [],
+  "resources": [
+    {
+      "id": "image.cyberdark.neon-server-vault",
+      "path": "cyberdark-wallpapers/neon-server-vault.svg",
+      "title": "CyberDark Neon Server Vault",
+      "categories": [
+        "wallpapers",
+        "system-tech"
+      ],
+      "tags": [
+        "dark",
+        "neon",
+        "server",
+        "pc",
+        "cyberdark"
+      ],
+      "license": "MIT",
+      "fallback": null,
+      "reduced_motion": null
+    },
+    {
+      "id": "image.cyberdark.quantum-rack-array",
+      "path": "cyberdark-wallpapers/quantum-rack-array.svg",
+      "title": "CyberDark Quantum Rack Array",
+      "categories": [
+        "wallpapers",
+        "system-tech"
+      ],
+      "tags": [
+        "dark",
+        "neon",
+        "server",
+        "pc",
+        "cyberdark"
+      ],
+      "license": "MIT",
+      "fallback": null,
+      "reduced_motion": null
+    },
+    {
+      "id": "image.cyberdark.blacksite-command",
+      "path": "cyberdark-wallpapers/blacksite-command.svg",
+      "title": "CyberDark Blacksite Command",
+      "categories": [
+        "wallpapers",
+        "system-tech"
+      ],
+      "tags": [
+        "dark",
+        "neon",
+        "server",
+        "pc",
+        "cyberdark"
+      ],
+      "license": "MIT",
+      "fallback": null,
+      "reduced_motion": null
+    },
+    {
+      "id": "image.cyberdark.core-reactor",
+      "path": "cyberdark-wallpapers/core-reactor.svg",
+      "title": "CyberDark Core Reactor",
+      "categories": [
+        "wallpapers",
+        "system-tech"
+      ],
+      "tags": [
+        "dark",
+        "neon",
+        "server",
+        "pc",
+        "cyberdark"
+      ],
+      "license": "MIT",
+      "fallback": null,
+      "reduced_motion": null
+    },
+    {
+      "id": "image.cyberdark.ghost-network",
+      "path": "cyberdark-wallpapers/ghost-network.svg",
+      "title": "CyberDark Ghost Network",
+      "categories": [
+        "wallpapers",
+        "system-tech"
+      ],
+      "tags": [
+        "dark",
+        "neon",
+        "server",
+        "pc",
+        "cyberdark"
+      ],
+      "license": "MIT",
+      "fallback": null,
+      "reduced_motion": null
+    },
+    {
+      "id": "image.cyberdark.midnight-datacenter",
+      "path": "cyberdark-wallpapers/midnight-datacenter.svg",
+      "title": "CyberDark Midnight Datacenter",
+      "categories": [
+        "wallpapers",
+        "system-tech"
+      ],
+      "tags": [
+        "dark",
+        "neon",
+        "server",
+        "pc",
+        "cyberdark"
+      ],
+      "license": "MIT",
+      "fallback": null,
+      "reduced_motion": null
+    },
+    {
+      "id": "image.cyberdark.containment-grid",
+      "path": "cyberdark-wallpapers/containment-grid.svg",
+      "title": "CyberDark Containment Grid",
+      "categories": [
+        "wallpapers",
+        "system-tech"
+      ],
+      "tags": [
+        "dark",
+        "neon",
+        "server",
+        "pc",
+        "cyberdark"
+      ],
+      "license": "MIT",
+      "fallback": null,
+      "reduced_motion": null
+    },
+    {
+      "id": "image.cyberdark.orbital-compute",
+      "path": "cyberdark-wallpapers/orbital-compute.svg",
+      "title": "CyberDark Orbital Compute",
+      "categories": [
+        "wallpapers",
+        "system-tech"
+      ],
+      "tags": [
+        "dark",
+        "neon",
+        "server",
+        "pc",
+        "cyberdark"
+      ],
+      "license": "MIT",
+      "fallback": null,
+      "reduced_motion": null
+    },
+    {
+      "id": "image.cyberdark.signal-forge",
+      "path": "cyberdark-wallpapers/signal-forge.svg",
+      "title": "CyberDark Signal Forge",
+      "categories": [
+        "wallpapers",
+        "system-tech"
+      ],
+      "tags": [
+        "dark",
+        "neon",
+        "server",
+        "pc",
+        "cyberdark"
+      ],
+      "license": "MIT",
+      "fallback": null,
+      "reduced_motion": null
+    },
+    {
+      "id": "image.cyberdark.darkmesh-node",
+      "path": "cyberdark-wallpapers/darkmesh-node.svg",
+      "title": "CyberDark Darkmesh Node",
+      "categories": [
+        "wallpapers",
+        "system-tech"
+      ],
+      "tags": [
+        "dark",
+        "neon",
+        "server",
+        "pc",
+        "cyberdark"
+      ],
+      "license": "MIT",
+      "fallback": null,
+      "reduced_motion": null
+    },
+    {
+      "id": "image.cyberdark.zero-day-bunker",
+      "path": "cyberdark-wallpapers/zero-day-bunker.svg",
+      "title": "CyberDark Zero Day Bunker",
+      "categories": [
+        "wallpapers",
+        "system-tech"
+      ],
+      "tags": [
+        "dark",
+        "neon",
+        "server",
+        "pc",
+        "cyberdark"
+      ],
+      "license": "MIT",
+      "fallback": null,
+      "reduced_motion": null
+    },
+    {
+      "id": "image.cyberdark.auxiliary-ops",
+      "path": "cyberdark-wallpapers/auxiliary-ops.svg",
+      "title": "CyberDark Auxiliary Ops",
+      "categories": [
+        "wallpapers",
+        "system-tech"
+      ],
+      "tags": [
+        "dark",
+        "neon",
+        "server",
+        "pc",
+        "cyberdark"
+      ],
+      "license": "MIT",
+      "fallback": null,
+      "reduced_motion": null
+    }
+  ],
+  "checksums": {
+    "cyberdark-wallpapers/neon-server-vault.svg": "sha256:2c1ac7ba23fc487b312f93296a968237772d6ef688629ee574c63beaee2112b9",
+    "cyberdark-wallpapers/quantum-rack-array.svg": "sha256:41df89288ce11d0058aa3e2a97fefc0e845d6235912d5b1aa48b7e44ba321e35",
+    "cyberdark-wallpapers/blacksite-command.svg": "sha256:a66471328c4a1bec50450a59e1b3d86e178718e6188a83e89058cde98aa55cc8",
+    "cyberdark-wallpapers/core-reactor.svg": "sha256:99f15a9f40980ce54fb1826a47aadace817d164cebddb266caa33ff3d465c171",
+    "cyberdark-wallpapers/ghost-network.svg": "sha256:0e5aaaaa2b5e8a970ab3ad23167496fbe18d02341976b6a8090bfb465745200a",
+    "cyberdark-wallpapers/midnight-datacenter.svg": "sha256:bfc10c1d88a87bbea71afda97a9815955f19f4490f4feb01959a28d5f8482f6c",
+    "cyberdark-wallpapers/containment-grid.svg": "sha256:446bdd741c79742bc504b715bf3abc6ec790662dd5aec74196e4c256fe3911a3",
+    "cyberdark-wallpapers/orbital-compute.svg": "sha256:a874f87bfe87aed803ecf2f7757d5749084f86c58e0dc041683f050aa676b2f7",
+    "cyberdark-wallpapers/signal-forge.svg": "sha256:32398dbc3628d00a1b9c780487bf5168397f716edf07f44eaa06176fe46fb658",
+    "cyberdark-wallpapers/darkmesh-node.svg": "sha256:dba26b51605fcff7b432cd1f061bda678aea1777c6782c8898134f7651f5be71",
+    "cyberdark-wallpapers/zero-day-bunker.svg": "sha256:92380f56423f00c7da8ae68ea99ac43a18df5e5615b5f5260ed224ea7a981d01",
+    "cyberdark-wallpapers/auxiliary-ops.svg": "sha256:ae45efe631cb0e47fd092a6b693ff82b282bbd1f86f531a261fc70e1836d1e58"
+  },
+  "accessibility": {
+    "semantic_fallback": "Wallpaper remains decorative; system and application content stays readable above it.",
+    "reduced_motion": true,
+    "keyboard_safe": true
+  },
+  "performance": {
+    "risk": "low",
+    "max_cpu_percent": 0,
+    "max_gpu_layers": 1,
+    "mobile_fallback": "Use a static 1920px export or solid CyberDark background on constrained devices."
+  },
+  "preview": "cyberdark-wallpapers/neon-server-vault.svg"
+}

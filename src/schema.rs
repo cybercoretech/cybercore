@@ -50,6 +50,9 @@ pub struct Schema {
     /// directory instead of being guessed from its slug by consumers.
     #[serde(default)]
     pub theme_families: BTreeMap<String, String>,
+    /// Governed wallpaper resources that can be paired with each theme.
+    #[serde(default)]
+    pub wallpaper_options: BTreeMap<String, Vec<String>>,
     pub paths: Paths,
 
     /// The resolved active theme — filled in by [`load`], not present in

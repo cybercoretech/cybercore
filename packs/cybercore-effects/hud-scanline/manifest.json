@@ -1,0 +1,50 @@
+{
+  "format_version": 1,
+  "id": "cybercore-effects.hud-scanline",
+  "version": "1.0.0",
+  "title": "Cybercore HUD Scanline",
+  "kind": "effects",
+  "description": "A static, GPU-friendly scanline overlay for Cybercore panels.",
+  "cybercore": { "minimum": "0.8.1" },
+  "categories": ["scanlines", "hud"],
+  "tags": ["crt", "neon", "overlay", "static"],
+  "license": "MIT",
+  "provenance": {
+    "source": "Cybercore",
+    "author": "Cybercore Team",
+    "license": "MIT",
+    "reviewed": true
+  },
+  "platforms": ["web", "theme-studio"],
+  "dependencies": [],
+  "resources": [
+    {
+      "id": "effect.hud-scanline",
+      "path": "hud-scanline/effect.css",
+      "title": "HUD Scanline",
+      "categories": ["scanlines", "hud"],
+      "tags": ["crt", "neon", "overlay", "static"],
+      "license": "MIT",
+      "fallback": "hud-scanline/fallback.css",
+      "reduced_motion": "hud-scanline/reduced-motion.css"
+    }
+  ],
+  "checksums": {
+    "hud-scanline/effect.css": "sha256:4507bde6bee5277e26fa8098a5e998671387797277969d73d75d944e4e2579cf",
+    "hud-scanline/fallback.css": "sha256:d0a6ca376cb73889d7321c187be54d9183d58ea400b37ca49396b85430a32cd5",
+    "hud-scanline/reduced-motion.css": "sha256:a1fe851af26977140de2d3e7088111ea2b27d60662eabfabed87cf482b745731",
+    "hud-scanline/README.md": "sha256:17eac40cecd30508826c2f9668a76f0ce3734f29cbd73be4cfe3c9348f88757b"
+  },
+  "accessibility": {
+    "semantic_fallback": "content remains fully readable without the overlay",
+    "reduced_motion": true,
+    "keyboard_safe": true
+  },
+  "performance": {
+    "risk": "low",
+    "max_cpu_percent": 2,
+    "max_gpu_layers": 1,
+    "mobile_fallback": "disable overlay on constrained devices"
+  },
+  "preview": "hud-scanline/effect.css"
+}

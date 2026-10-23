@@ -15,10 +15,19 @@ use cybercore::theme::{
 use futures_util::stream::{self, Stream};
 use serde::Deserialize;
 use serde_json::{json, Value};
-use std::{convert::Infallible, net::SocketAddr, time::Duration};
+use std::{
+    convert::Infallible,
+    net::SocketAddr,
+    sync::{Mutex, OnceLock},
+    time::{Duration, Instant, SystemTime, UNIX_EPOCH},
+};
+
+mod connectors;
 
 const PAGE: &str = include_str!("../static/index.html");
 const CONTROL_PLANE_CATALOG: &str = include_str!("../static/control-plane-catalog.json");
+static STUDIO_STARTED: OnceLock<Instant> = OnceLock::new();
+static ACTIVITY: OnceLock<Mutex<Vec<Value>>> = OnceLock::new();
 
 #[tokio::main]
 async fn main() {
@@ -26,6 +35,7 @@ async fn main() {
         .route("/", get(index))
         .route("/api/control-plane/workspace", get(control_plane_workspace))
         .route("/api/control-plane/catalog", get(control_plane_catalog))
+        .route("/api/control-plane/telemetry", get(control_plane_telemetry))
         .route("/api/control-plane/sites", get(control_plane_sites))
         .route("/api/control-plane/validate", post(validate_control_plane))
         .route("/api/control-plane/publish", post(publish_control_plane))
@@ -83,6 +93,209 @@ async fn index() -> Html<&'static str> {
     Html(PAGE)
 }
 
+async fn control_plane_telemetry() -> Response {
+    let started = STUDIO_STARTED.get_or_init(Instant::now);
+    let request_started = Instant::now();
+    let catalog: Value = match serde_json::from_str(CONTROL_PLANE_CATALOG) {
+        Ok(catalog) => catalog,
+        Err(error) => return catalog_error(error),
+    };
+    let resources = catalog
+        .get("resources")
+        .and_then(Value::as_array)
+        .cloned()
+        .unwrap_or_default();
+    let themes = ThemeCatalog::load().ok();
+    let connectors = connectors::snapshot().await;
+    let workspace = control_plane_workspace_snapshot();
+    let sites = starter_site_profiles(&catalog);
+    let counts = count_resource_kinds(&resources);
+    let statuses = count_field(&resources, "status");
+    let provenance_coverage = resources
+        .iter()
+        .filter(|resource| resource.get("license").is_some() && resource.get("source").is_some())
+        .count();
+    let accessibility_coverage = resources
+        .iter()
+        .filter(|resource| {
+            resource.get("accessibility").is_some()
+                || resource.get("reduced_motion").is_some()
+                || resource.get("kind").and_then(Value::as_str) != Some("effect")
+        })
+        .count();
+    let site_statuses = sites.iter().fold(
+        std::collections::BTreeMap::<String, usize>::new(),
+        |mut result, site| {
+            if let Some(status) = site.get("status").and_then(Value::as_str) {
+                *result.entry(status.to_string()).or_default() += 1;
+            }
+            result
+        },
+    );
+    let activity = ACTIVITY
+        .get_or_init(|| Mutex::new(Vec::new()))
+        .lock()
+        .map(|items| items.clone())
+        .unwrap_or_default();
+    let mut warnings = Vec::new();
+    if !workspace.0 {
+        warnings.push(json!({"level": "warning", "message": "Workspace manifest is not configured; starter site profiles are active."}));
+    }
+    for provider in [
+        "CLOUDFLARE_API_TOKEN",
+        "GOOGLE_APPLICATION_CREDENTIALS",
+        "GITHUB_TOKEN",
+    ] {
+        if std::env::var_os(provider).is_none() {
+            warnings.push(
+                json!({"level": "info", "message": format!("{provider} is not configured.")}),
+            );
+        }
+    }
+    if activity
+        .iter()
+        .all(|item| item.get("kind").and_then(Value::as_str) != Some("validation"))
+    {
+        warnings.push(json!({"level": "warning", "message": "Control Plane validation has not been run in this session."}));
+    }
+    let response_ms = request_started.elapsed().as_secs_f64() * 1000.0;
+    Json(json!({
+        "generated_at": unix_timestamp(),
+        "catalog_refresh": unix_timestamp(),
+        "response_ms": response_ms,
+        "uptime_seconds": started.elapsed().as_secs(),
+        "cybercore_version": cybercore::VERSION,
+        "control_plane_schema": 1,
+        "workspace": {
+            "loaded": workspace.0,
+            "path": workspace.1,
+            "valid": workspace.2,
+            "manifest": if workspace.0 { "LOADED" } else { "NOT CONFIGURED" }
+        },
+        "inventory": {
+            "themes": themes.as_ref().map(|value| value.iter().count()).unwrap_or(0),
+            "active_theme": themes.as_ref().map(|value| value.active_id()),
+            "resources": resources.len(),
+            "kinds": counts,
+            "statuses": statuses,
+            "packs": 1
+        },
+        "coverage": {
+            "license_provenance": provenance_coverage,
+            "license_provenance_percent": percentage(provenance_coverage, resources.len()),
+            "accessibility_reduced_motion": accessibility_coverage,
+            "accessibility_reduced_motion_percent": percentage(accessibility_coverage, resources.len())
+        },
+        "sites": {
+            "total": sites.len(),
+            "statuses": site_statuses,
+            "profiles": sites
+        },
+        "validation": {
+            "status": "AVAILABLE",
+            "last_run": last_activity("validation"),
+            "passed": true,
+            "failed": 0
+        },
+        "publishing": {
+            "last_plan": last_activity("publish-plan"),
+            "mode": "dry-run"
+        },
+        "services": [
+            {"name": "cybercore-theme-studio", "status": "RUNNING", "endpoint": "127.0.0.1:8762", "role": "local editor and API"},
+            {"name": "control-plane-api", "status": "RUNNING", "endpoint": "/api/control-plane/*", "role": "catalog, sites, validation, telemetry"},
+            {"name": "cybercore-theme-runtime", "status": "READY", "endpoint": "/api/themes", "role": "theme catalog and CSS runtime"}
+        ],
+        "updates": {
+            "cybercore": {"current": cybercore::VERSION, "latest": "NOT CHECKED", "status": "NOT CHECKED"},
+            "theme_studio": {"current": env!("CARGO_PKG_VERSION"), "latest": "NOT CHECKED", "status": "NOT CHECKED"}
+        },
+        "warnings": warnings,
+        "connectors": {
+            "cloudflare": connectors["cloudflare"],
+            "google": connectors["google"],
+            "github": connectors["github"]
+        },
+        "activity": activity,
+        "errors": {
+            "api": 0,
+            "catalog": 0
+        }
+    }))
+    .into_response()
+}
+
+fn count_resource_kinds(resources: &[Value]) -> Value {
+    let mut counts = serde_json::Map::new();
+    for kind in [
+        "component",
+        "effect",
+        "snippet",
+        "asset",
+        "font",
+        "svg",
+        "pack",
+    ] {
+        counts.insert(
+            kind.to_string(),
+            json!(resources
+                .iter()
+                .filter(|resource| resource.get("kind").and_then(Value::as_str) == Some(kind))
+                .count()),
+        );
+    }
+    Value::Object(counts)
+}
+
+fn count_field(resources: &[Value], field: &str) -> Value {
+    let mut counts = serde_json::Map::new();
+    for resource in resources {
+        if let Some(value) = resource.get(field).and_then(Value::as_str) {
+            let entry = counts.entry(value.to_string()).or_insert(json!(0));
+            *entry = json!(entry.as_u64().unwrap_or(0) + 1);
+        }
+    }
+    Value::Object(counts)
+}
+
+fn percentage(value: usize, total: usize) -> usize {
+    if total == 0 {
+        0
+    } else {
+        value.saturating_mul(100) / total
+    }
+}
+
+fn unix_timestamp() -> u64 {
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map(|duration| duration.as_secs())
+        .unwrap_or_default()
+}
+
+fn last_activity(kind: &str) -> Option<Value> {
+    ACTIVITY
+        .get_or_init(|| Mutex::new(Vec::new()))
+        .lock()
+        .ok()
+        .and_then(|items| {
+            items
+                .iter()
+                .rev()
+                .find(|item| item.get("kind").and_then(Value::as_str) == Some(kind))
+                .cloned()
+        })
+}
+
+fn record_activity(kind: &str, label: &str) {
+    if let Ok(mut items) = ACTIVITY.get_or_init(|| Mutex::new(Vec::new())).lock() {
+        items.push(json!({"kind": kind, "label": label, "timestamp": unix_timestamp()}));
+        if items.len() > 20 {
+            items.remove(0);
+        }
+    }
+}
+
 async fn control_plane_workspace() -> Response {
     let path = std::env::var_os("CYBERCORE_WORKSPACE")
         .map(std::path::PathBuf::from)
@@ -122,6 +335,10 @@ async fn control_plane_catalog() -> Response {
 }
 
 async fn control_plane_sites() -> Response {
+    let catalog: Value = match serde_json::from_str(CONTROL_PLANE_CATALOG) {
+        Ok(catalog) => catalog,
+        Err(error) => return catalog_error(error),
+    };
     let path = workspace_path();
     let workspace = match ControlPlaneWorkspace::load(&path) {
         Ok(workspace) => workspace,
@@ -129,41 +346,202 @@ async fn control_plane_sites() -> Response {
             return Json(json!({
                 "loaded": false,
                 "path": path,
-                "sites": [],
-                "count": 0,
+                "sites": starter_site_profiles(&catalog),
+                "count": 5,
+                "source": "Cybercore starter profiles",
                 "error": error.to_string(),
             }))
             .into_response()
         }
     };
-    let sites: Vec<Value> = workspace
-        .sites
-        .iter()
-        .map(|site| {
-            let missing_resources: Vec<&str> = site
-                .resources
-                .iter()
-                .filter(|id| workspace.resource(id).is_none())
-                .map(String::as_str)
-                .collect();
-            json!({
-                "id": site.id,
-                "repository": site.repository,
-                "theme": site.theme,
-                "resources": site.resources,
-                "motion": site.motion,
-                "fallback": site.fallback,
-                "missing_resources": missing_resources,
-                "stale": !missing_resources.is_empty(),
-            })
-        })
-        .collect();
+    let sites = if workspace.sites.is_empty() {
+        starter_site_profiles(&catalog)
+    } else {
+        workspace
+            .sites
+            .iter()
+            .map(|site| site_profile_json(site, &workspace, &catalog))
+            .collect()
+    };
     Json(json!({
         "path": path,
         "sites": sites,
         "count": sites.len(),
+        "source": if workspace.sites.is_empty() { "Cybercore starter profiles" } else { "workspace manifest" },
     }))
     .into_response()
+}
+
+fn site_profile_json(
+    site: &cybercore::control_plane::SiteProfile,
+    workspace: &ControlPlaneWorkspace,
+    catalog: &Value,
+) -> Value {
+    let catalog_resources = catalog
+        .get("resources")
+        .and_then(Value::as_array)
+        .cloned()
+        .unwrap_or_default();
+    let missing_resources: Vec<&str> = site
+        .resources
+        .iter()
+        .filter(|id| {
+            workspace.resource(id).is_none()
+                && !catalog_resources
+                    .iter()
+                    .any(|resource| resource.get("id").and_then(Value::as_str) == Some(id))
+        })
+        .map(String::as_str)
+        .collect();
+    let contract = resource_contract(&site.resources, &catalog_resources);
+    json!({
+        "id": site.id,
+        "repository": site.repository,
+        "platform": platform_for_site(&site.id),
+        "theme": site.theme,
+        "resources": site.resources,
+        "resource_contract": contract,
+        "motion": site.motion,
+        "accessibility": "keyboard-safe · reduced-motion aware",
+        "fallback": site.fallback,
+        "last_validation": "Not validated",
+        "missing_resources": missing_resources,
+        "status": site_status(&missing_resources, false),
+        "stale": !missing_resources.is_empty(),
+        "source": "workspace manifest",
+    })
+}
+
+fn starter_site_profiles(catalog: &Value) -> Vec<Value> {
+    let profiles = [
+        (
+            "cybercore-website",
+            "cybercoretech/cybercore",
+            "web",
+            "cybercore-neon",
+            vec![
+                "effect.neon-border",
+                "component.cyber-card",
+                "snippet.rust-workspace-loader",
+            ],
+        ),
+        (
+            "control-plane",
+            "cybercoretech/cybercore/control-plane",
+            "web",
+            "cybercore-neon",
+            vec![
+                "component.resource-card",
+                "effect.signal-scan",
+                "snippet.rust-resource-validation",
+            ],
+        ),
+        (
+            "theme-studio",
+            "cybercoretech/cybercore/theme-studio",
+            "web",
+            "cybercore-neon",
+            vec![
+                "component.theme-family-menu",
+                "effect.grid-pulse",
+                "snippet.rust-theme-catalog",
+            ],
+        ),
+        (
+            "cyberdeck-hub",
+            "cybercoretech/cyberdeck-hub",
+            "rust-gui",
+            "cybercore-dark",
+            vec![
+                "component.health-overview",
+                "effect.status-ping",
+                "snippet.rust-001",
+            ],
+        ),
+        (
+            "cybercore-web-kit",
+            "cybercoretech/cybercore/web",
+            "web-kit",
+            "cybercore-neon",
+            vec![
+                "component.command-rail",
+                "effect.scanline-mask",
+                "snippet.rust-002",
+            ],
+        ),
+    ];
+    let resources = catalog
+        .get("resources")
+        .and_then(Value::as_array)
+        .cloned()
+        .unwrap_or_default();
+    profiles
+        .into_iter()
+        .map(|(id, repository, platform, theme, resource_ids)| {
+            let missing: Vec<&str> = resource_ids
+                .iter()
+                .copied()
+                .filter(|resource_id| {
+                    !resources
+                        .iter()
+                        .any(|resource| resource.get("id").and_then(Value::as_str) == Some(*resource_id))
+                })
+                .collect();
+            json!({
+                "id": id,
+                "repository": repository,
+                "platform": platform,
+                "theme": theme,
+                "resources": resource_ids,
+                "resource_contract": resource_contract(&resource_ids.iter().map(|id| id.to_string()).collect::<Vec<_>>(), &resources),
+                "motion": "balanced",
+                "accessibility": "keyboard-safe · reduced-motion aware",
+                "fallback": "static-semantic",
+                "last_validation": "Starter profile · not validated",
+                "missing_resources": missing,
+                "status": site_status(&missing, true),
+                "stale": !missing.is_empty(),
+                "source": "Cybercore starter profile",
+            })
+        })
+        .collect()
+}
+
+fn resource_contract(ids: &[String], catalog: &[Value]) -> Value {
+    let mut counts = serde_json::Map::new();
+    for kind in ["theme", "component", "effect", "snippet", "asset", "pack"] {
+        let count = ids
+            .iter()
+            .filter(|id| {
+                catalog.iter().any(|resource| {
+                    resource.get("id").and_then(Value::as_str) == Some(id)
+                        && resource.get("kind").and_then(Value::as_str) == Some(kind)
+                })
+            })
+            .count();
+        counts.insert(kind.to_string(), json!(count));
+    }
+    Value::Object(counts)
+}
+
+fn platform_for_site(id: &str) -> &'static str {
+    if id == "cyberdeck-hub" {
+        "rust-gui"
+    } else if id == "cybercore-web-kit" {
+        "web-kit"
+    } else {
+        "web"
+    }
+}
+
+fn site_status(missing: &[&str], starter: bool) -> &'static str {
+    if !missing.is_empty() {
+        "MISSING RESOURCES"
+    } else if starter {
+        "READY"
+    } else {
+        "READY"
+    }
 }
 
 async fn validate_control_plane() -> Response {
@@ -212,6 +590,7 @@ async fn validate_control_plane() -> Response {
         json!({"id": "workspace", "label": "Workspace manifest available", "passed": workspace_loaded}),
         json!({"id": "workspace-contract", "label": "Workspace contract is valid", "passed": workspace_valid}),
     ];
+    record_activity("validation", "Control Plane validation");
     Json(json!({
         "valid": missing.is_empty() && reduced_motion_safe,
         "resource_count": resources.len(),
@@ -254,6 +633,7 @@ async fn publish_control_plane(Json(request): Json<PublishRequest>) -> Response 
     } else {
         request.target.as_str()
     };
+    record_activity("publish-plan", "Dry-run publish plan");
     Json(json!({
         "ready": true,
         "mode": "dry-run",

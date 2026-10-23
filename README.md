@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/header-neon.svg" width="900" alt="Cybercore — schema, palette, tokens and paths: 81 themes, one source of truth">
+  <img src="assets/header-neon.svg" width="900" alt="Cybercore — schema, palette, tokens and paths: shared source of truth">
 </p>
 
 <p align="center">
@@ -9,6 +9,10 @@
 [![crates.io](https://img.shields.io/crates/v/cybercore.svg)](https://crates.io/crates/cybercore)
 [![downloads](https://img.shields.io/crates/d/cybercore.svg)](https://crates.io/crates/cybercore)
 [![docs.rs](https://img.shields.io/docsrs/cybercore)](https://docs.rs/cybercore)
+[![cybercore-core](https://img.shields.io/crates/v/cybercore-core.svg)](https://crates.io/crates/cybercore-core)
+[![cybercore-effects](https://img.shields.io/crates/v/cybercore-effects.svg)](https://crates.io/crates/cybercore-effects)
+[![cybercore-components](https://img.shields.io/crates/v/cybercore-components.svg)](https://crates.io/crates/cybercore-components)
+[![cybercore-publish](https://img.shields.io/crates/v/cybercore-publish.svg)](https://crates.io/crates/cybercore-publish)
 
 The master definition repository and underpinning system engine of the
 Cybercore Systems Framework. The single source of truth for global
@@ -70,6 +74,30 @@ Load order in any project: `reset → cybertokens.css → theme colours →
 components`. Every Cybercore surface pulls the same `--font-mono`,
 `--fs-*`, `--space-*`, `--radius-*` so a new site or tool matches the
 rest without copy-paste.
+
+## Modular crates and resource packs
+
+Cybercore is being extracted incrementally into focused crates while the
+original `cybercore` crate remains the compatibility source of truth:
+
+| Crate | Responsibility |
+| --- | --- |
+| [`cybercore-core`](https://crates.io/crates/cybercore-core) | Shared contracts, themes, validation, paths, and pack metadata |
+| [`cybercore-effects`](https://crates.io/crates/cybercore-effects) | Governed effects, fallbacks, and reduced-motion adapters |
+| [`cybercore-components`](https://crates.io/crates/cybercore-components) | Shared component styles and behavior contracts |
+| [`cybercore-publish`](https://crates.io/crates/cybercore-publish) | Dry-run publish plans and consumer packaging contracts |
+
+Resource packs live in `packs/` and use immutable manifests with compatibility,
+provenance, licensing, accessibility, performance, preview, and checksum
+metadata. Current packs include Cybercore Effects and CyberDark Wallpapers;
+Fonts, SVGs, Snippets, Components, and Themes have governed family scaffolds
+ready for their first resources.
+
+Before publishing a crate, run `cargo publish --dry-run -p <crate>`. Publish
+dependencies in order: `cybercore-core`, `cybercore-effects` and
+`cybercore-components`, then `cybercore-publish`. Publishing requires a
+configured crates.io credential and is never performed by a build or publish
+plan automatically.
 
 ## Shared design-system components
 

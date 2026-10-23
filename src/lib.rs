@@ -14,6 +14,7 @@
 
 pub mod components;
 pub mod control_plane;
+pub mod pack;
 pub mod palette;
 pub mod paths;
 pub mod schema;
@@ -21,6 +22,8 @@ pub mod schema;
 pub mod status;
 pub mod theme;
 pub mod tokens;
+
+pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 #[cfg(test)]
 mod quality_tests;

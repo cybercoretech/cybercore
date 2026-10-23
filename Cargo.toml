@@ -55,7 +55,14 @@ required-features = ["fs"]
 all-features = true
 
 [workspace]
-members = ["theme-studio", "wasm"]
+members = [
+    "crates/cybercore-core",
+    "crates/cybercore-effects",
+    "crates/cybercore-components",
+    "crates/cybercore-publish",
+    "theme-studio",
+    "wasm",
+]
 resolver = "2"
 
 [build-dependencies]

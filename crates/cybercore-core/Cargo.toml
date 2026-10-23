@@ -1,0 +1,17 @@
+[package]
+name = "cybercore-core"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+description = "Stable core contracts for Cybercore themes, resources, validation, and packs"
+license = "MIT"
+repository = "https://github.com/cybercoretech/cybercore"
+homepage = "https://cybercoretech.github.io/cybercore/"
+readme = "README.md"
+
+[dependencies]
+cybercore = { version = "0.8.1", path = "../.." }
+
+[features]
+default = []
+status = ["cybercore/status"]

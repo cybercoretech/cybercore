@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">CyberDark Quantum Rack Array</title><desc id="desc">A precision rack array framed by diagnostic grids, cooling lines, and active node lights.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#03050a"/><stop offset=".55" stop-color="#090d16"/><stop offset="1" stop-color="#020308"/></linearGradient>
+    <linearGradient id="metal"><stop stop-color="#26303d"/><stop offset=".48" stop-color="#080b12"/><stop offset="1" stop-color="#151c28"/></linearGradient>
+    <linearGradient id="accent"><stop stop-color="#3d8bff"/><stop offset="1" stop-color="#9b6cff"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse"><path d="M72 0H0V72" fill="none" stroke="#7c8da41c" stroke-width="1"/><circle cx="1" cy="1" r="1.5" fill="#9fb3ca55"/></pattern>
+    <pattern id="fine" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M18 0H0V18" fill="none" stroke="#8294a912"/></pattern>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/><rect width="1920" height="1080" fill="url(#grid)"/><rect width="1920" height="1080" fill="url(#fine)" opacity=".7"/>
+  <path d="M0 840H1920M0 900H1920M0 960H1920" stroke="#5c6b7b2b"/><path d="M80 0V1080M1520 0V1080M1790 0V1080" stroke="#93a9bf20"/>
+  <g opacity=".65" fill="none" stroke="#9fb1c833" stroke-width="2"><circle cx="310" cy="340" r="210"/><circle cx="310" cy="340" r="178"/><path d="M60 340h500M310 90v500M130 160l360 360M490 160L130 520"/></g>
+  <g transform="translate(1080 110)">
+    <rect x="0" y="0" width="650" height="740" rx="8" fill="#05070c" stroke="#64768b88" stroke-width="5"/>
+    <rect x="28" y="28" width="594" height="684" fill="url(#metal)" stroke="#182433" stroke-width="3"/>
+    <path d="M44 116h560M44 244h560M44 372h560M44 500h560M44 628h560" stroke="#9eafc02f" stroke-width="3"/>
+    <path d="M82 50v620M566 50v620" stroke="#a6b7c733" stroke-width="4"/>
+    <g fill="#0a1019" stroke="#65758b80" stroke-width="3"><rect x="70" y="62" width="520" height="76" rx="4"/><rect x="70" y="190" width="520" height="76" rx="4"/><rect x="70" y="318" width="520" height="76" rx="4"/><rect x="70" y="446" width="520" height="76" rx="4"/><rect x="70" y="574" width="520" height="76" rx="4"/></g>
+    <g fill="url(#accent)" filter="url(#glow)"><rect x="105" y="80" width="18" height="40" rx="3"/><rect x="105" y="208" width="18" height="40" rx="3"/><rect x="105" y="336" width="18" height="40" rx="3"/><rect x="105" y="464" width="18" height="40" rx="3"/><rect x="105" y="592" width="18" height="40" rx="3"/></g>
+    <g fill="#8fff44" opacity=".8"><circle cx="550" cy="84" r="5"/><circle cx="550" cy="212" r="5"/><circle cx="550" cy="340" r="5"/><circle cx="550" cy="468" r="5"/><circle cx="550" cy="596" r="5"/></g>
+    <path d="M150 100h240M150 228h190M150 356h270M150 484h220M150 612h300" stroke="#3d8bff" stroke-width="5" opacity=".7"/>
+  </g>
+  <g fill="none" stroke="url(#accent)" stroke-width="5" filter="url(#glow)" opacity=".85"><path d="M0 760h180l65-80h250l80-120h190"/><path d="M1920 260h-120l-80 90h-150l-100 100"/><path d="M760 1080V930l100-100h120"/></g>
+  <g fill="none" stroke="#d9e6f233" stroke-width="2"><path d="M90 760h430M90 780h260M90 800h340"/><path d="M90 875h360M90 895h220"/><rect x="86" y="730" width="470" height="190"/></g>
+  <g font-family="monospace" letter-spacing="8" fill="#dbe7f0"><text x="90" y="126" font-size="24" fill="#3d8bff">CYBERDARK // SYSTEM WALLPAPER</text><text x="90" y="184" font-size="54">QUANTUM RACK ARRAY</text><text x="92" y="220" font-size="16" fill="#8da0b4">INTEGRATED COMPUTE / NETWORK / SERVER ENVIRONMENT</text></g>
+  <g font-family="monospace" font-size="14" fill="#aab8c8" opacity=".8"><text x="90" y="1000">NODE 07 :: SECURE CHANNEL</text><text x="690" y="1000">THERMAL 31C</text><text x="1080" y="1000">UPLINK BLUE-VIOLET</text><text x="1650" y="1000">STATUS: ONLINE</text></g>
+  <path d="M90 244h500" stroke="url(#accent)" stroke-width="4"/><path d="M90 250h220" stroke="#fff" stroke-width="1" opacity=".45"/>
+</svg>

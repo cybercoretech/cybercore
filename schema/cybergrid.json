@@ -6,5 +6,1034 @@
     "cargo_target_root": "~/.cargo-target",
     "arch_sys_root": "~/.arch-sys",
     "omarchy_config_root": "~/.config/omarchy"
+  },
+  "wallpaper_options": {
+    "alien-alpha": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid"
+    ],
+    "alien-arc": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
+    ],
+    "alien-array": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge"
+    ],
+    "alien-beacon": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "alien-cipher": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "alien-delta": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "alien-echo": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "alien-flux": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "alien-ghost": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "alien-helix": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "alien-ion": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network"
+    ],
+    "alien-vector": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "blackbox-industrial": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.orbital-compute"
+    ],
+    "catppuccin-mocha": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.ghost-network"
+    ],
+    "cosmere-investiture": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.blacksite-command"
+    ],
+    "cybercore": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.core-reactor"
+    ],
+    "cybercore-iron-neural": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.ghost-network"
+    ],
+    "cybercore-neon-forge": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "cyberdark-aurora": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.orbital-compute"
+    ],
+    "cyberdark-blacklight": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.containment-grid"
+    ],
+    "cyberdark-cyan-signal": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "cyberdark-deep-space": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.ghost-network"
+    ],
+    "cyberdark-ghost-cyan": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.containment-grid"
+    ],
+    "cyberdark-grid-alpha": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "cyberdark-grid-arc": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "cyberdark-grid-array": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "cyberdark-grid-beacon": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "cyberdark-grid-cipher": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "cyberdark-grid-delta": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "cyberdark-grid-echo": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network"
+    ],
+    "cyberdark-grid-flux": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "cyberdark-grid-ghost": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid"
+    ],
+    "cyberdark-grid-helix": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
+    ],
+    "cyberdark-grid-ion": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge"
+    ],
+    "cyberdark-grid-vector": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "cyberdark-industrial-alpha": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "cyberdark-industrial-arc": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network"
+    ],
+    "cyberdark-industrial-array": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "cyberdark-industrial-beacon": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid"
+    ],
+    "cyberdark-industrial-cipher": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
+    ],
+    "cyberdark-industrial-delta": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge"
+    ],
+    "cyberdark-industrial-echo": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "cyberdark-industrial-flux": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "cyberdark-industrial-ghost": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "cyberdark-industrial-helix": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "cyberdark-industrial-ion": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "cyberdark-industrial-vector": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "cyberdark-magenta-grid": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "cyberdark-midnight-laser": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "cyberdark-neon-void": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.ghost-network"
+    ],
+    "cyberdark-ops-alpha": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "cyberdark-ops-arc": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "cyberdark-ops-array": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "cyberdark-ops-beacon": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "cyberdark-ops-cipher": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "cyberdark-ops-delta": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "cyberdark-ops-echo": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network"
+    ],
+    "cyberdark-ops-flux": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "cyberdark-ops-ghost": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid"
+    ],
+    "cyberdark-ops-helix": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
+    ],
+    "cyberdark-ops-ion": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge"
+    ],
+    "cyberdark-ops-vector": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "cyberdark-plasma": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.orbital-compute"
+    ],
+    "cyberdark-purple-static": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.containment-grid"
+    ],
+    "cyberdark-rose-circuit": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "cyberdark-ultraviolet": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.ghost-network"
+    ],
+    "cyberdyne-assassin": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "cyberdyne-factory": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "cyberdyne-hunter": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "cyberdyne-infiltrator": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "cyberdyne-judgment": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "cyberdyne-logic": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "cyberdyne-machine": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "cyberdyne-neural": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.containment-grid"
+    ],
+    "cyberdyne-skynet": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "cyberdyne-steel": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.signal-forge"
+    ],
+    "cyberdyne-system": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "cyberdyne-t800": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "cyberpunk-2077": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "cyberpunk-alley": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.ghost-network"
+    ],
+    "cyberpunk-chrome": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "cyberpunk-edge": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.containment-grid"
+    ],
+    "cyberpunk-glitch": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.signal-forge"
+    ],
+    "cyberpunk-grid": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "cyberpunk-hacker": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.orbital-compute"
+    ],
+    "cyberpunk-mainframe": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "cyberpunk-neon": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "cyberpunk-neon-classic": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "cyberpunk-nexus": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.signal-forge"
+    ],
+    "cyberpunk-overdrive": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.orbital-compute"
+    ],
+    "cyberpunk-spire": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.ghost-network"
+    ],
+    "cyberpunk-sub-grid-zero": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.core-reactor"
+    ],
+    "cyberpunk-wire": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.ghost-network"
+    ],
+    "dark-skylines-alpha": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid"
+    ],
+    "dark-skylines-arc": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
+    ],
+    "dark-skylines-array": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge"
+    ],
+    "dark-skylines-beacon": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "dark-skylines-cipher": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "dark-skylines-delta": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "dark-skylines-echo": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "dark-skylines-flux": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "dark-skylines-ghost": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "dark-skylines-helix": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "dark-skylines-ion": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network"
+    ],
+    "dark-skylines-vector": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "demon": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.signal-forge"
+    ],
+    "dracula": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "dystopian-ash": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "dystopian-fallout": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.signal-forge"
+    ],
+    "dystopian-neon-rot": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.orbital-compute"
+    ],
+    "dystopian-quarantine": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "dystopian-ration": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "dystopian-rebel": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "dystopian-ruin": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.orbital-compute"
+    ],
+    "dystopian-sector": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "dystopian-slum": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "dystopian-smog": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "dystopian-ward": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.core-reactor"
+    ],
+    "dystopian-wasteland": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.signal-forge"
+    ],
+    "futurist": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.orbital-compute"
+    ],
+    "futuristic-alpha": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "futuristic-arc": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid"
+    ],
+    "futuristic-array": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
+    ],
+    "futuristic-beacon": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge"
+    ],
+    "futuristic-cipher": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "futuristic-delta": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "futuristic-echo": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "futuristic-flux": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "futuristic-ghost": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "futuristic-helix": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "futuristic-ion": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "futuristic-vector": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network"
+    ],
+    "gruvbox-dark": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "hacker-den": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "kanagawa": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.ghost-network"
+    ],
+    "neon-night": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "neon-noir-alpha": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "neon-noir-arc": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "neon-noir-array": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "neon-noir-beacon": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network"
+    ],
+    "neon-noir-cipher": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "neon-noir-delta": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid"
+    ],
+    "neon-noir-echo": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
+    ],
+    "neon-noir-flux": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge"
+    ],
+    "neon-noir-ghost": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "neon-noir-helix": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "neon-noir-ion": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "neon-noir-vector": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "neosynth-beam": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "neosynth-core": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.orbital-compute"
+    ],
+    "neosynth-drive": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "neosynth-flare": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.signal-forge"
+    ],
+    "neosynth-flux": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "neosynth-glow": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "neosynth-laser-grid": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.signal-forge"
+    ],
+    "neosynth-nova": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.containment-grid"
+    ],
+    "neosynth-plasma": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.ghost-network"
+    ],
+    "neosynth-pulse": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.core-reactor"
+    ],
+    "neosynth-spark": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.orbital-compute"
+    ],
+    "neosynth-wave": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "night-ops-array": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
+    ],
+    "night-ops-beacon": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge"
+    ],
+    "night-ops-cipher": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "night-ops-delta": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "night-ops-echo": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "night-ops-flux": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "night-ops-ghost": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "night-ops-helix": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "night-ops-ion": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "nord": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.signal-forge"
+    ],
+    "plasma-core-alpha": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "plasma-core-arc": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "plasma-core-array": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "plasma-core-beacon": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "plasma-core-cipher": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network"
+    ],
+    "plasma-core-delta": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "plasma-core-echo": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid"
+    ],
+    "plasma-core-flux": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
+    ],
+    "plasma-core-ghost": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge"
+    ],
+    "plasma-core-helix": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "plasma-core-ion": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "plasma-core-vector": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "robzee84": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.ghost-network"
+    ],
+    "synth-industrial-alpha": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "synth-industrial-arc": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "synth-industrial-array": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network"
+    ],
+    "synth-industrial-beacon": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "synth-industrial-cipher": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid"
+    ],
+    "synth-industrial-delta": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
+    ],
+    "synth-industrial-echo": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge"
+    ],
+    "synth-industrial-flux": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "synth-industrial-ghost": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "synth-industrial-helix": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "synth-industrial-ion": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "synth-industrial-vector": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "synthwave-84": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.orbital-compute"
+    ],
+    "synthwave-arcade": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.core-reactor"
+    ],
+    "synthwave-cassette": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.core-reactor"
+    ],
+    "synthwave-cruise": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "synthwave-delorean": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "synthwave-grid-runner": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "synthwave-horizon": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.ghost-network"
+    ],
+    "synthwave-miami": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.ghost-network"
+    ],
+    "synthwave-nightrun": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "synthwave-outrun": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.signal-forge"
+    ],
+    "synthwave-palm": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "synthwave-retro": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "synthwave-sunset": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "synthwave-vinyl": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "terminal-ghost-alpha": [
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node"
+    ],
+    "terminal-ghost-arc": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker"
+    ],
+    "terminal-ghost-array": [
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault"
+    ],
+    "terminal-ghost-beacon": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array"
+    ],
+    "terminal-ghost-cipher": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "terminal-ghost-delta": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "terminal-ghost-echo": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network"
+    ],
+    "terminal-ghost-flux": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "terminal-ghost-ghost": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid"
+    ],
+    "terminal-ghost-helix": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
+    ],
+    "terminal-ghost-ion": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.signal-forge"
+    ],
+    "terminal-ghost-vector": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.auxiliary-ops"
+    ],
+    "tokyo-city": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.blacksite-command"
+    ],
+    "tokyo-night": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.blacksite-command"
+    ],
+    "tokyo-sky": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.midnight-datacenter"
+    ]
   }
 }
