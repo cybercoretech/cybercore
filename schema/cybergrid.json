@@ -68,6 +68,16 @@
       "image.cyberdark.quantum-rack-array",
       "image.cyberdark.midnight-datacenter"
     ],
+    "arctic-relay": [
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.containment-grid"
+    ],
+    "biochrome": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.zero-day-bunker"
+    ],
     "blackbox-industrial": [
       "image.cyberdark.blacksite-command",
       "image.cyberdark.orbital-compute"
@@ -428,6 +438,36 @@
       "image.cyberdark.zero-day-bunker",
       "image.cyberdark.ghost-network"
     ],
+    "cyborg-chrome-heart": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "cyborg-neural-link": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "cyborg-servo-night": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network"
+    ],
+    "cyborg-synthetic-dawn": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "cyborg-titanium-pulse": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid"
+    ],
+    "cyborg-wired-ghost": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
+    ],
     "dark-skylines-alpha": [
       "image.cyberdark.darkmesh-node",
       "image.cyberdark.blacksite-command",
@@ -488,6 +528,11 @@
       "image.cyberdark.quantum-rack-array",
       "image.cyberdark.midnight-datacenter"
     ],
+    "deep-ocean": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.quantum-rack-array"
+    ],
     "demon": [
       "image.cyberdark.core-reactor",
       "image.cyberdark.signal-forge"
@@ -503,6 +548,36 @@
     "dystopian-fallout": [
       "image.cyberdark.core-reactor",
       "image.cyberdark.signal-forge"
+    ],
+    "dystopian-frontier-ashfall": [
+      "image.cyberdark.containment-grid",
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command"
+    ],
+    "dystopian-frontier-cracked-sky": [
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor"
+    ],
+    "dystopian-frontier-dead-sector": [
+      "image.cyberdark.signal-forge",
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network"
+    ],
+    "dystopian-frontier-fallow-city": [
+      "image.cyberdark.auxiliary-ops",
+      "image.cyberdark.quantum-rack-array",
+      "image.cyberdark.midnight-datacenter"
+    ],
+    "dystopian-frontier-red-quarantine": [
+      "image.cyberdark.darkmesh-node",
+      "image.cyberdark.blacksite-command",
+      "image.cyberdark.containment-grid"
+    ],
+    "dystopian-frontier-wastewire": [
+      "image.cyberdark.zero-day-bunker",
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute"
     ],
     "dystopian-neon-rot": [
       "image.cyberdark.blacksite-command",
@@ -619,6 +694,11 @@
     "kanagawa": [
       "image.cyberdark.zero-day-bunker",
       "image.cyberdark.ghost-network"
+    ],
+    "lunar-eclipse": [
+      "image.cyberdark.midnight-datacenter",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.orbital-compute"
     ],
     "neon-night": [
       "image.cyberdark.orbital-compute",
@@ -841,9 +921,19 @@
       "image.cyberdark.orbital-compute",
       "image.cyberdark.zero-day-bunker"
     ],
+    "rainline-district": [
+      "image.cyberdark.neon-server-vault",
+      "image.cyberdark.ghost-network",
+      "image.cyberdark.blacksite-command"
+    ],
     "robzee84": [
       "image.cyberdark.zero-day-bunker",
       "image.cyberdark.ghost-network"
+    ],
+    "solar-flare": [
+      "image.cyberdark.core-reactor",
+      "image.cyberdark.orbital-compute",
+      "image.cyberdark.signal-forge"
     ],
     "synth-industrial-alpha": [
       "image.cyberdark.containment-grid",
@@ -1034,6 +1124,24 @@
       "image.cyberdark.orbital-compute",
       "image.cyberdark.ghost-network",
       "image.cyberdark.midnight-datacenter"
+    ]
+  },
+  "families": {
+    "cyborg": [
+      "cyborg-chrome-heart",
+      "cyborg-neural-link",
+      "cyborg-servo-night",
+      "cyborg-synthetic-dawn",
+      "cyborg-titanium-pulse",
+      "cyborg-wired-ghost"
+    ],
+    "dystopian-frontier": [
+      "dystopian-frontier-ashfall",
+      "dystopian-frontier-cracked-sky",
+      "dystopian-frontier-dead-sector",
+      "dystopian-frontier-fallow-city",
+      "dystopian-frontier-red-quarantine",
+      "dystopian-frontier-wastewire"
     ]
   }
 }

@@ -1,7 +1,7 @@
 # Cybercore Theme Studio
 
 Cybercore Theme Studio is the standalone visual creator for CYBERGRID themes.
-The built-in registry contains 224 themes across the curated families, and
+The built-in registry contains 242 themes across the curated families, and
 each built-in theme exposes governed CyberDark wallpaper options when the
 Control Plane metadata is available.
 It is a small local Rust web app that uses the `cybercore::theme::ThemeCatalog`
