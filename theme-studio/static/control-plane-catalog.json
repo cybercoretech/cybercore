@@ -1,0 +1,161 @@
+{
+  "format_version": 1,
+  "resources": [
+    {
+      "id": "snippet.rust-workspace-loader",
+      "kind": "snippet",
+      "title": "Load a Control Plane workspace",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": ["rust", "workspace", "validation"],
+      "license": "MIT",
+      "source": "Cybercore",
+      "content": "use cybercore::control_plane::ControlPlaneWorkspace;\n\nlet workspace = ControlPlaneWorkspace::load(\".cybercore/workspace.json\")?;\nworkspace.validate()?;\nprintln!(\"{} resources\", workspace.resources.len());"
+    },
+    {
+      "id": "snippet.rust-resource-validation",
+      "kind": "snippet",
+      "title": "Validate a governed resource",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": ["rust", "provenance", "components"],
+      "license": "MIT",
+      "source": "Cybercore",
+      "content": "use cybercore::control_plane::ResourceManifest;\n\nfn validate_resource(resource: &ResourceManifest) -> Result<(), Box<dyn std::error::Error>> {\n    resource.validate()?;\n    Ok(())\n}"
+    },
+    {
+      "id": "snippet.rust-theme-catalog",
+      "kind": "snippet",
+      "title": "Read the shared theme catalog",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": ["rust", "themes", "runtime"],
+      "license": "MIT",
+      "source": "Cybercore",
+      "content": "use cybercore::theme::ThemeCatalog;\n\nlet catalog = ThemeCatalog::load()?;\nlet active = catalog.active_id();\nprintln!(\"active theme: {active}\");"
+    },
+    {
+      "id": "snippet.github-control-plane-check",
+      "kind": "snippet",
+      "title": "Validate a consumer workspace in CI",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "yaml",
+      "tags": ["github-actions", "validation", "ci"],
+      "license": "MIT",
+      "source": "Cybercore",
+      "content": "- name: Validate Cybercore workspace\n  run: cargo run -p cybercore --example inspect_control_plane -- .cybercore/workspace.json"
+    },
+    {
+      "id": "asset.cybercore-mark",
+      "kind": "asset",
+      "title": "Cybercore hex mark",
+      "version": "1.0.0",
+      "status": "approved",
+      "format": "svg",
+      "tags": ["svg", "logo", "brand"],
+      "license": "MIT",
+      "source": "Cybercore",
+      "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" role=\"img\" aria-label=\"Cybercore mark\"><path d=\"M50 4 91 27v46L50 96 9 73V27Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"7\"/><path d=\"M42 50h35M42 50a10 10 0 1 1 0-20 10 10 0 0 1 0 20Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"7\" stroke-linecap=\"round\"/></svg>"
+    },
+    {
+      "id": "asset.phone-shell-template",
+      "kind": "asset",
+      "title": "Responsive phone shell template",
+      "version": "1.0.0",
+      "status": "review",
+      "format": "css",
+      "tags": ["css", "device", "responsive"],
+      "license": "MIT",
+      "source": "Cybercore",
+      "content": ".cc-phone-shell { position: relative; aspect-ratio: 9 / 20; border: 1px solid var(--cc-accent); border-radius: 2rem; padding: .7rem; background: linear-gradient(145deg, #27303a, #090b11 40%, #202633); box-shadow: 0 2rem 5rem #000b, 0 0 2rem color-mix(in srgb, var(--cc-accent) 35%, transparent); }"
+    },
+    {
+      "id": "effect.noise-sweep",
+      "kind": "effect",
+      "title": "Noise sweep",
+      "version": "1.0.0",
+      "status": "draft",
+      "recipe": "css",
+      "tags": ["motion", "texture", "web"],
+      "license": "MIT",
+      "source": "Cybercore",
+      "content": ".cc-noise-sweep { position: relative; isolation: isolate; overflow: hidden; }\n.cc-noise-sweep::after { content: \"\"; position: absolute; inset: -50%; z-index: -1; opacity: .08; pointer-events: none; background: repeating-radial-gradient(circle at 20% 30%, var(--cc-accent) 0 1px, transparent 1px 4px); animation: cc-noise-drift 1.8s steps(4) infinite; }\n@keyframes cc-noise-drift { 50% { transform: translate(4%, -3%) } }\n@media (prefers-reduced-motion: reduce) { .cc-noise-sweep::after { animation: none; } }"
+    },
+    {
+      "id": "effect.signal-scan",
+      "kind": "effect",
+      "title": "Signal scan",
+      "version": "1.0.0",
+      "status": "draft",
+      "recipe": "css",
+      "tags": ["motion", "scanline", "web"],
+      "license": "MIT",
+      "source": "Cybercore",
+      "content": ".cc-signal-scan { position: relative; overflow: hidden; }\n.cc-signal-scan::after { content: \"\"; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--cc-accent) 28%, transparent), transparent); transform: translateY(-100%); animation: cc-signal-scan 3.6s linear infinite; }\n@keyframes cc-signal-scan { to { transform: translateY(100%); } }\n@media (prefers-reduced-motion: reduce) { .cc-signal-scan::after { display: none; } }"
+    },
+    {
+      "id": "effect-corner-brackets",
+      "kind": "effect",
+      "title": "Corner brackets",
+      "version": "1.0.0",
+      "status": "approved",
+      "recipe": "css",
+      "tags": ["frame", "component", "web"],
+      "license": "MIT",
+      "source": "Cybercore",
+      "content": ".cc-corner-brackets { position: relative; }\n.cc-corner-brackets::before, .cc-corner-brackets::after { content: \"\"; position: absolute; inset: .5rem; pointer-events: none; border: 1px solid color-mix(in srgb, var(--cc-accent) 55%, transparent); clip-path: polygon(0 0, 18% 0, 18% 1px, 1px 1px, 1px 18%, 0 18%, 0 0, 100% 0, 100% 18%, calc(100% - 1px) 18%, calc(100% - 1px) 1px, 82% 1px, 82% 0); opacity: .7; }\n.cc-corner-brackets::after { transform: rotate(180deg); }"
+    },
+    {
+      "id": "component.cyber-card",
+      "kind": "component",
+      "title": "Cyber card",
+      "version": "1.0.0",
+      "status": "approved",
+      "contract": ["surface", "accent", "density", "motion", "focus"],
+      "fallback": "plain-card",
+      "tags": ["card", "surface", "web"],
+      "license": "MIT",
+      "source": "Cybercore"
+    },
+    {
+      "id": "component.detail-dialog",
+      "kind": "component",
+      "title": "Accessible detail dialog",
+      "version": "1.0.0",
+      "status": "approved",
+      "contract": ["dialog", "backdrop", "close", "keyboard", "reduced-motion"],
+      "fallback": "inline-details",
+      "tags": ["dialog", "accessibility", "web"],
+      "license": "MIT",
+      "source": "Cybercore"
+    },
+    {
+      "id": "component.install-console",
+      "kind": "component",
+      "title": "Verified install console",
+      "version": "1.0.0",
+      "status": "approved",
+      "contract": ["command", "copy", "checksum", "fallback", "provenance"],
+      "fallback": "preformatted-command",
+      "tags": ["install", "security", "web"],
+      "license": "MIT",
+      "source": "Cybercore"
+    },
+    {
+      "id": "component.phone-shell",
+      "kind": "component",
+      "title": "Realistic phone shell",
+      "version": "1.0.0",
+      "status": "review",
+      "contract": ["device-frame", "screen", "edge-light", "responsive", "reduced-motion"],
+      "fallback": "static-image",
+      "tags": ["device", "hero", "web"],
+      "license": "MIT",
+      "source": "Cybercore"
+    }
+  ]
+}

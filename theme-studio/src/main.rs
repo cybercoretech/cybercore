@@ -18,12 +18,16 @@ use serde_json::{json, Value};
 use std::{convert::Infallible, net::SocketAddr, time::Duration};
 
 const PAGE: &str = include_str!("../static/index.html");
+const CONTROL_PLANE_CATALOG: &str = include_str!("../static/control-plane-catalog.json");
 
 #[tokio::main]
 async fn main() {
     let app = Router::new()
         .route("/", get(index))
         .route("/api/control-plane/workspace", get(control_plane_workspace))
+        .route("/api/control-plane/catalog", get(control_plane_catalog))
+        .route("/api/control-plane/validate", post(validate_control_plane))
+        .route("/api/control-plane/publish", post(publish_control_plane))
         .route("/api/themes", get(list_themes).post(save_theme))
         .route("/api/events", get(theme_events))
         .route("/api/themes/:id", delete(delete_theme))
@@ -101,6 +105,148 @@ async fn control_plane_workspace() -> Response {
             "error": error.to_string(),
         }))
         .into_response(),
+    }
+}
+
+async fn control_plane_catalog() -> Response {
+    let catalog: Value = match serde_json::from_str(CONTROL_PLANE_CATALOG) {
+        Ok(catalog) => catalog,
+        Err(error) => return catalog_error(error),
+    };
+    Json(json!({
+        "catalog": catalog,
+        "source": "Cybercore Control Plane built-in registry",
+    }))
+    .into_response()
+}
+
+async fn validate_control_plane() -> Response {
+    let catalog: Value = match serde_json::from_str(CONTROL_PLANE_CATALOG) {
+        Ok(catalog) => catalog,
+        Err(error) => return catalog_error(error),
+    };
+    let resources = catalog
+        .get("resources")
+        .and_then(Value::as_array)
+        .cloned()
+        .unwrap_or_default();
+    let required = [
+        "id", "kind", "title", "version", "status", "license", "source",
+    ];
+    let missing: Vec<Value> = resources
+        .iter()
+        .filter_map(|resource| {
+            let absent: Vec<_> = required
+                .iter()
+                .filter(|field| resource.get(*field).is_none())
+                .copied()
+                .collect();
+            (!absent.is_empty()).then(|| {
+                json!({
+                    "id": resource.get("id").and_then(Value::as_str).unwrap_or("<unknown>"),
+                    "missing": absent,
+                })
+            })
+        })
+        .collect();
+    let reduced_motion_safe = resources
+        .iter()
+        .filter(|resource| resource.get("kind").and_then(Value::as_str) == Some("effect"))
+        .filter_map(|resource| resource.get("content").and_then(Value::as_str))
+        .all(|content| {
+            content.contains("prefers-reduced-motion") || !content.contains("animation")
+        });
+    let workspace = control_plane_workspace_snapshot();
+    let workspace_loaded = workspace.0;
+    let checks = vec![
+        json!({"id": "catalog-schema", "label": "Catalog resource fields", "passed": missing.is_empty()}),
+        json!({"id": "provenance", "label": "License and source metadata", "passed": resources.iter().all(|resource| resource.get("license").is_some() && resource.get("source").is_some())}),
+        json!({"id": "reduced-motion", "label": "Effects provide reduced-motion behavior", "passed": reduced_motion_safe}),
+        json!({"id": "workspace", "label": "Workspace manifest available", "passed": workspace_loaded}),
+    ];
+    Json(json!({
+        "valid": missing.is_empty() && reduced_motion_safe,
+        "resource_count": resources.len(),
+        "checks": checks,
+        "missing": missing,
+        "workspace": workspace.1,
+    }))
+    .into_response()
+}
+
+#[derive(Deserialize)]
+struct PublishRequest {
+    #[serde(default = "default_publish_version")]
+    version: String,
+    #[serde(default)]
+    target: String,
+}
+
+async fn publish_control_plane(Json(request): Json<PublishRequest>) -> Response {
+    let catalog: Value = match serde_json::from_str(CONTROL_PLANE_CATALOG) {
+        Ok(catalog) => catalog,
+        Err(error) => return catalog_error(error),
+    };
+    let resources = catalog
+        .get("resources")
+        .and_then(Value::as_array)
+        .cloned()
+        .unwrap_or_default();
+    let grouped = resources.iter().fold(
+        std::collections::BTreeMap::<String, usize>::new(),
+        |mut groups, resource| {
+            if let Some(kind) = resource.get("kind").and_then(Value::as_str) {
+                *groups.entry(kind.to_string()).or_default() += 1;
+            }
+            groups
+        },
+    );
+    let target = if request.target.trim().is_empty() {
+        "local-preview"
+    } else {
+        request.target.as_str()
+    };
+    Json(json!({
+        "ready": true,
+        "mode": "dry-run",
+        "target": target,
+        "version": request.version,
+        "outputs": [
+            format!("cybercore-web-kit/{}/catalog.json", request.version),
+            format!("cybercore-web-kit/{}/effects.css", request.version),
+            format!("cybercore-web-kit/{}/components.css", request.version),
+            format!("cybercore-web-kit/{}/provenance.json", request.version)
+        ],
+        "resource_counts": grouped,
+        "next_steps": [
+            "Run validation and review the generated diff.",
+            "Create a versioned Web Kit directory.",
+            "Commit the generated assets and let GitHub Actions publish them.",
+            "Update consumers explicitly; immutable kit versions are never overwritten."
+        ]
+    }))
+    .into_response()
+}
+
+fn default_publish_version() -> String {
+    "v2".into()
+}
+
+fn control_plane_workspace_snapshot() -> (bool, Value) {
+    let path = std::env::var_os("CYBERCORE_WORKSPACE")
+        .map(std::path::PathBuf::from)
+        .unwrap_or_else(|| {
+            std::env::var_os("CYBERCORE_CONFIG_DIR")
+                .map(std::path::PathBuf::from)
+                .unwrap_or_else(|| dirs_fallback_config_dir().join("cybercore"))
+                .join("workspace.json")
+        });
+    match ControlPlaneWorkspace::load(&path) {
+        Ok(workspace) => (
+            true,
+            json!({"path": path, "name": workspace.name, "id": workspace.id}),
+        ),
+        Err(error) => (false, json!({"path": path, "error": error.to_string()})),
     }
 }
 
