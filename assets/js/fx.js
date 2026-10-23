@@ -234,7 +234,7 @@
   /* ---------- rotator ---------- */
   (function rotator() {
     const el = $('#rotator'); if (!el || still) return;
-    const words = ['SCHEMA', 'THEMES', 'TOKENS', 'PATHS', '224 THEMES', 'MASHUPS'];
+    const words = ['SCHEMA', 'THEMES', 'TOKENS', 'PATHS', '242 THEMES', 'MASHUPS'];
     let i = 0;
     setInterval(() => {
       i = (i + 1) % words.length; const target = words[i]; let f = 0;
