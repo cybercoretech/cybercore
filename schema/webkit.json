@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "kit_version": "1.0.0",
+  "description": "Cybercore Web Kit recipes and capability metadata.",
+  "motion_profiles": {
+    "full": {
+      "reduced_motion": "respect-media-query",
+      "power": "standard"
+    },
+    "reduced": {
+      "reduced_motion": "static",
+      "power": "low"
+    },
+    "none": {
+      "reduced_motion": "static",
+      "power": "lowest"
+    }
+  },
+  "effects": {
+    "scanline": {
+      "module": "scanline",
+      "fallback": "static",
+      "mobile": "static",
+      "license": "MIT"
+    },
+    "grid-glow": {
+      "module": "grid-glow",
+      "fallback": "static",
+      "mobile": "static",
+      "license": "MIT"
+    },
+    "telemetry-pulse": {
+      "module": "telemetry-pulse",
+      "fallback": "static",
+      "mobile": "reduced",
+      "license": "MIT"
+    }
+  },
+  "components": {
+    "theme-chooser": {
+      "module": "theme-chooser",
+      "fallback": "native-select"
+    },
+    "detail-dialog": {
+      "module": "detail-dialog",
+      "fallback": "inline"
+    },
+    "install-console": {
+      "module": "install-console",
+      "fallback": "pre"
+    }
+  },
+  "asset_variants": {
+    "static": {
+      "required": true,
+      "purpose": "Reduced-motion and low-power fallback"
+    },
+    "mobile": {
+      "required": false,
+      "purpose": "Small viewport crop or layout"
+    },
+    "neon": {
+      "required": false,
+      "purpose": "Cybercore accent treatment"
+    }
+  },
+  "provenance": {
+    "required_fields": [
+      "license",
+      "source",
+      "author"
+    ],
+    "allowed_protocols": [
+      "https"
+    ]
+  }
+}

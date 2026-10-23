@@ -2,6 +2,16 @@
 
 All notable changes to `cybercore` are documented in this file.
 
+## Unreleased
+
+### Added
+
+- Versioned Cybercore Web Kit source and generator for browser theme runtime,
+  shared effect recipes, motion profiles, component recipe metadata, asset
+  variants, and provenance requirements.
+- Static Web Kit output is generated for `kit/v1/`; Pages consumers can share
+  the runtime without copying `app.js` between repositories.
+
 ## [0.8.1] - 2026-10-18
 
 ### Changed

@@ -79,6 +79,13 @@ markdown, and modal viewers. See the
 [design-system guide](docs/design-system.md) for the load order and class
 contract.
 
+The browser distribution lives in `web/` and is generated into the Cybercore
+Tech Pages `kit/v1/` directory with `tools/build-web-kit.sh`. It preserves the
+legacy `window.SITE` theme contract while adding allowlisted motion profiles,
+effect recipes, component recipes, and asset/provenance metadata in
+`schema/webkit.json`. Static sites should consume the versioned Web Kit rather
+than copying `app.js`, tokens, or component styles into each repository.
+
 ## CYBERGRID theme engine — since v0.7.0
 
 The `cybercore::theme` module turns the embedded palette collection into a

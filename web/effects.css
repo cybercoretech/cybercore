@@ -1,0 +1,59 @@
+/*
+ * Cybercore Web Kit effect recipes.
+ * Effects are opt-in via data-cc-effect and always have a static fallback.
+ */
+
+[data-cc-effect="scanline"] {
+  --cc-scanline-intensity: 0.18;
+  position: relative;
+  isolation: isolate;
+}
+
+[data-cc-effect="scanline"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: var(--cc-scanline-intensity);
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0,
+    transparent 3px,
+    color-mix(in srgb, var(--cyan, #00e5ff) 18%, transparent) 4px,
+    transparent 5px
+  );
+}
+
+[data-cc-effect="grid-glow"] {
+  --cc-grid-opacity: 0.3;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--cyan, #00e5ff) 12%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--purple, #8a22e2) 12%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: center;
+  opacity: var(--cc-grid-opacity);
+}
+
+[data-cc-effect="telemetry-pulse"] {
+  --cc-pulse-color: var(--acid, #39ff33);
+  animation: cc-telemetry-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes cc-telemetry-pulse {
+  0%, 100% { box-shadow: 0 0 0 color-mix(in srgb, var(--cc-pulse-color) 0%, transparent); }
+  50% { box-shadow: 0 0 22px color-mix(in srgb, var(--cc-pulse-color) 28%, transparent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-cc-effect="telemetry-pulse"] { animation: none; }
+}
+
+html[data-cc-motion="reduced"] [data-cc-effect="telemetry-pulse"],
+html[data-cc-motion="none"] [data-cc-effect="telemetry-pulse"] {
+  animation: none;
+}
+
+html[data-cc-motion="none"] [data-cc-effect="scanline"]::after {
+  opacity: 0;
+}
