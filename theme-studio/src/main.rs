@@ -26,6 +26,7 @@ async fn main() {
         .route("/", get(index))
         .route("/api/control-plane/workspace", get(control_plane_workspace))
         .route("/api/control-plane/catalog", get(control_plane_catalog))
+        .route("/api/control-plane/sites", get(control_plane_sites))
         .route("/api/control-plane/validate", post(validate_control_plane))
         .route("/api/control-plane/publish", post(publish_control_plane))
         .route("/api/themes", get(list_themes).post(save_theme))
@@ -120,6 +121,51 @@ async fn control_plane_catalog() -> Response {
     .into_response()
 }
 
+async fn control_plane_sites() -> Response {
+    let path = workspace_path();
+    let workspace = match ControlPlaneWorkspace::load(&path) {
+        Ok(workspace) => workspace,
+        Err(error) => {
+            return Json(json!({
+                "loaded": false,
+                "path": path,
+                "sites": [],
+                "count": 0,
+                "error": error.to_string(),
+            }))
+            .into_response()
+        }
+    };
+    let sites: Vec<Value> = workspace
+        .sites
+        .iter()
+        .map(|site| {
+            let missing_resources: Vec<&str> = site
+                .resources
+                .iter()
+                .filter(|id| workspace.resource(id).is_none())
+                .map(String::as_str)
+                .collect();
+            json!({
+                "id": site.id,
+                "repository": site.repository,
+                "theme": site.theme,
+                "resources": site.resources,
+                "motion": site.motion,
+                "fallback": site.fallback,
+                "missing_resources": missing_resources,
+                "stale": !missing_resources.is_empty(),
+            })
+        })
+        .collect();
+    Json(json!({
+        "path": path,
+        "sites": sites,
+        "count": sites.len(),
+    }))
+    .into_response()
+}
+
 async fn validate_control_plane() -> Response {
     let catalog: Value = match serde_json::from_str(CONTROL_PLANE_CATALOG) {
         Ok(catalog) => catalog,
@@ -158,14 +204,16 @@ async fn validate_control_plane() -> Response {
         });
     let workspace = control_plane_workspace_snapshot();
     let workspace_loaded = workspace.0;
+    let workspace_valid = workspace.2;
     let checks = vec![
         json!({"id": "catalog-schema", "label": "Catalog resource fields", "passed": missing.is_empty()}),
         json!({"id": "provenance", "label": "License and source metadata", "passed": resources.iter().all(|resource| resource.get("license").is_some() && resource.get("source").is_some())}),
         json!({"id": "reduced-motion", "label": "Effects provide reduced-motion behavior", "passed": reduced_motion_safe}),
         json!({"id": "workspace", "label": "Workspace manifest available", "passed": workspace_loaded}),
+        json!({"id": "workspace-contract", "label": "Workspace contract is valid", "passed": workspace_valid}),
     ];
     Json(json!({
-        "valid": missing.is_empty() && reduced_motion_safe,
+        "valid": missing.is_empty() && reduced_motion_safe && workspace_valid,
         "resource_count": resources.len(),
         "checks": checks,
         "missing": missing,
@@ -232,21 +280,30 @@ fn default_publish_version() -> String {
     "v2".into()
 }
 
-fn control_plane_workspace_snapshot() -> (bool, Value) {
-    let path = std::env::var_os("CYBERCORE_WORKSPACE")
+fn workspace_path() -> std::path::PathBuf {
+    std::env::var_os("CYBERCORE_WORKSPACE")
         .map(std::path::PathBuf::from)
         .unwrap_or_else(|| {
             std::env::var_os("CYBERCORE_CONFIG_DIR")
                 .map(std::path::PathBuf::from)
                 .unwrap_or_else(|| dirs_fallback_config_dir().join("cybercore"))
                 .join("workspace.json")
-        });
+        })
+}
+
+fn control_plane_workspace_snapshot() -> (bool, Value, bool) {
+    let path = workspace_path();
     match ControlPlaneWorkspace::load(&path) {
         Ok(workspace) => (
             true,
             json!({"path": path, "name": workspace.name, "id": workspace.id}),
+            true,
         ),
-        Err(error) => (false, json!({"path": path, "error": error.to_string()})),
+        Err(error) => (
+            false,
+            json!({"path": path, "error": error.to_string()}),
+            false,
+        ),
     }
 }
 

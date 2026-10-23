@@ -346,7 +346,7 @@ Promise.all([refreshLibrary().then(()=>newTheme()),loadCuratedLibrary()]).catch(
   const validationResults = document.getElementById('validation-results');
   const publishOutput = document.getElementById('publish-output');
   const moduleResources = { creative: ['asset'], components: ['component'], effects: ['effect'], vault: ['snippet', 'asset'], sites: [], validation: [], publish: [] };
-  let catalog = [];
+  let catalog = [], siteProfiles = [];
   const labels = {
     creative: ['Creative Forge', 'DarkskyForge logo, glyph, font, and asset authoring will load here.'],
     components: ['Component Forge', 'Reusable Cybercore components will be previewed and governed here.'],
@@ -369,7 +369,7 @@ Promise.all([refreshLibrary().then(()=>newTheme()),loadCuratedLibrary()]).catch(
         ? catalog.filter(resource => moduleResources[view].includes(resource.kind))
         : [];
       moduleCount.textContent = resources.length ? `${resources.length} governed resources` : 'Workspace operation';
-      resourceGrid.replaceChildren(...resources.map(renderResource));
+      resourceGrid.replaceChildren(...(view === 'sites' ? siteProfiles.map(renderSite) : resources.map(renderResource)));
       validationResults.replaceChildren();
       publishOutput.hidden = true;
     }
@@ -406,6 +406,21 @@ Promise.all([refreshLibrary().then(()=>newTheme()),loadCuratedLibrary()]).catch(
     }
     return card;
   }
+  function renderSite(site) {
+    const card = document.createElement('article');
+    card.className = 'resource-card';
+    const heading = document.createElement('h3');
+    heading.textContent = site.id;
+    const details = document.createElement('p');
+    details.textContent = `${site.repository} · theme: ${site.theme || 'default'}`;
+    const contract = document.createElement('p');
+    contract.textContent = `motion: ${site.motion} · fallback: ${site.fallback}`;
+    const status = document.createElement('p');
+    status.className = site.stale ? 'fail' : 'pass';
+    status.textContent = site.stale ? `STALE · missing ${site.missing_resources.join(', ')}` : 'READY · all resources resolved';
+    card.append(heading, details, contract, status);
+    return card;
+  }
   nav.addEventListener('click', event => {
     const button = event.target.closest('[data-control-view]');
     if (button) show(button.dataset.controlView);
@@ -432,6 +447,10 @@ Promise.all([refreshLibrary().then(()=>newTheme()),loadCuratedLibrary()]).catch(
       row.replaceChildren(resourceTitle, resourceKind);
       return row;
     }));
+    return fetch('/api/control-plane/sites').then(response => response.ok ? response.json() : { sites: [] });
+  }).then(data => {
+    siteProfiles = data.sites || [];
+    moduleCount.textContent = `${siteProfiles.length} site profiles`;
   }).catch(() => { document.getElementById('workspace-status').textContent = 'Control Plane catalog unavailable'; });
   document.getElementById('validate-control-plane').addEventListener('click', async () => {
     const response = await fetch('/api/control-plane/validate', { method: 'POST' });
