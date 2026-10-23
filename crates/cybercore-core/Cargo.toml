@@ -10,7 +10,7 @@ homepage = "https://cybercoretech.github.io/cybercore/"
 readme = "README.md"
 
 [dependencies]
-cybercore = { version = "0.8.1", path = "../.." }
+cybercore = { version = "0.8.2", path = "../.." }
 
 [features]
 default = []
