@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">Cybercore Effects</title><desc id="desc">Governed visual effects with fallback and reduced-motion variants.</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#100812"/><stop offset=".55" stop-color="#29102d"/><stop offset="1" stop-color="#070812"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <rect width="1200" height="320" rx="18" fill="url(#bg)"/><g stroke="#ff147f" opacity=".2"><path d="M0 64h1200M0 128h1200M0 192h1200M0 256h1200"/><path d="M120 0v320M240 0v320M360 0v320M480 0v320M600 0v320M720 0v320M840 0v320M960 0v320M1080 0v320"/></g>
+  <g fill="none" stroke="#ff147f" stroke-width="3" filter="url(#glow)"><path d="M40 228h210l35-94 42 136 48-190 52 148h220l42-66 38 60 55-116 46 122h120l44-74 36 74h190"/></g>
+  <g font-family="monospace" letter-spacing="5"><text x="62" y="58" fill="#00e5ff" font-size="15">EFFECTS • FALLBACKS • REDUCED MOTION</text><text x="58" y="144" fill="#f0f0f2" font-size="68" font-weight="700" letter-spacing="-3">EFFECTS</text><text x="62" y="181" fill="#ff147f" font-size="18">GOVERNED MOTION RECIPES / 0.1</text></g>
+  <g transform="translate(1045 136)" fill="none" stroke="#39ff33" stroke-width="4"><circle r="52" opacity=".25"/><circle r="38" stroke-dasharray="8 12"/><path d="M-14 0h28M0-14v28"/></g>
+</svg>

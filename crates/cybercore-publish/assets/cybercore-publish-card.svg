@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">Cybercore Publish</title><desc id="desc">Dry-run-first plans for resource packs and Web Kit releases.</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#130d08"/><stop offset=".55" stop-color="#2a1c10"/><stop offset="1" stop-color="#080b12"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <rect width="1200" height="320" rx="18" fill="url(#bg)"/><g stroke="#ff9000" opacity=".2"><path d="M0 80h1200M0 160h1200M0 240h1200"/><path d="M160 0v320M320 0v320M480 0v320M640 0v320M800 0v320M960 0v320"/></g><path d="M680 228h125l36-50 44 30 48-92 48 112 65-58 110 58" fill="none" stroke="#ff9000" stroke-width="4" filter="url(#glow)"/>
+  <g font-family="monospace" letter-spacing="5"><text x="62" y="58" fill="#39ff33" font-size="15">PUBLISH • PLANS • PACKAGING • DRY RUN</text><text x="58" y="144" fill="#f0f0f2" font-size="68" font-weight="700" letter-spacing="-3">PUBLISH</text><text x="62" y="181" fill="#ff9000" font-size="18">SAFE RELEASE CONTRACTS / 0.1</text></g>
+  <g filter="url(#glow)" transform="translate(1040 110)" fill="none" stroke="#ff9000" stroke-width="4"><path d="M0-48v96M-48 0h96"/><path d="m-20 12 20 20 42-48"/></g>
+</svg>

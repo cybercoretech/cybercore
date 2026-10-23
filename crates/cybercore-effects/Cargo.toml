@@ -1,6 +1,6 @@
 [package]
 name = "cybercore-effects"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.85"
 description = "Governed Cybercore visual effect recipes and reduced-motion adapters"
@@ -10,5 +10,4 @@ homepage = "https://cybercoretech.github.io/cybercore/"
 readme = "README.md"
 
 [dependencies]
-cybercore-core = { version = "0.1.0", path = "../cybercore-core" }
-
+cybercore-core = { version = "0.1.1", path = "../cybercore-core" }

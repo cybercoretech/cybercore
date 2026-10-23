@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">Cybercore Core</title>
+  <desc id="desc">Schema, themes, validation, paths and pack contracts.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#080b18"/><stop offset=".55" stop-color="#17102e"/><stop offset="1" stop-color="#050811"/></linearGradient>
+    <linearGradient id="grid" x2="1"><stop stop-color="#00e5ff"/><stop offset=".5" stop-color="#ff147f"/><stop offset="1" stop-color="#39ff33"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="320" rx="18" fill="url(#bg)"/>
+  <g opacity=".25" stroke="url(#grid)"><path d="M0 248h1200M0 278h1200M120 200v120M240 200v120M360 200v120M480 200v120M600 200v120M720 200v120M840 200v120M960 200v120M1080 200v120"/></g>
+  <path d="M0 215 160 172l140 30 160-70 170 55 180-80 170 48 220-65v105H0Z" fill="#0b1325" stroke="#00e5ff" stroke-width="2"/>
+  <g font-family="monospace" letter-spacing="5"><text x="62" y="58" fill="#39ff33" font-size="15">SCHEMA • THEMES • VALIDATION • PATHS</text><text x="58" y="144" fill="#f0f0f2" font-size="68" font-weight="700" letter-spacing="-3">CYBERCORE</text><text x="62" y="181" fill="#00e5ff" font-size="18">CORE CONTRACT LAYER / 0.1</text></g>
+  <g filter="url(#glow)" transform="translate(1040 116)"><circle r="48" fill="#0b1325" stroke="#ff147f" stroke-width="4"/><path d="m0-32 28 16v32L0 32l-28-16v-32z" fill="none" stroke="#00e5ff" stroke-width="4"/><circle r="13" fill="#39ff33"/></g>
+</svg>

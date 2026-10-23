@@ -190,28 +190,28 @@ dependencies = [
 
 [[package]]
 name = "cybercore-components"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "cybercore-core",
 ]
 
 [[package]]
 name = "cybercore-core"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "cybercore",
 ]
 
 [[package]]
 name = "cybercore-effects"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "cybercore-core",
 ]
 
 [[package]]
 name = "cybercore-publish"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "cybercore-core",
  "serde",

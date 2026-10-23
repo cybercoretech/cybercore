@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">Cybercore Components</title><desc id="desc">Theme-driven shared component styles and contracts.</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#07131a"/><stop offset=".55" stop-color="#101d32"/><stop offset="1" stop-color="#080b16"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <rect width="1200" height="320" rx="18" fill="url(#bg)"/><g fill="none" stroke="#00e5ff" opacity=".22"><rect x="620" y="55" width="110" height="72" rx="8"/><rect x="752" y="55" width="110" height="72" rx="8"/><rect x="884" y="55" width="110" height="72" rx="8"/><rect x="620" y="145" width="374" height="30" rx="5"/><rect x="620" y="193" width="270" height="30" rx="5"/></g><path d="M0 260h1200" stroke="#39ff33" opacity=".35"/>
+  <g font-family="monospace" letter-spacing="5"><text x="62" y="58" fill="#39ff33" font-size="15">COMPONENTS • CSS • FOCUS • TOKENS</text><text x="58" y="144" fill="#f0f0f2" font-size="62" font-weight="700" letter-spacing="-3">COMPONENTS</text><text x="62" y="181" fill="#00e5ff" font-size="18">SHARED UI CONTRACTS / 0.1</text></g>
+  <g filter="url(#glow)" transform="translate(1050 210)"><rect x="-42" y="-32" width="84" height="64" rx="8" fill="#0a1723" stroke="#00e5ff" stroke-width="3"/><path d="M-22 0h44M-22-14h26" stroke="#39ff33" stroke-width="4"/></g>
+</svg>
