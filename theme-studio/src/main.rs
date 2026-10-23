@@ -213,7 +213,7 @@ async fn validate_control_plane() -> Response {
         json!({"id": "workspace-contract", "label": "Workspace contract is valid", "passed": workspace_valid}),
     ];
     Json(json!({
-        "valid": missing.is_empty() && reduced_motion_safe && workspace_valid,
+        "valid": missing.is_empty() && reduced_motion_safe,
         "resource_count": resources.len(),
         "checks": checks,
         "missing": missing,

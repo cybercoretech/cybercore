@@ -8,10 +8,21 @@
       "version": "1.0.0",
       "status": "approved",
       "language": "rust",
-      "tags": ["rust", "workspace", "validation"],
+      "tags": [
+        "rust",
+        "workspace",
+        "validation",
+        "cybercore"
+      ],
       "license": "MIT",
       "source": "Cybercore",
-      "content": "use cybercore::control_plane::ControlPlaneWorkspace;\n\nlet workspace = ControlPlaneWorkspace::load(\".cybercore/workspace.json\")?;\nworkspace.validate()?;\nprintln!(\"{} resources\", workspace.resources.len());"
+      "content": "use cybercore::control_plane::ControlPlaneWorkspace;\n\nlet workspace = ControlPlaneWorkspace::load(\".cybercore/workspace.json\")?;\nworkspace.validate()?;\nprintln!(\"{} resources\", workspace.resources.len());",
+      "description": "Cybercore pattern for load a control plane workspace.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "category": "workspace"
     },
     {
       "id": "snippet.rust-resource-validation",
@@ -20,10 +31,21 @@
       "version": "1.0.0",
       "status": "approved",
       "language": "rust",
-      "tags": ["rust", "provenance", "components"],
+      "tags": [
+        "rust",
+        "provenance",
+        "components",
+        "cybercore"
+      ],
       "license": "MIT",
       "source": "Cybercore",
-      "content": "use cybercore::control_plane::ResourceManifest;\n\nfn validate_resource(resource: &ResourceManifest) -> Result<(), Box<dyn std::error::Error>> {\n    resource.validate()?;\n    Ok(())\n}"
+      "content": "use cybercore::control_plane::ResourceManifest;\n\nfn validate_resource(resource: &ResourceManifest) -> Result<(), Box<dyn std::error::Error>> {\n    resource.validate()?;\n    Ok(())\n}",
+      "description": "Cybercore pattern for validate a governed resource.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "category": "validation"
     },
     {
       "id": "snippet.rust-theme-catalog",
@@ -32,10 +54,21 @@
       "version": "1.0.0",
       "status": "approved",
       "language": "rust",
-      "tags": ["rust", "themes", "runtime"],
+      "tags": [
+        "rust",
+        "themes",
+        "runtime",
+        "cybercore"
+      ],
       "license": "MIT",
       "source": "Cybercore",
-      "content": "use cybercore::theme::ThemeCatalog;\n\nlet catalog = ThemeCatalog::load()?;\nlet active = catalog.active_id();\nprintln!(\"active theme: {active}\");"
+      "content": "use cybercore::theme::ThemeCatalog;\n\nlet catalog = ThemeCatalog::load()?;\nlet active = catalog.active_id();\nprintln!(\"active theme: {active}\");",
+      "description": "Cybercore pattern for read the shared theme catalog.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "category": "themes"
     },
     {
       "id": "snippet.github-control-plane-check",
@@ -44,7 +77,11 @@
       "version": "1.0.0",
       "status": "approved",
       "language": "yaml",
-      "tags": ["github-actions", "validation", "ci"],
+      "tags": [
+        "github-actions",
+        "validation",
+        "ci"
+      ],
       "license": "MIT",
       "source": "Cybercore",
       "content": "- name: Validate Cybercore workspace\n  run: cargo run -p cybercore --example inspect_control_plane -- .cybercore/workspace.json"
@@ -56,7 +93,11 @@
       "version": "1.0.0",
       "status": "approved",
       "format": "svg",
-      "tags": ["svg", "logo", "brand"],
+      "tags": [
+        "svg",
+        "logo",
+        "brand"
+      ],
       "license": "MIT",
       "source": "Cybercore",
       "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" role=\"img\" aria-label=\"Cybercore mark\"><path d=\"M50 4 91 27v46L50 96 9 73V27Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"7\"/><path d=\"M42 50h35M42 50a10 10 0 1 1 0-20 10 10 0 0 1 0 20Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"7\" stroke-linecap=\"round\"/></svg>"
@@ -68,7 +109,11 @@
       "version": "1.0.0",
       "status": "review",
       "format": "css",
-      "tags": ["css", "device", "responsive"],
+      "tags": [
+        "css",
+        "device",
+        "responsive"
+      ],
       "license": "MIT",
       "source": "Cybercore",
       "content": ".cc-phone-shell { position: relative; aspect-ratio: 9 / 20; border: 1px solid var(--cc-accent); border-radius: 2rem; padding: .7rem; background: linear-gradient(145deg, #27303a, #090b11 40%, #202633); box-shadow: 0 2rem 5rem #000b, 0 0 2rem color-mix(in srgb, var(--cc-accent) 35%, transparent); }"
@@ -80,7 +125,11 @@
       "version": "1.0.0",
       "status": "draft",
       "recipe": "css",
-      "tags": ["motion", "texture", "web"],
+      "tags": [
+        "motion",
+        "texture",
+        "web"
+      ],
       "license": "MIT",
       "source": "Cybercore",
       "content": ".cc-noise-sweep { position: relative; isolation: isolate; overflow: hidden; }\n.cc-noise-sweep::after { content: \"\"; position: absolute; inset: -50%; z-index: -1; opacity: .08; pointer-events: none; background: repeating-radial-gradient(circle at 20% 30%, var(--cc-accent) 0 1px, transparent 1px 4px); animation: cc-noise-drift 1.8s steps(4) infinite; }\n@keyframes cc-noise-drift { 50% { transform: translate(4%, -3%) } }\n@media (prefers-reduced-motion: reduce) { .cc-noise-sweep::after { animation: none; } }"
@@ -92,7 +141,11 @@
       "version": "1.0.0",
       "status": "draft",
       "recipe": "css",
-      "tags": ["motion", "scanline", "web"],
+      "tags": [
+        "motion",
+        "scanline",
+        "web"
+      ],
       "license": "MIT",
       "source": "Cybercore",
       "content": ".cc-signal-scan { position: relative; overflow: hidden; }\n.cc-signal-scan::after { content: \"\"; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--cc-accent) 28%, transparent), transparent); transform: translateY(-100%); animation: cc-signal-scan 3.6s linear infinite; }\n@keyframes cc-signal-scan { to { transform: translateY(100%); } }\n@media (prefers-reduced-motion: reduce) { .cc-signal-scan::after { display: none; } }"
@@ -104,7 +157,11 @@
       "version": "1.0.0",
       "status": "approved",
       "recipe": "css",
-      "tags": ["frame", "component", "web"],
+      "tags": [
+        "frame",
+        "component",
+        "web"
+      ],
       "license": "MIT",
       "source": "Cybercore",
       "content": ".cc-corner-brackets { position: relative; }\n.cc-corner-brackets::before, .cc-corner-brackets::after { content: \"\"; position: absolute; inset: .5rem; pointer-events: none; border: 1px solid color-mix(in srgb, var(--cc-accent) 55%, transparent); clip-path: polygon(0 0, 18% 0, 18% 1px, 1px 1px, 1px 18%, 0 18%, 0 0, 100% 0, 100% 18%, calc(100% - 1px) 18%, calc(100% - 1px) 1px, 82% 1px, 82% 0); opacity: .7; }\n.cc-corner-brackets::after { transform: rotate(180deg); }"
@@ -115,9 +172,19 @@
       "title": "Cyber card",
       "version": "1.0.0",
       "status": "approved",
-      "contract": ["surface", "accent", "density", "motion", "focus"],
+      "contract": [
+        "surface",
+        "accent",
+        "density",
+        "motion",
+        "focus"
+      ],
       "fallback": "plain-card",
-      "tags": ["card", "surface", "web"],
+      "tags": [
+        "card",
+        "surface",
+        "web"
+      ],
       "license": "MIT",
       "source": "Cybercore"
     },
@@ -127,9 +194,19 @@
       "title": "Accessible detail dialog",
       "version": "1.0.0",
       "status": "approved",
-      "contract": ["dialog", "backdrop", "close", "keyboard", "reduced-motion"],
+      "contract": [
+        "dialog",
+        "backdrop",
+        "close",
+        "keyboard",
+        "reduced-motion"
+      ],
       "fallback": "inline-details",
-      "tags": ["dialog", "accessibility", "web"],
+      "tags": [
+        "dialog",
+        "accessibility",
+        "web"
+      ],
       "license": "MIT",
       "source": "Cybercore"
     },
@@ -139,9 +216,19 @@
       "title": "Verified install console",
       "version": "1.0.0",
       "status": "approved",
-      "contract": ["command", "copy", "checksum", "fallback", "provenance"],
+      "contract": [
+        "command",
+        "copy",
+        "checksum",
+        "fallback",
+        "provenance"
+      ],
       "fallback": "preformatted-command",
-      "tags": ["install", "security", "web"],
+      "tags": [
+        "install",
+        "security",
+        "web"
+      ],
       "license": "MIT",
       "source": "Cybercore"
     },
@@ -151,11 +238,2551 @@
       "title": "Realistic phone shell",
       "version": "1.0.0",
       "status": "review",
-      "contract": ["device-frame", "screen", "edge-light", "responsive", "reduced-motion"],
+      "contract": [
+        "device-frame",
+        "screen",
+        "edge-light",
+        "responsive",
+        "reduced-motion"
+      ],
       "fallback": "static-image",
-      "tags": ["device", "hero", "web"],
+      "tags": [
+        "device",
+        "hero",
+        "web"
+      ],
       "license": "MIT",
       "source": "Cybercore"
+    },
+    {
+      "id": "snippet.rust-001",
+      "kind": "snippet",
+      "title": "Load a workspace",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "workspace",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for load a workspace.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "ControlPlaneWorkspace::load(\".cybercore/workspace.json\")?",
+      "category": "workspace"
+    },
+    {
+      "id": "snippet.rust-002",
+      "kind": "snippet",
+      "title": "Create a local workspace",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "workspace",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for create a local workspace.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "ControlPlaneWorkspace::new(\"cybercore.local\", \"Cybercore Local Workspace\")",
+      "category": "workspace"
+    },
+    {
+      "id": "snippet.rust-003",
+      "kind": "snippet",
+      "title": "Validate a workspace",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "workspace",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for validate a workspace.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "workspace.validate()?",
+      "category": "workspace"
+    },
+    {
+      "id": "snippet.rust-004",
+      "kind": "snippet",
+      "title": "Find a resource",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "workspace",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for find a resource.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "workspace.resource(\"component.cyber-card\")",
+      "category": "workspace"
+    },
+    {
+      "id": "snippet.rust-005",
+      "kind": "snippet",
+      "title": "Save a workspace",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "workspace",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for save a workspace.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "workspace.save(\".cybercore/workspace.json\")?",
+      "category": "workspace"
+    },
+    {
+      "id": "snippet.rust-006",
+      "kind": "snippet",
+      "title": "Count approved resources",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "workspace",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for count approved resources.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "workspace.resources.iter().filter(|r| r.status == ResourceStatus::Approved).count()",
+      "category": "workspace"
+    },
+    {
+      "id": "snippet.rust-007",
+      "kind": "snippet",
+      "title": "List site profiles",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "workspace",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for list site profiles.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "for site in &workspace.sites { println!(\"{} -> {}\", site.id, site.repository); }",
+      "category": "workspace"
+    },
+    {
+      "id": "snippet.rust-008",
+      "kind": "snippet",
+      "title": "Read workspace settings",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "workspace",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for read workspace settings.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let platforms = &workspace.settings.default_platforms;",
+      "category": "workspace"
+    },
+    {
+      "id": "snippet.rust-009",
+      "kind": "snippet",
+      "title": "Reject an invalid path",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "workspace",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for reject an invalid path.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "assert!(workspace.resource(\"bad\").is_none());",
+      "category": "workspace"
+    },
+    {
+      "id": "snippet.rust-010",
+      "kind": "snippet",
+      "title": "Inspect a sample workspace",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "workspace",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for inspect a sample workspace.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "println!(\"{} has {} resources\", workspace.name, workspace.resources.len());",
+      "category": "workspace"
+    },
+    {
+      "id": "snippet.rust-011",
+      "kind": "snippet",
+      "title": "Validate every resource",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "resources",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for validate every resource.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "for resource in &workspace.resources { resource.validate()?; }",
+      "category": "resources"
+    },
+    {
+      "id": "snippet.rust-012",
+      "kind": "snippet",
+      "title": "Select resources for web",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "resources",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for select resources for web.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let web = workspace.resources.iter().filter(|r| r.platforms.iter().any(|p| p == \"web\"));",
+      "category": "resources"
+    },
+    {
+      "id": "snippet.rust-013",
+      "kind": "snippet",
+      "title": "Resolve resource dependencies",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "resources",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for resolve resource dependencies.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let dependencies = resource.dependencies.iter().filter_map(|id| workspace.resource(id));",
+      "category": "resources"
+    },
+    {
+      "id": "snippet.rust-014",
+      "kind": "snippet",
+      "title": "Find approved snippets",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "resources",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for find approved snippets.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let snippets = workspace.resources.iter().filter(|r| r.kind == ResourceKind::Snippet && r.status == ResourceStatus::Approved);",
+      "category": "resources"
+    },
+    {
+      "id": "snippet.rust-015",
+      "kind": "snippet",
+      "title": "Group resources by kind",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "resources",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for group resources by kind.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let by_kind = workspace.resources.iter().fold(HashMap::new(), |mut map, r| { map.entry(&r.kind).or_insert(Vec::new()).push(r); map });",
+      "category": "resources"
+    },
+    {
+      "id": "snippet.rust-016",
+      "kind": "snippet",
+      "title": "Check resource provenance",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "resources",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for check resource provenance.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "if resource.provenance.reviewed { println!(\"reviewed: {}\", resource.id); }",
+      "category": "resources"
+    },
+    {
+      "id": "snippet.rust-017",
+      "kind": "snippet",
+      "title": "Find stale references",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "resources",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for find stale references.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let stale = site.resources.iter().filter(|id| workspace.resource(id).is_none());",
+      "category": "resources"
+    },
+    {
+      "id": "snippet.rust-018",
+      "kind": "snippet",
+      "title": "Build a resource manifest",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "resources",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for build a resource manifest.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let manifest = ResourceManifest { id: \"snippet.cc-example\".into(), kind: ResourceKind::Snippet, version: \"1.0.0\".into(), status: ResourceStatus::Draft, title: \"Cybercore example\".into(), path: \"snippets/example.rs\".into(), license: \"MIT\".into(), provenance: provenance, tags: vec![\"rust\".into()], dependencies: vec![], platforms: vec![\"rust\".into()], preview: None, metadata: serde_json::Value::Null };",
+      "category": "resources"
+    },
+    {
+      "id": "snippet.rust-019",
+      "kind": "snippet",
+      "title": "Filter by platform",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "resources",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for filter by platform.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let android = workspace.resources.iter().filter(|r| r.platforms.contains(&\"android\".into()));",
+      "category": "resources"
+    },
+    {
+      "id": "snippet.rust-020",
+      "kind": "snippet",
+      "title": "Serialize a resource report",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "resources",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for serialize a resource report.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let report = serde_json::to_string_pretty(&workspace.resources)?;",
+      "category": "resources"
+    },
+    {
+      "id": "snippet.rust-021",
+      "kind": "snippet",
+      "title": "Load the theme catalog",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "themes",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for load the theme catalog.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let catalog = ThemeCatalog::load()?;",
+      "category": "themes"
+    },
+    {
+      "id": "snippet.rust-022",
+      "kind": "snippet",
+      "title": "Find a Cybercore theme",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "themes",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for find a cybercore theme.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let theme = catalog.get(\"cybercore\").ok_or(\"theme not found\")?;",
+      "category": "themes"
+    },
+    {
+      "id": "snippet.rust-023",
+      "kind": "snippet",
+      "title": "Validate a theme document",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "themes",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for validate a theme document.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "theme.validate()?;",
+      "category": "themes"
+    },
+    {
+      "id": "snippet.rust-024",
+      "kind": "snippet",
+      "title": "Render theme CSS",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "themes",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for render theme css.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let css = theme.to_css()?;",
+      "category": "themes"
+    },
+    {
+      "id": "snippet.rust-025",
+      "kind": "snippet",
+      "title": "Read the active theme",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "themes",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for read the active theme.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let active = catalog.active_id();",
+      "category": "themes"
+    },
+    {
+      "id": "snippet.rust-026",
+      "kind": "snippet",
+      "title": "Select a theme",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "themes",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for select a theme.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "catalog.set_active(\"cybercore\")?;",
+      "category": "themes"
+    },
+    {
+      "id": "snippet.rust-027",
+      "kind": "snippet",
+      "title": "Export a theme pack",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "themes",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for export a theme pack.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let pack = catalog.export_family(\"neosynth\")?;",
+      "category": "themes"
+    },
+    {
+      "id": "snippet.rust-028",
+      "kind": "snippet",
+      "title": "Validate theme contrast",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "themes",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for validate theme contrast.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let report = theme.quality_report()?;",
+      "category": "themes"
+    },
+    {
+      "id": "snippet.rust-029",
+      "kind": "snippet",
+      "title": "Create a theme draft",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "themes",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for create a theme draft.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let draft = ThemeDocument::default();",
+      "category": "themes"
+    },
+    {
+      "id": "snippet.rust-030",
+      "kind": "snippet",
+      "title": "Compare theme revisions",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "themes",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for compare theme revisions.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let changed = before.semantic_diff(&after);",
+      "category": "themes"
+    },
+    {
+      "id": "snippet.rust-031",
+      "kind": "snippet",
+      "title": "Run the workspace gate",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "validation",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for run the workspace gate.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let result = workspace.validate().map_err(|e| format!(\"workspace gate failed: {e}\"));",
+      "category": "validation"
+    },
+    {
+      "id": "snippet.rust-032",
+      "kind": "snippet",
+      "title": "Report a validation failure",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "validation",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for report a validation failure.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "return Err(ValidationError::Resource { id: resource.id.clone(), message: \"missing preview\".into() });",
+      "category": "validation"
+    },
+    {
+      "id": "snippet.rust-033",
+      "kind": "snippet",
+      "title": "Validate a relative path",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "validation",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for validate a relative path.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "if path.is_absolute() { return Err(Error::AbsolutePath(path)); }",
+      "category": "validation"
+    },
+    {
+      "id": "snippet.rust-034",
+      "kind": "snippet",
+      "title": "Check a required field",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "validation",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for check a required field.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "if value.trim().is_empty() { return Err(Error::MissingField(\"title\")); }",
+      "category": "validation"
+    },
+    {
+      "id": "snippet.rust-035",
+      "kind": "snippet",
+      "title": "Validate a semantic version",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "validation",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for validate a semantic version.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let version = semver::Version::parse(&resource.version)?;",
+      "category": "validation"
+    },
+    {
+      "id": "snippet.rust-036",
+      "kind": "snippet",
+      "title": "Check a license allowlist",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "validation",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for check a license allowlist.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "if !matches!(license, \"MIT\" | \"Apache-2.0\" | \"BSD-3-Clause\") { return Err(Error::UnsupportedLicense); }",
+      "category": "validation"
+    },
+    {
+      "id": "snippet.rust-037",
+      "kind": "snippet",
+      "title": "Validate reduced motion metadata",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "validation",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for validate reduced motion metadata.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "assert!(css.contains(\"prefers-reduced-motion\"));",
+      "category": "validation"
+    },
+    {
+      "id": "snippet.rust-038",
+      "kind": "snippet",
+      "title": "Collect validation checks",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "validation",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for collect validation checks.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let checks = [check_schema(), check_provenance(), check_paths()].into_iter().collect::<Result<Vec<_>, _>>()?;",
+      "category": "validation"
+    },
+    {
+      "id": "snippet.rust-039",
+      "kind": "snippet",
+      "title": "Emit a JSON validation report",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "validation",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for emit a json validation report.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "println!(\"{}\", serde_json::to_string_pretty(&checks)?);",
+      "category": "validation"
+    },
+    {
+      "id": "snippet.rust-040",
+      "kind": "snippet",
+      "title": "Fail CI on invalid resources",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "validation",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for fail ci on invalid resources.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "if !report.valid { std::process::exit(1); }",
+      "category": "validation"
+    },
+    {
+      "id": "snippet.rust-041",
+      "kind": "snippet",
+      "title": "Resolve an asset path",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "assets",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for resolve an asset path.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let asset = workspace_root.join(resource.path);",
+      "category": "assets"
+    },
+    {
+      "id": "snippet.rust-042",
+      "kind": "snippet",
+      "title": "Read an SVG asset",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "assets",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for read an svg asset.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let svg = std::fs::read_to_string(asset)?;",
+      "category": "assets"
+    },
+    {
+      "id": "snippet.rust-043",
+      "kind": "snippet",
+      "title": "Check an SVG viewBox",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "assets",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for check an svg viewbox.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "if !svg.contains(\"viewBox=\") { return Err(Error::InvalidAsset); }",
+      "category": "assets"
+    },
+    {
+      "id": "snippet.rust-044",
+      "kind": "snippet",
+      "title": "Hash an asset",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "assets",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for hash an asset.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let digest = sha2::Sha256::digest(std::fs::read(path)?);",
+      "category": "assets"
+    },
+    {
+      "id": "snippet.rust-045",
+      "kind": "snippet",
+      "title": "Copy an asset into a kit",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "assets",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for copy an asset into a kit.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "std::fs::copy(source, kit.join(\"assets/mark.svg\"))?;",
+      "category": "assets"
+    },
+    {
+      "id": "snippet.rust-046",
+      "kind": "snippet",
+      "title": "Create an asset directory",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "assets",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for create an asset directory.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "std::fs::create_dir_all(root.join(\"assets\"))?;",
+      "category": "assets"
+    },
+    {
+      "id": "snippet.rust-047",
+      "kind": "snippet",
+      "title": "List asset extensions",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "assets",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for list asset extensions.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let svg_assets = files.filter(|p| p.extension().is_some_and(|e| e == \"svg\"));",
+      "category": "assets"
+    },
+    {
+      "id": "snippet.rust-048",
+      "kind": "snippet",
+      "title": "Build a provenance record",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "assets",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for build a provenance record.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let provenance = json!({\"source\": \"Cybercore\", \"license\": \"MIT\", \"reviewed\": true});",
+      "category": "assets"
+    },
+    {
+      "id": "snippet.rust-049",
+      "kind": "snippet",
+      "title": "Reject an oversized asset",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "assets",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for reject an oversized asset.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "if bytes.len() > 2_000_000 { return Err(Error::AssetTooLarge); }",
+      "category": "assets"
+    },
+    {
+      "id": "snippet.rust-050",
+      "kind": "snippet",
+      "title": "Generate a stable asset key",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "assets",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for generate a stable asset key.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let key = format!(\"asset.{}.{}\", resource.id, resource.version);",
+      "category": "assets"
+    },
+    {
+      "id": "snippet.rust-051",
+      "kind": "snippet",
+      "title": "Start an Axum Control Plane route",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "api",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for start an axum control plane route.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "Router::new().route(\"/api/control-plane/catalog\", get(control_plane_catalog))",
+      "category": "api"
+    },
+    {
+      "id": "snippet.rust-052",
+      "kind": "snippet",
+      "title": "Return the catalog as JSON",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "api",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for return the catalog as json.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "Json(json!({\"resources\": resources})).into_response()",
+      "category": "api"
+    },
+    {
+      "id": "snippet.rust-053",
+      "kind": "snippet",
+      "title": "Require a loopback host",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "api",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for require a loopback host.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "if !is_local_host(host) { return (StatusCode::FORBIDDEN, \"local host required\").into_response(); }",
+      "category": "api"
+    },
+    {
+      "id": "snippet.rust-054",
+      "kind": "snippet",
+      "title": "Parse a publish request",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "api",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for parse a publish request.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let request: PublishRequest = serde_json::from_slice(&body)?;",
+      "category": "api"
+    },
+    {
+      "id": "snippet.rust-055",
+      "kind": "snippet",
+      "title": "Return a typed API error",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "api",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for return a typed api error.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "(StatusCode::BAD_REQUEST, Json(json!({\"error\": error.to_string()}))).into_response()",
+      "category": "api"
+    },
+    {
+      "id": "snippet.rust-056",
+      "kind": "snippet",
+      "title": "Add a health endpoint",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "api",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for add a health endpoint.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "async fn health() -> Json<Value> { Json(json!({\"service\":\"cybercore-control-plane\",\"status\":\"ok\"})) }",
+      "category": "api"
+    },
+    {
+      "id": "snippet.rust-057",
+      "kind": "snippet",
+      "title": "Use a query filter",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "api",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for use a query filter.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let filtered = resources.into_iter().filter(|r| query.matches(r));",
+      "category": "api"
+    },
+    {
+      "id": "snippet.rust-058",
+      "kind": "snippet",
+      "title": "Expose a dry-run plan",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "api",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for expose a dry-run plan.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "Json(json!({\"mode\":\"dry-run\",\"outputs\": outputs, \"ready\": true}))",
+      "category": "api"
+    },
+    {
+      "id": "snippet.rust-059",
+      "kind": "snippet",
+      "title": "Set a response header",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "api",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for set a response header.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "response.headers_mut().insert(\"x-cybercore-api\", HeaderValue::from_static(\"v1\"));",
+      "category": "api"
+    },
+    {
+      "id": "snippet.rust-060",
+      "kind": "snippet",
+      "title": "Handle a missing workspace",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "api",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for handle a missing workspace.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "Json(json!({\"loaded\": false, \"resources\": [], \"sites\": []}))",
+      "category": "api"
+    },
+    {
+      "id": "snippet.rust-061",
+      "kind": "snippet",
+      "title": "Spawn a catalog refresh",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "async",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for spawn a catalog refresh.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let task = tokio::spawn(async move { refresh_catalog().await });",
+      "category": "async"
+    },
+    {
+      "id": "snippet.rust-062",
+      "kind": "snippet",
+      "title": "Join parallel validators",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "async",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for join parallel validators.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let (schema, assets) = tokio::join!(validate_schema(), validate_assets());",
+      "category": "async"
+    },
+    {
+      "id": "snippet.rust-063",
+      "kind": "snippet",
+      "title": "Bound concurrent exports",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "async",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for bound concurrent exports.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "stream::iter(resources).map(export).buffer_unordered(4)",
+      "category": "async"
+    },
+    {
+      "id": "snippet.rust-064",
+      "kind": "snippet",
+      "title": "Cancel a publish job",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "async",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for cancel a publish job.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let token = CancellationToken::new(); token.cancelled().await;",
+      "category": "async"
+    },
+    {
+      "id": "snippet.rust-065",
+      "kind": "snippet",
+      "title": "Protect mutable state",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "async",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for protect mutable state.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let state = Arc::new(Mutex::new(ControlPlaneState::default()));",
+      "category": "async"
+    },
+    {
+      "id": "snippet.rust-066",
+      "kind": "snippet",
+      "title": "Use a timeout for validation",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "async",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for use a timeout for validation.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "tokio::time::timeout(Duration::from_secs(5), validate()).await??",
+      "category": "async"
+    },
+    {
+      "id": "snippet.rust-067",
+      "kind": "snippet",
+      "title": "Wait for shutdown",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "async",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for wait for shutdown.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "tokio::signal::ctrl_c().await?; shutdown.cancel();",
+      "category": "async"
+    },
+    {
+      "id": "snippet.rust-068",
+      "kind": "snippet",
+      "title": "Send a catalog event",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "async",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for send a catalog event.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "sender.send(CatalogEvent::Published { version }).await?;",
+      "category": "async"
+    },
+    {
+      "id": "snippet.rust-069",
+      "kind": "snippet",
+      "title": "Retry a registry read",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "async",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for retry a registry read.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "for delay in [50, 200, 800] { match read_registry().await { Ok(v) => break Ok(v), Err(e) => { last = e; sleep(delay).await; } } }",
+      "category": "async"
+    },
+    {
+      "id": "snippet.rust-070",
+      "kind": "snippet",
+      "title": "Run CPU work off-thread",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "async",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for run cpu work off-thread.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "tokio::task::spawn_blocking(move || hash_assets(paths)).await??",
+      "category": "async"
+    },
+    {
+      "id": "snippet.rust-071",
+      "kind": "snippet",
+      "title": "Define a Cybercore CLI",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "cli",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for define a cybercore cli.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "#[derive(clap::Parser)] struct Args { #[command(subcommand)] command: Command }",
+      "category": "cli"
+    },
+    {
+      "id": "snippet.rust-072",
+      "kind": "snippet",
+      "title": "Add validate subcommand",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "cli",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for add validate subcommand.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "#[derive(clap::Subcommand)] enum Command { Validate { manifest: PathBuf } }",
+      "category": "cli"
+    },
+    {
+      "id": "snippet.rust-073",
+      "kind": "snippet",
+      "title": "Add publish version flag",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "cli",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for add publish version flag.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "#[arg(long, default_value = \"v2\")] version: String",
+      "category": "cli"
+    },
+    {
+      "id": "snippet.rust-074",
+      "kind": "snippet",
+      "title": "Print a resource table",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "cli",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for print a resource table.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "println!(\"{:<32} {:<10} {}\", id, status, version);",
+      "category": "cli"
+    },
+    {
+      "id": "snippet.rust-075",
+      "kind": "snippet",
+      "title": "Read a manifest argument",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "cli",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for read a manifest argument.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let manifest = args.manifest.canonicalize()?;",
+      "category": "cli"
+    },
+    {
+      "id": "snippet.rust-076",
+      "kind": "snippet",
+      "title": "Use an exit status",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "cli",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for use an exit status.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "if report.valid { 0 } else { 1 }",
+      "category": "cli"
+    },
+    {
+      "id": "snippet.rust-077",
+      "kind": "snippet",
+      "title": "Show a dry-run banner",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "cli",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for show a dry-run banner.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "eprintln!(\"Cybercore publish plan (dry-run)\");",
+      "category": "cli"
+    },
+    {
+      "id": "snippet.rust-078",
+      "kind": "snippet",
+      "title": "Read a bind environment variable",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "cli",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for read a bind environment variable.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "std::env::var(\"CYBERCORE_THEME_STUDIO_BIND\").unwrap_or_else(|_| \"127.0.0.1:8761\".into())",
+      "category": "cli"
+    },
+    {
+      "id": "snippet.rust-079",
+      "kind": "snippet",
+      "title": "Load JSON from stdin",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "cli",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for load json from stdin.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "serde_json::from_reader(std::io::stdin())?",
+      "category": "cli"
+    },
+    {
+      "id": "snippet.rust-080",
+      "kind": "snippet",
+      "title": "Write a machine report",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "cli",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for write a machine report.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "serde_json::to_writer_pretty(std::io::stdout(), &report)?;",
+      "category": "cli"
+    },
+    {
+      "id": "snippet.rust-081",
+      "kind": "snippet",
+      "title": "Test workspace round trips",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "testing",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for test workspace round trips.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let raw = serde_json::to_string(&workspace)?; let decoded: ControlPlaneWorkspace = serde_json::from_str(&raw)?; assert_eq!(workspace, decoded);",
+      "category": "testing"
+    },
+    {
+      "id": "snippet.rust-082",
+      "kind": "snippet",
+      "title": "Test invalid resource paths",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "testing",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for test invalid resource paths.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "assert!(matches!(resource.validate(), Err(WorkspaceError::InvalidResourcePath(_))));",
+      "category": "testing"
+    },
+    {
+      "id": "snippet.rust-083",
+      "kind": "snippet",
+      "title": "Test a site profile",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "testing",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for test a site profile.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "assert!(!site.repository.is_empty());",
+      "category": "testing"
+    },
+    {
+      "id": "snippet.rust-084",
+      "kind": "snippet",
+      "title": "Test API JSON shape",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "testing",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for test api json shape.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "assert!(body.get(\"resources\").is_some());",
+      "category": "testing"
+    },
+    {
+      "id": "snippet.rust-085",
+      "kind": "snippet",
+      "title": "Test a validation gate",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "testing",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for test a validation gate.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "assert!(report.checks.iter().all(|check| check.passed));",
+      "category": "testing"
+    },
+    {
+      "id": "snippet.rust-086",
+      "kind": "snippet",
+      "title": "Test a theme family",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "testing",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for test a theme family.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "assert!(catalog.family(\"cyberdyne\").is_some());",
+      "category": "testing"
+    },
+    {
+      "id": "snippet.rust-087",
+      "kind": "snippet",
+      "title": "Test a publish plan",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "testing",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for test a publish plan.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "assert_eq!(plan.mode, PublishMode::DryRun);",
+      "category": "testing"
+    },
+    {
+      "id": "snippet.rust-088",
+      "kind": "snippet",
+      "title": "Use a Cybercore fixture",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "testing",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for use a cybercore fixture.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let fixture = include_str!(\"../examples/control-plane-workspace/.cybercore/workspace.json\");",
+      "category": "testing"
+    },
+    {
+      "id": "snippet.rust-089",
+      "kind": "snippet",
+      "title": "Test a missing dependency",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "testing",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for test a missing dependency.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "assert!(report.missing_resources.contains(&\"component.unknown\".into()));",
+      "category": "testing"
+    },
+    {
+      "id": "snippet.rust-090",
+      "kind": "snippet",
+      "title": "Test reduced motion support",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "testing",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for test reduced motion support.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "assert!(effect.css.contains(\"prefers-reduced-motion\"));",
+      "category": "testing"
+    },
+    {
+      "id": "snippet.rust-091",
+      "kind": "snippet",
+      "title": "Generate Web Kit metadata",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "platforms",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for generate web kit metadata.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let metadata = json!({\"version\": version, \"runtime\": \"cybercore-web-kit\"});",
+      "category": "platforms"
+    },
+    {
+      "id": "snippet.rust-092",
+      "kind": "snippet",
+      "title": "Select Rust targets",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "platforms",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for select rust targets.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let targets = [\"native\", \"wasm32-unknown-unknown\"];",
+      "category": "platforms"
+    },
+    {
+      "id": "snippet.rust-093",
+      "kind": "snippet",
+      "title": "Select Android resources",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "platforms",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for select android resources.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let android = resources.filter(|r| r.platforms.contains(&\"android\".into()));",
+      "category": "platforms"
+    },
+    {
+      "id": "snippet.rust-094",
+      "kind": "snippet",
+      "title": "Select terminal resources",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "platforms",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for select terminal resources.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let terminal = resources.filter(|r| r.platforms.contains(&\"terminal\".into()));",
+      "category": "platforms"
+    },
+    {
+      "id": "snippet.rust-095",
+      "kind": "snippet",
+      "title": "Build a platform manifest",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "platforms",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for build a platform manifest.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let manifest = PlatformManifest { name: \"web\", version: version.into() };",
+      "category": "platforms"
+    },
+    {
+      "id": "snippet.rust-096",
+      "kind": "snippet",
+      "title": "Reject unsupported platforms",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "platforms",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for reject unsupported platforms.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "if !SUPPORTED.contains(&platform.as_str()) { return Err(Error::UnsupportedPlatform); }",
+      "category": "platforms"
+    },
+    {
+      "id": "snippet.rust-097",
+      "kind": "snippet",
+      "title": "Add a consumer adapter",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "platforms",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for add a consumer adapter.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "trait CybercoreAdapter { fn apply(&self, resource: &ResourceManifest) -> Result<()>; }",
+      "category": "platforms"
+    },
+    {
+      "id": "snippet.rust-098",
+      "kind": "snippet",
+      "title": "Report adapter status",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "platforms",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for report adapter status.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "println!(\"adapter=android status=ready version={version}\");",
+      "category": "platforms"
+    },
+    {
+      "id": "snippet.rust-099",
+      "kind": "snippet",
+      "title": "Keep kit versions immutable",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "platforms",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for keep kit versions immutable.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let output = root.join(\"kit\").join(version); std::fs::create_dir_all(output)?;",
+      "category": "platforms"
+    },
+    {
+      "id": "snippet.rust-100",
+      "kind": "snippet",
+      "title": "Write consumer instructions",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "platforms",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for write consumer instructions.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "std::fs::write(output.join(\"CONSUMER.md\"), instructions)?;",
+      "category": "platforms"
+    },
+    {
+      "id": "snippet.rust-101",
+      "kind": "snippet",
+      "title": "Require reviewed provenance",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "provenance",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for require reviewed provenance.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "if !resource.provenance.reviewed { return Err(Error::Unreviewed(resource.id.clone())); }",
+      "category": "provenance"
+    },
+    {
+      "id": "snippet.rust-102",
+      "kind": "snippet",
+      "title": "Display resource author",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "provenance",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for display resource author.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "println!(\"{} by {}\", resource.id, resource.provenance.author);",
+      "category": "provenance"
+    },
+    {
+      "id": "snippet.rust-103",
+      "kind": "snippet",
+      "title": "Keep source and license",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "provenance",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for keep source and license.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let source = (&p.source, &p.license);",
+      "category": "provenance"
+    },
+    {
+      "id": "snippet.rust-104",
+      "kind": "snippet",
+      "title": "Attach provenance to a plan",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "provenance",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for attach provenance to a plan.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "plan.provenance.insert(resource.id.clone(), resource.provenance.clone());",
+      "category": "provenance"
+    },
+    {
+      "id": "snippet.rust-105",
+      "kind": "snippet",
+      "title": "Audit catalog origins",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "provenance",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for audit catalog origins.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "resources.iter().filter(|r| r.provenance.source == \"Cybercore\").count()",
+      "category": "provenance"
+    },
+    {
+      "id": "snippet.rust-106",
+      "kind": "snippet",
+      "title": "Reject unknown source",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "provenance",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for reject unknown source.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "if provenance.source == \"unknown\" { return Err(Error::MissingProvenance); }",
+      "category": "provenance"
+    },
+    {
+      "id": "snippet.rust-107",
+      "kind": "snippet",
+      "title": "Serialize provenance",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "provenance",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for serialize provenance.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "serde_json::to_value(&resource.provenance)?",
+      "category": "provenance"
+    },
+    {
+      "id": "snippet.rust-108",
+      "kind": "snippet",
+      "title": "Compare provenance changes",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "provenance",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for compare provenance changes.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "if before.provenance != after.provenance { audit.log(\"provenance changed\"); }",
+      "category": "provenance"
+    },
+    {
+      "id": "snippet.rust-109",
+      "kind": "snippet",
+      "title": "Mark a review timestamp",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "provenance",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for mark a review timestamp.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "let reviewed_at = chrono::Utc::now().to_rfc3339();",
+      "category": "provenance"
+    },
+    {
+      "id": "snippet.rust-110",
+      "kind": "snippet",
+      "title": "Create an audit event",
+      "version": "1.0.0",
+      "status": "approved",
+      "language": "rust",
+      "tags": [
+        "rust",
+        "cybercore",
+        "provenance",
+        "snippet-vault"
+      ],
+      "license": "MIT",
+      "source": "Cybercore Rust Snippet Vault",
+      "description": "Cybercore pattern for create an audit event.",
+      "platforms": [
+        "rust",
+        "control-plane"
+      ],
+      "content": "events.push(AuditEvent::Reviewed { id: resource.id.clone(), reviewer });",
+      "category": "provenance"
     }
   ]
 }
