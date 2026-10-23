@@ -8,7 +8,7 @@
   <a href="https://github.com/cybercoretech/cybercore/actions"><img src="https://img.shields.io/github/actions/workflow/status/cybercoretech/cybercore/release.yml?label=checks" alt="checks"></a>
 </p>
 
-# cybercore-core
+# ✨ cybercore-core
 
 The stable extraction surface for the Cybercore Systems Framework. It exposes
 the shared contracts that every Cybercore tool needs: themes, palettes, design
@@ -18,14 +18,14 @@ tokens, canonical paths, resource manifests, validation, and governed packs.
 crate. The first release re-exports the tested `cybercore` implementation while
 the modular Control Plane surface grows independently.
 
-## Install
+## 🚀 Install
 
 ```toml
 [dependencies]
 cybercore-core = "0.1"
 ```
 
-## What it provides
+## ✨ What it provides
 
 | Module | Use |
 | --- | --- |
@@ -48,7 +48,7 @@ let themes = ThemeCatalog::builtin()?;
 println!("{} built-in themes", themes.len());
 ```
 
-## Control Plane contract
+## 🧭 Control Plane contract
 
 The workspace model is metadata-first. Resources carry an ID, kind, version,
 status, path, license, provenance, tags, dependencies, and platform metadata.
@@ -63,7 +63,7 @@ if let Some(theme) = workspace.resource("theme.cyberpunk-neon") {
 }
 ```
 
-## Compatibility and guarantees
+## 🧩 Compatibility and guarantees
 
 - Rust 1.85+
 - MIT licensed
@@ -72,7 +72,7 @@ if let Some(theme) = workspace.resource("theme.cyberpunk-neon") {
 - Theme data remains schema-driven rather than duplicated in application code
 - Compatible with the legacy `cybercore` crate during the extraction phase
 
-## Links
+## ✨ Links
 
 - [Cybercore theme gallery and Control Plane](https://cybercoretech.github.io/cybercore/)
 - [API documentation](https://docs.rs/cybercore-core)

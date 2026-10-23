@@ -20,7 +20,7 @@ configuration schemas, the CYBERGRID color palette, and canonical
 filesystem paths shared across every downstream project — cyberdeck,
 cyberdock, cyberterm, cyberplug, omniscient, and whatever comes next.
 
-## The actual source of truth
+## 🛠️ The actual source of truth
 
 **`schema/cybergrid.json`** — not any Rust source file. This is
 deliberate: JSON is readable by every language in the framework, not
@@ -32,7 +32,7 @@ Everything else in this repo is a typed loader for that one file, not
 an owner of the data. **Edit the JSON. Never hand-edit palette values
 or paths anywhere else.**
 
-## Tool status (feature `status`) — since v0.6.0
+## ✨ Tool status (feature `status`) — since v0.6.0
 
 Every Cybercore tool can publish one JSON status snapshot for the TUI hub and
 the Omarchy HUD to read:
@@ -58,7 +58,7 @@ status::write(&snapshot)?; // atomic: readers never see partial JSON
 Files go to `$XDG_RUNTIME_DIR/cybercore/<tool>.json` (falling back to
 `~/.local/state/cybercore/status/`). The contract is `schema/status.json`.
 
-## Design tokens (fonts, sizing, spacing) — since v0.3.0
+## 🎨 Design tokens (fonts, sizing, spacing) — since v0.3.0
 
 Colours are `cybergrid.json`. **Everything else about the feel** — font
 families, a type scale, spacing, radii, motion, z-index — lives in
@@ -75,7 +75,7 @@ components`. Every Cybercore surface pulls the same `--font-mono`,
 `--fs-*`, `--space-*`, `--radius-*` so a new site or tool matches the
 rest without copy-paste.
 
-## Modular crates and resource packs
+## 📦 Modular crates and resource packs
 
 Cybercore is being extracted incrementally into focused crates while the
 original `cybercore` crate remains the compatibility source of truth:
@@ -99,7 +99,7 @@ dependencies in order: `cybercore-core`, `cybercore-effects` and
 configured crates.io credential and is never performed by a build or publish
 plan automatically.
 
-## Shared design-system components
+## 🎨 Shared design-system components
 
 The reusable components are served as `cybercore::components::CSS` and cover
 window chrome, theme pickers, tables, controls, empty states, rendered
@@ -114,7 +114,7 @@ effect recipes, component recipes, and asset/provenance metadata in
 `schema/webkit.json`. Static sites should consume the versioned Web Kit rather
 than copying `app.js`, tokens, or component styles into each repository.
 
-## CYBERGRID theme engine — since v0.7.0
+## 🎨 CYBERGRID theme engine — since v0.7.0
 
 The `cybercore::theme` module turns the embedded palette collection into a
 shared runtime catalog. It keeps the existing eleven color roles for current
@@ -164,7 +164,7 @@ carry version/license/compatibility metadata and palette previews. Consumer
 compatibility automation covers Hub, Cyberdesk, DaemonHall, Dockspace, and
 Cyberterm.
 
-## For Rust projects
+## ✨ For Rust projects
 
 Add as a dependency:
 
@@ -191,7 +191,7 @@ The JSON is embedded into your binary via `include_str!` at compile
 time — no runtime file dependency, and the exact schema version your
 binary was built against travels with it.
 
-## For C++/QML projects (cyberdock)
+## ✨ For C++/QML projects (cyberdock)
 
 Load `schema/cybergrid.json` directly:
 
@@ -213,7 +213,7 @@ color: "#" + cybergrid.palette.acid_green
 known filesystem path is left to cyberdock's own build — this repo
 just guarantees the JSON's shape and location.)
 
-## Schema
+## 📐 Schema
 
 ```json
 {
@@ -242,7 +242,7 @@ a `#` for CSS/QML, nothing for raw RGB parsing). Paths use `~/` for
 home-relative locations; `cybercore::paths` expands this for Rust
 consumers.
 
-## Versioning
+## ✨ Versioning
 
 `schema_version` bumps on any breaking change to the JSON's shape
 (renaming or removing a field). Adding a new field is non-breaking —
@@ -255,7 +255,7 @@ dependencies can pin to a known-good version rather than tracking
 The crate release workflow and required checks are documented in
 [docs/releasing.md](docs/releasing.md).
 
-## Layout
+## ✨ Layout
 
     schema/cybergrid.json   — the actual source of truth
     src/lib.rs               — module declarations
@@ -264,7 +264,7 @@ The crate release workflow and required checks are documented in
     src/palette.rs           — true-color ANSI helpers + raw hex accessor
     src/paths.rs              — canonical filesystem locations, ~-expanded
 
-## Adding to the schema
+## 📐 Adding to the schema
 
 1. Add the field to `schema/cybergrid.json`
 2. Add the matching field to the relevant struct in `src/schema.rs`
@@ -274,11 +274,11 @@ The crate release workflow and required checks are documented in
    next `cargo update` + rebuild. Non-Rust consumers see it the next
    time they read the JSON.
 
-## License
+## 🔐 License
 
 MIT
 
-### Browser and in-memory themes
+### 🎨 Browser and in-memory themes
 
 The default `fs` feature enables native theme persistence. Disable default features
 to use `ThemeCatalog::builtin()`, `insert_custom`, `set_active`,

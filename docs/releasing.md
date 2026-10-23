@@ -1,4 +1,4 @@
-# Releasing Cybercore
+# ✨ Releasing Cybercore
 
 The crate package is `cybercore`; the Theme Studio binary is a local workspace
 application and is intentionally not published as a crate.

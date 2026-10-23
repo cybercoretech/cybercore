@@ -1,11 +1,11 @@
-# Cybercore Web Kit
+# ✨ Cybercore Web Kit
 
 The Web Kit is the static browser distribution of Cybercore's shared theme
 engine, tokens, components, and effect recipes. Its source lives beside the
 Rust theme engine so browser sites and native applications share the same
 semantic contract.
 
-## Compatibility
+## 🧩 Compatibility
 
 The runtime keeps the existing `window.SITE` contract:
 
@@ -45,7 +45,7 @@ Every effect has a static fallback and honors
 `schema/webkit.json`; theme documents and site configuration never execute
 arbitrary CSS or JavaScript.
 
-## Distribution
+## ✨ Distribution
 
 `tools/build-web-kit.sh` copies the canonical runtime, tokens, components,
 effect styles, and Web Kit schema into the Cybercore Tech Pages `kit/`

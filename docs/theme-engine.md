@@ -1,11 +1,11 @@
-# CYBERGRID theme engine
+# 🎨 CYBERGRID theme engine
 
 `cybercore::theme` provides the runtime contract shared by Cybercore apps.
 The existing embedded palettes remain the built-in source of truth; the
 engine adds portable custom themes and persists a user's selected theme and
 appearance without requiring a rebuild.
 
-## Theme document format
+## 🎨 Theme document format
 
 Version 1 preserves all eleven established CYBERGRID color roles. The
 `palette` is the default/dark appearance. `variants.light` is optional; when
@@ -56,7 +56,7 @@ Old flat JSON palette files (without `format_version`, `metadata`, or
 the ID to assign to that imported palette. Theme Studio imports either shape
 and exports versioned documents.
 
-## Rust API
+## 📐 Rust API
 
 ```rust,no_run
 use cybercore::theme::{Appearance, ThemeCatalog, ThemeDocument};
@@ -100,7 +100,7 @@ cybercore-theme`. This installs the checker CLI; use `cybercore = "0.8"` as a
 Cargo dependency for the Rust library. From a checkout, run it with
 `cargo run --bin cybercore-theme -- ...`.
 
-## Shared storage and precedence
+## ✨ Shared storage and precedence
 
 Custom theme documents live in `themes/<id>.json`, and the active selection
 in `active-theme.json`. The config root is chosen in this order:
@@ -118,7 +118,7 @@ Built-in theme family names are embedded alongside the palette catalog, so
 consumers do not need access to the Cybercore source checkout to group themes.
 Custom themes may use the `family` field for organization in creator UIs.
 
-## Hub integration
+## ✨ Hub integration
 
 Cyberdeck Hub exposes `GET /api/cybergrid/themes`, `GET /api/cybergrid/events`,
 `POST /api/cybergrid/active/:id`,
@@ -127,7 +127,7 @@ Cyberdeck Hub exposes `GET /api/cybergrid/themes`, `GET /api/cybergrid/events`,
 standalone `cybercore-theme-studio` app for authoring. Studio owns the save,
 delete, and validation APIs, and writes to the same shared config catalog.
 
-## Cybercore Theme Studio
+## 🎨 Cybercore Theme Studio
 
 The workspace package `cybercore-theme-studio` runs a standalone creator at
 `http://127.0.0.1:8761/` by default:
@@ -171,7 +171,7 @@ theme library groups entries by family, and the family field can select an
 existing pack or define a new one. Pack import and export and curated
 collections are available in the library panel.
 
-### Portable theme packs
+### 📦 Portable theme packs
 
 A pack is a JSON document containing pack metadata and one to 256 complete
 theme documents. Metadata includes a pack version, author, license, homepage,
@@ -197,7 +197,7 @@ The curated library displays license, version, compatibility, and palette
 swatches before installation. Imported packs receive the same metadata and
 preview validation before conflict handling or writes.
 
-## Current integration scope
+## ✨ Current integration scope
 
 Theme Studio's curated library (`GET /api/library`) lists the reviewed
 embedded theme families. **Add collection to my library** copies a chosen

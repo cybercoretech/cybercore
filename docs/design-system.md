@@ -1,4 +1,4 @@
-# Cybercore design-system components
+# 🎨 Cybercore design-system components
 
 `cybercore::tokens::CSS` provides shared typography, spacing, radii, and
 motion. `cybercore::components::CSS` provides reusable component styles that

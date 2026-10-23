@@ -1,4 +1,4 @@
-# Cybercore theme engine for browsers
+# 🎨 Cybercore theme engine for browsers
 
 The core's default `fs` feature preserves native persistence. Browser consumers
 use `default-features = false` and the in-memory catalog API. The bindings do not

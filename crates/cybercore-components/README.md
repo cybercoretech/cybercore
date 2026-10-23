@@ -7,7 +7,7 @@
   <a href="https://docs.rs/cybercore-components"><img src="https://img.shields.io/docsrs/cybercore-components" alt="docs.rs"></a>
 </p>
 
-# cybercore-components
+# ✨ cybercore-components
 
 Shared, governed component styles for Cybercore web, WASM, and desktop
 consumers. The crate packages the reusable CSS contract for cards, badges,
@@ -17,14 +17,14 @@ theme-picker surface.
 Components remain theme-driven: consumers provide the CYBERGRID variables and
 the same components repaint without copying application-specific colors.
 
-## Install
+## 🚀 Install
 
 ```toml
 [dependencies]
 cybercore-components = "0.1"
 ```
 
-## Serve the component stylesheet
+## ✨ Serve the component stylesheet
 
 ```rust
 use cybercore_components::styles;
@@ -41,7 +41,7 @@ use cybercore_components::COMPONENT_CSS;
 let document = format!("<style>{COMPONENT_CSS}</style>");
 ```
 
-## Load order
+## ✨ Load order
 
 The component contract expects the following order:
 
@@ -54,7 +54,7 @@ The stylesheet reads semantic variables such as `--bg`, `--fg`, `--panel`,
 not own a palette, so a site can switch themes without changing component
 markup.
 
-## Design guarantees
+## 🎨 Design guarantees
 
 - Keyboard-safe focus states
 - Theme-driven colors and spacing
@@ -63,7 +63,7 @@ markup.
 - Rust 1.85+
 - MIT licensed
 
-## Links
+## ✨ Links
 
 - [Component source](https://github.com/cybercoretech/cybercore/tree/feat/wasm-theme-core/css)
 - [API documentation](https://docs.rs/cybercore-components)

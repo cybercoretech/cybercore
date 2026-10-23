@@ -1,4 +1,4 @@
-# Cybercore Theme Studio
+# 🎨 Cybercore Theme Studio
 
 Cybercore Theme Studio is the standalone visual creator for CYBERGRID themes.
 The built-in registry contains 254 themes across the curated families, and
@@ -8,7 +8,7 @@ It is a small local Rust web app that uses the `cybercore::theme::ThemeCatalog`
 directly, so themes it saves are immediately available to Cyberdeck Hub,
 Cyberdesk, and other apps using the same Cybercore user configuration.
 
-## Run locally
+## ✨ Run locally
 
 From the Cybercore repository root:
 
@@ -48,7 +48,7 @@ Themes and active selection use the same storage contract documented in the
 `$XDG_CONFIG_HOME/cybercore` or `~/.config/cybercore`, with
 `CYBERCORE_CONFIG_DIR` available for an explicit config root.
 
-## Dashboard telemetry connectors
+## ✨ Dashboard telemetry connectors
 
 The dashboard keeps local Cybercore telemetry available without credentials.
 Optional provider requests run server-side, are cached for five minutes, and

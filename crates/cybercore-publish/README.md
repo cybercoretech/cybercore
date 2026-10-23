@@ -7,20 +7,20 @@
   <a href="https://docs.rs/cybercore-publish"><img src="https://img.shields.io/docsrs/cybercore-publish" alt="docs.rs"></a>
 </p>
 
-# cybercore-publish
+# 🚢 cybercore-publish
 
 Dry-run-first publishing contracts for Cybercore resource packs and Web Kit
 consumers. This crate describes what should be released without silently
 deploying, merging, or mutating a consumer repository.
 
-## Install
+## 🚀 Install
 
 ```toml
 [dependencies]
 cybercore-publish = "0.1"
 ```
 
-## Create an explicit plan
+## ✨ Create an explicit plan
 
 ```rust
 use cybercore_publish::PublishPlan;
@@ -48,7 +48,7 @@ The generated contract is serializable and intentionally small:
 }
 ```
 
-## Publishing principles
+## 🚢 Publishing principles
 
 - Plan generation is not deployment
 - Consumer repositories are never changed implicitly
@@ -59,7 +59,7 @@ The generated contract is serializable and intentionally small:
 Use this crate alongside `cybercore-core` for resource discovery and
 `cybercore-components` / `cybercore-effects` for the assets being packaged.
 
-## Guarantees
+## ✨ Guarantees
 
 - Rust 1.85+
 - MIT licensed
@@ -67,7 +67,7 @@ Use this crate alongside `cybercore-core` for resource discovery and
 - No network access or credentials required to generate a plan
 - Safe to use in CI as a review gate before deployment
 
-## Links
+## ✨ Links
 
 - [Publishing guide](https://github.com/cybercoretech/cybercore/blob/feat/wasm-theme-core/docs/releasing.md)
 - [API documentation](https://docs.rs/cybercore-publish)

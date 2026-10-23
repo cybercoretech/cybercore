@@ -1,10 +1,10 @@
-# Changelog
+# ✨ Changelog
 
 All notable changes to `cybercore` are documented in this file.
 
-## Unreleased
+## 🚢 Unreleased
 
-### Added
+### 🔹 Added
 
 - Versioned Cybercore Web Kit source and generator for browser theme runtime,
   shared effect recipes, motion profiles, component recipe metadata, asset
@@ -12,23 +12,23 @@ All notable changes to `cybercore` are documented in this file.
 - Static Web Kit output is generated for `kit/v1/`; Pages consumers can share
   the runtime without copying `app.js` between repositories.
 
-### Changed
+### 🔹 Changed
 
 - Reworked the semantic palettes for 19 visually overlapping themes without
   removing any theme IDs or families. The revised schemes distinguish their
   names and intended moods, and the catalog now has no pairs within the strict
   palette-similarity threshold used by the cleanup check.
 
-## [0.8.1] - 2026-10-18
+## ✨ [0.8.1] - 2026-10-18
 
-### Changed
+### 🔹 Changed
 
 - Refresh crates.io repository and homepage metadata for the `cybercoretech`
   organization; no API or runtime changes.
 
-## [0.8.0] - 2026-10-05
+## ✨ [0.8.0] - 2026-10-05
 
-### Added
+### 🔹 Added
 
 - `cybercore-theme check` reports text, accent, border, and focus contrast for
   dark and light appearance; `--strict` requires every check to pass and an
@@ -43,9 +43,9 @@ All notable changes to `cybercore` are documented in this file.
 - Web consumers receive shared-catalog change events; Cyberterm refreshes only
   when the catalog revision changes.
 
-## [0.7.0] - 2026-10-04
+## ✨ [0.7.0] - 2026-10-04
 
-### Added
+### 🔹 Added
 
 - `cybercore::theme`: versioned portable theme documents, validation,
   dark/light palette variants, allowlisted design tokens, contrast reports,
@@ -63,9 +63,9 @@ All notable changes to `cybercore` are documented in this file.
   component CSS contract. CI checks the declared Rust 1.85 minimum alongside
   stable.
 
-## [0.6.0] - 2026-10-04
+## ✨ [0.6.0] - 2026-10-04
 
-### Added
+### 🔹 Added
 
 - CI now checks, lints, and tests every workspace package so Theme Studio is
   included in the standard Actions workflow.
@@ -83,28 +83,28 @@ All notable changes to `cybercore` are documented in this file.
   - Off by default, so cybercore without `status` still depends only on serde.
 - `publish_status` example (`--features status`).
 
-### Added
+### 🔹 Added
 
 - `components` module and `css/cybercomponents.css`: shared cards, status
   badges, data tables, form inputs, popup viewers and the theme-picker
   dropdown, coloured entirely from the active CYBERGRID theme.
 - Brand assets (logos, header art, favicon, social card) under `assets/`.
 
-### Fixed
+### 🔹 Fixed
 
 - Removed a global `main {}` rule from the component CSS that broke the
   layout of every cyberdesk page.
 
-### Changed
+### 🔹 Changed
 
 - Minimum supported Rust version is now **1.85**. 0.4.x declared 1.70, but
   its dependencies (serde, syn) no longer build on Rust 1.70, so the old value
   was not achievable.
 - README: depend on `cybercore = "0.5"` from crates.io instead of a git tag.
 
-## [0.4.1] - 2026-10-02
+## ✨ [0.4.1] - 2026-10-02
 
-### Changed
+### 🔹 Changed
 
 - Metadata patch: repository and homepage links point to
   `github.com/cybercoretech/cybercore`. No code changes from 0.4.0.

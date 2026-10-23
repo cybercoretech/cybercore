@@ -1,4 +1,4 @@
-# Cybercore Resource Packs
+# 📦 Cybercore Resource Packs
 
 Resource packs are immutable, reviewable collections consumed by the Cybercore
 Control Plane. Each pack directory contains a `manifest.json`; paths,

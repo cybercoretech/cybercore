@@ -1,4 +1,4 @@
-# Control Plane sample workspace
+# 🧭 Control Plane sample workspace
 
 This sample demonstrates the shared `.cybercore/workspace.json` contract used
 by Theme Studio, DarkskyForge, and future Control Plane workspaces.

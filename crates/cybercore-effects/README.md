@@ -7,20 +7,20 @@
   <a href="https://docs.rs/cybercore-effects"><img src="https://img.shields.io/docsrs/cybercore-effects" alt="docs.rs"></a>
 </p>
 
-# cybercore-effects
+# ✨ cybercore-effects
 
 Governed visual effect recipes for Cybercore web, WASM, and desktop surfaces.
 Effects are shipped with an explicit normal variant, a safe fallback, and a
 reduced-motion path so motion never becomes an accessibility afterthought.
 
-## Install
+## 🚀 Install
 
 ```toml
 [dependencies]
 cybercore-effects = "0.1"
 ```
 
-## HUD scanline effect
+## ✨ HUD scanline effect
 
 The first extracted effect is the reviewed HUD scanline pack:
 
@@ -46,7 +46,7 @@ use cybercore_effects::{
 };
 ```
 
-## Effect contract
+## 📐 Effect contract
 
 Every governed effect is expected to provide:
 
@@ -59,7 +59,7 @@ Every governed effect is expected to provide:
 The CSS is theme-driven and uses the shared CYBERGRID variables rather than
 hard-coded application colors.
 
-## Guarantees
+## ✨ Guarantees
 
 - Rust 1.85+
 - MIT licensed
@@ -67,7 +67,7 @@ hard-coded application colors.
 - Reduced-motion behavior is explicit and testable
 - Safe to embed in Web, WASM, and native resource pipelines
 
-## Links
+## ✨ Links
 
 - [Effect pack source](https://github.com/cybercoretech/cybercore/tree/feat/wasm-theme-core/packs/cybercore-effects)
 - [API documentation](https://docs.rs/cybercore-effects)
