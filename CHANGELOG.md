@@ -12,6 +12,13 @@ All notable changes to `cybercore` are documented in this file.
 - Static Web Kit output is generated for `kit/v1/`; Pages consumers can share
   the runtime without copying `app.js` between repositories.
 
+### Changed
+
+- Reworked the semantic palettes for 19 visually overlapping themes without
+  removing any theme IDs or families. The revised schemes distinguish their
+  names and intended moods, and the catalog now has no pairs within the strict
+  palette-similarity threshold used by the cleanup check.
+
 ## [0.8.1] - 2026-10-18
 
 ### Changed
