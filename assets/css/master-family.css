@@ -108,6 +108,7 @@ nav a, .text-link, .master-action, .button, .eyebrow, .hero-facts, .card-top,
 }
 
 .hero {
+  grid-template-columns: 1fr;
   min-height: calc(100svh - 4rem);
   padding-block: 4rem 2rem;
 }
@@ -143,6 +144,12 @@ nav a, .text-link, .master-action, .button, .eyebrow, .hero-facts, .card-top,
 
 .hero-copy {
   max-width: none;
+}
+
+.hero-grid {
+  width: min(calc(100% - 2.5rem), var(--wrap));
+  margin-inline: auto;
+  justify-self: center;
 }
 
 .hero-actions {
