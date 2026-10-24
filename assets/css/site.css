@@ -338,6 +338,30 @@ pre .copy { position: absolute; top: .7rem; right: .7rem; display: flex; align-i
 pre .copy svg { width: .8rem; height: .8rem; }
 pre .copy:hover { color: var(--cyan); border-color: var(--cyan); }
 
+/* The master site shares CYBERGRID tokens with the Control Plane but uses a
+   warmer orange/acid framework accent and a denser documentation surface. */
+html[data-site="master"] .site-header { border-bottom-color: color-mix(in srgb, var(--orange) 38%, var(--line)); }
+html[data-site="master"] .site-header::after { background: linear-gradient(90deg, var(--orange), var(--acid), transparent); }
+html[data-site="master"] .hero { background: radial-gradient(circle at 78% 35%, color-mix(in srgb, var(--orange) 10%, transparent), transparent 35%); }
+html[data-site="master"] .master-ecosystem { border-block: 1px solid color-mix(in srgb, var(--orange) 32%, var(--line)); }
+.master-stack { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.5rem; }
+.master-stack-card { display:flex; flex-direction:column; gap:.8rem; min-height:280px; padding:1.35rem; border:1px solid var(--line); border-top:2px solid var(--orange); background:color-mix(in srgb, var(--panel) 88%, transparent); }
+.master-stack-card:nth-child(2) { border-top-color:var(--acid); }
+.master-stack-card:nth-child(3) { border-top-color:var(--cyan); }
+.master-stack-index { color:var(--orange); font:700 .58rem var(--mono); letter-spacing:.13em; }
+.master-stack-card:nth-child(2) .master-stack-index { color:var(--acid); }
+.master-stack-card:nth-child(3) .master-stack-index { color:var(--cyan); }
+.master-stack-card h3 { margin:0; font:700 1.15rem var(--display); }
+.master-stack-card p { margin:0; color:var(--muted); font-size:.82rem; line-height:1.6; }
+.master-links { display:grid; gap:.45rem; margin-top:auto; }
+.master-links a,.master-action { color:var(--orange); font:700 .62rem var(--mono); letter-spacing:.05em; text-decoration:none; }
+.master-links a:hover,.master-action:hover { color:var(--acid); }
+.master-command { display:flex; align-items:center; gap:.6rem; margin-top:auto; padding:.65rem; border:1px solid var(--line); background:var(--bg); }
+.master-command code { min-width:0; flex:1; overflow-wrap:anywhere; color:var(--acid); font:.64rem var(--mono); }
+.master-command button { flex:none; padding:.4rem .55rem; color:var(--bg); background:var(--orange); border:1px solid var(--orange); font:800 .56rem var(--mono); letter-spacing:.08em; cursor:pointer; }
+.master-command button:hover,.master-command button:focus-visible { background:var(--acid); border-color:var(--acid); outline:none; }
+@media (max-width:900px) { .master-stack { grid-template-columns:1fr; } }
+
 /* ═════════ 01 contract ═════════ */
 .contract { display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.5rem; align-items: start; }
 .slots { display: grid; grid-template-columns: repeat(6, 1fr); gap: .6rem; }

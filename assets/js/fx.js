@@ -314,6 +314,24 @@
     });
     pre.append(b);
   });
+  $$('[data-copy-command]').forEach(button => button.addEventListener('click', async () => {
+    const command = button.dataset.copyCommand;
+    try {
+      await navigator.clipboard.writeText(command);
+    } catch {
+      const input = document.createElement('textarea');
+      input.value = command;
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
+      document.body.append(input);
+      input.select();
+      document.execCommand('copy');
+      input.remove();
+    }
+    button.textContent = 'COPIED';
+    window.CC?.toast('COPIED TO CLIPBOARD');
+    window.setTimeout(() => { button.textContent = 'COPY'; }, 1400);
+  }));
 
   /* ---------- terminal type-on ---------- */
   $$('[data-type] code').forEach(code => {
