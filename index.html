@@ -11,8 +11,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="assets/css/master.css">
+  <script src="assets/js/fx.js" defer></script>
 </head>
 <body>
+  <div class="boot" id="boot"><div class="boot-inner"><img class="boot-mark" src="assets/img/mark.svg" alt=""><ul class="boot-log" id="bootLog"></ul><div class="boot-bar"><i id="bootBar"></i></div></div></div>
   <header class="topbar">
     <a class="wordmark" href="#top"><img class="brand-mark" src="assets/img/mark.svg" alt=""><span>CYBERCORE<small>THEME SYSTEM / FRAMEWORK</small></span></a>
     <nav aria-label="Primary"><a href="#why">WHY</a><a href="#crates">CRATES</a><a href="#packs">PACKS</a><a href="#usage">USAGE</a><a class="nav-control" href="https://cybercoretech.github.io/cybercore-control-plane/">CONTROL PLANE ↗</a></nav>
@@ -20,6 +22,7 @@
 
   <main id="top">
     <section class="hero shell">
+      <canvas class="hero-canvas" id="synth" aria-hidden="true"></canvas><div class="hero-vignette" aria-hidden="true"></div>
       <div class="hero-copy">
         <p class="eyebrow"><i></i> CYBERCORE SYSTEMS FRAMEWORK / v0.8.1</p>
         <h1>The shared core<br><em>under the grid.</em></h1>
