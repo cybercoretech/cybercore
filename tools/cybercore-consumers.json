@@ -1,0 +1,112 @@
+{
+  "consumers": [
+    {
+      "name": "cyberdesk",
+      "source": "../../core/cyberdesk",
+      "package": "cyberdesk",
+      "binary": "cyberdesk",
+      "install": "~/.local/bin/cyberdesk",
+      "service": "cyberdesk.service",
+      "allowed_dirty": ["Cargo.lock"]
+    },
+    {
+      "name": "cyberdeck-hub",
+      "source": "../../core/cyberdeck-hub",
+      "package": "cyberdeck_core",
+      "binary": "cyberdeck_core",
+      "install": "~/.cargo-target/release/cyberdeck_core",
+      "allowed_dirty": [
+        "Cargo.lock",
+        "src/cybergrid.rs",
+        "src/views.rs",
+        "tools/sync-cybercore-themes.py"
+      ]
+    },
+    {
+      "name": "cyberdeck-hub-cli",
+      "source": "../../core/cyberdeck-hub",
+      "package": "cyberdeck_core",
+      "binary": "cyberdeck_core",
+      "install": "~/.local/bin/cyberdeck_core",
+      "allowed_dirty": [
+        "Cargo.lock",
+        "src/cybergrid.rs",
+        "src/views.rs",
+        "tools/sync-cybercore-themes.py"
+      ]
+    },
+    {
+      "name": "cyberterm",
+      "source": "../../core/cyberterm",
+      "package": "cyberterm",
+      "binary": "cyberterm",
+      "install": "~/.local/bin/cyberterm"
+    },
+    {
+      "name": "cyberplug",
+      "source": "../../integrations/cyberplug",
+      "package": "cyberplug",
+      "binary": "cyberplug",
+      "install": "~/.local/bin/cyberplug"
+    },
+    {
+      "name": "omniscient",
+      "source": "../../core/omniscient",
+      "package": "omniscient",
+      "binary": "omniscient",
+      "install": "~/.local/bin/omniscient",
+      "features": ["cybercore/status"],
+      "allowed_dirty": ["Cargo.lock"]
+    },
+    {
+      "name": "cybermeta",
+      "source": "/home/raven/cybermeta",
+      "package": "cybermeta",
+      "binary": "cybermeta",
+      "install": "~/.local/bin/cybermeta",
+      "allowed_dirty": ["Cargo.toml", "Cargo.lock"]
+    },
+    {
+      "name": "cybervault",
+      "source": "/home/raven/.cargo/git/checkouts/cybervault-816c0e4730cf77d6/17196d0",
+      "package": "cybervault",
+      "binary": "cybervault",
+      "install": "~/.local/bin/cybervault",
+      "allowed_dirty": ["Cargo.toml", "Cargo.lock", ".cargo-ok"]
+    },
+    {
+      "name": "theme-studio",
+      "source": "theme-studio",
+      "package": "cybercore-theme-studio",
+      "binary": "cybercore-theme-studio",
+      "install": "~/.cargo-target/release/cybercore-theme-studio",
+      "service": "cybercore-theme-studio.service",
+      "allowed_dirty": ["../Cargo.lock"]
+    }
+  ],
+  "syncs": [
+    {
+      "name": "cyberdeck-hub-themes",
+      "source": "../../core/cyberdeck-hub",
+      "command": ["python", "tools/sync-cybercore-themes.py"],
+      "allowed_dirty": [
+        "Cargo.lock",
+        "src/cybergrid.rs",
+        "src/views.rs",
+        "tools/sync-cybercore-themes.py"
+      ]
+    },
+    {
+      "name": "dwcode-favicons-themes",
+      "source": "../../tooling/dwcode-favicons",
+      "command": ["python", "tools/sync-cybercore-themes.py"],
+      "allowed_dirty": ["src/data/themes.json"]
+    },
+    {
+      "name": "dwcode-themes",
+      "source": "../../tooling/dwcode",
+      "command": ["python", "tools/sync-cybercore-themes.py"],
+      "allowed_dirty": ["src/data/themes.json"]
+    }
+  ]
+}
