@@ -44,7 +44,8 @@ fn run(
 ) -> Result<(), Box<dyn std::error::Error>> {
     let mut selected = vec![true; tasks.len()];
     let mut cursor: usize = 0;
-    let mut logs = vec!["Space toggle  A all  N none  Enter apply  Q quit".to_string()];
+    let mut logs = vec!["Space toggle  A all  N none  I inspect  R repair  Enter apply  Q quit".to_string()];
+    append_inspection(engine, &mut logs);
     loop {
         terminal.draw(|frame| {
             let areas = Layout::default()
@@ -103,12 +104,48 @@ fn run(
                         }
                     });
                 }
+                KeyCode::Char('i') => {
+                    append_inspection(engine, &mut logs);
+                }
+                KeyCode::Char('r') => {
+                    let names = tasks
+                        .iter()
+                        .enumerate()
+                        .filter(|(index, _)| selected[*index])
+                        .map(|(_, task)| task.name.clone())
+                        .collect::<Vec<_>>();
+                    logs.push("Repairing selected tasks…".into());
+                    engine.repair(&names, |event: Event| {
+                        logs.push(format_event(event));
+                        if logs.len() > 7 {
+                            logs.remove(0);
+                        }
+                    });
+                }
                 _ => {}
             },
             _ => {}
         }
     }
     Ok(())
+}
+
+fn append_inspection(engine: &Engine, logs: &mut Vec<String>) {
+    for item in engine.inspect() {
+        let message = if item.diagnostics.is_empty() {
+            format!("INSPECT {:<22} ready", item.name)
+        } else {
+            format!(
+                "INSPECT {:<22} {}",
+                item.name,
+                item.diagnostics.join("; ")
+            )
+        };
+        logs.push(message);
+    }
+    while logs.len() > 7 {
+        logs.remove(0);
+    }
 }
 
 fn format_event(event: Event) -> String {

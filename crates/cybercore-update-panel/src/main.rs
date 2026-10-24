@@ -28,6 +28,8 @@ struct FleetView {
     source_exists: bool,
     worktree_clean: bool,
     service: Option<String>,
+    installed_binary: Option<String>,
+    diagnostics: Vec<String>,
 }
 
 #[derive(Deserialize)]
@@ -63,6 +65,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/api/tasks", get(tasks))
         .route("/api/fleet", get(fleet))
         .route("/api/apply", post(apply))
+        .route("/api/repair", post(repair))
         .with_state(state);
     let listener = tokio::net::TcpListener::bind(bind).await?;
     println!("Cybercore Update Control Panel: http://{bind}");
@@ -100,14 +103,18 @@ h1{font-size:clamp(2rem,5vw,var(--fs-7));letter-spacing:.12em;margin:.2rem 0;tex
     page.push_str(
         r#"</head><body><main class="shell">
 <header class="hero"><div><div class="eyebrow">CYBERCORE // OPERATIONS</div><h1>UPDATE CONTROL</h1><p class="lede">One governed surface for the local fleet, shared themes, services, and release propagation.</p></div><div class="signal">● LOCAL CONTROL ACTIVE</div></header>
-<div class="grid"><section class="panel"><div class="panel-head"><span class="panel-title">Fleet tasks</span><span id="count" class="badge">SCANNING</span></div><div id="tasks" class="task-grid">Loading fleet…</div><div class="actions"><button onclick="applySelected()">APPLY SELECTED</button><button class="secondary" onclick="selectAll()">SELECT ALL</button><button class="secondary" onclick="selectNone()">CLEAR</button></div></section>
+<div class="grid"><section class="panel"><div class="panel-head"><span class="panel-title">Fleet tasks</span><span id="count" class="badge">SCANNING</span></div><div id="tasks" class="task-grid">Loading fleet…</div><div class="actions"><button onclick="applySelected()">APPLY SELECTED</button><button class="secondary" onclick="repairSelected()">REPAIR SELECTED</button><button class="secondary" onclick="selectAll()">SELECT ALL</button><button class="secondary" onclick="selectNone()">CLEAR</button></div></section>
 <aside class="panel"><div class="panel-head"><span class="panel-title">Control status</span></div><div class="metric"><span>Execution mode</span><b>LOCAL</b></div><div class="metric"><span>Theme registry</span><b>300 + 12</b></div><div class="metric"><span>Safety model</span><b>EXPLICIT</b></div><div class="metric"><span>Transport</span><b>LOOPBACK</b></div></aside></div>
+<section class="panel" style="margin-top:var(--space-5)"><div class="panel-head"><span class="panel-title">Fleet diagnostics</span><button class="secondary" onclick="inspectFleet()">REFRESH INSPECTION</button></div><div id="fleet" class="task-grid">Inspection pending…</div></section>
 <section class="panel" style="margin-top:var(--space-5)"><div class="panel-head"><span class="panel-title">Activity stream</span><span id="state" class="signal">IDLE</span></div><div id="log">Ready. Select tasks and apply when the plan is approved.</div></section>
 <script>
 let taskNames=[];
-async function load(){const r=await fetch('/api/tasks');const tasks=await r.json();taskNames=tasks.map(t=>t.name);document.querySelector('#count').textContent=tasks.length+' TASKS';document.querySelector('#tasks').innerHTML=tasks.map(t=>`<label class="task"><input type="checkbox" data-name="${t.name}" checked><span><span class="task-name">${t.name}</span><span class="task-kind">${t.kind}</span></span></label>`).join('')}
+async function load(){const r=await fetch('/api/tasks');const tasks=await r.json();taskNames=tasks.map(t=>t.name);document.querySelector('#count').textContent=tasks.length+' TASKS';document.querySelector('#tasks').innerHTML=tasks.map(t=>`<label class="task"><input type="checkbox" data-name="${t.name}" checked><span><span class="task-name">${t.name}</span><span class="task-kind">${t.kind}</span></span></label>`).join('');await inspectFleet()}
 function selectAll(){document.querySelectorAll('[data-name]').forEach(x=>x.checked=true)}function selectNone(){document.querySelectorAll('[data-name]').forEach(x=>x.checked=false)}
-async function applySelected(){const names=[...document.querySelectorAll('[data-name]:checked')].map(x=>x.dataset.name);document.querySelector('#state').textContent='RUNNING';document.querySelector('#log').textContent='Applying '+names.length+' selected tasks…';const r=await fetch('/api/apply',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({names})});document.querySelector('#log').textContent=JSON.stringify(await r.json(),null,2);document.querySelector('#state').textContent=r.ok?'COMPLETE':'FAILED'}
+async function runAction(path,label){const names=[...document.querySelectorAll('[data-name]:checked')].map(x=>x.dataset.name);document.querySelector('#state').textContent='RUNNING';document.querySelector('#log').textContent=label+' '+names.length+' selected tasks…';const r=await fetch(path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({names})});document.querySelector('#log').textContent=JSON.stringify(await r.json(),null,2);document.querySelector('#state').textContent=r.ok?'COMPLETE':'FAILED';await inspectFleet()}
+async function applySelected(){await runAction('/api/apply','Applying')}
+async function repairSelected(){await runAction('/api/repair','Repairing')}
+async function inspectFleet(){const r=await fetch('/api/fleet');const fleet=await r.json();document.querySelector('#fleet').innerHTML=fleet.map(x=>{const ok=x.diagnostics.length===0;const detail=ok?'Ready':x.diagnostics.join(' · ');return `<div class="task"><span class="task-name">${x.name}</span><span class="task-kind">${ok?'READY':'ATTENTION'} — ${detail}</span></div>`}).join('')}
 load().catch(e=>{document.querySelector('#state').textContent='ERROR';document.querySelector('#log').textContent=e})
 </script></main></body></html>"#,
     );
@@ -147,9 +154,46 @@ async fn fleet(State(state): State<AppState>) -> Json<Vec<FleetView>> {
                 source_exists: item.source_exists,
                 worktree_clean: item.worktree_clean,
                 service: item.service,
+                installed_binary: item
+                    .installed_binary
+                    .map(|path| path.display().to_string()),
+                diagnostics: item.diagnostics,
             })
             .collect(),
     )
+}
+
+async fn repair(
+    State(state): State<AppState>,
+    Json(request): Json<ApplyRequest>,
+) -> impl IntoResponse {
+    let result = tokio::task::spawn_blocking(move || {
+        state.engine.repair(&request.names, |_| {})
+    })
+    .await;
+    match result {
+        Ok(results) => Json(ApplyResponse {
+            results: results
+                .into_iter()
+                .map(|(name, status)| TaskResult {
+                    name,
+                    status: match status {
+                        TaskStatus::Succeeded => "repaired",
+                        TaskStatus::Blocked => "blocked",
+                        TaskStatus::Failed => "failed",
+                        TaskStatus::Planned => "planned",
+                        TaskStatus::Running => "running",
+                    },
+                })
+                .collect(),
+        })
+        .into_response(),
+        Err(error) => (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            format!("repair task failed: {error}"),
+        )
+            .into_response(),
+    }
 }
 
 async fn apply(

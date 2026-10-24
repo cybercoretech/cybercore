@@ -96,6 +96,8 @@ pub struct Inspection {
     pub source_exists: bool,
     pub worktree_clean: bool,
     pub service: Option<String>,
+    pub installed_binary: Option<PathBuf>,
+    pub diagnostics: Vec<String>,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -155,6 +157,19 @@ impl Engine {
             .iter()
             .map(|item| {
                 let source = self.resolve(&item.source);
+                let installed_binary = Some(expand_home(&item.install));
+                let mut diagnostics = Vec::new();
+                if !source.is_dir() {
+                    diagnostics.push(format!("missing source: {}", source.display()));
+                } else if let Err(error) = self.check_worktree(&source, &item.allowed_dirty) {
+                    diagnostics.push(error.to_string());
+                }
+                if !installed_binary.as_ref().is_some_and(|path| path.is_file()) {
+                    diagnostics.push(format!(
+                        "installed binary missing: {}",
+                        installed_binary.as_ref().expect("consumer install path").display()
+                    ));
+                }
                 Inspection {
                     name: item.name.clone(),
                     kind: TaskKind::Consumer,
@@ -163,10 +178,18 @@ impl Engine {
                         && self.check_worktree(&source, &item.allowed_dirty).is_ok(),
                     source,
                     service: item.service.clone(),
+                    installed_binary,
+                    diagnostics,
                 }
             })
             .chain(self.manifest.syncs.iter().map(|item| {
                 let source = self.resolve(&item.source);
+                let mut diagnostics = Vec::new();
+                if !source.is_dir() {
+                    diagnostics.push(format!("missing source: {}", source.display()));
+                } else if let Err(error) = self.check_worktree(&source, &item.allowed_dirty) {
+                    diagnostics.push(error.to_string());
+                }
                 Inspection {
                     name: item.name.clone(),
                     kind: TaskKind::Sync,
@@ -175,9 +198,19 @@ impl Engine {
                         && self.check_worktree(&source, &item.allowed_dirty).is_ok(),
                     source,
                     service: None,
+                    installed_binary: None,
+                    diagnostics,
                 }
             }))
             .collect()
+    }
+
+    pub fn repair(
+        &self,
+        names: &[String],
+        mut emit: impl FnMut(Event),
+    ) -> Vec<(String, TaskStatus)> {
+        self.run(names, true, |event| emit(event))
     }
 
     pub fn run(
