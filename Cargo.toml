@@ -62,6 +62,7 @@ members = [
     "crates/cybercore-publish",
     "crates/cybercore-updater",
     "crates/cybercore-update",
+    "crates/cybercore-update-panel",
     "theme-studio",
     "wasm",
 ]

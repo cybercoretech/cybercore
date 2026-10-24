@@ -310,6 +310,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "cybercore-update-panel"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "cybercore-updater",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "cybercore-updater"
 version = "0.1.0"
 dependencies = [

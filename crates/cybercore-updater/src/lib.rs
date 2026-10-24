@@ -104,6 +104,7 @@ pub struct Event {
     pub message: String,
 }
 
+#[derive(Clone)]
 pub struct Engine {
     manifest: Manifest,
     root: PathBuf,
