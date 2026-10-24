@@ -1,530 +1,107 @@
 <!doctype html>
-<html lang="en" data-theme="cybercore-tech" data-site="master">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Cybercore — the framework, crates, and packs</title>
-  <meta name="description" content="Cybercore is the shared Rust-first framework for themes, crates, resource packs, design tokens, and operator systems.">
-  <meta name="theme-color" content="#09080f">
-  <meta property="og:title" content="Cybercore — the framework, crates, and packs">
-  <meta property="og:description" content="The canonical Cybercore framework: one schema, modular crates, governed packs, and practical integration paths.">
-  <meta property="og:image" content="https://cybercoretech.github.io/cybercore/assets/img/social-card.png">
-  <meta property="og:url" content="https://cybercoretech.github.io/cybercore/">
-  <meta name="twitter:card" content="summary_large_image">
+  <title>Cybercore — framework, crates, and packs</title>
+  <meta name="description" content="The canonical Cybercore framework: schema, Rust crates, governed resource packs, and practical integration paths.">
+  <meta name="theme-color" content="#0d1117">
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500;700&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css">
-  <script>
-    /* Signature mashups: surfaces (bg/text/panel/line/muted) from `base`,
-       neons from `accent`. Names are provisional until approved. */
-    window.SITE = {
-      dataRoot: 'https://cybercoretech.github.io/data',
-      defaultTheme: 'cybercore-tech',
-      mashups: [
-        { id: 'cc-chrome-horizon', label: 'CHROME HORIZON', base: 'cyberdyne-steel', accent: 'synthwave-outrun' },
-        { id: 'cc-skynet-plasma', label: 'SKYNET PLASMA', base: 'cyberdyne-skynet', accent: 'neosynth-plasma' },
-        { id: 'cc-midnight-mainframe', label: 'MIDNIGHT MAINFRAME', base: 'synthwave-sunset', accent: 'cyberpunk-neon' },
-        { id: 'cc-judgment-grid', label: 'JUDGMENT GRID', base: 'cyberdyne-judgment', accent: 'neosynth-laser-grid' }
-      ]
-    };
-  </script>
-  <script src="assets/js/scenes.js" defer></script>
-  <script src="assets/js/engine.js" defer></script>
-  <script src="assets/js/fx.js" defer></script>
-  <script type="module" src="https://cybercoretech.github.io/kit/contact.js"></script>
+  <link rel="stylesheet" href="assets/css/master.css">
 </head>
 <body>
-  <!-- Icon sprite: every glyph draws in currentColor, so it follows the theme. -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <linearGradient id="g-neon" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" style="stop-color:var(--pink)"/><stop offset=".5" style="stop-color:var(--purple)"/><stop offset="1" style="stop-color:var(--cyan)"/>
-      </linearGradient>
-      <linearGradient id="g-sun" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" style="stop-color:var(--orange)"/><stop offset="1" style="stop-color:var(--pink)"/>
-      </linearGradient>
-    </defs>
-    <!-- Cybercore mark: hex shell, six slot arcs (one per neon), C-core with reticle ticks -->
-    <symbol id="mark" viewBox="0 0 120 120">
-      <path d="M60 6 106.8 33v54L60 114 13.2 87V33Z" fill="none" stroke="url(#g-neon)" stroke-width="3" stroke-linejoin="round"/>
-      <g fill="none" stroke-width="4.5" stroke-linecap="round">
-        <path d="M60 22a38 38 0 0 1 30.8 15.8" style="stroke:var(--cyan)"/>
-        <path d="M95.3 45.4a38 38 0 0 1 0 29.2" style="stroke:var(--acid)"/>
-        <path d="M90.8 82.2A38 38 0 0 1 64 97.8" style="stroke:var(--orange)"/>
-        <path d="M56 97.8a38 38 0 0 1-26.8-15.6" style="stroke:var(--red)"/>
-        <path d="M24.7 74.6a38 38 0 0 1 0-29.2" style="stroke:var(--pink)"/>
-        <path d="M29.2 37.8A38 38 0 0 1 56 22.2" style="stroke:var(--purple)"/>
-      </g>
-      <path d="M60 36 80.8 48v24L60 84 39.2 72V48Z" style="fill:var(--panel);stroke:var(--white)" stroke-width="1.6"/>
-      <path d="M70.5 51.5a13 13 0 1 0 0 17" fill="none" style="stroke:var(--white)" stroke-width="5" stroke-linecap="square"/>
-      <rect x="57" y="57" width="6" height="6" style="fill:var(--acid)"/>
-      <g style="stroke:var(--white)" stroke-width="2" opacity=".55"><path d="M60 0v6M60 114v6M0 60h8M112 60h8"/></g>
-    </symbol>
-    <!-- Family emblems -->
-    <symbol id="fam-cybercore-tech" viewBox="0 0 48 48"><path d="M24 4 41.3 14v20L24 44 6.7 34V14Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M29.5 18.5a8 8 0 1 0 0 11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/><rect x="22" y="22" width="4" height="4" fill="currentColor"/></symbol>
-    <symbol id="fam-cyberdyne" viewBox="0 0 48 48"><path d="M6 14V6h8M34 6h8v8M42 34v8h-8M14 42H6v-8" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="24" cy="24" r="11" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="24" cy="24" r="4.5" fill="currentColor"/><path d="M24 9v5M24 34v5M9 24h5M34 24h5" stroke="currentColor" stroke-width="2"/></symbol>
-    <symbol id="fam-cyberpunk" viewBox="0 0 48 48"><rect x="11" y="11" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M16 5v6M24 5v6M32 5v6M16 37v6M24 37v6M32 37v6M5 16h6M5 24h6M5 32h6M37 16h6M37 24h6M37 32h6" stroke="currentColor" stroke-width="2"/><path d="M26.5 15 18 25.5h6.5L21.5 33l8.5-10.5h-6.5Z" fill="currentColor"/></symbol>
-    <symbol id="fam-default" viewBox="0 0 48 48"><path d="M24 6 43 15 24 24 5 15Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M5 24l19 9 19-9M5 33l19 9 19-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></symbol>
-    <symbol id="fam-dystopian" viewBox="0 0 48 48"><path d="M24 5 44 41H4Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M24 17v11" stroke="currentColor" stroke-width="3.2" stroke-linecap="square"/><rect x="22.2" y="32" width="3.6" height="3.6" fill="currentColor"/><path d="M13 41l5-7 4 3 3-6" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".6"/></symbol>
-    <symbol id="fam-neosynth" viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M8 24h4l3-9 5 19 5-24 5 22 4-12 2 4h4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/></symbol>
-    <symbol id="fam-synthwave" viewBox="0 0 48 48"><path d="M8 26a16 16 0 0 1 32 0Z" fill="currentColor" opacity=".9"/><path d="M8 20.5h32M8 23.5h32" stroke="var(--bg)" stroke-width="1.6"/><path d="M2 28h44M4 33h40M1 39h46M24 28v17M14 28 6 45M34 28l8 17" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
-    <symbol id="fam-mashup" viewBox="0 0 48 48"><circle cx="18" cy="24" r="12" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="30" cy="24" r="12" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M24 13.6a12 12 0 0 1 0 20.8 12 12 0 0 1 0-20.8Z" fill="currentColor"/></symbol>
-    <!-- UI glyphs -->
-    <symbol id="i-dice" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="8" r="1.6" fill="currentColor"/><circle cx="16" cy="16" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="16" cy="8" r="1.6" fill="currentColor"/><circle cx="8" cy="16" r="1.6" fill="currentColor"/></symbol>
-    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4"/></symbol>
-    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol>
-    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol>
-    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V4H4v12h4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
-    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
-    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7Z" fill="currentColor"/></symbol>
-  </svg>
-
-  <!-- Boot sequence (first visit per session; any key or click skips) -->
-  <div class="boot" id="boot" aria-hidden="true">
-    <div class="boot-inner">
-      <svg class="boot-mark"><use href="#mark"/></svg>
-      <ol class="boot-log" id="bootLog"></ol>
-      <div class="boot-bar"><i id="bootBar"></i></div>
-    </div>
-  </div>
-
-  <canvas class="fx-trail" id="trail" aria-hidden="true"></canvas>
-  <div class="fx-crt" aria-hidden="true"></div>
-  <div class="fx-progress" aria-hidden="true"><i id="progress"></i></div>
-  <div class="fx-flash" id="flash" aria-hidden="true"></div>
-
-  <header class="top">
-    <a class="brand" href="#top" aria-label="Cybercore home">
-      <svg class="brand-mark"><use href="#mark"/></svg>
-      <span class="brand-name">CYBERCORE<small>THEME SYSTEM / FRAMEWORK</small></span>
-    </a>
-    <nav class="nav" aria-label="Primary">
-      <a href="#contract">CONTRACT</a><a href="#matrix">MATRIX</a><a href="#ecosystem">CRATES</a><a href="#packs">PACKS</a><a href="#use">USE</a><a href="https://cybercoretech.github.io/cybercore-control-plane/">CONTROL PLANE ↗</a>
-    </nav>
-    <div class="theme-picker" id="picker">
-      <button class="theme-button" id="themeButton" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="themeMenu" title="Theme (T)">
-        <i class="theme-swatch" aria-hidden="true"></i><span id="themeLabel">LOADING…</span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg>
-      </button>
-      <div class="theme-menu" id="themeMenu" hidden>
-        <div class="theme-search"><input id="themeFilter" type="search" placeholder="FILTER 312 THEMES…" aria-label="Filter themes" autocomplete="off" spellcheck="false"></div>
-        <div class="theme-list" id="themeList" role="listbox" aria-label="Theme"></div>
-      </div>
-    </div>
-    <button class="icon-btn" id="shuffle" type="button" title="Random theme (R)" aria-label="Random theme"><svg><use href="#i-dice"/></svg></button>
+  <header class="topbar">
+    <a class="wordmark" href="#top"><span class="mark">CC</span><span>CYBERCORE<small>FRAMEWORK / MASTER SITE</small></span></a>
+    <nav aria-label="Primary"><a href="#why">WHY</a><a href="#crates">CRATES</a><a href="#packs">PACKS</a><a href="#usage">USAGE</a><a class="nav-control" href="https://cybercoretech.github.io/cybercore-control-plane/">CONTROL PLANE ↗</a></nav>
   </header>
 
   <main id="top">
-    <!-- ═══════════════ HERO ═══════════════ -->
-    <section class="hero">
-      <canvas class="hero-canvas" id="synth" aria-hidden="true"></canvas>
-      <div class="hero-vignette" aria-hidden="true"></div>
-      <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow"><span class="led"></span>CYBERCORE // MASTER FRAMEWORK · <b data-theme-count>312</b> SOURCE PALETTES · ONE SOURCE OF TRUTH</p>
-          <h1 class="title" aria-label="Cybercore">
-            <span class="glitch" data-text="CYBER">CYBER</span><span class="glitch outline" data-text="CORE">CORE</span>
-          </h1>
-          <p class="tagline">The framework under every Cybercore surface: <span class="rotator" id="rotator">SCHEMA</span></p>
-          <p class="lede">One JSON contract drives the palette, tokens, paths, crates, and resource packs. Learn the source model, install the pieces you need, and connect your own Rust, QML, CSS, or HTTP consumer.</p>
-          <div class="cta">
-            <a class="btn primary magnetic" href="#matrix"><span>ENTER THE MATRIX</span><svg><use href="#i-arrow"/></svg></a>
-            <a class="btn magnetic" href="#ecosystem"><span>EXPLORE THE STACK</span><svg><use href="#i-arrow"/></svg></a>
-            <a class="btn ghost magnetic" href="https://cybercoretech.github.io/cybercore-control-plane/"><span>OPEN CONTROL PLANE</span><svg><use href="#i-ext"/></svg></a>
-            <a class="btn magnetic" href="https://github.com/cybercoretech/cybercore"><span>VIEW SOURCE</span><svg><use href="#i-ext"/></svg></a>
-            <a class="btn ghost magnetic" href="https://crates.io/crates/cybercore"><span>CRATES.IO</span><svg><use href="#i-ext"/></svg></a>
-          </div>
-        </div>
-        <div class="hud" id="hud" aria-hidden="true">
-          <svg class="hud-svg" viewBox="0 0 420 420">
-            <g class="hud-rot r1"><circle cx="210" cy="210" r="196" fill="none" stroke="var(--line)" stroke-width="1"/><circle cx="210" cy="210" r="196" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-dasharray="4 18" opacity=".8"/></g>
-            <g class="hud-rot r2"><circle cx="210" cy="210" r="172" fill="none" stroke="url(#g-neon)" stroke-width="3" stroke-dasharray="220 50 30 50" stroke-linecap="round"/></g>
-            <g class="hud-rot r3"><circle cx="210" cy="210" r="150" fill="none" stroke="var(--pink)" stroke-width="1" stroke-dasharray="1 7" opacity=".9"/></g>
-            <path d="M210 20v30M210 370v30M20 210h30M370 210h30" stroke="var(--white)" stroke-width="1.5" opacity=".5"/>
-            <path d="M92 92l22 22M328 92l-22 22M92 328l22-22M328 328l-22-22" stroke="var(--muted)" stroke-width="1.2"/>
-            <use href="#mark" x="120" y="120" width="180" height="180" class="hud-mark"/>
-            <g class="hud-ticks" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5">
-              <text x="210" y="14" text-anchor="middle" fill="var(--muted)">000°</text>
-              <text x="410" y="213" text-anchor="end" fill="var(--muted)">090°</text>
-              <text x="210" y="414" text-anchor="middle" fill="var(--muted)">180°</text>
-              <text x="10" y="213" fill="var(--muted)">270°</text>
-            </g>
-          </svg>
-          <div class="hud-read tl"><small>TARGET</small><b>CYBERGRID</b><span>LOCK ◆ SCHEMA v2</span></div>
-          <div class="hud-read tr"><small>ACTIVE</small><b data-active-theme>—</b><span data-active-family>—</span></div>
-          <div class="hud-read bl"><small>SLOTS</small><span class="hud-swatches" id="hudSwatches"></span></div>
-          <div class="hud-read br"><small>SIGNAL</small><b class="hud-sig" id="hudSig">100%</b><span>NEURAL NET ONLINE</span></div>
-        </div>
+    <section class="hero shell">
+      <div class="hero-copy">
+        <p class="eyebrow"><i></i> CYBERCORE SYSTEMS FRAMEWORK / v0.8.1</p>
+        <h1>The shared core<br><em>under the grid.</em></h1>
+        <p class="intro">A Rust-first source of truth for themes, design tokens, filesystem paths, portable resources, and the tools that use them.</p>
+        <div class="hero-actions"><a class="button primary" href="#usage">START USING CYBERCORE</a><a class="button" href="https://github.com/cybercoretech/cybercore">VIEW SOURCE ↗</a></div>
+        <div class="hero-facts"><span><b>312</b> source themes</span><span><b>4</b> modular crates</span><span><b>8</b> official packs</span></div>
       </div>
-      <div class="wrap stats">
-        <div><b data-count="312">0</b><span>THEMES</span></div>
-        <div><b data-count="24">0</b><span>FAMILIES</span></div>
-        <div><b data-count="11">0</b><span>PALETTE SLOTS</span></div>
-        <div><b data-count="4">0</b><span>RUNTIMES</span></div>
+      <div class="contract-card">
+        <div class="card-top"><span>CANONICAL CONTRACT</span><b>SCHEMA ONLINE</b></div>
+        <h2>One JSON.<br><strong>Every consumer.</strong></h2>
+        <p>CYBERGRID is readable by Rust, QML, CSS, HTTP clients, and downstream Cybercore projects.</p>
+        <div class="contract-flow"><span>cybergrid.json</span><i>→</i><span>crates</span><i>→</i><span>packs</span><i>→</i><span>apps</span></div>
+        <a href="https://cybercoretech.github.io/data/cybergrid.json">OPEN THE CANONICAL SCHEMA ↗</a>
       </div>
     </section>
 
-    <div class="marquee" aria-hidden="true"><div class="marquee-track">
-      <span>SCHEMA</span><i>◆</i><span>PALETTE</span><i>◆</i><span>DESIGN TOKENS</span><i>◆</i><span>CANONICAL PATHS</span><i>◆</i><span>SYNTHWAVE</span><i>◆</i><span>CYBERDYNE</span><i>◆</i><span>NEOSYNTH</span><i>◆</i><span>CYBERPUNK</span><i>◆</i><span>DYSTOPIAN</span><i>◆</i>
-      <span>SCHEMA</span><i>◆</i><span>PALETTE</span><i>◆</i><span>DESIGN TOKENS</span><i>◆</i><span>CANONICAL PATHS</span><i>◆</i><span>SYNTHWAVE</span><i>◆</i><span>CYBERDYNE</span><i>◆</i><span>NEOSYNTH</span><i>◆</i><span>CYBERPUNK</span><i>◆</i><span>DYSTOPIAN</span><i>◆</i>
-    </div></div>
-
-    <!-- ═══════════════ THEME STUDIO ═══════════════ -->
-    <section class="section wrap" id="studio">
-      <div class="head">
-        <div><p class="kicker">NEW / CYBERCORE THEME STUDIO</p><h2 class="scramble">One theme.<br><em>Every surface.</em></h2></div>
-        <p>Browse the shared library, preview themes against Cyberdeck Hub, Dockspace, and Cyberdesk, then edit colors and design tokens in the browser-based workspace.</p>
-      </div>
-      <div class="studio-shots">
-        <figure class="studio-shot">
-          <a href="screenshots/theme-studio-desktop.png"><img src="screenshots/theme-studio-desktop.png" alt="Cybercore Theme Studio desktop workspace with its theme library, Cyberdeck Hub preview, and theme inspector"></a>
-          <figcaption><strong>DESKTOP / WORKSPACE</strong><span>Live app preview beside the shared theme library and inspector.</span></figcaption>
-        </figure>
-        <figure class="studio-shot studio-shot-mobile">
-          <a href="screenshots/theme-studio-mobile.png"><img src="screenshots/theme-studio-mobile.png" alt="Cybercore Theme Studio responsive mobile layout with app preview and theme library"></a>
-          <figcaption><strong>MOBILE / RESPONSIVE</strong><span>Preview and theme controls reflow into a single column.</span></figcaption>
-        </figure>
+    <section class="section shell" id="why">
+      <div class="section-heading"><p class="eyebrow">01 / THE MODEL</p><h2>Understand the<br><em>layers.</em></h2><p>Cybercore keeps the shared contract separate from the tools that consume it. Start at the source, then choose the distribution path that fits your project.</p></div>
+      <div class="layers">
+        <article><span>01</span><h3>Schema</h3><p>Palette, theme metadata, tokens, and canonical paths in readable JSON.</p><code>schema/cybergrid.json</code></article>
+        <article><span>02</span><h3>Crates</h3><p>Typed Rust contracts for loading, validating, composing, and publishing resources.</p><code>cargo add cybercore-core</code></article>
+        <article><span>03</span><h3>Packs</h3><p>Versioned resources with manifests, provenance, compatibility, and checksums.</p><code>cybercore-control pack install</code></article>
+        <article><span>04</span><h3>Consumers</h3><p>Apps and sites read the same source without copying or redefining the system.</p><code>Web Kit / QML / HTTP</code></article>
       </div>
     </section>
 
-    <!-- ═══════════════ 01 CONTRACT ═══════════════ -->
-    <section class="section wrap" id="contract">
-      <div class="head reveal">
-        <div><p class="kicker">01 / THE CONTRACT</p><h2 class="scramble">One file.<br><em>Every surface.</em></h2></div>
-        <p>Every theme fills the same eleven slots. Five are surfaces and text, six are neons. Apps never hard-code a colour: they read a slot. Click a slot to copy its hex.</p>
-      </div>
-      <div class="contract">
-        <div class="slots reveal" id="slots"></div>
-        <div class="window reveal">
-          <div class="titlebar"><i></i><i></i><i></i><span>schema/themes/<b data-active-path>cybercore-tech</b>.json</span></div>
-          <pre class="json" id="liveJson"><code></code></pre>
-        </div>
+    <section class="section shell" id="crates">
+      <div class="section-heading split"><div><p class="eyebrow">02 / RUST CRATES</p><h2>Install the<br><em>contracts.</em></h2></div><a class="text-link" href="https://crates.io/search?q=cybercore">BROWSE ALL ON CRATES.IO ↗</a></div>
+      <div class="crate-list">
+        <a href="https://crates.io/crates/cybercore-core"><b>cybercore-core</b><span>Shared schemas, theme documents, paths, validation, and pack metadata.</span><code>cargo add cybercore-core</code></a>
+        <a href="https://crates.io/crates/cybercore-effects"><b>cybercore-effects</b><span>Governed motion recipes, fallbacks, and reduced-motion adapters.</span><code>cargo add cybercore-effects</code></a>
+        <a href="https://crates.io/crates/cybercore-components"><b>cybercore-components</b><span>Reusable UI contracts and shared component styles.</span><code>cargo add cybercore-components</code></a>
+        <a href="https://crates.io/crates/cybercore-publish"><b>cybercore-publish</b><span>Dry-run release plans for packs and Web Kit consumers.</span><code>cargo add cybercore-publish</code></a>
       </div>
     </section>
 
-    <!-- ═══════════════ 02 MATRIX ═══════════════ -->
-    <section class="section matrix-section" id="matrix">
-      <div class="wrap">
-        <div class="head reveal">
-          <div><p class="kicker">02 / THEME MATRIX</p><h2 class="scramble">Seven families.<br><em>Pick your signal.</em></h2></div>
-          <p>All <b data-theme-count>312</b> Cybercore themes, each previewed in its own colours. Click a card to repaint the page. Your choice follows you to every Cybercore site.</p>
-        </div>
-        <div class="families reveal" id="families" role="tablist" aria-label="Theme families"></div>
-        <div class="cards" id="cards"></div>
+    <section class="section shell" id="packs">
+      <div class="section-heading split"><div><p class="eyebrow">03 / RESOURCE PACKS</p><h2>Portable by<br><em>design.</em></h2></div><a class="text-link" href="https://github.com/cybercoretech/cybercore-packs">OPEN PACK REGISTRY ↗</a></div>
+      <p class="section-lede">Official packs are installed project-locally, locked to exact versions, and verified against their declared SHA-256 payloads.</p>
+      <div class="pack-table">
+        <div class="pack-row pack-head"><span>PACK</span><span>WHAT IT CONTAINS</span><span>VERSION</span><span></span></div>
+        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/themes"><b>cybercore.themes</b><span>Palette families and theme documents</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.themes@1.0.0">COPY</button></a>
+        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/effects"><b>cybercore.effects</b><span>Motion recipes and reduced-motion CSS</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.effects@1.0.0">COPY</button></a>
+        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/components"><b>cybercore.components</b><span>Reusable UI contracts and styles</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.components@1.0.0">COPY</button></a>
+        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/cyberdark-wallpapers"><b>cybercore.cyberdark-wallpapers</b><span>CyberDark governed wallpapers</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.cyberdark-wallpapers@1.0.0">COPY</button></a>
+        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/snippets"><b>cybercore.snippets</b><span>Installable code patterns with provenance</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.snippets@1.0.0">COPY</button></a>
+        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/fonts"><b>cybercore.fonts</b><span>Typography resources and license metadata</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.fonts@1.0.0">COPY</button></a>
+        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/svg-assets"><b>cybercore.svg-assets</b><span>Governed SVG visual assets</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.svg-assets@1.0.0">COPY</button></a>
+        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/web-templates"><b>cybercore.web-templates</b><span>Starter templates for Web Kit consumers</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.web-templates@1.0.0">COPY</button></a>
       </div>
     </section>
 
-    <!-- ═══════════════ 03 MASHUP LAB ═══════════════ -->
-    <section class="section wrap" id="lab">
-      <div class="head reveal">
-        <div><p class="kicker">03 / MASHUP LAB</p><h2 class="scramble">Splice two<br><em>themes.</em></h2></div>
-        <p>A mashup takes the surfaces and text from one theme and the neons from another. Try cyberdyne chrome under synthwave light, or build your own and share the link.</p>
-      </div>
-      <div class="lab reveal">
-        <div class="lab-controls">
-          <div class="lab-field"><span class="lab-label">BASE <small>SURFACES · TEXT</small></span><div class="dd" data-dd="base"></div></div>
-          <div class="lab-x" aria-hidden="true">×</div>
-          <div class="lab-field"><span class="lab-label">ACCENT <small>NEONS</small></span><div class="dd" data-dd="accent"></div></div>
-          <div class="lab-actions">
-            <button class="btn magnetic" id="labShuffle" type="button"><svg><use href="#i-dice"/></svg><span>SHUFFLE</span></button>
-            <button class="btn primary magnetic burst" id="labApply" type="button"><svg><use href="#i-bolt"/></svg><span>APPLY TO SITE</span></button>
-            <button class="btn ghost" id="labLink" type="button"><svg><use href="#i-link"/></svg><span>COPY LINK</span></button>
-          </div>
-          <div class="presets"><span class="lab-label">SIGNATURE MASHUPS</span><div id="presets"></div></div>
-        </div>
-        <div class="lab-preview" id="labPreview">
-          <div class="mock">
-            <div class="mock-bar"><i></i><i></i><i></i><b id="labRecipe">BASE × ACCENT</b><span class="badge ok">LIVE</span></div>
-            <div class="mock-body">
-              <aside class="mock-side"><b>CYBERDECK</b><a class="on">◆ OVERVIEW</a><a>◇ SENSORS</a><a>◇ JOURNAL</a><a>◇ NETWORK</a><a>◇ VAULT</a></aside>
-              <div class="mock-main">
-                <div class="mock-stats">
-                  <div><small>CPU</small><b style="color:var(--acid)">23%</b><i style="--w:23%;--c:var(--acid)"></i></div>
-                  <div><small>MEM</small><b style="color:var(--cyan)">61%</b><i style="--w:61%;--c:var(--cyan)"></i></div>
-                  <div><small>NET</small><b style="color:var(--pink)">4.2G</b><i style="--w:78%;--c:var(--pink)"></i></div>
-                </div>
-                <div class="mock-chart" aria-hidden="true">
-                  <svg viewBox="0 0 300 90" preserveAspectRatio="none"><defs><linearGradient id="g-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--purple);stop-opacity:.55"/><stop offset="1" style="stop-color:var(--purple);stop-opacity:0"/></linearGradient></defs><path d="M0 70 30 58 60 64 90 40 120 48 150 22 180 34 210 18 240 30 270 12 300 20V90H0Z" fill="url(#g-area)"/><path d="M0 70 30 58 60 64 90 40 120 48 150 22 180 34 210 18 240 30 270 12 300 20" fill="none" style="stroke:var(--pink)" stroke-width="2.5" vector-effect="non-scaling-stroke"/><path d="M0 80 40 74 80 78 120 66 160 70 200 56 240 62 300 50" fill="none" style="stroke:var(--cyan)" stroke-width="1.6" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"/></svg>
-                </div>
-                <div class="mock-rows">
-                  <div><span class="badge ok">PASS</span>schema.integrity<em>0.4 ms</em></div>
-                  <div><span class="badge warn">WARN</span>palette.contrast<em>muted on panel</em></div>
-                  <div><span class="badge bad">FAIL</span>legacy.hardcoded_hex<em>3 found</em></div>
-                </div>
-                <div class="mock-btns"><span class="btn primary sm">DEPLOY</span><span class="btn sm">INSPECT</span><span class="btn ghost sm">CANCEL</span></div>
-              </div>
-            </div>
-          </div>
-          <div class="lab-swatches" id="labSwatches"></div>
-        </div>
+    <section class="section shell" id="usage">
+      <div class="section-heading"><p class="eyebrow">04 / HOW TO USE IT</p><h2>From zero to<br><em>shared surface.</em></h2><p>Use the core crate in a Rust project, install a governed pack into the current workspace, or read the canonical schema from another runtime.</p></div>
+      <div class="usage-grid">
+        <div class="usage-card"><span>RUST PROJECT</span><h3>Embed the contracts</h3><pre><code>cargo add cybercore-core
+
+use cybercore_core::theme::ThemeCatalog;
+
+let themes = ThemeCatalog::load()?;</code></pre><a href="https://docs.rs/cybercore-core">READ THE API ↗</a></div>
+        <div class="usage-card"><span>RESOURCE INSTALL</span><h3>Install and verify a pack</h3><pre><code>cargo install --git \
+  https://github.com/cybercoretech/cybercore-packs \
+  --package cybercore-pack
+
+cybercore-control pack install cybercore.themes@1.0.0
+cybercore-control pack verify</code></pre><a href="https://github.com/cybercoretech/cybercore-packs#readme">READ THE PACK GUIDE ↗</a></div>
+        <div class="usage-card"><span>OTHER RUNTIMES</span><h3>Read the same JSON</h3><pre><code>GET /data/cybergrid.json
+
+// QML / C++
+QJsonDocument::fromJson(bytes)
+
+/* CSS consumers */
+var(--cyan)</code></pre><a href="https://github.com/cybercoretech/cybercore/tree/main/web">VIEW THE WEB KIT ↗</a></div>
       </div>
     </section>
 
-    <!-- ═══════════════ 04 PIPELINE ═══════════════ -->
-    <section class="section pipeline-section" id="pipeline">
-      <canvas class="rain" id="rain" aria-hidden="true"></canvas>
-      <div class="wrap">
-        <div class="head reveal">
-          <div><p class="kicker">04 / PIPELINE</p><h2 class="scramble">Edit the JSON.<br><em>Never hand-edit anywhere else.</em></h2></div>
-          <p><code>schema/cybergrid.json</code> is the only place a colour or a path is written down. Four runtimes read it, and every downstream tool reads one of those.</p>
-        </div>
-        <div class="flow reveal" id="flow">
-          <svg viewBox="0 0 1100 420" class="flow-svg" role="img" aria-labelledby="flowTitle">
-            <title id="flowTitle">cybergrid.json feeds the Rust crate, QML, CSS variables and the HTTP API, which feed the Cybercore tools</title>
-            <g class="flow-lines" fill="none" stroke-width="2">
-              <path id="p1" d="M250 210C330 210 330 70 420 70"  style="stroke:var(--acid)"/>
-              <path id="p2" d="M250 210C330 210 330 160 420 160" style="stroke:var(--pink)"/>
-              <path id="p3" d="M250 210C330 210 330 260 420 260" style="stroke:var(--cyan)"/>
-              <path id="p4" d="M250 210C330 210 330 350 420 350" style="stroke:var(--orange)"/>
-              <path id="q1" d="M640 70C730 70 740 50 830 50"   style="stroke:var(--acid)"/>
-              <path id="q2" d="M640 70C730 70 740 120 830 120"  style="stroke:var(--acid)"/>
-              <path id="q3" d="M640 160C730 160 740 190 830 190" style="stroke:var(--pink)"/>
-              <path id="q4" d="M640 260C730 260 740 260 830 260" style="stroke:var(--cyan)"/>
-              <path id="q5" d="M640 260C730 260 740 330 830 330" style="stroke:var(--cyan)"/>
-              <path id="q6" d="M640 350C730 350 740 390 830 390" style="stroke:var(--orange)"/>
-            </g>
-            <g class="packets">
-              <circle r="4" style="fill:var(--acid)"><animateMotion dur="2.4s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion></circle>
-              <circle r="4" style="fill:var(--pink)"><animateMotion dur="2.1s" begin=".4s" repeatCount="indefinite"><mpath href="#p2"/></animateMotion></circle>
-              <circle r="4" style="fill:var(--cyan)"><animateMotion dur="2.6s" begin=".8s" repeatCount="indefinite"><mpath href="#p3"/></animateMotion></circle>
-              <circle r="4" style="fill:var(--orange)"><animateMotion dur="2.2s" begin=".2s" repeatCount="indefinite"><mpath href="#p4"/></animateMotion></circle>
-              <circle r="3" style="fill:var(--acid)"><animateMotion dur="1.8s" begin="1.2s" repeatCount="indefinite"><mpath href="#q1"/></animateMotion></circle>
-              <circle r="3" style="fill:var(--acid)"><animateMotion dur="1.9s" begin=".6s" repeatCount="indefinite"><mpath href="#q2"/></animateMotion></circle>
-              <circle r="3" style="fill:var(--pink)"><animateMotion dur="1.7s" begin="1s" repeatCount="indefinite"><mpath href="#q3"/></animateMotion></circle>
-              <circle r="3" style="fill:var(--cyan)"><animateMotion dur="1.6s" begin=".3s" repeatCount="indefinite"><mpath href="#q4"/></animateMotion></circle>
-              <circle r="3" style="fill:var(--cyan)"><animateMotion dur="2s" begin="1.4s" repeatCount="indefinite"><mpath href="#q5"/></animateMotion></circle>
-              <circle r="3" style="fill:var(--orange)"><animateMotion dur="1.8s" begin=".9s" repeatCount="indefinite"><mpath href="#q6"/></animateMotion></circle>
-            </g>
-            <g class="node src"><rect x="40" y="150" width="210" height="120"/><text x="62" y="186" class="n-k">SOURCE OF TRUTH</text><text x="62" y="218" class="n-t">cybergrid.json</text><text x="62" y="246" class="n-s">palette · themes · paths</text></g>
-            <g class="node" style="--c:var(--acid)"><rect x="420" y="40" width="220" height="60"/><text x="440" y="66" class="n-t">Rust crate</text><text x="440" y="86" class="n-s">include_str! · zero I/O</text></g>
-            <g class="node" style="--c:var(--pink)"><rect x="420" y="130" width="220" height="60"/><text x="440" y="156" class="n-t">C++ / QML</text><text x="440" y="176" class="n-s">QJsonDocument</text></g>
-            <g class="node" style="--c:var(--cyan)"><rect x="420" y="230" width="220" height="60"/><text x="440" y="256" class="n-t">CSS variables</text><text x="440" y="276" class="n-s">--bg --acid --pink --cyan …</text></g>
-            <g class="node" style="--c:var(--orange)"><rect x="420" y="320" width="220" height="60"/><text x="440" y="346" class="n-t">HTTP API</text><text x="440" y="366" class="n-s">cybercore_api.py</text></g>
-            <g class="node leaf" style="--c:var(--acid)"><rect x="830" y="30" width="250" height="40"/><text x="848" y="55" class="n-t">omniscient · sigilward</text></g>
-            <g class="node leaf" style="--c:var(--acid)"><rect x="830" y="100" width="250" height="40"/><text x="848" y="125" class="n-t">cyberterm · cyberdeck</text></g>
-            <g class="node leaf" style="--c:var(--pink)"><rect x="830" y="170" width="250" height="40"/><text x="848" y="195" class="n-t">cyberdock (Qt)</text></g>
-            <g class="node leaf" style="--c:var(--cyan)"><rect x="830" y="240" width="250" height="40"/><text x="848" y="265" class="n-t">cyberdesk · project sites</text></g>
-            <g class="node leaf" style="--c:var(--cyan)"><rect x="830" y="310" width="250" height="40"/><text x="848" y="335" class="n-t">cyberplug</text></g>
-            <g class="node leaf" style="--c:var(--orange)"><rect x="830" y="370" width="250" height="40"/><text x="848" y="395" class="n-t">shell scripts · remote hosts</text></g>
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ 05 TOKENS ═══════════════ -->
-    <section class="section wrap" id="tokens">
-      <div class="head reveal">
-        <div><p class="kicker">05 / DESIGN TOKENS</p><h2 class="scramble">Same feel.<br><em>Every surface.</em></h2></div>
-        <p><code>css/cybertokens.css</code> holds everything that isn't a colour: type scale, spacing, radii and motion, mirrored in <code>schema/tokens.json</code>. Hover the motion lanes to run them.</p>
-      </div>
-      <div class="tokens">
-        <div class="tk reveal">
-          <p class="tk-h">TYPE SCALE <small>1.20 · MINOR THIRD</small></p>
-          <div class="scale">
-            <div style="--s:2.488rem"><code>--fs-7</code><span>Display</span></div>
-            <div style="--s:2.074rem"><code>--fs-6</code><span>Heading one</span></div>
-            <div style="--s:1.728rem"><code>--fs-5</code><span>Heading two</span></div>
-            <div style="--s:1.44rem"><code>--fs-4</code><span>Heading three</span></div>
-            <div style="--s:1.2rem"><code>--fs-3</code><span>Lead paragraph</span></div>
-            <div style="--s:1rem"><code>--fs-2</code><span>Body copy, 16px</span></div>
-            <div style="--s:.833rem"><code>--fs-1</code><span>LABELS AND CHROME</span></div>
-          </div>
-        </div>
-        <div class="tk reveal">
-          <p class="tk-h">SPACING <small>0.25REM STEP</small></p>
-          <div class="space">
-            <div style="--w:.25rem"><code>--space-1</code><i></i><em>4</em></div>
-            <div style="--w:.5rem"><code>--space-2</code><i></i><em>8</em></div>
-            <div style="--w:.75rem"><code>--space-3</code><i></i><em>12</em></div>
-            <div style="--w:1rem"><code>--space-4</code><i></i><em>16</em></div>
-            <div style="--w:1.5rem"><code>--space-5</code><i></i><em>24</em></div>
-            <div style="--w:2rem"><code>--space-6</code><i></i><em>32</em></div>
-            <div style="--w:3rem"><code>--space-7</code><i></i><em>48</em></div>
-            <div style="--w:4rem"><code>--space-8</code><i></i><em>64</em></div>
-          </div>
-          <p class="tk-h" style="margin-top:1.6rem">RADII</p>
-          <div class="radii">
-            <div style="--r:2px"><i></i><code>sharp</code></div><div style="--r:4px"><i></i><code>sm</code></div><div style="--r:8px"><i></i><code>md</code></div><div style="--r:14px"><i></i><code>lg</code></div><div style="--r:999px"><i></i><code>pill</code></div>
-          </div>
-        </div>
-        <div class="tk reveal motion">
-          <p class="tk-h">MOTION <small>HOVER TO RUN</small></p>
-          <div class="lane" style="--e:cubic-bezier(.2,.8,.2,1);--d:.5s;--c:var(--acid)"><code>--ease-out · slow</code><i></i></div>
-          <div class="lane" style="--e:cubic-bezier(.65,0,.35,1);--d:.5s;--c:var(--pink)"><code>--ease-in-out · slow</code><i></i></div>
-          <div class="lane" style="--e:cubic-bezier(.2,.8,.2,1);--d:.24s;--c:var(--cyan)"><code>--ease-out · mid</code><i></i></div>
-          <div class="lane" style="--e:linear;--d:.12s;--c:var(--orange)"><code>linear · fast</code><i></i></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ 06 COMPONENTS ═══════════════ -->
-    <section class="section wrap" id="components">
-      <div class="head reveal">
-        <div><p class="kicker">06 / COMPONENTS</p><h2 class="scramble">Cards, badges, tables.<br><em>Themed live.</em></h2></div>
-        <p>The shared parts from <code>css/cybercomponents.css</code>. Nothing below has a hard-coded colour, so switching themes repaints all of it.</p>
-      </div>
-      <div class="comp reveal">
-        <article class="ccard spot">
-          <header><span class="badge ok">ONLINE</span><code>node-07</code></header>
-          <h3>Darkbox stack</h3><p>12 services · 3 alerts suppressed · uptime 41d</p>
-          <div class="meter"><i style="--w:72%"></i></div>
-          <footer><span>LOAD 0.72</span><span>TEMP 51°C</span></footer>
-        </article>
-        <article class="ccard spot">
-          <header><span class="badge warn">DRIFT</span><code>sigilward</code></header>
-          <h3>Integrity scan</h3><p>2 modified · 0 deleted · 1 unreadable under /etc</p>
-          <div class="meter"><i style="--w:38%;--c:var(--orange)"></i></div>
-          <footer><span>BASELINE 09-28</span><span>SHA-256</span></footer>
-        </article>
-        <div class="ctable spot">
-          <table>
-            <thead><tr><th>MODULE</th><th>STATE</th><th>TIME</th></tr></thead>
-            <tbody>
-              <tr><td>hardware</td><td><span class="badge ok">PASS</span></td><td>0.8s</td></tr>
-              <tr><td>network</td><td><span class="badge ok">PASS</span></td><td>1.2s</td></tr>
-              <tr><td>packages</td><td><span class="badge warn">WARN</span></td><td>6.4s</td></tr>
-              <tr><td>firewall</td><td><span class="badge bad">FAIL</span></td><td>0.3s</td></tr>
-              <tr><td>journal</td><td><span class="badge info">INFO</span></td><td>2.0s</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="window term spot">
-          <div class="titlebar"><i></i><i></i><i></i><span>cyberterm — zsh</span></div>
-          <pre data-type><code><span class="p">❯</span> curl -s localhost:8787/palette/hot_pink?format=all
-<span class="k">{</span> <span class="s">"hex"</span>: <span class="v" data-slot-hex="hot_pink">"ff147f"</span>,
-  <span class="s">"css"</span>: <span class="v" data-slot-css="hot_pink">"#ff147f"</span>,
-  <span class="s">"ansi"</span>: <span class="v">"\x1b[38;2;…m"</span> <span class="k">}</span>
-<span class="p">❯</span> cargo run --example list_themes
-active: <span class="v" data-active-theme-raw>cybercore-tech</span>
-count:  <span class="v">93</span>
-<span class="p">❯</span> <span class="cursor">█</span></code></pre>
-        </div>
-      </div>
-    </section>
-
-    <section class="section wrap master-ecosystem" id="ecosystem">
-      <div class="head reveal">
-        <div><p class="kicker">07 / THE ECOSYSTEM</p><h2 class="scramble">Build on the<br><em>shared core.</em></h2></div>
-        <p>The master site explains the pieces that make Cybercore portable: contracts in crates, governed resources in packs, and straightforward paths for using them in your own tools.</p>
-      </div>
-      <div class="master-stack">
-        <article class="master-stack-card reveal">
-          <span class="master-stack-index">01 / CRATES</span>
-          <h3>Modular Rust contracts</h3>
-          <p>Install only the layer you need, from shared schemas and validation to effects, components, and dry-run publishing.</p>
-          <div class="master-links">
-            <a href="https://crates.io/crates/cybercore-core">cybercore-core ↗</a>
-            <a href="https://crates.io/crates/cybercore-effects">cybercore-effects ↗</a>
-            <a href="https://crates.io/crates/cybercore-components">cybercore-components ↗</a>
-            <a href="https://crates.io/crates/cybercore-publish">cybercore-publish ↗</a>
-          </div>
-        </article>
-        <article class="master-stack-card master-stack-packs reveal" id="packs">
-          <span class="master-stack-index">02 / PACKS</span>
-          <h3>Portable governed resources</h3>
-          <p>Install versioned themes, effects, components, wallpapers, snippets, fonts, SVG assets, and Web templates with checksums.</p>
-          <div class="master-links">
-            <a href="https://github.com/cybercoretech/cybercore-packs">PACK REGISTRY ↗</a>
-            <a href="https://github.com/cybercoretech/cybercore-packs#readme">PACK CLI + README ↗</a>
-          </div>
-        </article>
-        <article class="master-stack-card master-stack-use reveal" id="use">
-          <span class="master-stack-index">03 / USE IT</span>
-          <h3>Connect a consumer</h3>
-          <p>Use the canonical JSON directly, embed the Rust contracts, or consume the Web Kit. Every path reads the same source of truth.</p>
-          <div class="master-command"><code>cargo add cybercore-core</code><button type="button" data-copy-command="cargo add cybercore-core">COPY</button></div>
-          <a class="master-action" href="#install">VIEW RUNTIME EXAMPLES ↓</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- ═══════════════ 08 GRID ═══════════════ -->
-    <section class="section wrap" id="grid">
-      <div class="head reveal">
-        <div><p class="kicker">08 / THE GRID</p><h2 class="scramble">Built on the<br><em>same core.</em></h2></div>
-        <p>Each of these reads the CYBERGRID palette. Your theme choice is stored once and carried to every project site.</p>
-      </div>
-      <div class="tiles" id="tiles">
-        <a class="tile reveal" href="https://cybercoretech.github.io/omniscient/" style="--c:var(--cyan)"><span class="tile-k">CORE · AUDIT</span><b>Omniscient</b><p>A full-system audit tool for the CYBERDECK suite, with readable Markdown reports.</p><i class="tile-go"><svg><use href="#i-arrow"/></svg></i></a>
-        <a class="tile reveal" href="https://cybercoretech.github.io/cyberdeck-hub/" style="--c:var(--acid)"><span class="tile-k">CORE · HUB</span><b>CyberDeck Hub</b><p>A personal cyberdeck build: the central tool hub, tied to this box.</p><i class="tile-go"><svg><use href="#i-arrow"/></svg></i></a>
-        <a class="tile reveal" href="https://cybercoretech.github.io/sigilward/" style="--c:var(--pink)"><span class="tile-k">SECURITY · INTEGRITY</span><b>SigilWard</b><p>File-integrity monitor. Baseline a set of paths, then detect drift.</p><i class="tile-go"><svg><use href="#i-arrow"/></svg></i></a>
-        <a class="tile reveal" href="https://cybercoretech.github.io/argus/" style="--c:var(--purple)"><span class="tile-k">SECURITY · LIVE WATCH</span><b>Argus</b><p>Real-time file-integrity watcher. An inotify daemon and TUI that keeps SigilWard's baseline live.</p><i class="tile-go"><svg><use href="#i-arrow"/></svg></i></a>
-        <a class="tile reveal" href="https://cybercoretech.github.io/undertow/" style="--c:var(--red)"><span class="tile-k">SECURITY · COMPROMISE</span><b>Undertow</b><p>Rootkit and compromise checks: pacman integrity, SUID, module and persistence drift.</p><i class="tile-go"><svg><use href="#i-arrow"/></svg></i></a>
-        <a class="tile reveal" href="https://cybercoretech.github.io/dockspace/" style="--c:var(--orange)"><span class="tile-k">TOOLING · CONTAINERS</span><b>Dockspace</b><p>Self-hosted dashboard for docker-compose stacks, built in Rust on CYBERGRID.</p><i class="tile-go"><svg><use href="#i-arrow"/></svg></i></a>
-        <a class="tile reveal" href="https://cybercoretech.github.io/cyberfleet/" style="--c:var(--cyan)"><span class="tile-k">INTEGRATIONS · GIT</span><b>CyberFleet</b><p>Multi-repo git status from the bar, with a full TUI to fetch, diff and jump in.</p><i class="tile-go"><svg><use href="#i-arrow"/></svg></i></a>
-        <a class="tile reveal" href="https://cybercoretech.github.io/cyberwatch/" style="--c:var(--acid)"><span class="tile-k">INTEGRATIONS · SYSTEMD</span><b>CyberWatch</b><p>Live systemd dashboard for your own services: bar widget plus TUI.</p><i class="tile-go"><svg><use href="#i-arrow"/></svg></i></a>
-        <a class="tile reveal" href="https://cybercoretech.github.io/cyberplug/" style="--c:var(--pink)"><span class="tile-k">INTEGRATIONS · PLUGINS</span><b>CyberPlug</b><p>Plugin manager for Omarchy. Now ships the bar widget as part of one plugin package.</p><i class="tile-go"><svg><use href="#i-arrow"/></svg></i></a>
-      </div>
-    </section>
-
-    <!-- ═══════════════ 09 INSTALL ═══════════════ -->
-    <section class="section wrap" id="install">
-      <div class="head reveal">
-        <div><p class="kicker">09 / INSTALL</p><h2 class="scramble">Jack in.</h2></div>
-        <p>Pick your runtime. Every path reads the same file, so the colours match whatever the language.</p>
-      </div>
-      <div class="install reveal">
-        <div class="tabs" role="tablist" aria-label="Runtime">
-          <button role="tab" aria-selected="true" aria-controls="tab-rust" id="t-rust">RUST</button>
-          <button role="tab" aria-selected="false" aria-controls="tab-qml" id="t-qml">C++ / QML</button>
-          <button role="tab" aria-selected="false" aria-controls="tab-css" id="t-css">CSS</button>
-          <button role="tab" aria-selected="false" aria-controls="tab-api" id="t-api">HTTP API</button>
-        </div>
-        <div class="window">
-          <pre role="tabpanel" id="tab-rust" aria-labelledby="t-rust" data-copy><code><span class="c"># Cargo.toml</span>
-[dependencies]
-cybercore = <span class="s">"0.8"</span>
-
-<span class="c">// main.rs</span>
-<span class="k">use</span> cybercore::{palette, paths};
-
-println!(<span class="s">"{}online{}"</span>, palette::acid_green(), palette::RESET);
-<span class="k">let</span> sysops = paths::sysops_root(); <span class="c">// ~/.sysops, expanded</span></code></pre>
-          <pre role="tabpanel" id="tab-qml" aria-labelledby="t-qml" data-copy hidden><code><span class="c">// C++</span>
-QFile f(<span class="s">":/cybercore/schema/cybergrid.json"</span>);
-f.open(QIODevice::ReadOnly);
-<span class="k">auto</span> doc = QJsonDocument::fromJson(f.readAll());
-
-<span class="c">// QML</span>
-<span class="k">property var</span> cybergrid: JSON.parse(cybergrid_json_string)
-color: <span class="s">"#"</span> + cybergrid.palette.acid_green</code></pre>
-          <pre role="tabpanel" id="tab-css" aria-labelledby="t-css" data-copy hidden><code><span class="c">/* load order: reset → tokens → theme colours → components */</span>
-<span class="k">@import</span> <span class="s">"cybertokens.css"</span>;
-<span class="k">@import</span> <span class="s">"cybercomponents.css"</span>;
-
-.panel {
-  background: <span class="v">var(--panel)</span>;
-  border: 1px solid <span class="v">var(--line)</span>;
-  color: <span class="v">var(--fg)</span>;
-  padding: <span class="v">var(--space-4)</span>;
-}</code></pre>
-          <pre role="tabpanel" id="tab-api" aria-labelledby="t-api" data-copy hidden><code><span class="c"># standard library only, Python 3.8+</span>
-python3 cybercore_api.py            <span class="c"># http://127.0.0.1:8787</span>
-
-curl localhost:8787/palette/cyan?format=rgb
-curl localhost:8787/paths?expand=true
-curl localhost:8787/schema</code></pre>
-        </div>
-      </div>
-      <div class="cli-install reveal">
-        <div><p class="kicker">CYBERCORE 0.8.1 / MASTER FRAMEWORK</p><h3>Install the pieces.</h3><p>The framework provides the schema, tokens, paths, modular crates, and governed resource packs. Use the separate Control Plane when you need to validate, compose, and publish a project surface.</p><a href="https://cybercoretech.github.io/cybercore-control-plane/">OPEN THE CONTROL PLANE ↗</a></div>
-        <div class="cli-command"><span>MODULAR CRATES / CRATES.IO</span><code>cargo add cybercore-core cybercore-effects cybercore-components</code><a href="https://github.com/cybercoretech/cybercore-packs">BROWSE PACK REGISTRY ↗</a><small>Theme CLI: <code>cargo install --locked cybercore --bin cybercore-theme</code></small></div>
-      </div>
+    <section class="control-callout shell">
+      <div><p class="eyebrow">WHEN YOU NEED GOVERNANCE</p><h2>Move from source<br><em>to control.</em></h2><p>The Control Plane is the operational companion: explore resources, validate compatibility, compose site profiles, and prepare deliberate publish plans.</p></div>
+      <a class="button primary" href="https://cybercoretech.github.io/cybercore-control-plane/">OPEN THE CONTROL PLANE ↗</a>
     </section>
   </main>
-
-  <footer class="foot">
-    <div class="wrap">
-      <cybercore-contact repo="cybercore" bare><p>Contact: <a href="mailto:dev@cybercoretech.net">dev@cybercoretech.net</a></p></cybercore-contact>
-      <div class="foot-row">
-        <a class="brand" href="#top"><svg class="brand-mark"><use href="#mark"/></svg><span class="brand-name">CYBERCORE<small>MIT · Copyright (c) 2026 Cybercore Tech</small></span></a>
-        <p class="keys"><kbd>T</kbd> themes <kbd>R</kbd> random <kbd>[</kbd><kbd>]</kbd> cycle <kbd>↑↑↓↓←→←→BA</kbd> overdrive</p>
-        <nav class="foot-links"><a href="https://cybercoretech.github.io/">CYBERCORE TECH</a><a href="https://cybercoretech.net/">CYBERCORETECH.NET</a><a href="https://github.com/cybercoretech/cybercore">GITHUB</a><a href="https://docs.rs/cybercore">DOCS.RS</a></nav>
-      </div>
-    </div>
-  </footer>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <footer class="footer shell"><span>CYBERCORE / MASTER FRAMEWORK / MIT</span><nav><a href="https://github.com/cybercoretech/cybercore">SOURCE</a><a href="https://github.com/cybercoretech/cybercore-packs">PACKS</a><a href="https://cybercoretech.github.io/cybercore-control-plane/">CONTROL PLANE</a></nav></footer>
+  <script src="assets/js/master.js"></script>
 </body>
 </html>
