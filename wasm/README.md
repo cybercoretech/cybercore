@@ -1,3 +1,12 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/cybercoretech/cybercore/feat/wasm-theme-core/wasm/assets/cybercore-theme-wasm-card.svg" alt="Cybercore Theme WASM — browser bindings for the Cybercore theme engine">
+</p>
+
+<p align="center">
+  <a href="https://crates.io/crates/cybercore-theme-wasm"><img src="https://img.shields.io/crates/v/cybercore-theme-wasm.svg" alt="crates.io"></a>
+  <a href="https://docs.rs/cybercore-theme-wasm"><img src="https://img.shields.io/docsrs/cybercore-theme-wasm" alt="docs.rs"></a>
+</p>
+
 # 🎨 Cybercore theme engine for browsers
 
 The core's default `fs` feature preserves native persistence. Browser consumers

@@ -40,7 +40,12 @@ fn cached() -> Option<Value> {
         .get_or_init(|| Mutex::new(None))
         .lock()
         .ok()
-        .and_then(|cache| cache.as_ref().filter(|(time, _)| time.elapsed() < CACHE_TTL).map(|(_, value)| value.clone()))
+        .and_then(|cache| {
+            cache
+                .as_ref()
+                .filter(|(time, _)| time.elapsed() < CACHE_TTL)
+                .map(|(_, value)| value.clone())
+        })
 }
 
 async fn github(client: &Client) -> Value {
@@ -81,11 +86,18 @@ async fn github(client: &Client) -> Value {
 
 async fn google(client: &Client) -> Value {
     let Some(url) = std::env::var_os("GOOGLE_PAGESPEED_URL") else {
-        return configured_or_not("GOOGLE_APPLICATION_CREDENTIALS", "GOOGLE_PAGESPEED_URL", "google");
+        return configured_or_not(
+            "GOOGLE_APPLICATION_CREDENTIALS",
+            "GOOGLE_PAGESPEED_URL",
+            "google",
+        );
     };
     let mut request = client
         .get("https://www.googleapis.com/pagespeedonline/v5/runPagespeed")
-        .query(&[("url", url.to_string_lossy().as_ref()), ("strategy", "mobile")]);
+        .query(&[
+            ("url", url.to_string_lossy().as_ref()),
+            ("strategy", "mobile"),
+        ]);
     if let Some(key) = std::env::var_os("GOOGLE_PAGESPEED_API_KEY") {
         request = request.query(&[("key", key.to_string_lossy().as_ref())]);
     }
@@ -123,10 +135,16 @@ async fn cloudflare(client: &Client) -> Value {
         return configured_or_not("CLOUDFLARE_API_TOKEN", "CLOUDFLARE_ZONE_ID", "cloudflare");
     };
     let Some(zone_id) = std::env::var_os("CLOUDFLARE_ZONE_ID") else {
-        return error_state("NOT CONFIGURED", "CLOUDFLARE_ZONE_ID is required for zone metrics.");
+        return error_state(
+            "NOT CONFIGURED",
+            "CLOUDFLARE_ZONE_ID is required for zone metrics.",
+        );
     };
     let response = client
-        .get(format!("https://api.cloudflare.com/client/v4/zones/{}/settings/ipv4", zone_id.to_string_lossy()))
+        .get(format!(
+            "https://api.cloudflare.com/client/v4/zones/{}/settings/ipv4",
+            zone_id.to_string_lossy()
+        ))
         .bearer_auth(token)
         .header("Accept", "application/json")
         .send()
@@ -141,16 +159,29 @@ async fn cloudflare(client: &Client) -> Value {
                 "api_reachable": true
             }
         }),
-        Ok(response) if response.status() == StatusCode::UNAUTHORIZED || response.status() == StatusCode::FORBIDDEN =>
-            error_state("ERROR", "Cloudflare token was rejected or lacks zone permissions."),
-        Ok(response) => error_state("ERROR", format!("Cloudflare returned {}", response.status())),
+        Ok(response)
+            if response.status() == StatusCode::UNAUTHORIZED
+                || response.status() == StatusCode::FORBIDDEN =>
+        {
+            error_state(
+                "ERROR",
+                "Cloudflare token was rejected or lacks zone permissions.",
+            )
+        }
+        Ok(response) => error_state(
+            "ERROR",
+            format!("Cloudflare returned {}", response.status()),
+        ),
         Err(error) => error_state("ERROR", error.to_string()),
     }
 }
 
 fn configured_or_not(secret: &str, target: &str, provider: &str) -> Value {
     if std::env::var_os(secret).is_some() {
-        error_state("NOT CONFIGURED", format!("{target} is required for {provider} metrics."))
+        error_state(
+            "NOT CONFIGURED",
+            format!("{target} is required for {provider} metrics."),
+        )
     } else {
         json!({"status": "NOT CONFIGURED", "source": secret, "last_sync": Value::Null})
     }

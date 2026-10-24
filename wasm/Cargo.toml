@@ -1,17 +1,21 @@
 [package]
 name = "cybercore-theme-wasm"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.85"
 license = "MIT"
 description = "Browser bindings for the Cybercore theme engine"
-publish = false
+readme = "README.md"
+repository = "https://github.com/cybercoretech/cybercore"
+homepage = "https://cybercoretech.github.io/cybercore/"
+keywords = ["cybercore", "themes", "wasm", "wasm-bindgen"]
+categories = ["wasm", "web-programming"]
 
 [lib]
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-cybercore = { path = "..", default-features = false }
+cybercore = { version = "0.8.2", path = "..", default-features = false }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 wasm-bindgen = "=0.2.129"

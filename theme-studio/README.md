@@ -1,3 +1,12 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/cybercoretech/cybercore/feat/wasm-theme-core/theme-studio/assets/cybercore-theme-studio-card.svg" alt="Cybercore Theme Studio — local theme creation and preview">
+</p>
+
+<p align="center">
+  <a href="https://crates.io/crates/cybercore-theme-studio"><img src="https://img.shields.io/crates/v/cybercore-theme-studio.svg" alt="crates.io"></a>
+  <a href="https://docs.rs/cybercore-theme-studio"><img src="https://img.shields.io/docsrs/cybercore-theme-studio" alt="docs.rs"></a>
+</p>
+
 # 🎨 Cybercore Theme Studio
 
 Cybercore Theme Studio is the standalone visual creator for CYBERGRID themes.
