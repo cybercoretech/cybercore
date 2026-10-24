@@ -204,6 +204,11 @@ def main() -> int:
     parser.add_argument("--tui", action="store_true", help="choose consumers interactively before applying")
     args = parser.parse_args()
 
+    if args.tui and not os.environ.get("CYBERCORE_UPDATE_PYTHON_TUI"):
+        rust_tui = shutil.which("cybercore-update-tui")
+        if rust_tui:
+            os.execv(rust_tui, [rust_tui])
+
     config = json.loads(MANIFEST.read_text(encoding="utf-8"))
     selected = set(args.consumer or [])
     if args.tui:
