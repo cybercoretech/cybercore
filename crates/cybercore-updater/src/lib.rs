@@ -88,6 +88,16 @@ pub struct Task {
     pub kind: TaskKind,
 }
 
+#[derive(Debug, Clone)]
+pub struct Inspection {
+    pub name: String,
+    pub kind: TaskKind,
+    pub source: PathBuf,
+    pub source_exists: bool,
+    pub worktree_clean: bool,
+    pub service: Option<String>,
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum TaskStatus {
     Planned,
@@ -135,6 +145,37 @@ impl Engine {
             .chain(self.manifest.syncs.iter().map(|item| Task {
                 name: item.name.clone(),
                 kind: TaskKind::Sync,
+            }))
+            .collect()
+    }
+
+    pub fn inspect(&self) -> Vec<Inspection> {
+        self.manifest
+            .consumers
+            .iter()
+            .map(|item| {
+                let source = self.resolve(&item.source);
+                Inspection {
+                    name: item.name.clone(),
+                    kind: TaskKind::Consumer,
+                    source_exists: source.is_dir(),
+                    worktree_clean: source.is_dir()
+                        && self.check_worktree(&source, &item.allowed_dirty).is_ok(),
+                    source,
+                    service: item.service.clone(),
+                }
+            })
+            .chain(self.manifest.syncs.iter().map(|item| {
+                let source = self.resolve(&item.source);
+                Inspection {
+                    name: item.name.clone(),
+                    kind: TaskKind::Sync,
+                    source_exists: source.is_dir(),
+                    worktree_clean: source.is_dir()
+                        && self.check_worktree(&source, &item.allowed_dirty).is_ok(),
+                    source,
+                    service: None,
+                }
             }))
             .collect()
     }

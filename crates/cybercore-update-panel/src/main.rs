@@ -20,6 +20,16 @@ struct TaskView {
     kind: &'static str,
 }
 
+#[derive(Serialize)]
+struct FleetView {
+    name: String,
+    kind: &'static str,
+    source: String,
+    source_exists: bool,
+    worktree_clean: bool,
+    service: Option<String>,
+}
+
 #[derive(Deserialize)]
 struct ApplyRequest {
     names: Vec<String>,
@@ -51,6 +61,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let app = Router::new()
         .route("/", get(index))
         .route("/api/tasks", get(tasks))
+        .route("/api/fleet", get(fleet))
         .route("/api/apply", post(apply))
         .with_state(state);
     let listener = tokio::net::TcpListener::bind(bind).await?;
@@ -115,6 +126,27 @@ async fn tasks(State(state): State<AppState>) -> Json<Vec<TaskView>> {
                     cybercore_updater::TaskKind::Consumer => "consumer",
                     cybercore_updater::TaskKind::Sync => "sync",
                 },
+            })
+            .collect(),
+    )
+}
+
+async fn fleet(State(state): State<AppState>) -> Json<Vec<FleetView>> {
+    Json(
+        state
+            .engine
+            .inspect()
+            .into_iter()
+            .map(|item| FleetView {
+                name: item.name,
+                kind: match item.kind {
+                    cybercore_updater::TaskKind::Consumer => "consumer",
+                    cybercore_updater::TaskKind::Sync => "sync",
+                },
+                source: item.source.display().to_string(),
+                source_exists: item.source_exists,
+                worktree_clean: item.worktree_clean,
+                service: item.service,
             })
             .collect(),
     )
