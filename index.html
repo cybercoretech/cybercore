@@ -13,6 +13,18 @@
   <link rel="stylesheet" href="assets/css/master.css?v=20261023-3">
   <link rel="stylesheet" href="assets/css/site-family.css?v=20261023-1">
   <link rel="stylesheet" href="assets/css/master-family.css?v=20261023-2">
+  <script>
+    window.SITE = {
+      dataRoot: 'https://cybercoretech.github.io/data',
+      defaultTheme: 'cybercore-tech',
+      mashups: [
+        { id: 'cc-midnight-mainframe', label: 'MIDNIGHT MAINFRAME', base: 'synthwave-sunset', accent: 'cyberpunk-neon' },
+        { id: 'cc-chrome-horizon', label: 'CHROME HORIZON', base: 'cyberdyne-steel', accent: 'synthwave-outrun' },
+        { id: 'cc-skynet-plasma', label: 'SKYNET PLASMA', base: 'cyberdyne-skynet', accent: 'neosynth-plasma' }
+      ]
+    };
+  </script>
+  <script src="assets/js/engine.js?v=0.9.9" defer></script>
   <script src="assets/js/fx.js?v=20261023-2" defer></script>
 </head>
 <body>
@@ -26,8 +38,16 @@
     <nav class="nav" aria-label="Primary">
       <a href="#why">CONTRACT</a><a href="#packs">MATRIX</a><a href="#usage">LAB</a><a href="#crates">STUDIO</a><a href="#ecosystem">📡 SIGNAL</a><a href="#packs">PIPELINE</a><a href="#why">TOKENS</a><a href="#usage">GRID</a><a href="#usage">INSTALL</a>
     </nav>
-    <div class="theme-picker"><button class="theme-button" type="button" title="Current Cybercore theme"><i class="theme-swatch" aria-hidden="true"></i><span>MIDNIGHT MAINFRAME</span><span aria-hidden="true">⌄</span></button></div>
-    <a class="icon-btn" href="https://cybercoretech.github.io/cybercore-control-plane/" title="Open Control Plane" aria-label="Open Control Plane">⚄</a>
+    <div class="theme-picker" id="picker">
+      <button class="theme-button" id="themeButton" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="themeMenu" title="Theme (T)">
+        <i class="theme-swatch" aria-hidden="true"></i><span id="themeLabel">LOADING…</span><span aria-hidden="true">⌄</span>
+      </button>
+      <div class="theme-menu" id="themeMenu" hidden>
+        <div class="theme-search"><input id="themeFilter" type="search" placeholder="FILTER THEMES…" aria-label="Filter themes" autocomplete="off" spellcheck="false"></div>
+        <div class="theme-list" id="themeList" role="listbox" aria-label="Theme"></div>
+      </div>
+    </div>
+    <button class="icon-btn" id="shuffle" type="button" title="Random theme (R)" aria-label="Random theme">⚄</button>
   </header>
 
   <main id="top">
