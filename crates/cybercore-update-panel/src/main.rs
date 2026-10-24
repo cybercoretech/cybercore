@@ -98,8 +98,10 @@ h1{font-size:clamp(2rem,5vw,var(--fs-7));letter-spacing:.12em;margin:.2rem 0;tex
 @media(max-width:800px){.hero{display:block}.signal{display:block;margin-top:var(--space-3)}.grid{grid-template-columns:1fr}.shell{padding:var(--space-5) var(--space-3)}}
 </style>"#,
     );
+    page.push_str("<style>");
     page.push_str(include_str!("../../../css/cybertokens.css"));
     page.push_str(include_str!("../../../css/cybercomponents.css"));
+    page.push_str("</style>");
     page.push_str(
         r#"</head><body><main class="shell">
 <header class="hero"><div><div class="eyebrow">CYBERCORE // OPERATIONS</div><h1>UPDATE CONTROL</h1><p class="lede">One governed surface for the local fleet, shared themes, services, and release propagation.</p></div><div class="signal">● LOCAL CONTROL ACTIVE</div></header>
