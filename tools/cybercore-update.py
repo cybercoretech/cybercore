@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import curses
 import json
 import os
 import re
@@ -145,14 +146,77 @@ def process_sync(item: dict[str, Any], apply: bool) -> str:
     return "updated"
 
 
+def run_tui(config: dict[str, Any]) -> list[dict[str, Any]] | None:
+    entries = [
+        {**item, "kind": "consumer"} for item in config["consumers"]
+    ] + [
+        {**item, "kind": "sync"} for item in config["syncs"]
+    ]
+
+    def screen(stdscr: Any) -> list[dict[str, Any]] | None:
+        curses.curs_set(0)
+        selected = [True] * len(entries)
+        cursor = 0
+        while True:
+            stdscr.erase()
+            height, width = stdscr.getmaxyx()
+            title = "CYBERCORE // SYSTEM UPDATER"
+            stdscr.addnstr(0, 0, title, max(0, width - 1), curses.A_BOLD)
+            stdscr.addnstr(
+                1,
+                0,
+                "Space toggle  A all  N none  Enter apply  Q cancel",
+                max(0, width - 1),
+            )
+            for row, item in enumerate(entries[: max(0, height - 4)]):
+                marker = "[x]" if selected[row] else "[ ]"
+                prefix = ">" if row == cursor else " "
+                label = f"{prefix} {marker} {item['name']}"
+                if item["kind"] == "sync":
+                    label += "  (catalog sync)"
+                stdscr.addnstr(row + 3, 0, label, max(0, width - 1))
+                if row == cursor:
+                    stdscr.chgat(row + 3, 0, max(0, width - 1), curses.A_REVERSE)
+            stdscr.refresh()
+            key = stdscr.getch()
+            if key in (ord("q"), ord("Q"), 27):
+                return None
+            if key in (curses.KEY_UP, ord("k")):
+                cursor = max(0, cursor - 1)
+            elif key in (curses.KEY_DOWN, ord("j")):
+                cursor = min(len(entries) - 1, cursor + 1)
+            elif key == ord(" "):
+                selected[cursor] = not selected[cursor]
+            elif key in (ord("a"), ord("A")):
+                selected = [True] * len(entries)
+            elif key in (ord("n"), ord("N")):
+                selected = [False] * len(entries)
+            elif key in (curses.KEY_ENTER, 10, 13):
+                return [item for item, include in zip(entries, selected) if include]
+
+    return curses.wrapper(screen)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Propagate Cybercore updates to local consumers.")
     parser.add_argument("--apply", action="store_true", help="build, install, regenerate, and restart services")
     parser.add_argument("--consumer", action="append", help="limit execution to named consumers or syncs")
+    parser.add_argument("--tui", action="store_true", help="choose consumers interactively before applying")
     args = parser.parse_args()
 
     config = json.loads(MANIFEST.read_text(encoding="utf-8"))
     selected = set(args.consumer or [])
+    if args.tui:
+        if not sys.stdin.isatty() or not sys.stdout.isatty():
+            parser.error("--tui requires an interactive terminal")
+        chosen = run_tui(config)
+        if chosen is None:
+            print("Cancelled.")
+            return 0
+        config = {"consumers": [item for item in chosen if item["kind"] == "consumer"],
+                  "syncs": [item for item in chosen if item["kind"] == "sync"]}
+        selected = set()
+        args.apply = True
     results: list[str] = []
     for item in config["consumers"]:
         if selected and item["name"] not in selected:
