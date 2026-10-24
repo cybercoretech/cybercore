@@ -1,0 +1,13 @@
+[package]
+name = "cybercore-updater"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+description = "Shared task engine for the Cybercore local updater"
+license = "MIT"
+repository = "https://github.com/cybercoretech/cybercore"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+

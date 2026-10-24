@@ -60,6 +60,8 @@ members = [
     "crates/cybercore-effects",
     "crates/cybercore-components",
     "crates/cybercore-publish",
+    "crates/cybercore-updater",
+    "crates/cybercore-update",
     "theme-studio",
     "wasm",
 ]
