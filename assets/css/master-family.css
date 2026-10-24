@@ -211,6 +211,8 @@ nav a, .text-link, .master-action, .button, .eyebrow, .hero-facts, .card-top,
 .master-foot-support { display: block; margin-bottom: .7rem; padding: .75rem; border: 1px solid var(--cyan); color: var(--cyan); font: .58rem var(--mono); letter-spacing: .08em; }
 .master-foot-support:hover { color: var(--bg); background: var(--cyan); }
 .master-foot-grid small a { color: var(--cyan); }
+.theme-button #themeLabel { flex: 1; min-width: 0; overflow: visible; text-overflow: clip; }
+.theme-button .theme-chevron { flex: none; width: 1rem; text-align: center; overflow: visible; }
 .keys { color: var(--muted); font: .58rem var(--mono); letter-spacing: .08em; }
 .keys kbd { padding: .35rem .45rem; border: 1px solid var(--line); color: var(--white); background: var(--panel); }
 .foot-links { display: flex; flex-wrap: wrap; gap: 1.2rem; font: .58rem var(--mono); letter-spacing: .12em; }
