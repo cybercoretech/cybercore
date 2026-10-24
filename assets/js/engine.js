@@ -323,7 +323,8 @@
 
   /* ---------- boot ---------- */
   async function preloadAll() {
-    await Promise.all(allNames().map(n => palette(n).catch(() => null)));
+    const warm = allNames().slice(0, 12);
+    await Promise.all(warm.map(n => palette(n).catch(() => null)));
     flushDots();
   }
   async function boot() {
