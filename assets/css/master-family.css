@@ -185,6 +185,22 @@ nav a, .text-link, .master-action, .button, .eyebrow, .hero-facts, .card-top,
   border-color: var(--line);
 }
 
+.crate-list button {
+  grid-column: 2;
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  color: var(--acid);
+  background: transparent;
+  font: .61rem var(--mono);
+  cursor: pointer;
+}
+
+.crate-list button:hover {
+  color: var(--cyan);
+  text-decoration: underline;
+}
+
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; }
 }

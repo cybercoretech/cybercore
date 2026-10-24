@@ -12,7 +12,9 @@
       name.textContent = crate.name;
       const description = document.createElement('span');
       description.textContent = crate.description || 'Published Cybercore Rust contract.';
-      const command = document.createElement('code');
+      const command = document.createElement('button');
+      command.type = 'button';
+      command.dataset.copy = `cargo add ${crate.name}`;
       command.textContent = `cargo add ${crate.name}`;
 
       link.append(name, description, command);
@@ -39,24 +41,24 @@
       });
   }
 
-  document.querySelectorAll('[data-copy]').forEach(button => {
-    button.addEventListener('click', async event => {
-      event.preventDefault();
-      const command = button.dataset.copy;
-      try {
-        await navigator.clipboard.writeText(command);
-      } catch {
-        const input = document.createElement('textarea');
-        input.value = command;
-        input.style.position = 'fixed';
-        input.style.opacity = '0';
-        document.body.append(input);
-        input.select();
-        document.execCommand('copy');
-        input.remove();
-      }
-      button.textContent = 'COPIED';
-      window.setTimeout(() => { button.textContent = 'COPY'; }, 1400);
-    });
+  document.addEventListener('click', async event => {
+    const button = event.target.closest('[data-copy]');
+    if (!button) return;
+    event.preventDefault();
+    const command = button.dataset.copy;
+    try {
+      await navigator.clipboard.writeText(command);
+    } catch {
+      const input = document.createElement('textarea');
+      input.value = command;
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
+      document.body.append(input);
+      input.select();
+      document.execCommand('copy');
+      input.remove();
+    }
+    button.textContent = 'COPIED';
+    window.setTimeout(() => { button.textContent = command; }, 1400);
   });
 })();
