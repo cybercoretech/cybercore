@@ -184,6 +184,15 @@ impl Engine {
             status: TaskStatus::Running,
             message: "building release binary".into(),
         });
+        let manifest = source.join("Cargo.toml");
+        if fs::read_to_string(&manifest)
+            .map(|contents| contents.contains("cybercore"))
+            .unwrap_or(false)
+        {
+            if let Err(error) = self.command(&source, "cargo", &["update".into(), "-p".into(), "cybercore".into()]) {
+                return self.finish(item.name.clone(), TaskStatus::Failed, error.to_string(), emit);
+            }
+        }
         let mut args = vec![
             "build".to_string(),
             "--release".into(),
@@ -198,7 +207,7 @@ impl Engine {
         if let Err(error) = self.command(&source, "cargo", &args) {
             return self.finish(item.name.clone(), TaskStatus::Failed, error.to_string(), emit);
         }
-        let target = self.target_directory(&source, &item.package);
+        let target = self.target_directory(&source);
         let binary = target.join("release").join(&item.binary);
         if !binary.is_file() {
             return self.finish(item.name.clone(), TaskStatus::Failed, format!("missing binary: {}", binary.display()), emit);
@@ -208,7 +217,9 @@ impl Engine {
             return self.finish(item.name.clone(), TaskStatus::Failed, error.to_string(), emit);
         }
         if let Some(service) = &item.service {
-            let _ = self.command(&source, "systemctl", &["--user".into(), "restart".into(), service.clone()]);
+            if let Err(error) = self.command(&source, "systemctl", &["--user".into(), "restart".into(), service.clone()]) {
+                return self.finish(item.name.clone(), TaskStatus::Failed, error.to_string(), emit);
+            }
         }
         self.finish(item.name.clone(), TaskStatus::Succeeded, format!("installed {}", destination.display()), emit)
     }
@@ -283,7 +294,7 @@ impl Engine {
         Ok(())
     }
 
-    fn target_directory(&self, source: &Path, package: &str) -> PathBuf {
+    fn target_directory(&self, source: &Path) -> PathBuf {
         let output = Command::new("cargo")
             .args(["metadata", "--manifest-path"])
             .arg(source.join("Cargo.toml"))
@@ -294,10 +305,6 @@ impl Engine {
             .and_then(|output| serde_json::from_slice::<serde_json::Value>(&output.stdout).ok())
             .and_then(|data| data.get("target_directory")?.as_str().map(PathBuf::from))
             .unwrap_or_else(|| source.join("target"))
-            .join(package)
-            .parent()
-            .unwrap_or_else(|| Path::new("target"))
-            .to_path_buf()
     }
 
     fn command(&self, cwd: &Path, program: &str, args: &[String]) -> Result<(), Error> {
