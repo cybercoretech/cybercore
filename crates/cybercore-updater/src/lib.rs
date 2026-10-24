@@ -97,6 +97,7 @@ pub struct Inspection {
     pub worktree_clean: bool,
     pub service: Option<String>,
     pub installed_binary: Option<PathBuf>,
+    pub service_active: Option<bool>,
     pub diagnostics: Vec<String>,
 }
 
@@ -158,6 +159,7 @@ impl Engine {
             .map(|item| {
                 let source = self.resolve(&item.source);
                 let installed_binary = Some(expand_home(&item.install));
+                let service_active = item.service.as_ref().map(|service| self.service_active(service));
                 let mut diagnostics = Vec::new();
                 if !source.is_dir() {
                     diagnostics.push(format!("missing source: {}", source.display()));
@@ -170,6 +172,9 @@ impl Engine {
                         installed_binary.as_ref().expect("consumer install path").display()
                     ));
                 }
+                if service_active == Some(false) {
+                    diagnostics.push(format!("service inactive: {}", item.service.as_deref().unwrap_or_default()));
+                }
                 Inspection {
                     name: item.name.clone(),
                     kind: TaskKind::Consumer,
@@ -179,6 +184,7 @@ impl Engine {
                     source,
                     service: item.service.clone(),
                     installed_binary,
+                    service_active,
                     diagnostics,
                 }
             })
@@ -199,6 +205,7 @@ impl Engine {
                     source,
                     service: None,
                     installed_binary: None,
+                    service_active: None,
                     diagnostics,
                 }
             }))
@@ -211,6 +218,84 @@ impl Engine {
         mut emit: impl FnMut(Event),
     ) -> Vec<(String, TaskStatus)> {
         self.run(names, true, |event| emit(event))
+    }
+
+    pub fn restart_services(
+        &self,
+        names: &[String],
+        mut emit: impl FnMut(Event),
+    ) -> Vec<(String, TaskStatus)> {
+        self.manifest
+            .consumers
+            .iter()
+            .filter(|item| names.is_empty() || names.iter().any(|name| name == &item.name))
+            .map(|item| {
+                let status = match item.service.as_deref() {
+                    Some(service) => {
+                        emit(Event {
+                            task: item.name.clone(),
+                            status: TaskStatus::Running,
+                            message: format!("restarting {service}"),
+                        });
+                        match self.command(
+                            &self.resolve(&item.source),
+                            "systemctl",
+                            &["--user".into(), "restart".into(), service.into()],
+                        ) {
+                            Ok(()) => TaskStatus::Succeeded,
+                            Err(_) => TaskStatus::Failed,
+                        }
+                    }
+                    None => TaskStatus::Blocked,
+                };
+                emit(Event {
+                    task: item.name.clone(),
+                    status,
+                    message: if status == TaskStatus::Succeeded {
+                        "service restarted".into()
+                    } else if status == TaskStatus::Blocked {
+                        "no service declared".into()
+                    } else {
+                        "service restart failed".into()
+                    },
+                });
+                (item.name.clone(), status)
+            })
+            .collect()
+    }
+
+    pub fn rollback(
+        &self,
+        names: &[String],
+        mut emit: impl FnMut(Event),
+    ) -> Vec<(String, TaskStatus)> {
+        self.manifest
+            .consumers
+            .iter()
+            .filter(|item| names.is_empty() || names.iter().any(|name| name == &item.name))
+            .map(|item| {
+                let destination = expand_home(&item.install);
+                let backup = destination.with_extension("cybercore-update.backup");
+                let status = if backup.is_file() {
+                    match install_binary(&backup, &destination) {
+                        Ok(()) => TaskStatus::Succeeded,
+                        Err(_) => TaskStatus::Failed,
+                    }
+                } else {
+                    TaskStatus::Blocked
+                };
+                emit(Event {
+                    task: item.name.clone(),
+                    status,
+                    message: match status {
+                        TaskStatus::Succeeded => format!("restored {}", destination.display()),
+                        TaskStatus::Failed => "rollback failed".into(),
+                        _ => format!("no rollback backup: {}", backup.display()),
+                    },
+                });
+                (item.name.clone(), status)
+            })
+            .collect()
     }
 
     pub fn run(
@@ -368,6 +453,14 @@ impl Engine {
         Ok(())
     }
 
+    fn service_active(&self, service: &str) -> bool {
+        Command::new("systemctl")
+            .args(["--user", "is-active", "--quiet", service])
+            .status()
+            .map(|status| status.success())
+            .unwrap_or(false)
+    }
+
     fn target_directory(&self, source: &Path) -> PathBuf {
         let output = Command::new("cargo")
             .args(["metadata", "--manifest-path"])
@@ -403,6 +496,10 @@ impl Engine {
 fn install_binary(source: &Path, destination: &Path) -> Result<(), Error> {
     if let Some(parent) = destination.parent() {
         fs::create_dir_all(parent)?;
+    }
+    if destination.is_file() {
+        let backup = destination.with_extension("cybercore-update.backup");
+        fs::copy(destination, backup)?;
     }
     let temporary = destination.with_extension("cybercore-update.tmp");
     fs::copy(source, &temporary)?;
