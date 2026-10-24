@@ -40,7 +40,8 @@
       "source": "../../core/cyberterm",
       "package": "cyberterm",
       "binary": "cyberterm",
-      "install": "~/.local/bin/cyberterm"
+      "install": "~/.local/bin/cyberterm",
+      "allowed_dirty": ["Cargo.lock"]
     },
     {
       "name": "cyberplug",
@@ -81,7 +82,7 @@
       "binary": "cybercore-theme-studio",
       "install": "~/.cargo-target/release/cybercore-theme-studio",
       "service": "cybercore-theme-studio.service",
-      "allowed_dirty": ["../Cargo.lock"]
+      "allowed_dirty": ["Cargo.lock", "tools/cybercore-consumers.json"]
     }
   ],
   "syncs": [
