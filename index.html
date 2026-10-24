@@ -9,25 +9,34 @@
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500;700&display=swap">
-  <link rel="stylesheet" href="assets/css/master.css?v=20261023-2">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Oxanium:wght@400;500;600;700&family=Share+Tech+Mono&display=swap">
+  <link rel="stylesheet" href="assets/css/master.css?v=20261023-3">
+  <link rel="stylesheet" href="assets/css/site-family.css?v=20261023-1">
+  <link rel="stylesheet" href="assets/css/master-family.css?v=20261023-1">
   <script src="assets/js/fx.js?v=20261023-2" defer></script>
 </head>
 <body>
   <div class="boot" id="boot"><div class="boot-inner"><img class="boot-mark" src="assets/img/mark.svg" alt=""><ul class="boot-log" id="bootLog"></ul><div class="boot-bar"><i id="bootBar"></i></div></div></div>
-  <header class="topbar">
-    <a class="wordmark" href="#top"><img class="brand-mark" src="assets/img/mark.svg" alt=""><span>CYBERCORE<small>THEME SYSTEM / FRAMEWORK</small></span></a>
-    <nav aria-label="Primary"><a href="#why">WHY</a><a href="#crates">CRATES</a><a href="#packs">PACKS</a><a href="#usage">USAGE</a><a class="nav-control" href="https://cybercoretech.github.io/cybercore-control-plane/">CONTROL PLANE ↗</a></nav>
+  <canvas class="fx-trail" id="trail" aria-hidden="true"></canvas>
+  <div class="fx-crt" aria-hidden="true"></div>
+  <div class="fx-progress" aria-hidden="true"><i id="progress"></i></div>
+  <div class="fx-flash" id="flash" aria-hidden="true"></div>
+  <header class="top">
+    <a class="brand" href="#top"><img class="brand-mark" src="assets/img/mark.svg" alt=""><span class="brand-name">CYBERCORE<small>FRAMEWORK / MASTER SITE</small></span></a>
+    <nav class="nav" aria-label="Primary"><a href="#why">MODEL</a><a href="#crates">CRATES</a><a href="#packs">PACKS</a><a href="#usage">USAGE</a><a href="#ecosystem">ECOSYSTEM</a></nav>
+    <div class="theme-picker"><button class="theme-button" type="button" title="Current Cybercore theme"><i class="theme-swatch" aria-hidden="true"></i><span>CYBERCORE TECH</span><span aria-hidden="true">⌄</span></button></div>
+    <a class="icon-btn" href="https://cybercoretech.github.io/cybercore-control-plane/" title="Open Control Plane" aria-label="Open Control Plane">↗</a>
   </header>
 
   <main id="top">
-    <section class="hero shell">
+    <section class="hero">
       <canvas class="hero-canvas" id="synth" aria-hidden="true"></canvas><div class="hero-vignette" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
       <div class="hero-copy">
         <p class="eyebrow"><i></i> CYBERCORE SYSTEMS FRAMEWORK / v0.8.1</p>
         <h1>The shared core<br><em>under the grid.</em></h1>
         <p class="intro">A Rust-first source of truth for themes, design tokens, filesystem paths, portable resources, and the tools that use them.</p>
-        <div class="hero-actions"><a class="button primary" href="#usage">START USING CYBERCORE</a><a class="button" href="https://github.com/cybercoretech/cybercore">VIEW SOURCE ↗</a></div>
+        <div class="hero-actions cta"><a class="btn primary" href="#usage">START USING CYBERCORE</a><a class="btn" href="https://github.com/cybercoretech/cybercore">VIEW SOURCE ↗</a></div>
         <div class="hero-facts"><span><b>312</b> source themes</span><span><b>4</b> modular crates</span><span><b>8</b> official packs</span></div>
       </div>
       <div class="contract-card">
@@ -36,6 +45,7 @@
         <p>CYBERGRID is readable by Rust, QML, CSS, HTTP clients, and downstream Cybercore projects.</p>
         <div class="contract-flow"><span>cybergrid.json</span><i>→</i><span>crates</span><i>→</i><span>packs</span><i>→</i><span>apps</span></div>
         <a href="https://cybercoretech.github.io/data/cybergrid.json">OPEN THE CANONICAL SCHEMA ↗</a>
+      </div>
       </div>
     </section>
 
@@ -99,9 +109,9 @@ var(--cyan)</code></pre><a href="https://github.com/cybercoretech/cybercore/tree
       </div>
     </section>
 
-    <section class="control-callout shell">
+    <section class="control-callout shell" id="ecosystem">
       <div><p class="eyebrow">WHEN YOU NEED GOVERNANCE</p><h2>Move from source<br><em>to control.</em></h2><p>The Control Plane is the operational companion: explore resources, validate compatibility, compose site profiles, and prepare deliberate publish plans.</p></div>
-      <a class="button primary" href="https://cybercoretech.github.io/cybercore-control-plane/">OPEN THE CONTROL PLANE ↗</a>
+      <a class="btn primary" href="https://cybercoretech.github.io/cybercore-control-plane/">OPEN THE CONTROL PLANE ↗</a>
     </section>
   </main>
   <footer class="footer shell"><span>CYBERCORE / MASTER FRAMEWORK / MIT</span><nav><a href="https://github.com/cybercoretech/cybercore">SOURCE</a><a href="https://github.com/cybercoretech/cybercore-packs">PACKS</a><a href="https://cybercoretech.github.io/cybercore-control-plane/">CONTROL PLANE</a></nav></footer>
