@@ -77,6 +77,37 @@
   box-shadow: 12px 0 35px #0005;
 }
 
+.navy .sidebar::before {
+  display: block;
+  padding: 14px 8px 12px;
+  color: #c6ff45;
+  content: "✳  CYBERCORE MASTER DOCUMENTATION";
+  font: 700 .66rem "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.navy .sidebar .chapter {
+  padding: 0 10px;
+}
+
+.navy .sidebar .chapter .part-title {
+  margin: 12px 0 5px;
+  padding: 8px;
+  border: 1px solid #263454;
+  border-radius: 2px;
+  color: #22e6ff;
+  background: #0d1422;
+  font: 700 .62rem "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.navy .sidebar .chapter .part-title::before {
+  content: "▰  ";
+  color: #c6ff45;
+}
+
 .navy .sidebar .chapter li.chapter-item {
   border-bottom: 1px solid #ffffff08;
 }
