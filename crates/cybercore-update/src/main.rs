@@ -1,4 +1,6 @@
-use cybercore_updater::{Engine, Event, Inspection, Manifest, Task, TaskStatus, ThemeReport};
+use cybercore_updater::{
+    Engine, Event, Inspection, Manifest, RepositoryReport, Task, TaskStatus, ThemeReport,
+};
 use crossterm::{
     event::{self, Event as Input, KeyCode},
     execute,
@@ -74,7 +76,7 @@ fn run(
     let mut statuses = HashMap::<String, String>::new();
     let mut inspections = HashMap::<String, Inspection>::new();
     let mut logs = vec![
-        "↑/↓ move  Space toggle  A all  N none  I inspect  T themes  G GitHub  O open PR  H history".to_string(),
+        "↑/↓ move  Space toggle  A all  N none  I inspect  T themes  D diff  G GitHub  O open PR  H history".to_string(),
         "P plan  Enter apply  R repair  S restart  B rollback  U sync themes  Q quit".to_string(),
     ];
     let mut pending: Option<Action> = None;
@@ -226,10 +228,11 @@ fn run(
                     github_report(engine, &mut logs, &mut first_github_url)
                 }
                 KeyCode::Char('t') if pending.is_none() => theme_report(engine, &mut logs),
+                KeyCode::Char('d') if pending.is_none() => repository_report(engine, &mut logs),
                 KeyCode::Char('o') if pending.is_none() => open_github_pr(&first_github_url, &mut logs),
                 KeyCode::Char('h') if pending.is_none() => history_report(engine, &mut logs),
                 KeyCode::Char('?') if pending.is_none() => logs.push(
-                    "HELP: I inspect | T themes | G GitHub | O open PR | H history | P plan | Enter apply | R repair | S restart | B rollback | U sync themes | Y/N confirm"
+                    "HELP: I inspect | T themes | D diff | G GitHub | O open PR | H history | P plan | Enter apply | R repair | S restart | B rollback | U sync themes | Y/N confirm"
                         .into(),
                 ),
                 KeyCode::Char('p') if pending.is_none() => {
@@ -295,6 +298,29 @@ fn github_report(engine: &Engine, logs: &mut Vec<String>, first_url: &mut Option
 fn theme_report(engine: &Engine, logs: &mut Vec<String>) {
     let report = engine.theme_report();
     append_theme_report(&report, logs);
+}
+
+fn repository_report(engine: &Engine, logs: &mut Vec<String>) {
+    let reports = engine.repository_report();
+    logs.push(format!("REPOS discovered: {}", reports.len()));
+    for report in reports {
+        append_repository_report(&report, logs);
+    }
+}
+
+fn append_repository_report(report: &RepositoryReport, logs: &mut Vec<String>) {
+    let state = if report.status.is_empty() { "CLEAN" } else { "DIRTY" };
+    logs.push(format!(
+        "REPO {} [{}] branch={} commit={}",
+        report.source.display(),
+        state,
+        report.branch,
+        report.recent_commit
+    ));
+    if !report.diff_stat.is_empty() {
+        logs.push(format!("REPO diff: {}", report.diff_stat));
+    }
+    logs.extend(report.status.iter().map(|line| format!("REPO change: {line}")));
 }
 
 fn append_theme_report(report: &ThemeReport, logs: &mut Vec<String>) {

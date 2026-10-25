@@ -147,6 +147,15 @@ pub struct ThemeReport {
     pub extra_managed: Vec<String>,
 }
 
+#[derive(Debug, Clone)]
+pub struct RepositoryReport {
+    pub source: PathBuf,
+    pub branch: String,
+    pub status: Vec<String>,
+    pub diff_stat: String,
+    pub recent_commit: String,
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct HistoryEntry {
     pub timestamp: u64,
@@ -218,7 +227,7 @@ impl Engine {
                     source_exists: source.is_dir(),
                     worktree_clean: source.is_dir()
                         && self.check_worktree(&source, &item.allowed_dirty).is_ok(),
-                    source,
+                    source: source.clone(),
                     service: item.service.clone(),
                     installed_binary,
                     service_active,
@@ -376,6 +385,51 @@ impl Engine {
             missing_managed: expected.difference(&local_ids).cloned().collect(),
             extra_managed: local_ids.difference(&expected).cloned().collect(),
         }
+
+    }
+
+    pub fn repository_report(&self) -> Vec<RepositoryReport> {
+        let mut seen = std::collections::HashSet::new();
+        self.tasks()
+            .into_iter()
+            .filter_map(|task| {
+                let source = self
+                    .manifest
+                    .consumers
+                    .iter()
+                    .find(|item| item.name == task.name)
+                    .map(|item| self.resolve(&item.source))
+                    .or_else(|| {
+                        self.manifest
+                            .syncs
+                            .iter()
+                            .find(|item| item.name == task.name)
+                            .map(|item| self.resolve(&item.source))
+                    })?;
+                if !source.is_dir() || !seen.insert(source.clone()) {
+                    return None;
+                }
+                let output = |args: &[&str]| {
+                    Command::new("git")
+                        .args(["-C", &source.to_string_lossy()])
+                        .args(args)
+                        .output()
+                        .ok()
+                        .map(|output| String::from_utf8_lossy(&output.stdout).trim().to_string())
+                        .unwrap_or_default()
+                };
+                Some(RepositoryReport {
+                    source: source.clone(),
+                    branch: output(&["branch", "--show-current"]),
+                    status: output(&["status", "--short"])
+                        .lines()
+                        .map(str::to_string)
+                        .collect(),
+                    diff_stat: output(&["diff", "--stat"]),
+                    recent_commit: output(&["log", "-1", "--oneline"]),
+                })
+            })
+            .collect()
     }
 
     pub fn history(&self) -> Result<Vec<HistoryEntry>, Error> {
