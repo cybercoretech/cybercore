@@ -46,6 +46,11 @@ jobs:
       - name: Check formatting
         run: cargo fmt --all -- --check
 
+      - name: Generate GitHub Wiki gateway
+        run: |
+          python tools/generate-github-wiki.py --output "$RUNNER_TEMP/cybercore-wiki"
+          python tools/generate-github-wiki.py --output "$RUNNER_TEMP/cybercore-wiki" --check
+
       - name: Check
         run: cargo check --workspace --all-targets --all-features
 
