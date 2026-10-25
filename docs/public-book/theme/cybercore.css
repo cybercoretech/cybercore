@@ -1,4 +1,8 @@
 .navy {
+  --sidebar-target-width: 296px;
+  --page-padding: 15px;
+  --content-max-width: 980px;
+  --menu-bar-height: 55px;
   --bg: #070910;
   --fg: #c9dbec;
   --sidebar-bg: #0b1020;
@@ -23,6 +27,7 @@
 .navy body {
   font-family: Inter, system-ui, sans-serif;
   background:
+    repeating-linear-gradient(0deg, transparent 0 3px, #ffffff08 4px),
     radial-gradient(ellipse 55% 35% at 20% 0%, #25205b 0, transparent 70%),
     radial-gradient(ellipse 45% 30% at 100% 0%, #123c50 0, transparent 70%),
     var(--bg);
@@ -33,19 +38,41 @@
 }
 
 .navy .content {
-  max-width: 980px;
+  padding: 54px 0 80px;
   color: var(--fg);
+}
+
+.navy .content main {
+  max-width: var(--content-max-width);
+}
+
+.navy .menu-bar {
+  height: var(--menu-bar-height);
+  border-bottom: 1px solid #ffffff08;
+  background: #070910e8;
+  backdrop-filter: blur(12px);
+}
+
+.navy .menu-bar .icon-button,
+.navy .menu-bar a .fa-svg {
+  color: #8492b0;
+}
+
+.navy .menu-bar .icon-button:hover,
+.navy .menu-bar a .fa-svg:hover {
+  color: #22e6ff;
 }
 
 .navy .menu-title {
   color: #c6ff45;
-  font: 700 1.05rem "JetBrains Mono", ui-monospace, monospace;
-  letter-spacing: .1em;
+  font: 700 .7rem "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: .16em;
   text-transform: uppercase;
   text-shadow: 0 0 14px #c6ff4540;
 }
 
 .navy .sidebar {
+  background: linear-gradient(180deg, #0b1020, #080c18);
   border-right: 1px solid #263454;
   box-shadow: 12px 0 35px #0005;
 }
@@ -78,12 +105,13 @@
 }
 
 .navy h1 {
-  font-size: 2rem;
+  font-size: 2.25rem;
   text-shadow: 0 0 22px #22e6ff1f;
 }
 
 .navy h2 {
   color: #c9dbec;
+  margin-top: 45px;
 }
 
 .navy a {
@@ -123,4 +151,10 @@
 .navy table thead {
   color: #c6ff45;
   background: #0d1422;
+}
+
+@media (max-width: 800px) {
+  .navy .content {
+    padding: 38px 20px 60px;
+  }
 }
