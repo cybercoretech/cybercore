@@ -79,10 +79,10 @@
 
 .navy .sidebar::before {
   display: block;
-  padding: 14px 8px 12px;
+  padding: 16px 8px 14px;
   color: #c6ff45;
   content: "✳  CYBERCORE MASTER DOCUMENTATION";
-  font: 700 .66rem "JetBrains Mono", ui-monospace, monospace;
+  font: 700 .78rem "JetBrains Mono", ui-monospace, monospace;
   letter-spacing: .1em;
   text-transform: uppercase;
 }
@@ -93,12 +93,12 @@
 
 .navy .sidebar .chapter .part-title {
   margin: 12px 0 5px;
-  padding: 8px;
+  padding: 9px 8px;
   border: 1px solid #263454;
   border-radius: 2px;
   color: #22e6ff;
   background: #0d1422;
-  font: 700 .62rem "JetBrains Mono", ui-monospace, monospace;
+  font: 700 .75rem "JetBrains Mono", ui-monospace, monospace;
   letter-spacing: .1em;
   text-transform: uppercase;
 }
@@ -113,7 +113,9 @@
 }
 
 .navy .sidebar .chapter li a {
-  font: 500 .72rem "JetBrains Mono", ui-monospace, monospace;
+  display: block;
+  padding: 7px 10px;
+  font: 500 .84rem/1.35 "JetBrains Mono", ui-monospace, monospace;
   letter-spacing: .04em;
 }
 
@@ -136,8 +138,14 @@
 }
 
 .navy h1 {
-  font-size: 2.25rem;
+  font-size: 2.5rem;
   text-shadow: 0 0 22px #22e6ff1f;
+}
+
+.navy .content p,
+.navy .content li,
+.navy .content td {
+  font-size: 1rem;
 }
 
 .navy h2 {
@@ -185,7 +193,25 @@
 }
 
 @media (max-width: 800px) {
+  .navy {
+    --sidebar-target-width: min(296px, 82vw);
+  }
+
+  .navy .page-wrapper {
+    min-width: 0;
+  }
+
   .navy .content {
     padding: 38px 20px 60px;
+    overflow-x: hidden;
+  }
+
+  .navy .content main {
+    width: auto;
+    min-width: 0;
+  }
+
+  .navy h1 {
+    font-size: 2rem;
   }
 }
