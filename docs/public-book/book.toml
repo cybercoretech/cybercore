@@ -1,0 +1,17 @@
+[book]
+title = "Cybercore Master Documentation"
+description = "Public Cybercore architecture, operations, updater, and product reference."
+authors = ["Cybercore"]
+language = "en"
+src = "src"
+
+[output.html]
+default-theme = "navy"
+preferred-dark-theme = "navy"
+additional-css = ["theme/cybercore.css"]
+git-repository-url = "https://github.com/cybercoretech/cybercore"
+
+[output.html.search]
+enable = true
+limit-results = 20
+use-boolean-and = true
