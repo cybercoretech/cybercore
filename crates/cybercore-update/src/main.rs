@@ -17,6 +17,7 @@ use std::{
     env,
     io::{self, stdout},
     path::PathBuf,
+    process::Command,
     time::Duration,
 };
 
@@ -71,10 +72,11 @@ fn run(
     let mut statuses = HashMap::<String, String>::new();
     let mut inspections = HashMap::<String, Inspection>::new();
     let mut logs = vec![
-        "↑/↓ move  Space toggle  A all  N none  I inspect  G GitHub  ? help".to_string(),
+        "↑/↓ move  Space toggle  A all  N none  I inspect  G GitHub  O open PR  ? help".to_string(),
         "P plan  Enter apply  R repair  S restart  B rollback  Q quit".to_string(),
     ];
     let mut pending: Option<Action> = None;
+    let mut first_github_url = None;
     refresh_inspection(engine, &mut inspections, &mut statuses, &mut logs);
 
     loop {
@@ -215,9 +217,12 @@ fn run(
                 KeyCode::Char('i') if pending.is_none() => {
                     refresh_inspection(engine, &mut inspections, &mut statuses, &mut logs);
                 }
-                KeyCode::Char('g') if pending.is_none() => github_report(engine, &mut logs),
+                KeyCode::Char('g') if pending.is_none() => {
+                    github_report(engine, &mut logs, &mut first_github_url)
+                }
+                KeyCode::Char('o') if pending.is_none() => open_github_pr(&first_github_url, &mut logs),
                 KeyCode::Char('?') if pending.is_none() => logs.push(
-                    "HELP: I inspect | G GitHub | P plan | Enter apply | R repair | S restart | B rollback | Y/N confirm"
+                    "HELP: I inspect | G GitHub | O open first PR | P plan | Enter apply | R repair | S restart | B rollback | Y/N confirm"
                         .into(),
                 ),
                 KeyCode::Char('p') if pending.is_none() => {
@@ -239,8 +244,9 @@ fn run(
     Ok(())
 }
 
-fn github_report(engine: &Engine, logs: &mut Vec<String>) {
+fn github_report(engine: &Engine, logs: &mut Vec<String>, first_url: &mut Option<String>) {
     logs.push("Collecting read-only GitHub repository and PR status…".into());
+    *first_url = None;
     for repo in engine.github_report() {
         let dirty = if repo.dirty { "DIRTY" } else { "CLEAN" };
         logs.push(format!("GITHUB {} [{}] branch={}", repo.repository, dirty, repo.branch));
@@ -255,8 +261,36 @@ fn github_report(engine: &Engine, logs: &mut Vec<String>) {
                 repo.repository,
                 repo.pull_requests.len()
             ));
-            logs.extend(repo.pull_requests);
+            for pull_request in repo.pull_requests {
+                if first_url.is_none() {
+                    *first_url = Some(pull_request.url.clone());
+                }
+                let draft = if pull_request.draft { "[DRAFT] " } else { "" };
+                let reviewers = if pull_request.review_requests.is_empty() {
+                    "none".into()
+                } else {
+                    pull_request.review_requests.join(", ")
+                };
+                logs.push(format!(
+                    "#{number} {draft}{title} by {author} reviewers={reviewers} — {url}",
+                    number = pull_request.number,
+                    title = pull_request.title,
+                    author = pull_request.author,
+                    url = pull_request.url
+                ));
+            }
         }
+    }
+}
+
+fn open_github_pr(url: &Option<String>, logs: &mut Vec<String>) {
+    let Some(url) = url else {
+        logs.push("No open PR URL is available; press G first.".into());
+        return;
+    };
+    match Command::new("xdg-open").arg(url).spawn() {
+        Ok(_) => logs.push(format!("Opened PR in browser: {url}")),
+        Err(error) => logs.push(format!("Could not open PR in browser: {error}")),
     }
 }
 

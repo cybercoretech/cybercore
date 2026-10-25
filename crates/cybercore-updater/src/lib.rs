@@ -123,8 +123,18 @@ pub struct GitHubRepoStatus {
     pub source: PathBuf,
     pub branch: String,
     pub dirty: bool,
-    pub pull_requests: Vec<String>,
+    pub pull_requests: Vec<GitHubPullRequest>,
     pub error: Option<String>,
+}
+
+#[derive(Debug, Clone)]
+pub struct GitHubPullRequest {
+    pub number: i64,
+    pub title: String,
+    pub url: String,
+    pub draft: bool,
+    pub author: String,
+    pub review_requests: Vec<String>,
 }
 
 #[derive(Clone)]
@@ -534,10 +544,39 @@ impl Engine {
             .into_iter()
             .map(|pr| {
                 let number = pr.get("number").and_then(|value| value.as_i64()).unwrap_or_default();
-                let title = pr.get("title").and_then(|value| value.as_str()).unwrap_or("untitled");
-                let url = pr.get("url").and_then(|value| value.as_str()).unwrap_or("");
+                let title = pr.get("title").and_then(|value| value.as_str()).unwrap_or("untitled").to_string();
+                let url = pr.get("url").and_then(|value| value.as_str()).unwrap_or("").to_string();
                 let draft = pr.get("isDraft").and_then(|value| value.as_bool()).unwrap_or(false);
-                format!("#{number} {}{} — {url}", if draft { "[DRAFT] " } else { "" }, title)
+                let author = pr
+                    .get("author")
+                    .and_then(|value| value.get("login"))
+                    .and_then(|value| value.as_str())
+                    .unwrap_or("unknown")
+                    .to_string();
+                let review_requests = pr
+                    .get("reviewRequests")
+                    .and_then(|value| value.as_array())
+                    .map(|requests| {
+                        requests
+                            .iter()
+                            .filter_map(|request| {
+                                request
+                                    .get("login")
+                                    .or_else(|| request.get("name"))
+                                    .and_then(|value| value.as_str())
+                                    .map(str::to_string)
+                            })
+                            .collect()
+                    })
+                    .unwrap_or_default();
+                GitHubPullRequest {
+                    number,
+                    title,
+                    url,
+                    draft,
+                    author,
+                    review_requests,
+                }
             })
             .collect();
         GitHubRepoStatus {
