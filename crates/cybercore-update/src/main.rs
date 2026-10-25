@@ -1,4 +1,4 @@
-use cybercore_updater::{Engine, Event, Inspection, Manifest, Task, TaskStatus};
+use cybercore_updater::{Engine, Event, Inspection, Manifest, Task, TaskStatus, ThemeReport};
 use crossterm::{
     event::{self, Event as Input, KeyCode},
     execute,
@@ -27,6 +27,7 @@ enum Action {
     Repair,
     Restart,
     Rollback,
+    ThemeSync,
 }
 
 impl Action {
@@ -36,6 +37,7 @@ impl Action {
             Self::Repair => "repair/retry selected tasks",
             Self::Restart => "restart selected services",
             Self::Rollback => "rollback selected binaries",
+            Self::ThemeSync => "synchronize theme catalogs",
         }
     }
 }
@@ -72,8 +74,8 @@ fn run(
     let mut statuses = HashMap::<String, String>::new();
     let mut inspections = HashMap::<String, Inspection>::new();
     let mut logs = vec![
-        "↑/↓ move  Space toggle  A all  N none  I inspect  G GitHub  O open PR  ? help".to_string(),
-        "P plan  Enter apply  R repair  S restart  B rollback  Q quit".to_string(),
+        "↑/↓ move  Space toggle  A all  N none  I inspect  T themes  G GitHub  O open PR".to_string(),
+        "P plan  Enter apply  R repair  S restart  B rollback  U sync themes  Q quit".to_string(),
     ];
     let mut pending: Option<Action> = None;
     let mut first_github_url = None;
@@ -220,9 +222,10 @@ fn run(
                 KeyCode::Char('g') if pending.is_none() => {
                     github_report(engine, &mut logs, &mut first_github_url)
                 }
+                KeyCode::Char('t') if pending.is_none() => theme_report(engine, &mut logs),
                 KeyCode::Char('o') if pending.is_none() => open_github_pr(&first_github_url, &mut logs),
                 KeyCode::Char('?') if pending.is_none() => logs.push(
-                    "HELP: I inspect | G GitHub | O open first PR | P plan | Enter apply | R repair | S restart | B rollback | Y/N confirm"
+                    "HELP: I inspect | T themes | G GitHub | O open first PR | P plan | Enter apply | R repair | S restart | B rollback | U sync themes | Y/N confirm"
                         .into(),
                 ),
                 KeyCode::Char('p') if pending.is_none() => {
@@ -233,6 +236,7 @@ fn run(
                 KeyCode::Char('r') if pending.is_none() => pending = Some(Action::Repair),
                 KeyCode::Char('s') if pending.is_none() => pending = Some(Action::Restart),
                 KeyCode::Char('b') if pending.is_none() => pending = Some(Action::Rollback),
+                KeyCode::Char('u') if pending.is_none() => pending = Some(Action::ThemeSync),
                 _ => {}
             }
             trim_logs(&mut logs);
@@ -253,6 +257,7 @@ fn github_report(engine: &Engine, logs: &mut Vec<String>, first_url: &mut Option
         if let Some(error) = repo.error {
             logs.push(format!("GITHUB {} error: {}", repo.repository, error));
         }
+
         if repo.pull_requests.is_empty() {
             logs.push(format!("GITHUB {} open PRs: none", repo.repository));
         } else {
@@ -280,6 +285,32 @@ fn github_report(engine: &Engine, logs: &mut Vec<String>, first_url: &mut Option
                 ));
             }
         }
+    }
+}
+
+fn theme_report(engine: &Engine, logs: &mut Vec<String>) {
+    let report = engine.theme_report();
+    append_theme_report(&report, logs);
+}
+
+fn append_theme_report(report: &ThemeReport, logs: &mut Vec<String>) {
+    logs.push(format!(
+        "THEMES canonical={} builtins={} target={} managed-local={}",
+        report.canonical_sources,
+        report.framework_builtins,
+        report.target_total,
+        report.managed_local
+    ));
+    logs.push(format!(
+        "THEMES missing-managed={} extra-managed={}",
+        report.missing_managed.len(),
+        report.extra_managed.len()
+    ));
+    if !report.missing_managed.is_empty() {
+        logs.push(format!("THEMES missing: {}", report.missing_managed.join(", ")));
+    }
+    if !report.extra_managed.is_empty() {
+        logs.push(format!("THEMES extra: {}", report.extra_managed.join(", ")));
     }
 }
 
@@ -376,7 +407,15 @@ fn execute_action(
     statuses: &mut HashMap<String, String>,
     logs: &mut Vec<String>,
 ) {
-    let names = selected_names(tasks, selected);
+    let names = if matches!(action, Action::ThemeSync) {
+        vec![
+            "cyberdeck-hub-themes".to_string(),
+            "dwcode-favicons-themes".to_string(),
+            "dwcode-themes".to_string(),
+        ]
+    } else {
+        selected_names(tasks, selected)
+    };
     if names.is_empty() {
         logs.push("No tasks selected.".into());
         return;
@@ -387,6 +426,7 @@ fn execute_action(
         Action::Repair => engine.repair(&names, |event| logs.push(format_event(event))),
         Action::Restart => engine.restart_services(&names, |event| logs.push(format_event(event))),
         Action::Rollback => engine.rollback(&names, |event| logs.push(format_event(event))),
+        Action::ThemeSync => engine.run(&names, true, |event| logs.push(format_event(event))),
     };
     record_results(results, statuses, logs);
 }

@@ -137,6 +137,16 @@ pub struct GitHubPullRequest {
     pub review_requests: Vec<String>,
 }
 
+#[derive(Debug, Clone)]
+pub struct ThemeReport {
+    pub canonical_sources: usize,
+    pub framework_builtins: usize,
+    pub target_total: usize,
+    pub managed_local: usize,
+    pub missing_managed: Vec<String>,
+    pub extra_managed: Vec<String>,
+}
+
 #[derive(Clone)]
 pub struct Engine {
     manifest: Manifest,
@@ -333,6 +343,34 @@ impl Engine {
             .collect()
     }
 
+    pub fn theme_report(&self) -> ThemeReport {
+        let canonical = self.root.join("../../web/cybercore-tech.github.io/data/themes");
+        let builtin = self.root.join("schema/themes");
+        let local = expand_home("~/.config/cybercore/themes");
+        let canonical_ids = json_stems(&canonical);
+        let builtin_ids = json_stems(&builtin);
+        let local_ids = json_stems(&local);
+        let mashups = [
+            "cc-chrome-horizon", "cc-skynet-plasma", "cc-midnight-mainframe",
+            "cc-judgment-grid", "cc-dracula-tokyo", "cc-catppuccin-nord",
+            "cc-gruvbox-monokai", "cc-onyx-material", "cc-kanagawa-rose",
+            "cc-evernight-fox", "cc-solarized-ayu", "cc-oxide-vesper",
+        ];
+        let expected: std::collections::HashSet<_> = canonical_ids
+            .difference(&builtin_ids)
+            .cloned()
+            .chain(mashups.iter().map(|id| (*id).to_string()))
+            .collect();
+        ThemeReport {
+            canonical_sources: canonical_ids.len(),
+            framework_builtins: builtin_ids.len(),
+            target_total: canonical_ids.len() + mashups.len(),
+            managed_local: local_ids.len(),
+            missing_managed: expected.difference(&local_ids).cloned().collect(),
+            extra_managed: local_ids.difference(&expected).cloned().collect(),
+        }
+    }
+
     pub fn run(
         &self,
         names: &[String],
@@ -344,6 +382,7 @@ impl Engine {
             if !names.is_empty() && !names.iter().any(|name| name == &item.name) {
                 continue;
             }
+
             let result = self.run_consumer(item, apply, &mut emit);
             results.push((item.name.clone(), result));
         }
@@ -619,6 +658,24 @@ impl Engine {
             })
         }
     }
+}
+
+fn json_stems(path: &Path) -> std::collections::HashSet<String> {
+    let mut ids = std::collections::HashSet::new();
+    let Ok(entries) = fs::read_dir(path) else {
+        return ids;
+    };
+    for entry in entries.flatten() {
+        let path = entry.path();
+        if path.is_dir() {
+            ids.extend(json_stems(&path));
+        } else if path.extension().is_some_and(|extension| extension == "json") {
+            if let Some(stem) = path.file_stem().and_then(|stem| stem.to_str()) {
+                ids.insert(stem.to_string());
+            }
+        }
+    }
+    ids
 }
 
 fn install_binary(source: &Path, destination: &Path) -> Result<(), Error> {
