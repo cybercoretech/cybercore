@@ -9,6 +9,8 @@ repository = "https://github.com/cybercoretech/cybercore"
 homepage = "https://cybercoretech.github.io/cybercore/"
 documentation = "https://docs.rs/cybercore"
 readme = "README.md"
+keywords = ["cybercore", "theme", "palette", "tui", "design-system"]
+categories = ["command-line-utilities", "config", "development-tools"]
 build = "build.rs"
 
 include = [
