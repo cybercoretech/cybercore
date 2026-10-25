@@ -147,6 +147,13 @@ pub struct ThemeReport {
     pub extra_managed: Vec<String>,
 }
 
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct HistoryEntry {
+    pub timestamp: u64,
+    pub operation: String,
+    pub results: Vec<(String, String)>,
+}
+
 #[derive(Clone)]
 pub struct Engine {
     manifest: Manifest,
@@ -371,6 +378,42 @@ impl Engine {
         }
     }
 
+    pub fn history(&self) -> Result<Vec<HistoryEntry>, Error> {
+        let path = self.history_path();
+        if !path.is_file() {
+            return Ok(Vec::new());
+        }
+        Ok(serde_json::from_str(&fs::read_to_string(path)?)?)
+    }
+
+    pub fn record_history(
+        &self,
+        operation: &str,
+        results: &[(String, TaskStatus)],
+    ) -> Result<(), Error> {
+        let mut history = self.history()?;
+        history.push(HistoryEntry {
+            timestamp: std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .map(|duration| duration.as_secs())
+                .unwrap_or_default(),
+            operation: operation.into(),
+            results: results
+                .iter()
+                .map(|(name, status)| (name.clone(), task_status_label(*status).into()))
+                .collect(),
+        });
+        if history.len() > 100 {
+            history.drain(0..history.len() - 100);
+        }
+        let path = self.history_path();
+        if let Some(parent) = path.parent() {
+            fs::create_dir_all(parent)?;
+        }
+        fs::write(path, serde_json::to_string_pretty(&history)? + "\n")?;
+        Ok(())
+    }
+
     pub fn run(
         &self,
         names: &[String],
@@ -535,6 +578,13 @@ impl Engine {
             .unwrap_or(false)
     }
 
+    fn history_path(&self) -> PathBuf {
+        std::env::var_os("XDG_STATE_HOME")
+            .map(PathBuf::from)
+            .unwrap_or_else(|| expand_home("~/.local/state"))
+            .join("cybercore/updater-history.json")
+    }
+
     fn github_repo_status(&self, source: PathBuf) -> GitHubRepoStatus {
         let branch = Command::new("git")
             .args(["-C", &source.to_string_lossy(), "branch", "--show-current"])
@@ -556,6 +606,7 @@ impl Engine {
                     .unwrap_or_else(|| source.display().to_string());
                 (name, None)
             }
+
             Ok(output) => (
                 source.display().to_string(),
                 Some(String::from_utf8_lossy(&output.stderr).trim().to_string()),
@@ -657,6 +708,16 @@ impl Engine {
                 code: status.code(),
             })
         }
+    }
+}
+
+fn task_status_label(status: TaskStatus) -> &'static str {
+    match status {
+        TaskStatus::Planned => "planned",
+        TaskStatus::Running => "running",
+        TaskStatus::Succeeded => "succeeded",
+        TaskStatus::Blocked => "blocked",
+        TaskStatus::Failed => "failed",
     }
 }
 

@@ -74,11 +74,14 @@ fn run(
     let mut statuses = HashMap::<String, String>::new();
     let mut inspections = HashMap::<String, Inspection>::new();
     let mut logs = vec![
-        "↑/↓ move  Space toggle  A all  N none  I inspect  T themes  G GitHub  O open PR".to_string(),
+        "↑/↓ move  Space toggle  A all  N none  I inspect  T themes  G GitHub  O open PR  H history".to_string(),
         "P plan  Enter apply  R repair  S restart  B rollback  U sync themes  Q quit".to_string(),
     ];
     let mut pending: Option<Action> = None;
     let mut first_github_url = None;
+    if let Ok(history) = engine.history() {
+        logs.push(format!("History loaded: {} recorded operations.", history.len()));
+    }
     refresh_inspection(engine, &mut inspections, &mut statuses, &mut logs);
 
     loop {
@@ -224,8 +227,9 @@ fn run(
                 }
                 KeyCode::Char('t') if pending.is_none() => theme_report(engine, &mut logs),
                 KeyCode::Char('o') if pending.is_none() => open_github_pr(&first_github_url, &mut logs),
+                KeyCode::Char('h') if pending.is_none() => history_report(engine, &mut logs),
                 KeyCode::Char('?') if pending.is_none() => logs.push(
-                    "HELP: I inspect | T themes | G GitHub | O open first PR | P plan | Enter apply | R repair | S restart | B rollback | U sync themes | Y/N confirm"
+                    "HELP: I inspect | T themes | G GitHub | O open PR | H history | P plan | Enter apply | R repair | S restart | B rollback | U sync themes | Y/N confirm"
                         .into(),
                 ),
                 KeyCode::Char('p') if pending.is_none() => {
@@ -325,6 +329,25 @@ fn open_github_pr(url: &Option<String>, logs: &mut Vec<String>) {
     }
 }
 
+fn history_report(engine: &Engine, logs: &mut Vec<String>) {
+    match engine.history() {
+        Ok(history) if history.is_empty() => logs.push("HISTORY no recorded operations.".into()),
+        Ok(history) => {
+            logs.push(format!("HISTORY {} recorded operations:", history.len()));
+            for entry in history.iter().rev().take(10) {
+                let summary = entry
+                    .results
+                    .iter()
+                    .map(|(name, status)| format!("{name}={status}"))
+                    .collect::<Vec<_>>()
+                    .join(", ");
+                logs.push(format!("HISTORY {} — {}", entry.operation, summary));
+            }
+        }
+        Err(error) => logs.push(format!("HISTORY failed to load: {error}")),
+    }
+}
+
 fn task_detail(item: &Inspection) -> String {
     let service = item.service.as_deref().unwrap_or("none");
     let binary = item
@@ -396,7 +419,10 @@ fn plan_tasks(
     }
     logs.push("Planning selected tasks (no changes will be made)…".into());
     let results = engine.run(&names, false, |event| logs.push(format_event(event)));
-    record_results(results, statuses, logs);
+    record_results(results.clone(), statuses, logs);
+    if let Err(error) = engine.record_history("plan", &results) {
+        logs.push(format!("HISTORY failed to save plan: {error}"));
+    }
 }
 
 fn execute_action(
@@ -428,7 +454,10 @@ fn execute_action(
         Action::Rollback => engine.rollback(&names, |event| logs.push(format_event(event))),
         Action::ThemeSync => engine.run(&names, true, |event| logs.push(format_event(event))),
     };
-    record_results(results, statuses, logs);
+    record_results(results.clone(), statuses, logs);
+    if let Err(error) = engine.record_history(action.label(), &results) {
+        logs.push(format!("HISTORY failed to save operation: {error}"));
+    }
 }
 
 fn selected_names(tasks: &[Task], selected: &[bool]) -> Vec<String> {
