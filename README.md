@@ -16,7 +16,22 @@ configuration schemas, the CYBERGRID color palette, and canonical
 filesystem paths shared across every downstream project — cyberdeck,
 cyberdock, cyberterm, cyberplug, omniscient, and whatever comes next.
 
-## The actual source of truth
+## 🤝 Get involved
+
+Cybercore is maintained in the open. Choose the channel that best fits what
+you need:
+
+- **Questions, ideas, and showcase posts:** start a
+  [GitHub Discussion](https://github.com/cybercoretech/cybercore/discussions).
+- **Confirmed bugs and focused feature requests:** open an
+  [issue](https://github.com/cybercoretech/cybercore/issues/new/choose).
+- **Code, documentation, and theme contributions:** read
+  [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
+
+Please do not include credentials, personal data, or machine-specific
+configuration in public posts.
+
+## 🛠️ The actual source of truth
 
 **`schema/cybergrid.json`** — not any Rust source file. This is
 deliberate: JSON is readable by every language in the framework, not
