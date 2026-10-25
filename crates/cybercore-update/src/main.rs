@@ -8,6 +8,7 @@ use ratatui::{
     backend::CrosstermBackend,
     layout::{Constraint, Direction, Layout},
     style::{Color, Modifier, Style},
+    text::{Line, Span},
     widgets::{Block, Borders, Paragraph},
     Terminal,
 };
@@ -19,12 +20,33 @@ use std::{
     time::Duration,
 };
 
+#[derive(Clone, Copy)]
+enum Action {
+    Apply,
+    Repair,
+    Restart,
+    Rollback,
+}
+
+impl Action {
+    fn label(self) -> &'static str {
+        match self {
+            Self::Apply => "apply selected tasks",
+            Self::Repair => "repair/retry selected tasks",
+            Self::Restart => "restart selected services",
+            Self::Rollback => "rollback selected binaries",
+        }
+    }
+}
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let root = PathBuf::from(env::var("CYBERCORE_ROOT").unwrap_or_else(|_| {
         "/home/raven/Devspace/Cybercore/framework/cybercore".into()
     }));
-    let manifest_path = root.join("tools/cybercore-consumers.json");
-    let engine = Engine::new(Manifest::load(&manifest_path)?, &root);
+    let engine = Engine::new(
+        Manifest::load(root.join("tools/cybercore-consumers.json"))?,
+        &root,
+    );
 
     enable_raw_mode()?;
     let mut out = stdout();
@@ -46,51 +68,105 @@ fn run(
     let mut cursor = 0usize;
     let mut task_offset = 0u16;
     let mut log_offset = 0u16;
-    let mut statuses = HashMap::new();
-    let mut logs = vec!["↑/↓ move  Space toggle  A all  N none  I inspect".to_string()];
-    logs.push("P plan  Enter apply  R repair  S restart  B rollback  Q quit".to_string());
-    refresh_inspection(engine, &mut statuses, &mut logs);
+    let mut statuses = HashMap::<String, String>::new();
+    let mut inspections = HashMap::<String, Inspection>::new();
+    let mut logs = vec![
+        "↑/↓ move  Space toggle  A all  N none  I inspect  ? help".to_string(),
+        "P plan  Enter apply  R repair  S restart  B rollback  Q quit".to_string(),
+    ];
+    let mut pending: Option<Action> = None;
+    refresh_inspection(engine, &mut inspections, &mut statuses, &mut logs);
 
     loop {
         terminal.draw(|frame| {
-            let areas = Layout::default()
+            let vertical = Layout::default()
                 .direction(Direction::Vertical)
-                .constraints([Constraint::Length(3), Constraint::Min(8), Constraint::Length(10)])
+                .constraints([Constraint::Length(3), Constraint::Min(10), Constraint::Length(9)])
                 .split(frame.area());
+            let ready = statuses.values().filter(|s| s.as_str() == "READY").count();
+            let attention = statuses.len().saturating_sub(ready);
+            let selected_count = selected.iter().filter(|value| **value).count();
+            let title = if let Some(action) = pending {
+                format!("CYBERCORE // UPDATE CONTROL  |  CONFIRM: {} [Y/N]", action.label())
+            } else {
+                format!(
+                    "CYBERCORE // UPDATE CONTROL  |  {} ready  {} attention  {} selected",
+                    ready, attention, selected_count
+                )
+            };
             frame.render_widget(
-                Paragraph::new("CYBERCORE // SYSTEM UPDATER  |  LOCAL OPERATOR MODE")
+                Paragraph::new(title)
                     .block(Block::default().borders(Borders::ALL))
-                    .style(Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD)),
-                areas[0],
+                    .style(Style::default().fg(if pending.is_some() {
+                        Color::Yellow
+                    } else {
+                        Color::Cyan
+                    }).add_modifier(Modifier::BOLD)),
+                vertical[0],
             );
 
+            let horizontal = Layout::default()
+                .direction(Direction::Horizontal)
+                .constraints([Constraint::Percentage(48), Constraint::Percentage(52)])
+                .split(vertical[1]);
             let task_lines = tasks
                 .iter()
                 .enumerate()
                 .map(|(index, task)| {
                     let marker = if selected[index] { "[x]" } else { "[ ]" };
                     let pointer = if index == cursor { ">" } else { " " };
-                    let status = statuses
-                        .get(&task.name)
-                        .map(String::as_str)
-                        .unwrap_or("UNKNOWN");
-                    format!("{pointer} {marker} {:<28} {status}", task.name)
+                    let status = statuses.get(&task.name).map(String::as_str).unwrap_or("UNKNOWN");
+                    Line::from(vec![
+                        Span::styled(pointer, if index == cursor {
+                            Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD)
+                        } else {
+                            Style::default().fg(Color::DarkGray)
+                        }),
+                        Span::styled(
+                            marker,
+                            if selected[index] {
+                                Style::default().fg(Color::Magenta).add_modifier(Modifier::BOLD)
+                            } else {
+                                Style::default().fg(Color::DarkGray)
+                            },
+                        ),
+                        Span::raw(" "),
+                        Span::styled(
+                            format!("{:<27}", task.name),
+                            Style::default().fg(if index == cursor {
+                                Color::White
+                            } else {
+                                Color::Gray
+                            }),
+                        ),
+                        Span::styled(status, status_style(status)),
+                    ])
                 })
-                .collect::<Vec<_>>()
-                .join("\n");
+                .collect::<Vec<_>>();
             frame.render_widget(
                 Paragraph::new(task_lines)
-                    .block(Block::default().title("Tasks").borders(Borders::ALL))
+                    .block(Block::default().title("Fleet tasks").borders(Borders::ALL))
                     .scroll((task_offset, 0)),
-                areas[1],
+                horizontal[0],
             );
 
-            let activity = logs.join("\n");
+            let detail = tasks
+                .get(cursor)
+                .and_then(|task| inspections.get(&task.name))
+                .map(task_detail)
+                .unwrap_or_else(|| "No task selected.".into());
             frame.render_widget(
-                Paragraph::new(activity)
-                    .block(Block::default().title("Activity").borders(Borders::ALL))
+                Paragraph::new(detail)
+                    .block(Block::default().title("Task details").borders(Borders::ALL))
+                    .wrap(ratatui::widgets::Wrap { trim: false }),
+                horizontal[1],
+            );
+
+            frame.render_widget(
+                Paragraph::new(logs.iter().map(|log| log_line(log)).collect::<Vec<_>>())
+                    .block(Block::default().title("Activity / logs  ([ ] scroll, Home/End jump)").borders(Borders::ALL))
                     .scroll((log_offset, 0)),
-                areas[2],
+                vertical[2],
             );
         })?;
 
@@ -99,71 +175,129 @@ fn run(
         }
         if let Input::Key(key) = event::read()? {
             match key.code {
-                KeyCode::Char('q') | KeyCode::Esc => break,
-                KeyCode::Up => {
+                KeyCode::Char('q') if pending.is_none() => break,
+                KeyCode::Esc => pending = None,
+                KeyCode::Char('y') if pending.is_some() => {
+                    let action = pending.take().expect("pending action");
+                    execute_action(
+                        engine, action, &tasks, &selected, &mut statuses, &mut logs,
+                    );
+                }
+                KeyCode::Char('n') if pending.is_some() => {
+                    pending = None;
+                    logs.push("Action cancelled.".into());
+                }
+                KeyCode::Up if pending.is_none() => {
                     cursor = cursor.saturating_sub(1);
                     task_offset = task_offset.saturating_sub(1);
                 }
-                KeyCode::Down => {
+                KeyCode::Down if pending.is_none() => {
                     cursor = (cursor + 1).min(tasks.len().saturating_sub(1));
                     task_offset = task_offset.saturating_add(1);
                 }
-                KeyCode::PageUp => {
-                    task_offset = task_offset.saturating_sub(6);
-                }
-                KeyCode::PageDown => {
-                    task_offset = task_offset.saturating_add(6);
-                }
+                KeyCode::PageUp if pending.is_none() => task_offset = task_offset.saturating_sub(6),
+                KeyCode::PageDown if pending.is_none() => task_offset = task_offset.saturating_add(6),
+                KeyCode::Char('[') => log_offset = log_offset.saturating_sub(4),
+                KeyCode::Char(']') => log_offset = log_offset.saturating_add(4),
                 KeyCode::Home => {
                     cursor = 0;
                     task_offset = 0;
+                    log_offset = 0;
                 }
                 KeyCode::End => {
                     cursor = tasks.len().saturating_sub(1);
                     task_offset = cursor.saturating_sub(4) as u16;
+                    log_offset = logs.len().saturating_sub(7) as u16;
                 }
-                KeyCode::Char(' ') => selected[cursor] = !selected[cursor],
-                KeyCode::Char('a') => selected.fill(true),
-                KeyCode::Char('n') => selected.fill(false),
-                KeyCode::Char('i') => refresh_inspection(engine, &mut statuses, &mut logs),
-                KeyCode::Char('p') => {
-                    run_tasks(engine, &tasks, &selected, false, &mut statuses, &mut logs)
+                KeyCode::Char(' ') if pending.is_none() => selected[cursor] = !selected[cursor],
+                KeyCode::Char('a') if pending.is_none() => selected.fill(true),
+                KeyCode::Char('n') if pending.is_none() => selected.fill(false),
+                KeyCode::Char('i') if pending.is_none() => {
+                    refresh_inspection(engine, &mut inspections, &mut statuses, &mut logs);
                 }
-                KeyCode::Enter => {
-                    run_tasks(engine, &tasks, &selected, true, &mut statuses, &mut logs)
+                KeyCode::Char('?') if pending.is_none() => logs.push(
+                    "HELP: I inspect | P plan | Enter apply | R repair | S restart | B rollback | Y/N confirm"
+                        .into(),
+                ),
+                KeyCode::Char('p') if pending.is_none() => {
+                    plan_tasks(engine, &tasks, &selected, &mut statuses, &mut logs);
                 }
-                KeyCode::Char('r') => {
-                    let names = selected_names(&tasks, &selected);
-                    logs.push("Repairing selected tasks…".into());
-                    let results = engine.repair(&names, |event| logs.push(format_event(event)));
-                    record_results(results, &mut statuses, &mut logs);
-                }
-                KeyCode::Char('s') => {
-                    let names = selected_names(&tasks, &selected);
-                    logs.push("Restarting selected user services…".into());
-                    let results = engine.restart_services(&names, |event| logs.push(format_event(event)));
-                    record_results(results, &mut statuses, &mut logs);
-                }
-                KeyCode::Char('b') => {
-                    let names = selected_names(&tasks, &selected);
-                    logs.push("Rolling back selected binaries…".into());
-                    let results = engine.rollback(&names, |event| logs.push(format_event(event)));
-                    record_results(results, &mut statuses, &mut logs);
-                }
+                KeyCode::Enter if pending.is_none() => pending = Some(Action::Apply),
+                KeyCode::Char('r') if pending.is_none() => pending = Some(Action::Repair),
+                KeyCode::Char('s') if pending.is_none() => pending = Some(Action::Restart),
+                KeyCode::Char('b') if pending.is_none() => pending = Some(Action::Rollback),
                 _ => {}
             }
             trim_logs(&mut logs);
-            log_offset = logs.len().saturating_sub(8) as u16;
+            if !matches!(key.code, KeyCode::Char('[') | KeyCode::PageUp | KeyCode::Home) {
+                log_offset = logs.len().saturating_sub(7) as u16;
+            }
         }
     }
     Ok(())
 }
 
-fn run_tasks(
+fn task_detail(item: &Inspection) -> String {
+    let service = item.service.as_deref().unwrap_or("none");
+    let binary = item
+        .installed_binary
+        .as_ref()
+        .map(|path| path.display().to_string())
+        .unwrap_or_else(|| "sync task".into());
+    let diagnostics = if item.diagnostics.is_empty() {
+        "none".into()
+    } else {
+        item.diagnostics.join("\n")
+    };
+    format!(
+        "SOURCE\n{}\n\nSOURCE EXISTS  {}\nWORKTREE CLEAN {}\nSERVICE        {}\nSERVICE ACTIVE {}\nBINARY         {}\n\nDIAGNOSTICS\n{}",
+        item.source.display(),
+        yes_no(item.source_exists),
+        yes_no(item.worktree_clean),
+        service,
+        item.service_active.map(yes_no).unwrap_or("n/a"),
+        binary,
+        diagnostics
+    )
+}
+
+fn status_style(status: &str) -> Style {
+    let color = match status {
+        "READY" | "OK" | "SUCCEEDED" => Color::Green,
+        "RUNNING" | "PLANNED" => Color::Yellow,
+        "ATTENTION" | "BLOCKED" => Color::Red,
+        "FAILED" => Color::Red,
+        _ => Color::DarkGray,
+    };
+    Style::default().fg(color).add_modifier(Modifier::BOLD)
+}
+
+fn log_line(log: &str) -> Line<'static> {
+    let (prefix, rest) = log.split_once(' ').unwrap_or((log, ""));
+    let style = match prefix {
+        "OK" | "READY" => status_style("OK"),
+        "RUN" | "RUNNING" | "PLANNED" | "PLAN" | "INSPECT" => {
+            Style::default().fg(Color::Yellow)
+        }
+        "BLOCKED" | "FAILED" | "ATTENTION" => status_style("FAILED"),
+        "HELP:" => Style::default().fg(Color::Magenta),
+        _ => Style::default().fg(Color::Gray),
+    };
+    Line::from(vec![
+        Span::styled(prefix.to_string(), style),
+        Span::raw(if rest.is_empty() { "" } else { " " }),
+        Span::styled(rest.to_string(), Style::default().fg(Color::Gray)),
+    ])
+}
+
+fn yes_no(value: bool) -> &'static str {
+    if value { "yes" } else { "no" }
+}
+
+fn plan_tasks(
     engine: &Engine,
     tasks: &[Task],
     selected: &[bool],
-    apply: bool,
     statuses: &mut HashMap<String, String>,
     logs: &mut Vec<String>,
 ) {
@@ -172,61 +306,59 @@ fn run_tasks(
         logs.push("No tasks selected.".into());
         return;
     }
-    logs.push(if apply {
-        "Applying selected tasks…".into()
-    } else {
-        "Planning selected tasks…".into()
-    });
-    let results = engine.run(&names, apply, |event| logs.push(format_event(event)));
+    logs.push("Planning selected tasks (no changes will be made)…".into());
+    let results = engine.run(&names, false, |event| logs.push(format_event(event)));
+    record_results(results, statuses, logs);
+}
+
+fn execute_action(
+    engine: &Engine,
+    action: Action,
+    tasks: &[Task],
+    selected: &[bool],
+    statuses: &mut HashMap<String, String>,
+    logs: &mut Vec<String>,
+) {
+    let names = selected_names(tasks, selected);
+    if names.is_empty() {
+        logs.push("No tasks selected.".into());
+        return;
+    }
+    logs.push(format!("Executing {}…", action.label()));
+    let results = match action {
+        Action::Apply => engine.run(&names, true, |event| logs.push(format_event(event))),
+        Action::Repair => engine.repair(&names, |event| logs.push(format_event(event))),
+        Action::Restart => engine.restart_services(&names, |event| logs.push(format_event(event))),
+        Action::Rollback => engine.rollback(&names, |event| logs.push(format_event(event))),
+    };
     record_results(results, statuses, logs);
 }
 
 fn selected_names(tasks: &[Task], selected: &[bool]) -> Vec<String> {
-    tasks
-        .iter()
-        .enumerate()
-        .filter(|(index, _)| selected[*index])
-        .map(|(_, task)| task.name.clone())
-        .collect()
+    tasks.iter().enumerate().filter(|(i, _)| selected[*i]).map(|(_, task)| task.name.clone()).collect()
 }
 
 fn refresh_inspection(
     engine: &Engine,
+    inspections: &mut HashMap<String, Inspection>,
     statuses: &mut HashMap<String, String>,
     logs: &mut Vec<String>,
 ) {
-    let inspection = engine.inspect();
+    let items = engine.inspect();
+    inspections.clear();
     statuses.clear();
-    let attention = inspection
-        .iter()
-        .filter(|item| !item.diagnostics.is_empty())
-        .count();
-    for item in inspection {
-        let status = if item.diagnostics.is_empty() {
-            "READY".to_string()
-        } else {
-            "ATTENTION".to_string()
-        };
-        statuses.insert(item.name.clone(), status.clone());
-        logs.push(format_inspection(&item, &status));
+    let mut attention = 0;
+    for item in items {
+        let status = if item.diagnostics.is_empty() { "READY" } else { attention += 1; "ATTENTION" };
+        statuses.insert(item.name.clone(), status.into());
+        logs.push(format!("INSPECT {:<27} {status}", item.name));
+        inspections.insert(item.name.clone(), item);
     }
     logs.push(format!(
         "Inspection complete: {} ready, {} attention required.",
-        statuses.values().filter(|status| status.as_str() == "READY").count(),
+        statuses.len().saturating_sub(attention),
         attention
     ));
-}
-
-fn format_inspection(item: &Inspection, status: &str) -> String {
-    if item.diagnostics.is_empty() {
-        format!("INSPECT {:<28} {status}", item.name)
-    } else {
-        format!(
-            "INSPECT {:<28} {status}: {}",
-            item.name,
-            item.diagnostics.join("; ")
-        )
-    }
 }
 
 fn record_results(
@@ -248,9 +380,8 @@ fn record_results(
 }
 
 fn trim_logs(logs: &mut Vec<String>) {
-    if logs.len() > 200 {
-        let remove = logs.len() - 200;
-        logs.drain(0..remove);
+    if logs.len() > 300 {
+        logs.drain(0..logs.len() - 300);
     }
 }
 
