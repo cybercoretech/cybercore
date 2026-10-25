@@ -1,0 +1,126 @@
+.navy {
+  --bg: #070910;
+  --fg: #c9dbec;
+  --sidebar-bg: #0b1020;
+  --sidebar-fg: #a8b6d0;
+  --sidebar-non-existant: #556283;
+  --sidebar-active: #c6ff45;
+  --sidebar-spacer: #263454;
+  --links: #22e6ff;
+  --inline-code-color: #ff2d9e;
+  --theme-popup-bg: #0d1422;
+  --theme-popup-border: #263454;
+  --theme-hover: #15223a;
+  --quote-bg: #0d1422;
+  --quote-border: #263454;
+  --warning-border: #ff9142;
+  --table-border-color: #263454;
+  --table-header-bg: #0d1422;
+  --table-alternate-bg: #0a101c;
+  --color-scheme: dark;
+}
+
+.navy body {
+  font-family: Inter, system-ui, sans-serif;
+  background:
+    radial-gradient(ellipse 55% 35% at 20% 0%, #25205b 0, transparent 70%),
+    radial-gradient(ellipse 45% 30% at 100% 0%, #123c50 0, transparent 70%),
+    var(--bg);
+}
+
+.navy .page-wrapper {
+  background: transparent;
+}
+
+.navy .content {
+  max-width: 980px;
+  color: var(--fg);
+}
+
+.navy .menu-title {
+  color: #c6ff45;
+  font: 700 1.05rem "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-shadow: 0 0 14px #c6ff4540;
+}
+
+.navy .sidebar {
+  border-right: 1px solid #263454;
+  box-shadow: 12px 0 35px #0005;
+}
+
+.navy .sidebar .chapter li.chapter-item {
+  border-bottom: 1px solid #ffffff08;
+}
+
+.navy .sidebar .chapter li a {
+  font: 500 .72rem "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: .04em;
+}
+
+.navy .sidebar .chapter li a:hover {
+  color: #22e6ff;
+  background: #22e6ff0d;
+}
+
+.navy .sidebar .chapter li a.active {
+  border-left: 3px solid #b57bff;
+  color: #c6ff45;
+  background: #b57bff12;
+  box-shadow: inset 0 0 18px #b57bff0d;
+}
+
+.navy h1, .navy h2, .navy h3, .navy h4 {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  color: #c9dbec;
+  letter-spacing: -.02em;
+}
+
+.navy h1 {
+  font-size: 2rem;
+  text-shadow: 0 0 22px #22e6ff1f;
+}
+
+.navy h2 {
+  color: #c9dbec;
+}
+
+.navy a {
+  color: #22e6ff;
+}
+
+.navy a:hover {
+  color: #ff2d9e;
+  text-decoration: none;
+  text-shadow: 0 0 10px #ff2d9e55;
+}
+
+.navy pre, .navy code {
+  border-radius: 4px;
+}
+
+.navy code {
+  color: #ff2d9e;
+  background: #171923;
+}
+
+.navy pre {
+  border: 1px solid #263454;
+  background: #0b0f19;
+  box-shadow: inset 0 1px #ffffff08, 0 10px 30px #0005;
+}
+
+.navy blockquote {
+  border-left-color: #b57bff;
+  background: #0d1422;
+}
+
+.navy table {
+  border-color: #263454;
+}
+
+.navy table thead {
+  color: #c6ff45;
+  background: #0d1422;
+}
