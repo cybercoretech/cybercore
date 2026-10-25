@@ -6,17 +6,21 @@
   <meta name="theme-color" content="#090b12">
   <title>Cybercore // Master Docs</title>
   <style>
-    :root { color-scheme: dark; --bg:#090b12; --panel:#111827; --line:#263454; --fg:#e6eeff; --muted:#9aa9c4; --cyan:#22e6ff; --acid:#c6ff45; --pink:#ff2d9e; }
-    * { box-sizing: border-box; } body { margin:0; min-height:100vh; background:radial-gradient(circle at 20% 0%,#202052 0,transparent 42%),var(--bg); color:var(--fg); font:16px/1.6 Inter,system-ui,sans-serif; }
-    main { width:min(1100px,calc(100% - 32px)); margin:0 auto; padding:64px 0; } .eyebrow { color:var(--cyan); font:600 .72rem ui-monospace,monospace; letter-spacing:.16em; text-transform:uppercase; }
-    h1,h2 { font-family:ui-monospace,monospace; } h1 { font-size:clamp(2rem,6vw,4rem); margin:.35rem 0 .7rem; } h2 { color:var(--acid); font-size:1.1rem; letter-spacing:.04em; }
-    p { color:var(--muted); max-width:760px; } .hero,.card { border:1px solid var(--line); background:#0e1422e8; border-radius:14px; padding:24px; box-shadow:0 18px 60px #0006; }
-    .hero { margin-bottom:18px; } .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; } .card a { color:var(--cyan); text-decoration:none; } .card a:hover { color:var(--pink); } .meta { color:var(--acid); font: .72rem ui-monospace,monospace; }
-    nav { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; } nav a { border:1px solid var(--line); border-radius:999px; padding:7px 12px; color:var(--fg); text-decoration:none; font:.75rem ui-monospace,monospace; } nav a:hover { border-color:var(--cyan); color:var(--cyan); }
+    :root { color-scheme: dark; --bg:#070a12; --panel:#0d1422; --line:#263454; --fg:#e6eeff; --muted:#9aa9c4; --cyan:#22e6ff; --acid:#c6ff45; --pink:#ff2d9e; --purple:#b57bff; }
+    * { box-sizing: border-box; } body { margin:0; min-height:100vh; background:radial-gradient(ellipse 65% 45% at 12% 0%,#25205b 0,transparent 68%),radial-gradient(ellipse 55% 35% at 100% 20%,#123c50 0,transparent 70%),var(--bg); color:var(--fg); font:16px/1.6 Inter,system-ui,sans-serif; }
+    body:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.12; background:repeating-linear-gradient(0deg,transparent 0 3px,#fff 4px); mix-blend-mode:overlay; }
+    main { width:min(1180px,calc(100% - 32px)); margin:0 auto; padding:30px 0 64px; } .eyebrow { color:var(--cyan); font:600 .72rem ui-monospace,monospace; letter-spacing:.16em; text-transform:uppercase; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:18px; color:var(--muted); font:600 .68rem ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; } .signal { display:inline-flex; align-items:center; gap:.45rem; color:var(--acid); } .signal i { width:7px; height:7px; border-radius:50%; background:var(--acid); box-shadow:0 0 13px var(--acid); }
+    h1,h2,h3 { font-family:ui-monospace,monospace; } h1 { max-width:950px; font-size:clamp(2rem,6vw,4.7rem); line-height:1.02; margin:.35rem 0 1rem; letter-spacing:-.06em; text-shadow:0 0 30px #22e6ff2a; } h2 { color:var(--acid); font-size:1.1rem; letter-spacing:.04em; margin:28px 0 12px; }
+    p { color:var(--muted); max-width:760px; } .hero,.card { position:relative; overflow:hidden; border:1px solid var(--line); background:linear-gradient(145deg,#111b2ee8,#0a101ce8); border-radius:14px; padding:24px; box-shadow:0 18px 60px #0008,inset 0 1px #ffffff0b; }
+    .hero:before,.card:before { content:""; position:absolute; inset:0 0 auto; height:2px; background:linear-gradient(90deg,transparent,var(--cyan),var(--pink),transparent); opacity:.8; } .hero { margin-bottom:18px; padding:30px; } .hero p { font-size:1.02rem; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; } .card { min-height:176px; transition:transform .16s,border-color .16s,box-shadow .16s; } .card:hover { transform:translateY(-4px); border-color:var(--cyan); box-shadow:0 18px 50px #000b,0 0 22px #22e6ff22; } .card a { color:var(--cyan); text-decoration:none; font:600 .74rem ui-monospace,monospace; } .card a:hover { color:var(--pink); } .card h3 { margin:.7rem 0 1.1rem; font-size:1.05rem; } .meta { color:var(--acid); font:.65rem ui-monospace,monospace; letter-spacing:.1em; } .glyph { display:grid; place-items:center; width:36px; height:36px; margin-bottom:.8rem; border:1px solid #22e6ff66; border-radius:10px; color:var(--cyan); background:#22e6ff0d; font:700 1rem ui-monospace,monospace; box-shadow:inset 0 0 16px #22e6ff12; }
+    nav { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; } nav a { border:1px solid var(--line); border-radius:999px; padding:8px 13px; color:var(--fg); text-decoration:none; font:.75rem ui-monospace,monospace; background:#ffffff04; } nav a:hover { border-color:var(--cyan); color:var(--cyan); box-shadow:0 0 15px #22e6ff22; }
   </style>
 </head>
 <body>
 <main>
+  <div class="topbar"><span>CYBERCORE // CONTROL PLANE</span><span class="signal"><i></i> PUBLIC MASTER SURFACE</span></div>
   <section class="hero">
     <div class="eyebrow">Cybercore // Master Documentation</div>
     <h1>One source. Every surface.</h1>
@@ -25,16 +29,16 @@
   </section>
   <h2>Project Pages</h2>
   <section class="grid" aria-label="Project documentation">
-    <article class="card"><div class="meta">CORE</div><h3>Cybercore</h3><a href="https://cybercoretech.github.io/cybercore/">Open project ↗</a></article>
-    <article class="card"><div class="meta">DESKTOP</div><h3>Cyberdesk</h3><a href="https://cybercoretech.github.io/cyberdesk/">Open project ↗</a></article>
-    <article class="card"><div class="meta">DESKTOP</div><h3>Cyberdeck Hub</h3><a href="https://cybercoretech.github.io/cyberdeck-hub/">Open project ↗</a></article>
-    <article class="card"><div class="meta">INTEGRATION</div><h3>Cyberplug</h3><a href="https://cybercoretech.github.io/cyberplug/">Open project ↗</a></article>
-    <article class="card"><div class="meta">HUD</div><h3>Omniscient</h3><a href="https://cybercoretech.github.io/omniscient/">Open project ↗</a></article>
-    <article class="card"><div class="meta">TOOLS</div><h3>Cybermeta</h3><a href="https://cybercoretech.github.io/cybermeta/">Open project ↗</a></article>
-    <article class="card"><div class="meta">SECURITY</div><h3>CyberVault</h3><a href="https://cybercoretech.github.io/cybervault/">Open project ↗</a></article>
-    <article class="card"><div class="meta">DESKTOP</div><h3>Cyberdeck</h3><a href="https://cybercoretech.github.io/cyberdeck/">Open project ↗</a></article>
-    <article class="card"><div class="meta">CONTROL PLANE</div><h3>Control Plane</h3><a href="https://cybercoretech.github.io/cybercore-control-plane/">Open project ↗</a></article>
-    <article class="card"><div class="meta">MONITORING</div><h3>Cyberwatch</h3><a href="https://cybercoretech.github.io/cyberwatch/">Open project ↗</a></article>
+    <article class="card"><div class="glyph">CC</div><div class="meta">CORE</div><h3>Cybercore</h3><a href="https://cybercoretech.github.io/cybercore/">Open project ↗</a></article>
+    <article class="card"><div class="glyph">CD</div><div class="meta">DESKTOP</div><h3>Cyberdesk</h3><a href="https://cybercoretech.github.io/cyberdesk/">Open project ↗</a></article>
+    <article class="card"><div class="glyph">CH</div><div class="meta">DESKTOP</div><h3>Cyberdeck Hub</h3><a href="https://cybercoretech.github.io/cyberdeck-hub/">Open project ↗</a></article>
+    <article class="card"><div class="glyph">CP</div><div class="meta">INTEGRATION</div><h3>Cyberplug</h3><a href="https://cybercoretech.github.io/cyberplug/">Open project ↗</a></article>
+    <article class="card"><div class="glyph">OM</div><div class="meta">HUD</div><h3>Omniscient</h3><a href="https://cybercoretech.github.io/omniscient/">Open project ↗</a></article>
+    <article class="card"><div class="glyph">CM</div><div class="meta">TOOLS</div><h3>Cybermeta</h3><a href="https://cybercoretech.github.io/cybermeta/">Open project ↗</a></article>
+    <article class="card"><div class="glyph">CV</div><div class="meta">SECURITY</div><h3>CyberVault</h3><a href="https://cybercoretech.github.io/cybervault/">Open project ↗</a></article>
+    <article class="card"><div class="glyph">DK</div><div class="meta">DESKTOP</div><h3>Cyberdeck</h3><a href="https://cybercoretech.github.io/cyberdeck/">Open project ↗</a></article>
+    <article class="card"><div class="glyph">PL</div><div class="meta">CONTROL PLANE</div><h3>Control Plane</h3><a href="https://cybercoretech.github.io/cybercore-control-plane/">Open project ↗</a></article>
+    <article class="card"><div class="glyph">CW</div><div class="meta">MONITORING</div><h3>Cyberwatch</h3><a href="https://cybercoretech.github.io/cyberwatch/">Open project ↗</a></article>
   </section>
 </main>
 </body>
