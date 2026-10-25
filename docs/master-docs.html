@@ -3,43 +3,83 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090b12">
-  <title>Cybercore // Master Docs</title>
+  <meta name="theme-color" content="#070910">
+  <title>Cybercore Master Documentation</title>
   <style>
-    :root { color-scheme: dark; --bg:#070a12; --panel:#0d1422; --line:#263454; --fg:#e6eeff; --muted:#9aa9c4; --cyan:#22e6ff; --acid:#c6ff45; --pink:#ff2d9e; --purple:#b57bff; }
-    * { box-sizing: border-box; } body { margin:0; min-height:100vh; background:radial-gradient(ellipse 65% 45% at 12% 0%,#25205b 0,transparent 68%),radial-gradient(ellipse 55% 35% at 100% 20%,#123c50 0,transparent 70%),var(--bg); color:var(--fg); font:16px/1.6 Inter,system-ui,sans-serif; }
-    body:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.12; background:repeating-linear-gradient(0deg,transparent 0 3px,#fff 4px); mix-blend-mode:overlay; }
-    main { width:min(1180px,calc(100% - 32px)); margin:0 auto; padding:30px 0 64px; } .eyebrow { color:var(--cyan); font:600 .72rem ui-monospace,monospace; letter-spacing:.16em; text-transform:uppercase; }
-    .topbar { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:18px; color:var(--muted); font:600 .68rem ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; } .signal { display:inline-flex; align-items:center; gap:.45rem; color:var(--acid); } .signal i { width:7px; height:7px; border-radius:50%; background:var(--acid); box-shadow:0 0 13px var(--acid); }
-    h1,h2,h3 { font-family:ui-monospace,monospace; } h1 { max-width:950px; font-size:clamp(2rem,6vw,4.7rem); line-height:1.02; margin:.35rem 0 1rem; letter-spacing:-.06em; text-shadow:0 0 30px #22e6ff2a; } h2 { color:var(--acid); font-size:1.1rem; letter-spacing:.04em; margin:28px 0 12px; }
-    p { color:var(--muted); max-width:760px; } .hero,.card { position:relative; overflow:hidden; border:1px solid var(--line); background:linear-gradient(145deg,#111b2ee8,#0a101ce8); border-radius:14px; padding:24px; box-shadow:0 18px 60px #0008,inset 0 1px #ffffff0b; }
-    .hero:before,.card:before { content:""; position:absolute; inset:0 0 auto; height:2px; background:linear-gradient(90deg,transparent,var(--cyan),var(--pink),transparent); opacity:.8; } .hero { margin-bottom:18px; padding:30px; } .hero p { font-size:1.02rem; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; } .card { min-height:176px; transition:transform .16s,border-color .16s,box-shadow .16s; } .card:hover { transform:translateY(-4px); border-color:var(--cyan); box-shadow:0 18px 50px #000b,0 0 22px #22e6ff22; } .card a { color:var(--cyan); text-decoration:none; font:600 .74rem ui-monospace,monospace; } .card a:hover { color:var(--pink); } .card h3 { margin:.7rem 0 1.1rem; font-size:1.05rem; } .meta { color:var(--acid); font:.65rem ui-monospace,monospace; letter-spacing:.1em; } .glyph { display:grid; place-items:center; width:36px; height:36px; margin-bottom:.8rem; border:1px solid #22e6ff66; border-radius:10px; color:var(--cyan); background:#22e6ff0d; font:700 1rem ui-monospace,monospace; box-shadow:inset 0 0 16px #22e6ff12; }
-    nav { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; } nav a { border:1px solid var(--line); border-radius:999px; padding:8px 13px; color:var(--fg); text-decoration:none; font:.75rem ui-monospace,monospace; background:#ffffff04; } nav a:hover { border-color:var(--cyan); color:var(--cyan); box-shadow:0 0 15px #22e6ff22; }
+    :root{color-scheme:dark;--bg:#070910;--sidebar:#0b1020;--panel:#0d1422;--line:#263454;--fg:#c9dbec;--muted:#8492b0;--cyan:#22e6ff;--acid:#c6ff45;--pink:#ff2d9e;--purple:#b57bff}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--fg);font:14px/1.55 Inter,system-ui,sans-serif}
+    body{display:grid;grid-template-columns:296px 1fr;overflow-x:hidden}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.08;background:repeating-linear-gradient(0deg,transparent 0 3px,#fff 4px)}
+    a{color:var(--cyan);text-decoration:none}a:hover{color:var(--pink);text-shadow:0 0 10px #ff2d9e66}
+    .sidebar{min-height:100vh;padding:14px 10px;background:linear-gradient(180deg,#0b1020,#080c18);border-right:1px solid var(--line);box-shadow:12px 0 35px #0006;position:sticky;top:0}
+    .brand{display:flex;align-items:center;gap:9px;height:38px;padding:0 8px;color:var(--acid);font:700 .72rem ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}
+    .brand-mark{display:grid;place-items:center;width:19px;height:19px;border:1px solid var(--acid);border-radius:4px;color:var(--acid);font-size:.65rem}
+    .side-section{margin:12px 0 5px;padding:8px 8px;border:1px solid var(--line);border-radius:2px;color:var(--cyan);font:700 .66rem ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;background:#0d1422}
+    .side-section span{color:var(--muted);float:right}.side-links{display:grid}.side-links a{padding:7px 10px;border-bottom:1px solid #ffffff08;color:#a8b6d0;font:500 .66rem ui-monospace,monospace;letter-spacing:.04em}.side-links a:hover,.side-links a.active{color:var(--acid);background:#b57bff0d;border-left:3px solid var(--purple)}
+    .shell{min-width:0}.topbar{height:55px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #ffffff08;color:var(--acid);font:700 .7rem ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;position:sticky;top:0;z-index:2;background:#070910e8;backdrop-filter:blur(12px)}
+    .topbar .tools{position:absolute;right:20px;display:flex;gap:15px;color:var(--muted);font-size:.9rem}.topbar .tools a{color:var(--muted)}.main{max-width:1240px;margin:0 auto;padding:54px 6vw 80px}.eyebrow{color:var(--cyan);font:600 .68rem ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase}
+    h1,h2,h3{font-family:"JetBrains Mono",ui-monospace,monospace}h1{margin:8px 0 16px;color:var(--fg);font-size:clamp(2rem,4.5vw,4rem);line-height:1.04;letter-spacing:-.06em}h2{margin:45px 0 16px;color:var(--fg);font-size:1.4rem}p{color:var(--muted);max-width:820px}
+    .hero{max-width:980px;margin:0 auto 34px}.hero p{font-size:1rem}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.button{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border:1px solid var(--line);border-radius:3px;background:#0d1422;color:var(--cyan);font:600 .68rem ui-monospace,monospace;letter-spacing:.05em}.button:hover{border-color:var(--cyan);background:#22e6ff0d}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:15px}.card{position:relative;min-height:245px;padding:21px;border:1px solid var(--line);border-radius:4px;background:linear-gradient(145deg,#0d1422,#090e19);box-shadow:0 14px 35px #0006;transition:transform .16s,border-color .16s,box-shadow .16s}.card:before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--cyan),transparent)}.card:hover{transform:translateY(-3px);border-color:var(--cyan);box-shadow:0 18px 45px #0008,0 0 22px #22e6ff1c}.card-top{display:flex;align-items:center;justify-content:space-between;gap:12px}.glyph{display:grid;place-items:center;width:42px;height:42px;border:1px solid #22e6ff66;border-radius:5px;color:var(--cyan);background:#22e6ff0b;font:700 .9rem ui-monospace,monospace}.meta{color:var(--acid);font:600 .62rem ui-monospace,monospace;letter-spacing:.11em;text-transform:uppercase}.card h3{margin:15px 0 8px;color:var(--fg);font-size:1.25rem}.card p{min-height:48px;margin:0 0 15px;font-size:.84rem}.stats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}.stats span{padding:4px 7px;border:1px solid #263454;border-radius:2px;color:#a8b6d0;font:500 .6rem ui-monospace,monospace}.card .open{font:600 .7rem ui-monospace,monospace}
+    footer{margin-top:48px;padding-top:17px;border-top:1px solid #ffffff10;color:var(--muted);font:.65rem ui-monospace,monospace}@media(max-width:800px){body{display:block}.sidebar{position:relative;min-height:0;border-right:0;border-bottom:1px solid var(--line)}.side-links{grid-template-columns:repeat(2,1fr)}.topbar{position:relative}.main{padding:38px 20px 60px}.topbar .tools{right:12px}.grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-<main>
-  <div class="topbar"><span>CYBERCORE // CONTROL PLANE</span><span class="signal"><i></i> PUBLIC MASTER SURFACE</span></div>
-  <section class="hero">
-    <div class="eyebrow">Cybercore // Master Documentation</div>
-    <h1>One source. Every surface.</h1>
-    <p>The canonical operator reference for Cybercore products, updater workflows, themes, recovery, validation, and release operations.</p>
-    <nav aria-label="Documentation"><a href="https://cybercoretech.github.io/cybercore/docs/">Open public mdBook ↗</a></nav>
-  </section>
-  <h2>Project Pages</h2>
-  <section class="grid" aria-label="Project documentation">
-    <article class="card"><div class="glyph">CC</div><div class="meta">CORE</div><h3>Cybercore</h3><a href="https://cybercoretech.github.io/cybercore/">Open project ↗</a></article>
-    <article class="card"><div class="glyph">CD</div><div class="meta">DESKTOP</div><h3>Cyberdesk</h3><a href="https://cybercoretech.github.io/cyberdesk/">Open project ↗</a></article>
-    <article class="card"><div class="glyph">CH</div><div class="meta">DESKTOP</div><h3>Cyberdeck Hub</h3><a href="https://cybercoretech.github.io/cyberdeck-hub/">Open project ↗</a></article>
-    <article class="card"><div class="glyph">CP</div><div class="meta">INTEGRATION</div><h3>Cyberplug</h3><a href="https://cybercoretech.github.io/cyberplug/">Open project ↗</a></article>
-    <article class="card"><div class="glyph">OM</div><div class="meta">HUD</div><h3>Omniscient</h3><a href="https://cybercoretech.github.io/omniscient/">Open project ↗</a></article>
-    <article class="card"><div class="glyph">CM</div><div class="meta">TOOLS</div><h3>Cybermeta</h3><a href="https://cybercoretech.github.io/cybermeta/">Open project ↗</a></article>
-    <article class="card"><div class="glyph">CV</div><div class="meta">SECURITY</div><h3>CyberVault</h3><a href="https://cybercoretech.github.io/cybervault/">Open project ↗</a></article>
-    <article class="card"><div class="glyph">DK</div><div class="meta">DESKTOP</div><h3>Cyberdeck</h3><a href="https://cybercoretech.github.io/cyberdeck/">Open project ↗</a></article>
-    <article class="card"><div class="glyph">PL</div><div class="meta">CONTROL PLANE</div><h3>Control Plane</h3><a href="https://cybercoretech.github.io/cybercore-control-plane/">Open project ↗</a></article>
-    <article class="card"><div class="glyph">CW</div><div class="meta">MONITORING</div><h3>Cyberwatch</h3><a href="https://cybercoretech.github.io/cyberwatch/">Open project ↗</a></article>
-  </section>
-</main>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">✳</span> Cybercore master documentation</div>
+    <div class="side-section">Documentation <span>7</span></div>
+    <div class="side-links">
+      <a class="active" href="#master">1. Master documentation</a>
+      <a href="#architecture">2. Architecture</a>
+      <a href="#operations">3. Updater operations</a>
+      <a href="#fleet">4. Updater fleet</a>
+      <a href="#themes">5. Themes and assets</a>
+      <a href="#recovery">6. Recovery and validation</a>
+      <a href="https://github.com/cybercoretech/cybercore">7. Source repository ↗</a>
+    </div>
+    <div class="side-section">Project surfaces <span>10</span></div>
+    <div class="side-links">
+      <a href="https://cybercoretech.github.io/cybercore/">Cybercore</a>
+      <a href="https://cybercoretech.github.io/cyberdesk/">Cyberdesk</a>
+      <a href="https://cybercoretech.github.io/cyberdeck-hub/">Cyberdeck Hub</a>
+      <a href="https://cybercoretech.github.io/cyberplug/">Cyberplug</a>
+      <a href="https://cybercoretech.github.io/omniscient/">Omniscient</a>
+      <a href="https://cybercoretech.github.io/cybermeta/">Cybermeta</a>
+      <a href="https://cybercoretech.github.io/cybervault/">CyberVault</a>
+      <a href="https://cybercoretech.github.io/cyberdeck/">Cyberdeck</a>
+      <a href="https://cybercoretech.github.io/cybercore-control-plane/">Control Plane</a>
+      <a href="https://cybercoretech.github.io/cyberwatch/">Cyberwatch</a>
+    </div>
+  </aside>
+  <div class="shell">
+    <header class="topbar">CYBERCORE MASTER DOCUMENTATION <span class="tools"><a href="https://github.com/cybercoretech/cybercore">◉</a><a href="#master">⌃</a></span></header>
+    <main class="main">
+      <section id="master" class="hero">
+        <div class="eyebrow">Cybercore // Public operator reference</div>
+        <h1>One source. Every surface.</h1>
+        <p>Architecture, updater workflows, themes, recovery, validation, and release operations for the Cybercore fleet—presented in the same dark, precise visual language as the Cybercore Wiki.</p>
+        <div class="hero-actions"><a class="button" href="https://cybercoretech.github.io/cybercore/docs/">OPEN PUBLIC MDBOOK ↗</a><a class="button" href="https://github.com/cybercoretech/cybercore">SOURCE ↗</a></div>
+      </section>
+      <section id="architecture"><h2>Documentation surfaces</h2><div class="grid">
+        <article class="card"><div class="card-top"><span class="glyph">CC</span><span class="meta">FRAMEWORK</span></div><h3>Architecture</h3><p>Shared crates, contracts, Theme Studio, updater engine, TUI, and Control Panel boundaries.</p><div class="stats"><span>Rust</span><span>Contracts</span><span>Public-safe</span></div><a class="open" href="https://cybercoretech.github.io/cybercore/docs/architecture.html">OPEN GUIDE ↗</a></article>
+        <article class="card"><div class="card-top"><span class="glyph">UP</span><span class="meta">OPERATIONS</span></div><h3>Updater operations</h3><p>Dry runs, plans, apply, repair, service actions, rollback, history, and operator safety rules.</p><div class="stats"><span>12 tasks</span><span>Dry-run first</span><span>Rollback</span></div><a class="open" href="https://cybercoretech.github.io/cybercore/docs/operations.html">OPEN GUIDE ↗</a></article>
+        <article class="card"><div class="card-top"><span class="glyph">TUI</span><span class="meta">INTERFACE</span></div><h3>Updater TUI</h3><p>Keyboard dashboard with selection, diagnostics, confirmations, colored states, and activity logs.</p><div class="stats"><span>Ratatui</span><span>Confirmations</span><span>History</span></div><a class="open" href="https://cybercoretech.github.io/cybercore/docs/tui.html">OPEN GUIDE ↗</a></article>
+        <article class="card"><div class="card-top"><span class="glyph">API</span><span class="meta">CONTROL PLANE</span></div><h3>Control Panel</h3><p>Loopback fleet dashboard for diagnostics, plans, repair, service restart, rollback, and visible results.</p><div class="stats"><span>Loopback</span><span>Axum</span><span>Local-only</span></div><a class="open" href="https://cybercoretech.github.io/cybercore/docs/control-panel.html">OPEN GUIDE ↗</a></article>
+      </div></section>
+      <section id="fleet"><h2>Project surfaces</h2><div class="grid">
+        <article class="card"><div class="card-top"><span class="glyph">DS</span><span class="meta">DESKTOP</span></div><h3>Cyberdesk</h3><p>Desktop surface covered by the updater fleet and public product navigation.</p><div class="stats"><span>Consumer</span><span>Updater</span><span>Pages</span></div><a class="open" href="https://cybercoretech.github.io/cyberdesk/">OPEN PROJECT ↗</a></article>
+        <article class="card"><div class="card-top"><span class="glyph">CH</span><span class="meta">DESKTOP</span></div><h3>Cyberdeck Hub</h3><p>Hub runtime and canonical theme catalog surface with public project references.</p><div class="stats"><span>Consumer</span><span>312 themes</span><span>Pages</span></div><a class="open" href="https://cybercoretech.github.io/cyberdeck-hub/">OPEN PROJECT ↗</a></article>
+        <article class="card"><div class="card-top"><span class="glyph">CP</span><span class="meta">INTEGRATION</span></div><h3>Cyberplug</h3><p>Cybercore integration surface with public workflow and installation references.</p><div class="stats"><span>Consumer</span><span>Integration</span><span>Pages</span></div><a class="open" href="https://cybercoretech.github.io/cyberplug/">OPEN PROJECT ↗</a></article>
+        <article class="card"><div class="card-top"><span class="glyph">OM</span><span class="meta">HUD</span></div><h3>Omniscient</h3><p>HUD and status consumer connected to the shared Cybercore runtime contracts.</p><div class="stats"><span>Consumer</span><span>Status</span><span>Pages</span></div><a class="open" href="https://cybercoretech.github.io/omniscient/">OPEN PROJECT ↗</a></article>
+        <article class="card"><div class="card-top"><span class="glyph">CM</span><span class="meta">TOOLS</span></div><h3>Cybermeta</h3><p>Tooling surface with updater coverage, release references, and public project navigation.</p><div class="stats"><span>Consumer</span><span>Tooling</span><span>Pages</span></div><a class="open" href="https://cybercoretech.github.io/cybermeta/">OPEN PROJECT ↗</a></article>
+        <article class="card"><div class="card-top"><span class="glyph">CV</span><span class="meta">SECURITY</span></div><h3>CyberVault</h3><p>Security product surface with recovery-aware updater and public operational references.</p><div class="stats"><span>Consumer</span><span>Security</span><span>Pages</span></div><a class="open" href="https://cybercoretech.github.io/cybervault/">OPEN PROJECT ↗</a></article>
+      </div></section>
+      <section id="themes"><h2>Themes and assets</h2><div class="grid">
+        <article class="card"><div class="card-top"><span class="glyph">312</span><span class="meta">THEME SYSTEM</span></div><h3>Canonical theme model</h3><p>300 source palettes plus 12 signature mashups, with quality and compatibility checks.</p><div class="stats"><span>300 source</span><span>12 mashups</span><span>Quality gates</span></div><a class="open" href="https://cybercoretech.github.io/cybercore/docs/themes.html">OPEN GUIDE ↗</a></article>
+        <article class="card"><div class="card-top"><span class="glyph">PL</span><span class="meta">CONTROL PLANE</span></div><h3>Design system surfaces</h3><p>Theme Studio, Control Plane, Cyberdeck, and Cyberwatch entry points share the master docs link.</p><div class="stats"><span>10 Pages links</span><span>Cybercore UI</span><span>Public</span></div><a class="open" href="https://cybercoretech.github.io/cybercore-control-plane/">OPEN PROJECT ↗</a></article>
+      </div></section>
+      <section id="recovery"><h2>Recovery and validation</h2><div class="grid"><article class="card"><div class="card-top"><span class="glyph">OK</span><span class="meta">RELIABILITY</span></div><h3>Validate before release</h3><p>Run workspace tests, public-doc safety checks, fleet plans, diagnostics, and deployment verification before publishing.</p><div class="stats"><span>Safety scan</span><span>Tests</span><span>Deployment</span></div><a class="open" href="https://cybercoretech.github.io/cybercore/docs/recovery-validation.html">OPEN GUIDE ↗</a></article></div></section>
+      <footer>CYBERCORE // PUBLIC MASTER SURFACE · Documentation source is maintained in the public Cybercore repository.</footer>
+    </main>
+  </div>
 </body>
 </html>
