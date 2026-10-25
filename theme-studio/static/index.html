@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
   <title>Cybercore Theme Studio</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23090b12'/%3E%3Cpath d='M32 8l5.5 18.5L56 32l-18.5 5.5L32 56l-5.5-18.5L8 32l18.5-5.5z' fill='%23c6ff45'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%2322e6ff'/%3E%3C/svg%3E">
   <style>
     :root { color-scheme:dark;--bg:#090b12;--fg:#edf1f7;--panel:#111622;--line:#283243;--muted:#8591a4;--acid:#c8ff52;--pink:#ff4778;--cyan:#45e6dc;--purple:#a58bff;--orange:#ffad5c;--red:#ff5d68;--radius:8px;--font-ui:Inter,sans-serif;--font-mono:"JetBrains Mono",monospace;--font-display:Oxanium,sans-serif;--density:1;--dur-mid:.22s; }
     *{box-sizing:border-box}html{scrollbar-color:var(--purple) var(--bg);scrollbar-width:thin}body{margin:0;min-height:100vh;background:var(--bg);color:var(--fg);font:13px/1.55 var(--font-ui);position:relative}button,input,select{font:inherit}button,.button{color:var(--fg);background:linear-gradient(145deg,color-mix(in srgb,var(--panel) 92%,white 3%),var(--panel));border:1px solid var(--line);border-radius:6px;padding:.62rem .9rem;cursor:pointer;text-decoration:none;letter-spacing:.02em;transition:all var(--dur-mid);white-space:nowrap}button:hover,.button:hover{border-color:var(--acid);color:var(--acid);box-shadow:0 0 22px color-mix(in srgb,var(--acid) 16%,transparent);transform:translateY(-1px)}button.primary{background:var(--acid);color:#11180a;border-color:var(--acid);font-weight:800}button.primary:hover{color:#11180a;box-shadow:0 0 28px color-mix(in srgb,var(--acid) 35%,transparent)}button.quiet{background:transparent}input,select{background:#0b1019;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:.64rem .72rem;width:100%;min-width:0}input:focus,select:focus{outline:1px solid var(--cyan);border-color:var(--cyan);box-shadow:0 0 0 3px color-mix(in srgb,var(--cyan) 11%,transparent)}
@@ -181,6 +182,7 @@
       <button type="button" data-control-view="sites">06 / Sites</button>
       <button type="button" data-control-view="validation">07 / Validation</button>
       <button type="button" data-control-view="publish">08 / Publish</button>
+      <button type="button" data-control-view="docs">09 / Docs</button>
     </nav>
     <section id="control-dashboard" class="control-view" hidden aria-labelledby="control-dashboard-title">
       <div class="dashboard-telemetry">
@@ -216,6 +218,16 @@
         <div class="dashboard-section">
           <article class="panel telemetry-card"><h3>WARNINGS &amp; ACTIONS</h3><div id="dashboard-warnings" class="telemetry-list"><span class="telemetry-empty">No warnings.</span></div></article>
         </div>
+      </div>
+    </section>
+    <section id="control-docs" class="control-view module-message" hidden aria-labelledby="control-docs-title">
+      <strong id="control-docs-title">Cybercore documentation</strong>
+      <span>Canonical operator guidance, product references, and recovery procedures for the entire Cybercore fleet.</span>
+      <div class="module-grid">
+        <article class="resource-card"><h3>Canonical mdBook</h3><p>Read the shared source and generated local book. The Cybercore theme is applied from one shared stylesheet.</p><div class="resource-meta"><span>mdBook</span><span>Canonical</span></div><a class="button" href="/docs/" target="_blank" rel="noreferrer">Open local book ↗</a></article>
+        <article class="resource-card"><h3>Updater operations</h3><p>Fleet tasks, the 312-theme model, planning, repair, rollback, history, and service management.</p><div class="resource-meta"><span>12 tasks</span><span>312 themes</span></div><a class="button" href="/docs/framework/cybercore-system-updater.html" target="_blank" rel="noreferrer">Open updater guide ↗</a></article>
+        <article class="resource-card"><h3>TUI keymap</h3><p>Keyboard controls, confirmations, status colors, diagnostics, GitHub status, and repository review.</p><div class="resource-meta"><span>CLI</span><span>TUI</span></div><a class="button" href="/docs/framework/cybercore-tui.html" target="_blank" rel="noreferrer">Open TUI guide ↗</a></article>
+        <article class="resource-card"><h3>Build and validate</h3><p>After changing documentation, run <code>mdbook build /home/raven/Wiki</code> and verify generated links and search.</p><div class="resource-meta"><span>Local</span><span>Validation</span></div><code>mdbook build /home/raven/Wiki</code></article>
       </div>
     </section>
     <section id="control-placeholder" class="control-view module-message" hidden><strong id="module-title">Control Plane module</strong><span id="module-copy">This workspace is registered and ready for its editor.</span><div id="generic-module-toolbar" class="module-toolbar"><span id="module-count"></span><div><input id="resource-search" type="search" placeholder="Search resources…" aria-label="Search resources"><select id="resource-category" aria-label="Filter by category"><option value="">All categories</option></select><select id="resource-tag" aria-label="Filter by tag"><option value="">All tags</option></select><button id="validate-control-plane" type="button">Run validation</button><button id="publish-control-plane" type="button">Build publish plan</button></div></div><div id="site-actions" class="site-actions" hidden><span id="site-source" class="eyebrow">STARTER PROFILES · LOCAL ONLY</span><div class="actions"><button id="create-site-profile" class="primary" type="button">＋ Create site profile</button><button id="validate-sites" type="button">Validate all sites</button></div></div><div id="resource-pagination" class="resource-pagination" hidden><button id="resource-prev" type="button">← Previous</button><span id="resource-page"></span><button id="resource-next" type="button">Next →</button></div><div id="module-resources" class="module-grid"></div><div id="validation-results" class="validation-list"></div><pre id="publish-output" class="publish-output" hidden></pre></section>
@@ -599,12 +611,14 @@ Promise.all([refreshLibrary().then(()=>newTheme()),loadCuratedLibrary()]).catch(
     resourcePage = 0;
     const dashboard = view === 'dashboard';
     const themes = view === 'themes';
+    const docs = view === 'docs';
     workspace.hidden = !themes;
     document.body.classList.toggle('control-only', !themes);
     document.body.classList.toggle('theme-editor-visible', themes);
     document.getElementById('control-dashboard').hidden = !dashboard;
-    document.getElementById('control-placeholder').hidden = dashboard || themes;
-    if (!dashboard && !themes) {
+    document.getElementById('control-docs').hidden = !docs;
+    document.getElementById('control-placeholder').hidden = dashboard || themes || docs;
+    if (!dashboard && !themes && !docs) {
       title.textContent = labels[view]?.[0] || 'Control Plane module';
       copy.textContent = labels[view]?.[1] || 'This workspace is registered and ready for its editor.';
       genericModuleToolbar.hidden = activeView === 'sites';

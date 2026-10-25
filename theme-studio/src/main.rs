@@ -15,6 +15,7 @@ use cybercore::theme::{
 use futures_util::stream::{self, Stream};
 use serde::Deserialize;
 use serde_json::{json, Value};
+use tower_http::services::ServeDir;
 use std::{
     convert::Infallible,
     net::SocketAddr,
@@ -33,6 +34,7 @@ static ACTIVITY: OnceLock<Mutex<Vec<Value>>> = OnceLock::new();
 async fn main() {
     let app = Router::new()
         .route("/", get(index))
+        .nest_service("/docs", ServeDir::new("/home/raven/Wiki/book"))
         .route("/api/control-plane/workspace", get(control_plane_workspace))
         .route("/api/control-plane/catalog", get(control_plane_catalog))
         .route("/api/control-plane/telemetry", get(control_plane_telemetry))
