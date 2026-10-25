@@ -117,6 +117,16 @@ pub struct Event {
     pub message: String,
 }
 
+#[derive(Debug, Clone)]
+pub struct GitHubRepoStatus {
+    pub repository: String,
+    pub source: PathBuf,
+    pub branch: String,
+    pub dirty: bool,
+    pub pull_requests: Vec<String>,
+    pub error: Option<String>,
+}
+
 #[derive(Clone)]
 pub struct Engine {
     manifest: Manifest,
@@ -298,6 +308,21 @@ impl Engine {
             .collect()
     }
 
+    pub fn github_report(&self) -> Vec<GitHubRepoStatus> {
+        let mut seen = std::collections::HashSet::new();
+        self.manifest
+            .consumers
+            .iter()
+            .filter_map(|item| {
+                let source = self.resolve(&item.source);
+                if !source.is_dir() || !seen.insert(source.clone()) {
+                    return None;
+                }
+                Some(self.github_repo_status(source))
+            })
+            .collect()
+    }
+
     pub fn run(
         &self,
         names: &[String],
@@ -459,6 +484,70 @@ impl Engine {
             .status()
             .map(|status| status.success())
             .unwrap_or(false)
+    }
+
+    fn github_repo_status(&self, source: PathBuf) -> GitHubRepoStatus {
+        let branch = Command::new("git")
+            .args(["-C", &source.to_string_lossy(), "branch", "--show-current"])
+            .output()
+            .ok()
+            .map(|output| String::from_utf8_lossy(&output.stdout).trim().to_string())
+            .filter(|branch| !branch.is_empty())
+            .unwrap_or_else(|| "detached/unknown".into());
+        let dirty = self.check_worktree(&source, &[]).is_err();
+        let repo = Command::new("gh")
+            .args(["repo", "view", "--json", "nameWithOwner"])
+            .current_dir(&source)
+            .output();
+        let (repository, error) = match repo {
+            Ok(output) if output.status.success() => {
+                let name = serde_json::from_slice::<serde_json::Value>(&output.stdout)
+                    .ok()
+                    .and_then(|value| value.get("nameWithOwner")?.as_str().map(str::to_string))
+                    .unwrap_or_else(|| source.display().to_string());
+                (name, None)
+            }
+            Ok(output) => (
+                source.display().to_string(),
+                Some(String::from_utf8_lossy(&output.stderr).trim().to_string()),
+            ),
+            Err(error) => (source.display().to_string(), Some(error.to_string())),
+        };
+        let pull_requests = Command::new("gh")
+            .args([
+                "pr",
+                "list",
+                "--state",
+                "open",
+                "--limit",
+                "20",
+                "--json",
+                "number,title,url,isDraft,author,reviewRequests",
+            ])
+            .current_dir(&source)
+            .output()
+            .ok()
+            .filter(|output| output.status.success())
+            .and_then(|output| serde_json::from_slice::<serde_json::Value>(&output.stdout).ok())
+            .and_then(|value| value.as_array().cloned())
+            .unwrap_or_default()
+            .into_iter()
+            .map(|pr| {
+                let number = pr.get("number").and_then(|value| value.as_i64()).unwrap_or_default();
+                let title = pr.get("title").and_then(|value| value.as_str()).unwrap_or("untitled");
+                let url = pr.get("url").and_then(|value| value.as_str()).unwrap_or("");
+                let draft = pr.get("isDraft").and_then(|value| value.as_bool()).unwrap_or(false);
+                format!("#{number} {}{} — {url}", if draft { "[DRAFT] " } else { "" }, title)
+            })
+            .collect();
+        GitHubRepoStatus {
+            repository,
+            source,
+            branch,
+            dirty,
+            pull_requests,
+            error,
+        }
     }
 
     fn target_directory(&self, source: &Path) -> PathBuf {

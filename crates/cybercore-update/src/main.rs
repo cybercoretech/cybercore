@@ -71,7 +71,7 @@ fn run(
     let mut statuses = HashMap::<String, String>::new();
     let mut inspections = HashMap::<String, Inspection>::new();
     let mut logs = vec![
-        "↑/↓ move  Space toggle  A all  N none  I inspect  ? help".to_string(),
+        "↑/↓ move  Space toggle  A all  N none  I inspect  G GitHub  ? help".to_string(),
         "P plan  Enter apply  R repair  S restart  B rollback  Q quit".to_string(),
     ];
     let mut pending: Option<Action> = None;
@@ -215,13 +215,15 @@ fn run(
                 KeyCode::Char('i') if pending.is_none() => {
                     refresh_inspection(engine, &mut inspections, &mut statuses, &mut logs);
                 }
+                KeyCode::Char('g') if pending.is_none() => github_report(engine, &mut logs),
                 KeyCode::Char('?') if pending.is_none() => logs.push(
-                    "HELP: I inspect | P plan | Enter apply | R repair | S restart | B rollback | Y/N confirm"
+                    "HELP: I inspect | G GitHub | P plan | Enter apply | R repair | S restart | B rollback | Y/N confirm"
                         .into(),
                 ),
                 KeyCode::Char('p') if pending.is_none() => {
                     plan_tasks(engine, &tasks, &selected, &mut statuses, &mut logs);
                 }
+
                 KeyCode::Enter if pending.is_none() => pending = Some(Action::Apply),
                 KeyCode::Char('r') if pending.is_none() => pending = Some(Action::Repair),
                 KeyCode::Char('s') if pending.is_none() => pending = Some(Action::Restart),
@@ -235,6 +237,27 @@ fn run(
         }
     }
     Ok(())
+}
+
+fn github_report(engine: &Engine, logs: &mut Vec<String>) {
+    logs.push("Collecting read-only GitHub repository and PR status…".into());
+    for repo in engine.github_report() {
+        let dirty = if repo.dirty { "DIRTY" } else { "CLEAN" };
+        logs.push(format!("GITHUB {} [{}] branch={}", repo.repository, dirty, repo.branch));
+        if let Some(error) = repo.error {
+            logs.push(format!("GITHUB {} error: {}", repo.repository, error));
+        }
+        if repo.pull_requests.is_empty() {
+            logs.push(format!("GITHUB {} open PRs: none", repo.repository));
+        } else {
+            logs.push(format!(
+                "GITHUB {} open PRs: {}",
+                repo.repository,
+                repo.pull_requests.len()
+            ));
+            logs.extend(repo.pull_requests);
+        }
+    }
 }
 
 fn task_detail(item: &Inspection) -> String {
