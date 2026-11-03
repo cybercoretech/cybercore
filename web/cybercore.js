@@ -96,7 +96,30 @@
     });
   }
 
-  window.CybercoreWebKit = Object.freeze({
+  function addPublicThemeCatalogLink() {
+  const insertLink = () => {
+    const nav = document.querySelector(
+      "header nav, nav[aria-label='Primary'], nav.nav"
+    );
+    if (!nav || nav.querySelector("[data-cybercore-public-catalog]")) return;
+
+    const link = document.createElement("a");
+    link.href = "https://cybercoretech.github.io/cybercore/theme-chooser.html";
+    link.className = "nav-control";
+    link.textContent = "PUBLIC THEME CATALOG ↗";
+    link.setAttribute("data-cybercore-public-catalog", "true");
+    link.setAttribute("aria-label", "Cybercore public theme catalog");
+    nav.appendChild(link);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", insertLink, { once: true });
+  } else {
+    insertLink();
+  }
+}
+
+window.CybercoreWebKit = Object.freeze({
     version: '1.0.0',
     applyRecipes: applyWebRecipes
   });
@@ -199,5 +222,6 @@
   });
   const year = $('#year'); if (year) year.textContent = new Date().getFullYear();
 
+  addPublicThemeCatalogLink();
   boot();
 })();
