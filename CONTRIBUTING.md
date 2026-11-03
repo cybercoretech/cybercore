@@ -28,9 +28,7 @@ request.
 
 4. Describe the user-visible outcome and validation in the pull request.
 
-For public documentation changes, follow
-[docs/PUBLIC_DOCS_POLICY.md](docs/PUBLIC_DOCS_POLICY.md). The private Wiki is
-never a source for GitHub Pages content.
+For public documentation changes, follow [docs/PUBLIC_DOCS_POLICY.md](docs/PUBLIC_DOCS_POLICY.md), and build and review only material authored in this public repository. The private Wiki is never a source for GitHub Pages content.
 
 ## 🎨 Themes and design-system changes
 

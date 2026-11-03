@@ -4,6 +4,8 @@
 
 <p align="center">
   <a href="https://cybercoretech.github.io/cybercore/">Live theme gallery & docs →</a>
+  ·
+  <a href="https://github.com/cybercoretech/cybercore/wiki">GitHub Wiki →</a>
 </p>
 
 [![crates.io](https://img.shields.io/crates/v/cybercore.svg)](https://crates.io/crates/cybercore)
