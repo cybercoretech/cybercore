@@ -1,13 +1,22 @@
 {
   "bg": "010101",
+  "surface": "050505",
+  "panel": "090909",
+  "border": "1f1f1f",
+  "selection": "280812",
+  "hover": "3e0719",
   "white": "e6e6e6",
+  "muted": "4a4a4a",
+  "text_primary": "e6e6e6",
+  "accent_hot": "cc0044",
+  "accent_alt": "009999",
   "acid_green": "00cc00",
   "hot_pink": "cc0044",
   "purple": "330066",
   "cyan": "009999",
   "orange": "995500",
   "red": "bb0000",
-  "panel": "090909",
-  "line": "1f1f1f",
-  "muted": "4a4a4a"
+  "success": "00cc00",
+  "warning": "995500",
+  "error": "bb0000"
 }

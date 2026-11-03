@@ -1,0 +1,22 @@
+{
+  "bg": "0b0907",
+  "surface": "130f0c",
+  "panel": "1b1411",
+  "border": "4a3128",
+  "selection": "372719",
+  "hover": "4b341f",
+  "white": "d9e7bc",
+  "muted": "a38a76",
+  "text_primary": "d9e7bc",
+  "accent_hot": "cb8b44",
+  "accent_alt": "536cac",
+  "acid_green": "4dc052",
+  "hot_pink": "cb8b44",
+  "purple": "60302e",
+  "cyan": "536cac",
+  "orange": "bdcf32",
+  "red": "caa035",
+  "success": "4dc052",
+  "warning": "bdcf32",
+  "error": "caa035"
+}
