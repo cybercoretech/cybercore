@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070910">
+  <title>Cybercore Theme Chooser</title>
+  <style>
+    :root{color-scheme:dark;--bg:#070910;--sidebar:#0b1020;--panel:#0d1422;--line:#263454;--fg:#c9dbec;--muted:#8492b0;--cyan:#22e6ff;--acid:#c6ff45;--pink:#ff2d9e;--purple:#b57bff}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--fg);font:15px/1.5 Inter,system-ui,sans-serif}
+    body{background:repeating-linear-gradient(0deg,transparent 0 3px,#fff1 4px),radial-gradient(ellipse 55% 35% at 20% 0%,#25205b 0,transparent 70%),var(--bg)}
+    a{color:var(--cyan);text-decoration:none}a:hover{color:var(--pink)}
+    .topbar{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid #ffffff10;background:#070910e8;backdrop-filter:blur(12px);position:sticky;top:0;z-index:2}
+    .brand,.eyebrow,.count,.theme-family,.theme-id,.button{font-family:"JetBrains Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.1em}.brand{color:var(--acid);font-size:.75rem;font-weight:700}.topbar a{font:600 .68rem "JetBrains Mono",monospace}
+    main{max-width:1500px;margin:auto;padding:48px 5vw 80px}.eyebrow{color:var(--cyan);font-size:.7rem}.hero{max-width:900px}.hero h1{margin:8px 0 12px;font:700 clamp(2.2rem,5vw,4.5rem)/1.05 "JetBrains Mono",monospace;letter-spacing:-.06em}.hero p{color:var(--muted);max-width:760px}.controls{display:grid;grid-template-columns:minmax(220px,1fr) 220px;gap:10px;margin:32px 0 20px}.controls input,.controls select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:3px;background:#0d1422;color:var(--fg);font:inherit}.count{color:var(--acid);font-size:.7rem;margin:0 0 16px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:14px}.theme{padding:16px;border:1px solid var(--line);border-radius:4px;background:linear-gradient(145deg,#0d1422,#090e19);cursor:pointer;transition:.16s}.theme:hover,.theme.selected{border-color:var(--cyan);box-shadow:0 0 22px #22e6ff1c;transform:translateY(-2px)}.theme-head{display:flex;justify-content:space-between;gap:8px}.theme h2{margin:10px 0 2px;font:600 1rem "JetBrains Mono",monospace}.theme-family{color:var(--acid);font-size:.58rem}.theme-id{color:var(--muted);font-size:.55rem}.swatches{display:flex;gap:4px;margin-top:13px}.swatches i{height:24px;flex:1;border:1px solid #fff3;border-radius:3px;background:var(--c)}
+    .preview{position:fixed;right:24px;bottom:24px;width:min(360px,calc(100vw - 48px));padding:16px;border:1px solid var(--cyan);border-radius:4px;background:#0b1020f2;box-shadow:0 18px 50px #0009;backdrop-filter:blur(10px)}.preview[hidden]{display:none}.preview h2{margin:0 0 5px;font:600 1rem "JetBrains Mono",monospace}.preview p{margin:0;color:var(--muted);font-size:.8rem}.preview-swatches{display:flex;gap:5px;margin-top:12px}.preview-swatches i{height:34px;flex:1;border-radius:3px;background:var(--c);border:1px solid #fff4}
+    @media(max-width:700px){.topbar{padding:0 16px}.controls{grid-template-columns:1fr}main{padding:34px 20px 70px}.preview{right:12px;bottom:12px;width:calc(100vw - 24px)}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="brand">✳ CYBERCORE THEME CHOOSER</div><a href="./docs.html">MASTER DOCS ↗</a></header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Cybercore // public theme catalog</div>
+      <h1>Choose your signal.</h1>
+      <p>Browse the public-safe Cybercore palette catalog by family, preview its color roles, and find the right visual language for every surface.</p>
+    </section>
+    <section class="controls" aria-label="Theme filters">
+      <input id="search" type="search" placeholder="Search themes or families…" aria-label="Search themes">
+      <select id="family" aria-label="Filter by family"><option value="">All families</option></select>
+    </section>
+    <div id="count" class="count" aria-live="polite"></div>
+    <section id="grid" class="grid" aria-label="Available themes"></section>
+  </main>
+  <aside id="preview" class="preview" hidden aria-live="polite"></aside>
+  <script>
+    const colors=["bg","panel","line","acid_green","cyan","purple","hot_pink"];
+    const grid=document.querySelector("#grid"),count=document.querySelector("#count"),search=document.querySelector("#search"),family=document.querySelector("#family"),preview=document.querySelector("#preview");
+    let themes=[];
+    const esc=value=>String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+    function swatches(theme, className="swatches"){return `<div class="${className}">${colors.map(key=>theme.colors[key]?`<i style="--c:#${esc(theme.colors[key])}" title="${key}"></i>`:"").join("")}</div>`}
+    function render(){const query=search.value.trim().toLowerCase(),selected=family.value;const visible=themes.filter(theme=>(!selected||theme.family===selected)&&(!query||`${theme.name} ${theme.family} ${theme.id}`.toLowerCase().includes(query)));count.textContent=`${visible.length} THEMES · ${new Set(visible.map(theme=>theme.family)).size} FAMILIES`;grid.innerHTML=visible.map(theme=>`<article class="theme" data-id="${esc(theme.id)}"><div class="theme-head"><span class="theme-family">${esc(theme.family)}</span><span class="theme-id">${esc(theme.id)}</span></div><h2>${esc(theme.name)}</h2>${swatches(theme)}</article>`).join("")||"<p>No public themes match that search.</p>";grid.querySelectorAll(".theme").forEach(card=>card.addEventListener("click",()=>select(card.dataset.id)))}
+    function select(id){const theme=themes.find(item=>item.id===id);if(!theme)return;grid.querySelectorAll(".theme").forEach(card=>card.classList.toggle("selected",card.dataset.id===id));preview.hidden=false;preview.innerHTML=`<h2>${esc(theme.name)}</h2><p>${esc(theme.family)} · <span class="theme-id">${esc(theme.id)}</span></p>${swatches(theme,"preview-swatches")}`}
+    fetch("./theme-chooser-data.json").then(response=>{if(!response.ok)throw new Error("Theme catalog unavailable");return response.json()}).then(data=>{themes=data.themes;[...new Set(themes.map(theme=>theme.family))].sort().forEach(name=>family.insertAdjacentHTML("beforeend",`<option value="${esc(name)}">${esc(name)}</option>`));render()}).catch(error=>{count.textContent=error.message});
+    search.addEventListener("input",render);family.addEventListener("change",render);
+  </script>
+</body>
+</html>

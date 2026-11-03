@@ -1,0 +1,43 @@
+name: Feature request
+description: Propose a focused improvement to Cybercore.
+title: "[feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea. For broad questions or early design discussion, please use GitHub Discussions instead.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: Describe the user need or limitation.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed outcome
+      description: Explain the desired behavior and, if useful, a possible API or UX.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Describe any current workaround or alternative design.
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Affected surface
+      options:
+        - Core crate
+        - Theme engine
+        - CLI
+        - Updater
+        - TUI
+        - Control Panel
+        - Documentation
+        - Other
+    validations:
+      required: true

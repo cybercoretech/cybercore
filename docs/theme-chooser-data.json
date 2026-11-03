@@ -1,0 +1,3435 @@
+{
+  "count": 245,
+  "themes": [
+    {
+      "id": "alien-alpha",
+      "name": "Alien Alpha",
+      "family": "alien",
+      "colors": {
+        "bg": "06110c",
+        "panel": "0f2119",
+        "line": "4c242c",
+        "acid_green": "786af0",
+        "cyan": "ee639a",
+        "purple": "dbdb4d",
+        "hot_pink": "8cee53"
+      }
+    },
+    {
+      "id": "alien-arc",
+      "name": "Alien Arc",
+      "family": "alien",
+      "colors": {
+        "bg": "07130e",
+        "panel": "10241c",
+        "line": "4c2429",
+        "acid_green": "9e6af0",
+        "cyan": "ee6373",
+        "purple": "b3db4d",
+        "hot_pink": "60ee53"
+      }
+    },
+    {
+      "id": "alien-array",
+      "name": "Alien Array",
+      "family": "alien",
+      "colors": {
+        "bg": "081511",
+        "panel": "0f211b",
+        "line": "4c2427",
+        "acid_green": "c46af0",
+        "cyan": "ee7a63",
+        "purple": "8adb4d",
+        "hot_pink": "53ee72"
+      }
+    },
+    {
+      "id": "alien-beacon",
+      "name": "Alien Beacon",
+      "family": "alien",
+      "colors": {
+        "bg": "06110e",
+        "panel": "10241e",
+        "line": "4c2425",
+        "acid_green": "ea6af0",
+        "cyan": "eea163",
+        "purple": "62db4d",
+        "hot_pink": "53ee9e"
+      }
+    },
+    {
+      "id": "alien-cipher",
+      "name": "Alien Cipher",
+      "family": "alien",
+      "colors": {
+        "bg": "071310",
+        "panel": "0f211c",
+        "line": "4c2624",
+        "acid_green": "f06ad1",
+        "cyan": "eec963",
+        "purple": "4ddb60",
+        "hot_pink": "53eeca"
+      }
+    },
+    {
+      "id": "alien-delta",
+      "name": "Alien Delta",
+      "family": "alien",
+      "colors": {
+        "bg": "081513",
+        "panel": "10241f",
+        "line": "4c2824",
+        "acid_green": "f06aab",
+        "cyan": "ebee63",
+        "purple": "4ddb88",
+        "hot_pink": "53e6ee"
+      }
+    },
+    {
+      "id": "alien-echo",
+      "name": "Alien Echo",
+      "family": "alien",
+      "colors": {
+        "bg": "06110f",
+        "panel": "0f211d",
+        "line": "4c2b24",
+        "acid_green": "f06a85",
+        "cyan": "c4ee63",
+        "purple": "4ddbb0",
+        "hot_pink": "53baee"
+      }
+    },
+    {
+      "id": "alien-flux",
+      "name": "Alien Flux",
+      "family": "alien",
+      "colors": {
+        "bg": "071312",
+        "panel": "102420",
+        "line": "4c2d24",
+        "acid_green": "f0766a",
+        "cyan": "9dee63",
+        "purple": "4ddbd8",
+        "hot_pink": "538fee"
+      }
+    },
+    {
+      "id": "alien-ghost",
+      "name": "Alien Ghost",
+      "family": "alien",
+      "colors": {
+        "bg": "081515",
+        "panel": "0f211e",
+        "line": "4c2f24",
+        "acid_green": "f09c6a",
+        "cyan": "75ee63",
+        "purple": "4db5db",
+        "hot_pink": "5363ee"
+      }
+    },
+    {
+      "id": "alien-helix",
+      "name": "Alien Helix",
+      "family": "alien",
+      "colors": {
+        "bg": "061011",
+        "panel": "102422",
+        "line": "4c3124",
+        "acid_green": "f0c16a",
+        "cyan": "63ee78",
+        "purple": "4d8ddb",
+        "hot_pink": "7053ee"
+      }
+    },
+    {
+      "id": "alien-ion",
+      "name": "Alien Ion",
+      "family": "alien",
+      "colors": {
+        "bg": "071213",
+        "panel": "0f2120",
+        "line": "4c3424",
+        "acid_green": "f0e76a",
+        "cyan": "63ee9f",
+        "purple": "4d65db",
+        "hot_pink": "9b53ee"
+      }
+    },
+    {
+      "id": "alien-vector",
+      "name": "Alien Vector",
+      "family": "alien",
+      "colors": {
+        "bg": "081415",
+        "panel": "102423",
+        "line": "4c3624",
+        "acid_green": "d3f06a",
+        "cyan": "63eec6",
+        "purple": "5e4ddb",
+        "hot_pink": "c753ee"
+      }
+    },
+    {
+      "id": "cyberdark-aurora",
+      "name": "Cyberdark Aurora",
+      "family": "cyberdark",
+      "colors": {
+        "bg": "060812",
+        "panel": "0b1020",
+        "line": "26334f",
+        "acid_green": "c4ff72",
+        "cyan": "4de8ff",
+        "purple": "a77bff",
+        "hot_pink": "ff4fc3"
+      }
+    },
+    {
+      "id": "cyberdark-blacklight",
+      "name": "Cyberdark Blacklight",
+      "family": "cyberdark",
+      "colors": {
+        "bg": "050509",
+        "panel": "0c0b14",
+        "line": "29213d",
+        "acid_green": "aaff8b",
+        "cyan": "4ddcff",
+        "purple": "ae73ff",
+        "hot_pink": "ff3fbe"
+      }
+    },
+    {
+      "id": "cyberdark-cyan-signal",
+      "name": "Cyberdark Cyan Signal",
+      "family": "cyberdark",
+      "colors": {
+        "bg": "03090d",
+        "panel": "07141a",
+        "line": "183a46",
+        "acid_green": "96ffbd",
+        "cyan": "47eaff",
+        "purple": "9f83ff",
+        "hot_pink": "ff4ebd"
+      }
+    },
+    {
+      "id": "cyberdark-deep-space",
+      "name": "Cyberdark Deep Space",
+      "family": "cyberdark",
+      "colors": {
+        "bg": "03070e",
+        "panel": "081321",
+        "line": "1b344d",
+        "acid_green": "9cffc4",
+        "cyan": "46dfff",
+        "purple": "957cff",
+        "hot_pink": "ff4bb8"
+      }
+    },
+    {
+      "id": "cyberdark-ghost-cyan",
+      "name": "Cyberdark Ghost Cyan",
+      "family": "cyberdark",
+      "colors": {
+        "bg": "04090b",
+        "panel": "09161a",
+        "line": "20424a",
+        "acid_green": "a9ffcf",
+        "cyan": "6ce9ff",
+        "purple": "a58eff",
+        "hot_pink": "ff62c9"
+      }
+    },
+    {
+      "id": "cyberdark-magenta-grid",
+      "name": "Cyberdark Magenta Grid",
+      "family": "cyberdark",
+      "colors": {
+        "bg": "0a050d",
+        "panel": "160b1b",
+        "line": "422043",
+        "acid_green": "b8ff7a",
+        "cyan": "5be5ff",
+        "purple": "b678ff",
+        "hot_pink": "ff4db8"
+      }
+    },
+    {
+      "id": "cyberdark-midnight-laser",
+      "name": "Cyberdark Midnight Laser",
+      "family": "cyberdark",
+      "colors": {
+        "bg": "050710",
+        "panel": "0b1120",
+        "line": "26365b",
+        "acid_green": "c6ff73",
+        "cyan": "48dfff",
+        "purple": "8d7dff",
+        "hot_pink": "ff54c8"
+      }
+    },
+    {
+      "id": "cyberdark-neon-void",
+      "name": "Cyberdark Neon Void",
+      "family": "cyberdark",
+      "colors": {
+        "bg": "04050b",
+        "panel": "090c16",
+        "line": "202844",
+        "acid_green": "8dffcf",
+        "cyan": "39d9ff",
+        "purple": "b06cff",
+        "hot_pink": "ff3cac"
+      }
+    },
+    {
+      "id": "cyberdark-plasma",
+      "name": "Cyberdark Plasma",
+      "family": "cyberdark",
+      "colors": {
+        "bg": "09040d",
+        "panel": "15091e",
+        "line": "3d2149",
+        "acid_green": "bdff7d",
+        "cyan": "54e4ff",
+        "purple": "b86fff",
+        "hot_pink": "ff48c4"
+      }
+    },
+    {
+      "id": "cyberdark-purple-static",
+      "name": "Cyberdark Purple Static",
+      "family": "cyberdark",
+      "colors": {
+        "bg": "080610",
+        "panel": "100b1d",
+        "line": "33234b",
+        "acid_green": "b2ff9a",
+        "cyan": "68d9ff",
+        "purple": "c982ff",
+        "hot_pink": "ff55d6"
+      }
+    },
+    {
+      "id": "cyberdark-rose-circuit",
+      "name": "Cyberdark Rose Circuit",
+      "family": "cyberdark",
+      "colors": {
+        "bg": "0a050b",
+        "panel": "170b18",
+        "line": "43223d",
+        "acid_green": "c2ff83",
+        "cyan": "5be1ff",
+        "purple": "a985ff",
+        "hot_pink": "ff4fae"
+      }
+    },
+    {
+      "id": "cyberdark-ultraviolet",
+      "name": "Cyberdark Ultraviolet",
+      "family": "cyberdark",
+      "colors": {
+        "bg": "07050d",
+        "panel": "110b1d",
+        "line": "38234c",
+        "acid_green": "b6ff8a",
+        "cyan": "63dcff",
+        "purple": "c06cff",
+        "hot_pink": "ff55d4"
+      }
+    },
+    {
+      "id": "cyberdark-grid-alpha",
+      "name": "Cyberdark Grid Alpha",
+      "family": "cyberdark-grid",
+      "colors": {
+        "bg": "060b11",
+        "panel": "0f1821",
+        "line": "4c4224",
+        "acid_green": "f06aec",
+        "cyan": "eead63",
+        "purple": "57db4d",
+        "hot_pink": "53eeab"
+      }
+    },
+    {
+      "id": "cyberdark-grid-arc",
+      "name": "Cyberdark Grid Arc",
+      "family": "cyberdark-grid",
+      "colors": {
+        "bg": "070c13",
+        "panel": "101a24",
+        "line": "4c4424",
+        "acid_green": "f06ac6",
+        "cyan": "eed463",
+        "purple": "4ddb6c",
+        "hot_pink": "53eed7"
+      }
+    },
+    {
+      "id": "cyberdark-grid-array",
+      "name": "Cyberdark Grid Array",
+      "family": "cyberdark-grid",
+      "colors": {
+        "bg": "080d15",
+        "panel": "0f1721",
+        "line": "4c4624",
+        "acid_green": "f06aa0",
+        "cyan": "e0ee63",
+        "purple": "4ddb94",
+        "hot_pink": "53d9ee"
+      }
+    },
+    {
+      "id": "cyberdark-grid-beacon",
+      "name": "Cyberdark Grid Beacon",
+      "family": "cyberdark-grid",
+      "colors": {
+        "bg": "060a11",
+        "panel": "101824",
+        "line": "4c4924",
+        "acid_green": "f06a7a",
+        "cyan": "b8ee63",
+        "purple": "4ddbbc",
+        "hot_pink": "53aeee"
+      }
+    },
+    {
+      "id": "cyberdark-grid-cipher",
+      "name": "Cyberdark Grid Cipher",
+      "family": "cyberdark-grid",
+      "colors": {
+        "bg": "070b13",
+        "panel": "0f1621",
+        "line": "4c4b24",
+        "acid_green": "f0816a",
+        "cyan": "91ee63",
+        "purple": "4dd1db",
+        "hot_pink": "5382ee"
+      }
+    },
+    {
+      "id": "cyberdark-grid-delta",
+      "name": "Cyberdark Grid Delta",
+      "family": "cyberdark-grid",
+      "colors": {
+        "bg": "080b15",
+        "panel": "101724",
+        "line": "4a4c24",
+        "acid_green": "f0a76a",
+        "cyan": "6aee63",
+        "purple": "4da9db",
+        "hot_pink": "5356ee"
+      }
+    },
+    {
+      "id": "cyberdark-grid-echo",
+      "name": "Cyberdark Grid Echo",
+      "family": "cyberdark-grid",
+      "colors": {
+        "bg": "060811",
+        "panel": "0f1421",
+        "line": "484c24",
+        "acid_green": "f0cd6a",
+        "cyan": "63ee83",
+        "purple": "4d81db",
+        "hot_pink": "7d53ee"
+      }
+    },
+    {
+      "id": "cyberdark-grid-flux",
+      "name": "Cyberdark Grid Flux",
+      "family": "cyberdark-grid",
+      "colors": {
+        "bg": "070913",
+        "panel": "101624",
+        "line": "464c24",
+        "acid_green": "eef06a",
+        "cyan": "63eeab",
+        "purple": "4d59db",
+        "hot_pink": "a853ee"
+      }
+    },
+    {
+      "id": "cyberdark-grid-ghost",
+      "name": "Cyberdark Grid Ghost",
+      "family": "cyberdark-grid",
+      "colors": {
+        "bg": "080915",
+        "panel": "0f1321",
+        "line": "444c24",
+        "acid_green": "c8f06a",
+        "cyan": "63eed2",
+        "purple": "694ddb",
+        "hot_pink": "d453ee"
+      }
+    },
+    {
+      "id": "cyberdark-grid-helix",
+      "name": "Cyberdark Grid Helix",
+      "family": "cyberdark-grid",
+      "colors": {
+        "bg": "060711",
+        "panel": "101424",
+        "line": "424c24",
+        "acid_green": "a2f06a",
+        "cyan": "63e2ee",
+        "purple": "924ddb",
+        "hot_pink": "ee53dc"
+      }
+    },
+    {
+      "id": "cyberdark-grid-ion",
+      "name": "Cyberdark Grid Ion",
+      "family": "cyberdark-grid",
+      "colors": {
+        "bg": "070713",
+        "panel": "0f1221",
+        "line": "3f4c24",
+        "acid_green": "7cf06a",
+        "cyan": "63bbee",
+        "purple": "ba4ddb",
+        "hot_pink": "ee53b0"
+      }
+    },
+    {
+      "id": "cyberdark-grid-vector",
+      "name": "Cyberdark Grid Vector",
+      "family": "cyberdark-grid",
+      "colors": {
+        "bg": "090815",
+        "panel": "101324",
+        "line": "3d4c24",
+        "acid_green": "6af07f",
+        "cyan": "6393ee",
+        "purple": "db4dd4",
+        "hot_pink": "ee5384"
+      }
+    },
+    {
+      "id": "cyberdark-industrial-alpha",
+      "name": "Cyberdark Industrial Alpha",
+      "family": "cyberdark-industrial",
+      "colors": {
+        "bg": "110b06",
+        "panel": "21170f",
+        "line": "24314c",
+        "acid_green": "6ff06a",
+        "cyan": "63adee",
+        "purple": "c84ddb",
+        "hot_pink": "ee53a1"
+      }
+    },
+    {
+      "id": "cyberdark-industrial-arc",
+      "name": "Cyberdark Industrial Arc",
+      "family": "cyberdark-industrial",
+      "colors": {
+        "bg": "130d07",
+        "panel": "241a10",
+        "line": "242f4c",
+        "acid_green": "6af08c",
+        "cyan": "6386ee",
+        "purple": "db4dc5",
+        "hot_pink": "ee5375"
+      }
+    },
+    {
+      "id": "cyberdark-industrial-array",
+      "name": "Cyberdark Industrial Array",
+      "family": "cyberdark-industrial",
+      "colors": {
+        "bg": "150f08",
+        "panel": "21180f",
+        "line": "242c4c",
+        "acid_green": "6af0b2",
+        "cyan": "6863ee",
+        "purple": "db4d9d",
+        "hot_pink": "ee5e53"
+      }
+    },
+    {
+      "id": "cyberdark-industrial-beacon",
+      "name": "Cyberdark Industrial Beacon",
+      "family": "cyberdark-industrial",
+      "colors": {
+        "bg": "110c06",
+        "panel": "241b10",
+        "line": "242a4c",
+        "acid_green": "6af0d8",
+        "cyan": "8f63ee",
+        "purple": "db4d75",
+        "hot_pink": "ee8953"
+      }
+    },
+    {
+      "id": "cyberdark-industrial-cipher",
+      "name": "Cyberdark Industrial Cipher",
+      "family": "cyberdark-industrial",
+      "colors": {
+        "bg": "130f07",
+        "panel": "211a0f",
+        "line": "24284c",
+        "acid_green": "6ae3f0",
+        "cyan": "b663ee",
+        "purple": "db4d4d",
+        "hot_pink": "eeb553"
+      }
+    },
+    {
+      "id": "cyberdark-industrial-delta",
+      "name": "Cyberdark Industrial Delta",
+      "family": "cyberdark-industrial",
+      "colors": {
+        "bg": "151108",
+        "panel": "241c10",
+        "line": "24264c",
+        "acid_green": "6abdf0",
+        "cyan": "dd63ee",
+        "purple": "db754d",
+        "hot_pink": "eee153"
+      }
+    },
+    {
+      "id": "cyberdark-industrial-echo",
+      "name": "Cyberdark Industrial Echo",
+      "family": "cyberdark-industrial",
+      "colors": {
+        "bg": "110e06",
+        "panel": "211b0f",
+        "line": "25244c",
+        "acid_green": "6a97f0",
+        "cyan": "ee63d7",
+        "purple": "db9d4d",
+        "hot_pink": "cfee53"
+      }
+    },
+    {
+      "id": "cyberdark-industrial-flux",
+      "name": "Cyberdark Industrial Flux",
+      "family": "cyberdark-industrial",
+      "colors": {
+        "bg": "131007",
+        "panel": "241e10",
+        "line": "28244c",
+        "acid_green": "6a71f0",
+        "cyan": "ee63af",
+        "purple": "dbc54d",
+        "hot_pink": "a3ee53"
+      }
+    },
+    {
+      "id": "cyberdark-industrial-ghost",
+      "name": "Cyberdark Industrial Ghost",
+      "family": "cyberdark-industrial",
+      "colors": {
+        "bg": "151308",
+        "panel": "211c0f",
+        "line": "2a244c",
+        "acid_green": "8a6af0",
+        "cyan": "ee6388",
+        "purple": "c8db4d",
+        "hot_pink": "77ee53"
+      }
+    },
+    {
+      "id": "cyberdark-industrial-helix",
+      "name": "Cyberdark Industrial Helix",
+      "family": "cyberdark-industrial",
+      "colors": {
+        "bg": "111006",
+        "panel": "241f10",
+        "line": "2c244c",
+        "acid_green": "b06af0",
+        "cyan": "ee6563",
+        "purple": "a0db4d",
+        "hot_pink": "53ee5b"
+      }
+    },
+    {
+      "id": "cyberdark-industrial-ion",
+      "name": "Cyberdark Industrial Ion",
+      "family": "cyberdark-industrial",
+      "colors": {
+        "bg": "131207",
+        "panel": "211d0f",
+        "line": "2e244c",
+        "acid_green": "d66af0",
+        "cyan": "ee8d63",
+        "purple": "78db4d",
+        "hot_pink": "53ee87"
+      }
+    },
+    {
+      "id": "cyberdark-industrial-vector",
+      "name": "Cyberdark Industrial Vector",
+      "family": "cyberdark-industrial",
+      "colors": {
+        "bg": "151508",
+        "panel": "242010",
+        "line": "31244c",
+        "acid_green": "f06ae5",
+        "cyan": "eeb463",
+        "purple": "50db4d",
+        "hot_pink": "53eeb3"
+      }
+    },
+    {
+      "id": "cyberdark-ops-alpha",
+      "name": "Cyberdark Ops Alpha",
+      "family": "cyberdark-ops",
+      "colors": {
+        "bg": "060e11",
+        "panel": "0f1d21",
+        "line": "4c3724",
+        "acid_green": "d16af0",
+        "cyan": "ee8863",
+        "purple": "7cdb4d",
+        "hot_pink": "53ee82"
+      }
+    },
+    {
+      "id": "cyberdark-ops-arc",
+      "name": "Cyberdark Ops Arc",
+      "family": "cyberdark-ops",
+      "colors": {
+        "bg": "071013",
+        "panel": "101f24",
+        "line": "4c3a24",
+        "acid_green": "f06aea",
+        "cyan": "eeaf63",
+        "purple": "54db4d",
+        "hot_pink": "53eeae"
+      }
+    },
+    {
+      "id": "cyberdark-ops-array",
+      "name": "Cyberdark Ops Array",
+      "family": "cyberdark-ops",
+      "colors": {
+        "bg": "081115",
+        "panel": "0f1c21",
+        "line": "4c3c24",
+        "acid_green": "f06ac4",
+        "cyan": "eed763",
+        "purple": "4ddb6e",
+        "hot_pink": "53eed9"
+      }
+    },
+    {
+      "id": "cyberdark-ops-beacon",
+      "name": "Cyberdark Ops Beacon",
+      "family": "cyberdark-ops",
+      "colors": {
+        "bg": "060d11",
+        "panel": "101e24",
+        "line": "4c3e24",
+        "acid_green": "f06a9e",
+        "cyan": "ddee63",
+        "purple": "4ddb96",
+        "hot_pink": "53d7ee"
+      }
+    },
+    {
+      "id": "cyberdark-ops-cipher",
+      "name": "Cyberdark Ops Cipher",
+      "family": "cyberdark-ops",
+      "colors": {
+        "bg": "070e13",
+        "panel": "0f1b21",
+        "line": "4c4024",
+        "acid_green": "f06a78",
+        "cyan": "b6ee63",
+        "purple": "4ddbbe",
+        "hot_pink": "53abee"
+      }
+    },
+    {
+      "id": "cyberdark-ops-delta",
+      "name": "Cyberdark Ops Delta",
+      "family": "cyberdark-ops",
+      "colors": {
+        "bg": "080f15",
+        "panel": "101c24",
+        "line": "4c4324",
+        "acid_green": "f0836a",
+        "cyan": "8fee63",
+        "purple": "4dcfdb",
+        "hot_pink": "537fee"
+      }
+    },
+    {
+      "id": "cyberdark-ops-echo",
+      "name": "Cyberdark Ops Echo",
+      "family": "cyberdark-ops",
+      "colors": {
+        "bg": "060b11",
+        "panel": "0f1921",
+        "line": "4c4524",
+        "acid_green": "f0a96a",
+        "cyan": "68ee63",
+        "purple": "4da7db",
+        "hot_pink": "5353ee"
+      }
+    },
+    {
+      "id": "cyberdark-ops-flux",
+      "name": "Cyberdark Ops Flux",
+      "family": "cyberdark-ops",
+      "colors": {
+        "bg": "070c13",
+        "panel": "101b24",
+        "line": "4c4724",
+        "acid_green": "f0cf6a",
+        "cyan": "63ee86",
+        "purple": "4d7fdb",
+        "hot_pink": "7f53ee"
+      }
+    },
+    {
+      "id": "cyberdark-ops-ghost",
+      "name": "Cyberdark Ops Ghost",
+      "family": "cyberdark-ops",
+      "colors": {
+        "bg": "080d15",
+        "panel": "0f1821",
+        "line": "4c4924",
+        "acid_green": "ecf06a",
+        "cyan": "63eead",
+        "purple": "4d57db",
+        "hot_pink": "ab53ee"
+      }
+    },
+    {
+      "id": "cyberdark-ops-helix",
+      "name": "Cyberdark Ops Helix",
+      "family": "cyberdark-ops",
+      "colors": {
+        "bg": "060911",
+        "panel": "101924",
+        "line": "4c4b24",
+        "acid_green": "c6f06a",
+        "cyan": "63eed4",
+        "purple": "6c4ddb",
+        "hot_pink": "d753ee"
+      }
+    },
+    {
+      "id": "cyberdark-ops-ion",
+      "name": "Cyberdark Ops Ion",
+      "family": "cyberdark-ops",
+      "colors": {
+        "bg": "070a13",
+        "panel": "0f1721",
+        "line": "4a4c24",
+        "acid_green": "a0f06a",
+        "cyan": "63e0ee",
+        "purple": "944ddb",
+        "hot_pink": "ee53d9"
+      }
+    },
+    {
+      "id": "cyberdark-ops-vector",
+      "name": "Cyberdark Ops Vector",
+      "family": "cyberdark-ops",
+      "colors": {
+        "bg": "080b15",
+        "panel": "101824",
+        "line": "484c24",
+        "acid_green": "7af06a",
+        "cyan": "63b8ee",
+        "purple": "bc4ddb",
+        "hot_pink": "ee53ae"
+      }
+    },
+    {
+      "id": "cyberdyne-assassin",
+      "name": "Cyberdyne Assassin",
+      "family": "cyberdyne",
+      "colors": {
+        "bg": "090609",
+        "panel": "1b0d16",
+        "line": "4a1d2b",
+        "acid_green": "b8e13b",
+        "cyan": "4bb8c7",
+        "purple": "47122f",
+        "hot_pink": "e51f55"
+      }
+    },
+    {
+      "id": "cyberdyne-factory",
+      "name": "Cyberdyne Factory",
+      "family": "cyberdyne",
+      "colors": {
+        "bg": "0b0b0b",
+        "panel": "1e1e1e",
+        "line": "444444",
+        "acid_green": "44ff44",
+        "cyan": "44ffff",
+        "purple": "7744dd",
+        "hot_pink": "ff4488"
+      }
+    },
+    {
+      "id": "cyberdyne-hunter",
+      "name": "Cyberdyne Hunter",
+      "family": "cyberdyne",
+      "colors": {
+        "bg": "010101",
+        "panel": "090909",
+        "line": "1f1f1f",
+        "acid_green": "00cc00",
+        "cyan": "009999",
+        "purple": "330066",
+        "hot_pink": "cc0044"
+      }
+    },
+    {
+      "id": "cyberdyne-infiltrator",
+      "name": "Cyberdyne Infiltrator",
+      "family": "cyberdyne",
+      "colors": {
+        "bg": "000000",
+        "panel": "080808",
+        "line": "1a1a1a",
+        "acid_green": "00ff33",
+        "cyan": "00cccc",
+        "purple": "4d0099",
+        "hot_pink": "e6005c"
+      }
+    },
+    {
+      "id": "cyberdyne-judgment",
+      "name": "Cyberdyne Judgment",
+      "family": "cyberdyne",
+      "colors": {
+        "bg": "030303",
+        "panel": "0f0f0f",
+        "line": "2a2a2a",
+        "acid_green": "10ff00",
+        "cyan": "00ced1",
+        "purple": "6a0dad",
+        "hot_pink": "ff1493"
+      }
+    },
+    {
+      "id": "cyberdyne-logic",
+      "name": "Cyberdyne Logic",
+      "family": "cyberdyne",
+      "colors": {
+        "bg": "040404",
+        "panel": "101010",
+        "line": "282828",
+        "acid_green": "11ff11",
+        "cyan": "11dddd",
+        "purple": "5511aa",
+        "hot_pink": "ff1166"
+      }
+    },
+    {
+      "id": "cyberdyne-machine",
+      "name": "Cyberdyne Machine",
+      "family": "cyberdyne",
+      "colors": {
+        "bg": "020202",
+        "panel": "0c0c0c",
+        "line": "252525",
+        "acid_green": "00fa9a",
+        "cyan": "00ffff",
+        "purple": "9400d3",
+        "hot_pink": "ff69b4"
+      }
+    },
+    {
+      "id": "cyberdyne-neural",
+      "name": "Cyberdyne Neural",
+      "family": "cyberdyne",
+      "colors": {
+        "bg": "060606",
+        "panel": "141414",
+        "line": "303030",
+        "acid_green": "7fff00",
+        "cyan": "00f0ff",
+        "purple": "7209b7",
+        "hot_pink": "ff00aa"
+      }
+    },
+    {
+      "id": "cyberdyne-skynet",
+      "name": "Cyberdyne Skynet",
+      "family": "cyberdyne",
+      "colors": {
+        "bg": "050505",
+        "panel": "111111",
+        "line": "2e2e2e",
+        "acid_green": "39ff14",
+        "cyan": "00e5ff",
+        "purple": "4a0080",
+        "hot_pink": "cc0066"
+      }
+    },
+    {
+      "id": "cyberdyne-steel",
+      "name": "Cyberdyne Steel",
+      "family": "cyberdyne",
+      "colors": {
+        "bg": "080808",
+        "panel": "161616",
+        "line": "333333",
+        "acid_green": "00ff66",
+        "cyan": "48d1cc",
+        "purple": "8a2be2",
+        "hot_pink": "ff007f"
+      }
+    },
+    {
+      "id": "cyberdyne-system",
+      "name": "Cyberdyne System",
+      "family": "cyberdyne",
+      "colors": {
+        "bg": "0b0f12",
+        "panel": "182326",
+        "line": "385c59",
+        "acid_green": "9be15d",
+        "cyan": "45b9a5",
+        "purple": "3d345b",
+        "hot_pink": "c75b82"
+      }
+    },
+    {
+      "id": "cyberdyne-t800",
+      "name": "Cyberdyne T800",
+      "family": "cyberdyne",
+      "colors": {
+        "bg": "000000",
+        "panel": "0a0a0a",
+        "line": "222222",
+        "acid_green": "00ff00",
+        "cyan": "00ffff",
+        "purple": "5500aa",
+        "hot_pink": "ff0055"
+      }
+    },
+    {
+      "id": "cyberpunk-alley",
+      "name": "Cyberpunk Alley",
+      "family": "cyberpunk",
+      "colors": {
+        "bg": "0a0a0c",
+        "panel": "141416",
+        "line": "2b2b2d",
+        "acid_green": "39ff14",
+        "cyan": "08f7fe",
+        "purple": "9d00ff",
+        "hot_pink": "ff007f"
+      }
+    },
+    {
+      "id": "cyberpunk-chrome",
+      "name": "Cyberpunk Chrome",
+      "family": "cyberpunk",
+      "colors": {
+        "bg": "08080a",
+        "panel": "16161a",
+        "line": "404045",
+        "acid_green": "b5ff00",
+        "cyan": "00f0ff",
+        "purple": "a200ff",
+        "hot_pink": "ff0099"
+      }
+    },
+    {
+      "id": "cyberpunk-edge",
+      "name": "Cyberpunk Edge",
+      "family": "cyberpunk",
+      "colors": {
+        "bg": "050404",
+        "panel": "171313",
+        "line": "352b2b",
+        "acid_green": "55ff00",
+        "cyan": "00ffff",
+        "purple": "5500ff",
+        "hot_pink": "ff0066"
+      }
+    },
+    {
+      "id": "cyberpunk-glitch",
+      "name": "Cyberpunk Glitch",
+      "family": "cyberpunk",
+      "colors": {
+        "bg": "000000",
+        "panel": "090909",
+        "line": "222222",
+        "acid_green": "2eff00",
+        "cyan": "00f3ff",
+        "purple": "9000ff",
+        "hot_pink": "ff003c"
+      }
+    },
+    {
+      "id": "cyberpunk-grid",
+      "name": "Cyberpunk Grid",
+      "family": "cyberpunk",
+      "colors": {
+        "bg": "010302",
+        "panel": "0f1715",
+        "line": "1f332e",
+        "acid_green": "00ff66",
+        "cyan": "00f5d4",
+        "purple": "7b2cbf",
+        "hot_pink": "ff00a0"
+      }
+    },
+    {
+      "id": "cyberpunk-hacker",
+      "name": "Cyberpunk Hacker",
+      "family": "cyberpunk",
+      "colors": {
+        "bg": "020202",
+        "panel": "161616",
+        "line": "3a3a3a",
+        "acid_green": "10ff00",
+        "cyan": "66d9ef",
+        "purple": "ae81ff",
+        "hot_pink": "f92672"
+      }
+    },
+    {
+      "id": "cyberpunk-mainframe",
+      "name": "Cyberpunk Mainframe",
+      "family": "cyberpunk",
+      "colors": {
+        "bg": "000000",
+        "panel": "0f0f0f",
+        "line": "333333",
+        "acid_green": "00ff00",
+        "cyan": "00ffff",
+        "purple": "6600ff",
+        "hot_pink": "ff3399"
+      }
+    },
+    {
+      "id": "cyberpunk-neon",
+      "name": "Cyberpunk Neon",
+      "family": "cyberpunk",
+      "colors": {
+        "bg": "050508",
+        "panel": "121218",
+        "line": "252530",
+        "acid_green": "00ffcc",
+        "cyan": "00e5ff",
+        "purple": "bf00ff",
+        "hot_pink": "ff0055"
+      }
+    },
+    {
+      "id": "cyberpunk-nexus",
+      "name": "Cyberpunk Nexus",
+      "family": "cyberpunk",
+      "colors": {
+        "bg": "0d0d12",
+        "panel": "181822",
+        "line": "2c2c3e",
+        "acid_green": "ccff00",
+        "cyan": "40ffff",
+        "purple": "8000ff",
+        "hot_pink": "ff2a7a"
+      }
+    },
+    {
+      "id": "cyberpunk-overdrive",
+      "name": "Cyberpunk Overdrive",
+      "family": "cyberpunk",
+      "colors": {
+        "bg": "0b080f",
+        "panel": "1a1523",
+        "line": "362d47",
+        "acid_green": "7fff00",
+        "cyan": "00ced1",
+        "purple": "8a2be2",
+        "hot_pink": "ff1493"
+      }
+    },
+    {
+      "id": "cyberpunk-spire",
+      "name": "Cyberpunk Spire",
+      "family": "cyberpunk",
+      "colors": {
+        "bg": "030508",
+        "panel": "10151f",
+        "line": "253247",
+        "acid_green": "4dff00",
+        "cyan": "00ffea",
+        "purple": "4d00ff",
+        "hot_pink": "ff00c8"
+      }
+    },
+    {
+      "id": "cyberpunk-wire",
+      "name": "Cyberpunk Wire",
+      "family": "cyberpunk",
+      "colors": {
+        "bg": "060a0f",
+        "panel": "121926",
+        "line": "283751",
+        "acid_green": "00ffaa",
+        "cyan": "00ddff",
+        "purple": "aa00ff",
+        "hot_pink": "ff0088"
+      }
+    },
+    {
+      "id": "cyborg-chrome-heart",
+      "name": "Cyborg Chrome Heart",
+      "family": "cyborg",
+      "colors": {
+        "bg": "080c12",
+        "panel": "111a28",
+        "line": "334760",
+        "acid_green": "b4ff62",
+        "cyan": "73ddff",
+        "purple": "9e7cff",
+        "hot_pink": "ff4fae"
+      }
+    },
+    {
+      "id": "cyborg-neural-link",
+      "name": "Cyborg Neural Link",
+      "family": "cyborg",
+      "colors": {
+        "bg": "070d13",
+        "panel": "0e1b25",
+        "line": "2d5665",
+        "acid_green": "74ffca",
+        "cyan": "52e6ff",
+        "purple": "8f78e8",
+        "hot_pink": "f65fc5"
+      }
+    },
+    {
+      "id": "cyborg-servo-night",
+      "name": "Cyborg Servo Night",
+      "family": "cyborg",
+      "colors": {
+        "bg": "0b0d10",
+        "panel": "171b20",
+        "line": "3b444c",
+        "acid_green": "c6ff45",
+        "cyan": "6fc6d4",
+        "purple": "7877d8",
+        "hot_pink": "ff477e"
+      }
+    },
+    {
+      "id": "cyborg-synthetic-dawn",
+      "name": "Cyborg Synthetic Dawn",
+      "family": "cyborg",
+      "colors": {
+        "bg": "100b16",
+        "panel": "21162d",
+        "line": "4b3b69",
+        "acid_green": "b6ff7c",
+        "cyan": "79dfff",
+        "purple": "b17cff",
+        "hot_pink": "ff5fa8"
+      }
+    },
+    {
+      "id": "cyborg-titanium-pulse",
+      "name": "Cyborg Titanium Pulse",
+      "family": "cyborg",
+      "colors": {
+        "bg": "0a1015",
+        "panel": "15212a",
+        "line": "365663",
+        "acid_green": "9bff8a",
+        "cyan": "59d7e8",
+        "purple": "8279d6",
+        "hot_pink": "ff5e9c"
+      }
+    },
+    {
+      "id": "cyborg-wired-ghost",
+      "name": "Cyborg Wired Ghost",
+      "family": "cyborg",
+      "colors": {
+        "bg": "080b11",
+        "panel": "121729",
+        "line": "354463",
+        "acid_green": "89ffb8",
+        "cyan": "58cfff",
+        "purple": "a783ff",
+        "hot_pink": "ec57dd"
+      }
+    },
+    {
+      "id": "dark-futurism-afterlight",
+      "name": "Dark Futurism Afterlight",
+      "family": "dark-futurism",
+      "colors": {
+        "bg": "0c0a12",
+        "panel": "1d1727",
+        "line": "4b3b5e",
+        "acid_green": "a1ff60",
+        "cyan": "75dcff",
+        "purple": "ac7fff",
+        "hot_pink": "ff4a9e"
+      }
+    },
+    {
+      "id": "dark-futurism-black-ice",
+      "name": "Dark Futurism Black Ice",
+      "family": "dark-futurism",
+      "colors": {
+        "bg": "080c11",
+        "panel": "121a24",
+        "line": "35475b",
+        "acid_green": "93ff4f",
+        "cyan": "8ad9ff",
+        "purple": "637fe5",
+        "hot_pink": "f04d8e"
+      }
+    },
+    {
+      "id": "dark-futurism-chrome-cathedral",
+      "name": "Dark Futurism Chrome Cathedral",
+      "family": "dark-futurism",
+      "colors": {
+        "bg": "0d0b12",
+        "panel": "1d1525",
+        "line": "4e385d",
+        "acid_green": "b7ff57",
+        "cyan": "7edcff",
+        "purple": "bb82ff",
+        "hot_pink": "ff5a95"
+      }
+    },
+    {
+      "id": "dark-futurism-ghost-protocol",
+      "name": "Dark Futurism Ghost Protocol",
+      "family": "dark-futurism",
+      "colors": {
+        "bg": "090813",
+        "panel": "151126",
+        "line": "44345f",
+        "acid_green": "72ffc8",
+        "cyan": "5bcfff",
+        "purple": "a783ff",
+        "hot_pink": "ec57d7"
+      }
+    },
+    {
+      "id": "dark-futurism-gridfall",
+      "name": "Dark Futurism Gridfall",
+      "family": "dark-futurism",
+      "colors": {
+        "bg": "070e13",
+        "panel": "101d26",
+        "line": "315064",
+        "acid_green": "a6ff59",
+        "cyan": "5ce7f2",
+        "purple": "7e87ff",
+        "hot_pink": "ff4b9c"
+      }
+    },
+    {
+      "id": "dark-futurism-hyperion-drift",
+      "name": "Dark Futurism Hyperion Drift",
+      "family": "dark-futurism",
+      "colors": {
+        "bg": "0b0917",
+        "panel": "17132b",
+        "line": "44365f",
+        "acid_green": "9affc8",
+        "cyan": "54d8ff",
+        "purple": "a47fff",
+        "hot_pink": "ff54c8"
+      }
+    },
+    {
+      "id": "dark-futurism-neon-wasteland",
+      "name": "Dark Futurism Neon Wasteland",
+      "family": "dark-futurism",
+      "colors": {
+        "bg": "080b12",
+        "panel": "121827",
+        "line": "35425a",
+        "acid_green": "8dff68",
+        "cyan": "54dcff",
+        "purple": "9178ff",
+        "hot_pink": "ff4cae"
+      }
+    },
+    {
+      "id": "dark-futurism-night-circuit",
+      "name": "Dark Futurism Night Circuit",
+      "family": "dark-futurism",
+      "colors": {
+        "bg": "0a0b15",
+        "panel": "17162b",
+        "line": "413b61",
+        "acid_green": "6dffbd",
+        "cyan": "69d6ff",
+        "purple": "9874ff",
+        "hot_pink": "ea4cff"
+      }
+    },
+    {
+      "id": "dark-futurism-null-horizon",
+      "name": "Dark Futurism Null Horizon",
+      "family": "dark-futurism",
+      "colors": {
+        "bg": "060d16",
+        "panel": "0d1b2b",
+        "line": "2f536d",
+        "acid_green": "77f5d8",
+        "cyan": "65dfff",
+        "purple": "6f8cff",
+        "hot_pink": "d965ff"
+      }
+    },
+    {
+      "id": "dark-futurism-redline-habitat",
+      "name": "Dark Futurism Redline Habitat",
+      "family": "dark-futurism",
+      "colors": {
+        "bg": "090d13",
+        "panel": "121e29",
+        "line": "36566b",
+        "acid_green": "83ffbf",
+        "cyan": "59dbff",
+        "purple": "8580ff",
+        "hot_pink": "ff55c1"
+      }
+    },
+    {
+      "id": "dark-futurism-singularity",
+      "name": "Dark Futurism Singularity",
+      "family": "dark-futurism",
+      "colors": {
+        "bg": "070b12",
+        "panel": "0f1a27",
+        "line": "345068",
+        "acid_green": "79ffd5",
+        "cyan": "5cd7ff",
+        "purple": "708fff",
+        "hot_pink": "f053b1"
+      }
+    },
+    {
+      "id": "dark-futurism-void-bloom",
+      "name": "Dark Futurism Void Bloom",
+      "family": "dark-futurism",
+      "colors": {
+        "bg": "0d0913",
+        "panel": "21132a",
+        "line": "55345f",
+        "acid_green": "c0ff55",
+        "cyan": "65d6ff",
+        "purple": "c277ff",
+        "hot_pink": "ff5dca"
+      }
+    },
+    {
+      "id": "dark-skylines-alpha",
+      "name": "Dark Skylines Alpha",
+      "family": "dark-skylines",
+      "colors": {
+        "bg": "110806",
+        "panel": "21110f",
+        "line": "243d4c",
+        "acid_green": "97f06a",
+        "cyan": "63d7ee",
+        "purple": "9d4ddb",
+        "hot_pink": "ee53cf"
+      }
+    },
+    {
+      "id": "dark-skylines-arc",
+      "name": "Dark Skylines Arc",
+      "family": "dark-skylines",
+      "colors": {
+        "bg": "130907",
+        "panel": "241410",
+        "line": "243a4c",
+        "acid_green": "71f06a",
+        "cyan": "63afee",
+        "purple": "c54ddb",
+        "hot_pink": "ee53a3"
+      }
+    },
+    {
+      "id": "dark-skylines-array",
+      "name": "Dark Skylines Array",
+      "family": "dark-skylines",
+      "colors": {
+        "bg": "150b08",
+        "panel": "21130f",
+        "line": "24384c",
+        "acid_green": "6af08a",
+        "cyan": "6388ee",
+        "purple": "db4dc8",
+        "hot_pink": "ee5377"
+      }
+    },
+    {
+      "id": "dark-skylines-beacon",
+      "name": "Dark Skylines Beacon",
+      "family": "dark-skylines",
+      "colors": {
+        "bg": "110906",
+        "panel": "241510",
+        "line": "24364c",
+        "acid_green": "6af0b0",
+        "cyan": "6563ee",
+        "purple": "db4da0",
+        "hot_pink": "ee5b53"
+      }
+    },
+    {
+      "id": "dark-skylines-cipher",
+      "name": "Dark Skylines Cipher",
+      "family": "dark-skylines",
+      "colors": {
+        "bg": "130b07",
+        "panel": "21140f",
+        "line": "24344c",
+        "acid_green": "6af0d6",
+        "cyan": "8d63ee",
+        "purple": "db4d78",
+        "hot_pink": "ee8753"
+      }
+    },
+    {
+      "id": "dark-skylines-delta",
+      "name": "Dark Skylines Delta",
+      "family": "dark-skylines",
+      "colors": {
+        "bg": "150d08",
+        "panel": "241610",
+        "line": "24324c",
+        "acid_green": "6ae5f0",
+        "cyan": "b463ee",
+        "purple": "db4d50",
+        "hot_pink": "eeb353"
+      }
+    },
+    {
+      "id": "dark-skylines-echo",
+      "name": "Dark Skylines Echo",
+      "family": "dark-skylines",
+      "colors": {
+        "bg": "110b06",
+        "panel": "21150f",
+        "line": "242f4c",
+        "acid_green": "6abff0",
+        "cyan": "db63ee",
+        "purple": "db734d",
+        "hot_pink": "eedf53"
+      }
+    },
+    {
+      "id": "dark-skylines-flux",
+      "name": "Dark Skylines Flux",
+      "family": "dark-skylines",
+      "colors": {
+        "bg": "130d07",
+        "panel": "241810",
+        "line": "242d4c",
+        "acid_green": "6a99f0",
+        "cyan": "ee63d9",
+        "purple": "db9b4d",
+        "hot_pink": "d2ee53"
+      }
+    },
+    {
+      "id": "dark-skylines-ghost",
+      "name": "Dark Skylines Ghost",
+      "family": "dark-skylines",
+      "colors": {
+        "bg": "150f08",
+        "panel": "21160f",
+        "line": "242b4c",
+        "acid_green": "6a73f0",
+        "cyan": "ee63b2",
+        "purple": "dbc34d",
+        "hot_pink": "a6ee53"
+      }
+    },
+    {
+      "id": "dark-skylines-helix",
+      "name": "Dark Skylines Helix",
+      "family": "dark-skylines",
+      "colors": {
+        "bg": "110c06",
+        "panel": "241910",
+        "line": "24294c",
+        "acid_green": "876af0",
+        "cyan": "ee638a",
+        "purple": "cadb4d",
+        "hot_pink": "7aee53"
+      }
+    },
+    {
+      "id": "dark-skylines-ion",
+      "name": "Dark Skylines Ion",
+      "family": "dark-skylines",
+      "colors": {
+        "bg": "130f07",
+        "panel": "21180f",
+        "line": "24264c",
+        "acid_green": "ad6af0",
+        "cyan": "ee6363",
+        "purple": "a2db4d",
+        "hot_pink": "53ee58"
+      }
+    },
+    {
+      "id": "dark-skylines-vector",
+      "name": "Dark Skylines Vector",
+      "family": "dark-skylines",
+      "colors": {
+        "bg": "151108",
+        "panel": "241a10",
+        "line": "25244c",
+        "acid_green": "d36af0",
+        "cyan": "ee8a63",
+        "purple": "7adb4d",
+        "hot_pink": "53ee84"
+      }
+    },
+    {
+      "id": "catppuccin-mocha",
+      "name": "Catppuccin Mocha",
+      "family": "default",
+      "colors": {
+        "bg": "1e1e2e",
+        "panel": "313244",
+        "line": "45475a",
+        "acid_green": "a6e3a1",
+        "cyan": "89dceb",
+        "purple": "cba6f7",
+        "hot_pink": "f5c2e7"
+      }
+    },
+    {
+      "id": "cyberpunk-2077",
+      "name": "Cyberpunk 2077",
+      "family": "default",
+      "colors": {
+        "bg": "080c08",
+        "panel": "171b17",
+        "line": "333333",
+        "acid_green": "b5cf82",
+        "cyan": "5c9cd6",
+        "purple": "954cdf",
+        "hot_pink": "b873b8"
+      }
+    },
+    {
+      "id": "cyberpunk-neon-classic",
+      "name": "Cyberpunk Neon Classic",
+      "family": "default",
+      "colors": {
+        "bg": "000b1e",
+        "panel": "091833",
+        "line": "133e7c",
+        "acid_green": "00ff00",
+        "cyan": "0abdc6",
+        "purple": "711c91",
+        "hot_pink": "ea00d9"
+      }
+    },
+    {
+      "id": "cyberpunk-sub-grid-zero",
+      "name": "Cyberpunk Sub Grid Zero",
+      "family": "default",
+      "colors": {
+        "bg": "030809",
+        "panel": "121718",
+        "line": "2e3233",
+        "acid_green": "99ffbb",
+        "cyan": "66ffd9",
+        "purple": "a64dff",
+        "hot_pink": "ff4dc3"
+      }
+    },
+    {
+      "id": "dracula",
+      "name": "Dracula",
+      "family": "default",
+      "colors": {
+        "bg": "282a36",
+        "panel": "343746",
+        "line": "44475a",
+        "acid_green": "50fa7b",
+        "cyan": "8be9fd",
+        "purple": "bd93f9",
+        "hot_pink": "ff79c6"
+      }
+    },
+    {
+      "id": "gruvbox-dark",
+      "name": "Gruvbox Dark",
+      "family": "default",
+      "colors": {
+        "bg": "1d2021",
+        "panel": "282828",
+        "line": "3c3836",
+        "acid_green": "b8bb26",
+        "cyan": "8ec07c",
+        "purple": "d3869b",
+        "hot_pink": "e08aa0"
+      }
+    },
+    {
+      "id": "kanagawa",
+      "name": "Kanagawa",
+      "family": "default",
+      "colors": {
+        "bg": "1f1f28",
+        "panel": "2a2a37",
+        "line": "363646",
+        "acid_green": "98bb6c",
+        "cyan": "7fb4ca",
+        "purple": "957fb8",
+        "hot_pink": "d27e99"
+      }
+    },
+    {
+      "id": "neon-night",
+      "name": "Neon Night",
+      "family": "default",
+      "colors": {
+        "bg": "06080f",
+        "panel": "0c1120",
+        "line": "20305c",
+        "acid_green": "c6ff45",
+        "cyan": "22e6ff",
+        "purple": "b57bff",
+        "hot_pink": "ff2d9e"
+      }
+    },
+    {
+      "id": "nord",
+      "name": "Nord",
+      "family": "default",
+      "colors": {
+        "bg": "2e3440",
+        "panel": "3b4252",
+        "line": "4c566a",
+        "acid_green": "a3be8c",
+        "cyan": "88c0d0",
+        "purple": "b48ead",
+        "hot_pink": "c085b0"
+      }
+    },
+    {
+      "id": "synthwave-84",
+      "name": "Synthwave 84",
+      "family": "default",
+      "colors": {
+        "bg": "241b2f",
+        "panel": "2a2139",
+        "line": "3b3054",
+        "acid_green": "72f1b8",
+        "cyan": "03edf9",
+        "purple": "b381c5",
+        "hot_pink": "ff7edb"
+      }
+    },
+    {
+      "id": "synthwave-grid-runner",
+      "name": "Synthwave Grid Runner",
+      "family": "default",
+      "colors": {
+        "bg": "05040a",
+        "panel": "141319",
+        "line": "302f34",
+        "acid_green": "39ff14",
+        "cyan": "00f0ff",
+        "purple": "bc13fe",
+        "hot_pink": "ff007f"
+      }
+    },
+    {
+      "id": "tokyo-night",
+      "name": "Tokyo Night",
+      "family": "default",
+      "colors": {
+        "bg": "1a1b26",
+        "panel": "24283b",
+        "line": "3b4261",
+        "acid_green": "9ece6a",
+        "cyan": "7dcfff",
+        "purple": "bb9af7",
+        "hot_pink": "ff5fa5"
+      }
+    },
+    {
+      "id": "dystopian-ash",
+      "name": "Dystopian Ash",
+      "family": "dystopian",
+      "colors": {
+        "bg": "141414",
+        "panel": "222222",
+        "line": "3e3e3e",
+        "acid_green": "cddc39",
+        "cyan": "00acc1",
+        "purple": "3e2723",
+        "hot_pink": "ad1457"
+      }
+    },
+    {
+      "id": "dystopian-fallout",
+      "name": "Dystopian Fallout",
+      "family": "dystopian",
+      "colors": {
+        "bg": "15130b",
+        "panel": "272015",
+        "line": "5a4b2b",
+        "acid_green": "c4d43d",
+        "cyan": "6babb0",
+        "purple": "60422c",
+        "hot_pink": "b75b52"
+      }
+    },
+    {
+      "id": "dystopian-neon-rot",
+      "name": "Dystopian Neon Rot",
+      "family": "dystopian",
+      "colors": {
+        "bg": "0a0c0b",
+        "panel": "151817",
+        "line": "292e2c",
+        "acid_green": "d4e157",
+        "cyan": "0097a7",
+        "purple": "5c4033",
+        "hot_pink": "880e4f"
+      }
+    },
+    {
+      "id": "dystopian-quarantine",
+      "name": "Dystopian Quarantine",
+      "family": "dystopian",
+      "colors": {
+        "bg": "0c0d0c",
+        "panel": "171917",
+        "line": "2e332e",
+        "acid_green": "c0ca33",
+        "cyan": "80deea",
+        "purple": "8d6e63",
+        "hot_pink": "f06292"
+      }
+    },
+    {
+      "id": "dystopian-ration",
+      "name": "Dystopian Ration",
+      "family": "dystopian",
+      "colors": {
+        "bg": "131512",
+        "panel": "1e221d",
+        "line": "394036",
+        "acid_green": "827717",
+        "cyan": "00838f",
+        "purple": "4e342e",
+        "hot_pink": "c2185b"
+      }
+    },
+    {
+      "id": "dystopian-rebel",
+      "name": "Dystopian Rebel",
+      "family": "dystopian",
+      "colors": {
+        "bg": "100d0b",
+        "panel": "241713",
+        "line": "663526",
+        "acid_green": "d2e85b",
+        "cyan": "55b9d5",
+        "purple": "563047",
+        "hot_pink": "ef426f"
+      }
+    },
+    {
+      "id": "dystopian-ruin",
+      "name": "Dystopian Ruin",
+      "family": "dystopian",
+      "colors": {
+        "bg": "12100e",
+        "panel": "27201a",
+        "line": "5a4638",
+        "acid_green": "a9c26c",
+        "cyan": "73a9a1",
+        "purple": "4c3a38",
+        "hot_pink": "b84b5d"
+      }
+    },
+    {
+      "id": "dystopian-sector",
+      "name": "Dystopian Sector",
+      "family": "dystopian",
+      "colors": {
+        "bg": "0d1416",
+        "panel": "17262a",
+        "line": "315c62",
+        "acid_green": "d5df3f",
+        "cyan": "2ee5e5",
+        "purple": "283f58",
+        "hot_pink": "d73d78"
+      }
+    },
+    {
+      "id": "dystopian-slum",
+      "name": "Dystopian Slum",
+      "family": "dystopian",
+      "colors": {
+        "bg": "111210",
+        "panel": "1c1e1a",
+        "line": "353a32",
+        "acid_green": "9e9d24",
+        "cyan": "4dd0e1",
+        "purple": "795548",
+        "hot_pink": "ec407a"
+      }
+    },
+    {
+      "id": "dystopian-smog",
+      "name": "Dystopian Smog",
+      "family": "dystopian",
+      "colors": {
+        "bg": "171918",
+        "panel": "252b27",
+        "line": "48544b",
+        "acid_green": "b1cc52",
+        "cyan": "79c8c2",
+        "purple": "3d4a43",
+        "hot_pink": "c44f72"
+      }
+    },
+    {
+      "id": "dystopian-ward",
+      "name": "Dystopian Ward",
+      "family": "dystopian",
+      "colors": {
+        "bg": "0b1218",
+        "panel": "15232d",
+        "line": "31566b",
+        "acid_green": "a8d96b",
+        "cyan": "78d9ee",
+        "purple": "34466b",
+        "hot_pink": "db4771"
+      }
+    },
+    {
+      "id": "dystopian-wasteland",
+      "name": "Dystopian Wasteland",
+      "family": "dystopian",
+      "colors": {
+        "bg": "151714",
+        "panel": "21241f",
+        "line": "3f453c",
+        "acid_green": "689f38",
+        "cyan": "006064",
+        "purple": "3e2723",
+        "hot_pink": "880e4f"
+      }
+    },
+    {
+      "id": "dystopian-frontier-ashfall",
+      "name": "Dystopian Frontier Ashfall",
+      "family": "dystopian-frontier",
+      "colors": {
+        "bg": "110d0b",
+        "panel": "211814",
+        "line": "50352b",
+        "acid_green": "a4c957",
+        "cyan": "6aa8a8",
+        "purple": "55394c",
+        "hot_pink": "d44f69"
+      }
+    },
+    {
+      "id": "dystopian-frontier-cracked-sky",
+      "name": "Dystopian Frontier Cracked Sky",
+      "family": "dystopian-frontier",
+      "colors": {
+        "bg": "0f1214",
+        "panel": "1d2222",
+        "line": "3c4d4d",
+        "acid_green": "b3c26e",
+        "cyan": "7a9eaa",
+        "purple": "51485e",
+        "hot_pink": "c95568"
+      }
+    },
+    {
+      "id": "dystopian-frontier-dead-sector",
+      "name": "Dystopian Frontier Dead Sector",
+      "family": "dystopian-frontier",
+      "colors": {
+        "bg": "0d1010",
+        "panel": "18201c",
+        "line": "385347",
+        "acid_green": "8ebf55",
+        "cyan": "62a5a3",
+        "purple": "493b56",
+        "hot_pink": "b64f70"
+      }
+    },
+    {
+      "id": "dystopian-frontier-fallow-city",
+      "name": "Dystopian Frontier Fallow City",
+      "family": "dystopian-frontier",
+      "colors": {
+        "bg": "150e12",
+        "panel": "25171c",
+        "line": "53343e",
+        "acid_green": "c4b85a",
+        "cyan": "6b9b9b",
+        "purple": "634563",
+        "hot_pink": "d75b7a"
+      }
+    },
+    {
+      "id": "dystopian-frontier-red-quarantine",
+      "name": "Dystopian Frontier Red Quarantine",
+      "family": "dystopian-frontier",
+      "colors": {
+        "bg": "160b0d",
+        "panel": "281316",
+        "line": "5c2d34",
+        "acid_green": "b1bd63",
+        "cyan": "65989a",
+        "purple": "5a3148",
+        "hot_pink": "df4a62"
+      }
+    },
+    {
+      "id": "dystopian-frontier-wastewire",
+      "name": "Dystopian Frontier Wastewire",
+      "family": "dystopian-frontier",
+      "colors": {
+        "bg": "0e100d",
+        "panel": "1b2118",
+        "line": "40503c",
+        "acid_green": "a3c64d",
+        "cyan": "6ba9a0",
+        "purple": "51415b",
+        "hot_pink": "c95a78"
+      }
+    },
+    {
+      "id": "futuristic-alpha",
+      "name": "Futuristic Alpha",
+      "family": "futuristic",
+      "colors": {
+        "bg": "060f11",
+        "panel": "0f1f21",
+        "line": "4c3424",
+        "acid_green": "c46af0",
+        "cyan": "ee7a63",
+        "purple": "8adb4d",
+        "hot_pink": "53ee72"
+      }
+    },
+    {
+      "id": "futuristic-arc",
+      "name": "Futuristic Arc",
+      "family": "futuristic",
+      "colors": {
+        "bg": "071113",
+        "panel": "102124",
+        "line": "4c3624",
+        "acid_green": "ea6af0",
+        "cyan": "eea163",
+        "purple": "62db4d",
+        "hot_pink": "53ee9e"
+      }
+    },
+    {
+      "id": "futuristic-array",
+      "name": "Futuristic Array",
+      "family": "futuristic",
+      "colors": {
+        "bg": "081215",
+        "panel": "0f1e21",
+        "line": "4c3824",
+        "acid_green": "f06ad1",
+        "cyan": "eec963",
+        "purple": "4ddb60",
+        "hot_pink": "53eeca"
+      }
+    },
+    {
+      "id": "futuristic-beacon",
+      "name": "Futuristic Beacon",
+      "family": "futuristic",
+      "colors": {
+        "bg": "060e11",
+        "panel": "102024",
+        "line": "4c3a24",
+        "acid_green": "f06aab",
+        "cyan": "ebee63",
+        "purple": "4ddb88",
+        "hot_pink": "53e6ee"
+      }
+    },
+    {
+      "id": "futuristic-cipher",
+      "name": "Futuristic Cipher",
+      "family": "futuristic",
+      "colors": {
+        "bg": "070f13",
+        "panel": "0f1c21",
+        "line": "4c3c24",
+        "acid_green": "f06a85",
+        "cyan": "c4ee63",
+        "purple": "4ddbb0",
+        "hot_pink": "53baee"
+      }
+    },
+    {
+      "id": "futuristic-delta",
+      "name": "Futuristic Delta",
+      "family": "futuristic",
+      "colors": {
+        "bg": "081015",
+        "panel": "101e24",
+        "line": "4c3f24",
+        "acid_green": "f0766a",
+        "cyan": "9dee63",
+        "purple": "4ddbd8",
+        "hot_pink": "538fee"
+      }
+    },
+    {
+      "id": "futuristic-echo",
+      "name": "Futuristic Echo",
+      "family": "futuristic",
+      "colors": {
+        "bg": "060c11",
+        "panel": "0f1b21",
+        "line": "4c4124",
+        "acid_green": "f09c6a",
+        "cyan": "75ee63",
+        "purple": "4db5db",
+        "hot_pink": "5363ee"
+      }
+    },
+    {
+      "id": "futuristic-flux",
+      "name": "Futuristic Flux",
+      "family": "futuristic",
+      "colors": {
+        "bg": "070d13",
+        "panel": "101d24",
+        "line": "4c4324",
+        "acid_green": "f0c16a",
+        "cyan": "63ee78",
+        "purple": "4d8ddb",
+        "hot_pink": "7053ee"
+      }
+    },
+    {
+      "id": "futuristic-ghost",
+      "name": "Futuristic Ghost",
+      "family": "futuristic",
+      "colors": {
+        "bg": "080e15",
+        "panel": "0f1a21",
+        "line": "4c4524",
+        "acid_green": "f0e76a",
+        "cyan": "63ee9f",
+        "purple": "4d65db",
+        "hot_pink": "9b53ee"
+      }
+    },
+    {
+      "id": "futuristic-helix",
+      "name": "Futuristic Helix",
+      "family": "futuristic",
+      "colors": {
+        "bg": "060b11",
+        "panel": "101b24",
+        "line": "4c4824",
+        "acid_green": "d3f06a",
+        "cyan": "63eec6",
+        "purple": "5e4ddb",
+        "hot_pink": "c753ee"
+      }
+    },
+    {
+      "id": "futuristic-ion",
+      "name": "Futuristic Ion",
+      "family": "futuristic",
+      "colors": {
+        "bg": "070b13",
+        "panel": "0f1921",
+        "line": "4c4a24",
+        "acid_green": "adf06a",
+        "cyan": "63eeee",
+        "purple": "864ddb",
+        "hot_pink": "ee53e9"
+      }
+    },
+    {
+      "id": "futuristic-vector",
+      "name": "Futuristic Vector",
+      "family": "futuristic",
+      "colors": {
+        "bg": "080c15",
+        "panel": "101a24",
+        "line": "4b4c24",
+        "acid_green": "87f06a",
+        "cyan": "63c6ee",
+        "purple": "ae4ddb",
+        "hot_pink": "ee53bd"
+      }
+    },
+    {
+      "id": "neon-noir-alpha",
+      "name": "Neon Noir Alpha",
+      "family": "neon-noir",
+      "colors": {
+        "bg": "0f0611",
+        "panel": "1f0f21",
+        "line": "244c29",
+        "acid_green": "f0a06a",
+        "cyan": "71ee63",
+        "purple": "4db0db",
+        "hot_pink": "535eee"
+      }
+    },
+    {
+      "id": "neon-noir-arc",
+      "name": "Neon Noir Arc",
+      "family": "neon-noir",
+      "colors": {
+        "bg": "120713",
+        "panel": "221024",
+        "line": "244c2b",
+        "acid_green": "f0c66a",
+        "cyan": "63ee7c",
+        "purple": "4d88db",
+        "hot_pink": "7553ee"
+      }
+    },
+    {
+      "id": "neon-noir-array",
+      "name": "Neon Noir Array",
+      "family": "neon-noir",
+      "colors": {
+        "bg": "150815",
+        "panel": "200f21",
+        "line": "244c2d",
+        "acid_green": "f0ec6a",
+        "cyan": "63eea4",
+        "purple": "4d60db",
+        "hot_pink": "a153ee"
+      }
+    },
+    {
+      "id": "neon-noir-beacon",
+      "name": "Neon Noir Beacon",
+      "family": "neon-noir",
+      "colors": {
+        "bg": "110611",
+        "panel": "241024",
+        "line": "244c30",
+        "acid_green": "cff06a",
+        "cyan": "63eecb",
+        "purple": "624ddb",
+        "hot_pink": "cc53ee"
+      }
+    },
+    {
+      "id": "neon-noir-cipher",
+      "name": "Neon Noir Cipher",
+      "family": "neon-noir",
+      "colors": {
+        "bg": "130712",
+        "panel": "210f21",
+        "line": "244c32",
+        "acid_green": "a9f06a",
+        "cyan": "63e9ee",
+        "purple": "8a4ddb",
+        "hot_pink": "ee53e4"
+      }
+    },
+    {
+      "id": "neon-noir-delta",
+      "name": "Neon Noir Delta",
+      "family": "neon-noir",
+      "colors": {
+        "bg": "150814",
+        "panel": "241024",
+        "line": "244c34",
+        "acid_green": "83f06a",
+        "cyan": "63c2ee",
+        "purple": "b34ddb",
+        "hot_pink": "ee53b8"
+      }
+    },
+    {
+      "id": "neon-noir-echo",
+      "name": "Neon Noir Echo",
+      "family": "neon-noir",
+      "colors": {
+        "bg": "11060f",
+        "panel": "210f20",
+        "line": "244c36",
+        "acid_green": "6af078",
+        "cyan": "639aee",
+        "purple": "db4ddb",
+        "hot_pink": "ee538c"
+      }
+    },
+    {
+      "id": "neon-noir-flux",
+      "name": "Neon Noir Flux",
+      "family": "neon-noir",
+      "colors": {
+        "bg": "130710",
+        "panel": "241022",
+        "line": "244c39",
+        "acid_green": "6af09e",
+        "cyan": "6373ee",
+        "purple": "db4db3",
+        "hot_pink": "ee5360"
+      }
+    },
+    {
+      "id": "neon-noir-ghost",
+      "name": "Neon Noir Ghost",
+      "family": "neon-noir",
+      "colors": {
+        "bg": "150812",
+        "panel": "210f1f",
+        "line": "244c3b",
+        "acid_green": "6af0c4",
+        "cyan": "7a63ee",
+        "purple": "db4d8a",
+        "hot_pink": "ee7253"
+      }
+    },
+    {
+      "id": "neon-noir-helix",
+      "name": "Neon Noir Helix",
+      "family": "neon-noir",
+      "colors": {
+        "bg": "11060d",
+        "panel": "241021",
+        "line": "244c3d",
+        "acid_green": "6af0ea",
+        "cyan": "a163ee",
+        "purple": "db4d62",
+        "hot_pink": "ee9e53"
+      }
+    },
+    {
+      "id": "neon-noir-ion",
+      "name": "Neon Noir Ion",
+      "family": "neon-noir",
+      "colors": {
+        "bg": "13070e",
+        "panel": "210f1e",
+        "line": "244c3f",
+        "acid_green": "6ad1f0",
+        "cyan": "c963ee",
+        "purple": "db604d",
+        "hot_pink": "eeca53"
+      }
+    },
+    {
+      "id": "neon-noir-vector",
+      "name": "Neon Noir Vector",
+      "family": "neon-noir",
+      "colors": {
+        "bg": "150810",
+        "panel": "24101f",
+        "line": "244c42",
+        "acid_green": "6aabf0",
+        "cyan": "ee63eb",
+        "purple": "db884d",
+        "hot_pink": "e6ee53"
+      }
+    },
+    {
+      "id": "neosynth-beam",
+      "name": "Neosynth Beam",
+      "family": "neosynth",
+      "colors": {
+        "bg": "04010a",
+        "panel": "13072b",
+        "line": "2e155e",
+        "acid_green": "1aff00",
+        "cyan": "33ffff",
+        "purple": "9933ff",
+        "hot_pink": "ff33aa"
+      }
+    },
+    {
+      "id": "neosynth-core",
+      "name": "Neosynth Core",
+      "family": "neosynth",
+      "colors": {
+        "bg": "06020d",
+        "panel": "130829",
+        "line": "291452",
+        "acid_green": "00ff55",
+        "cyan": "00ffcc",
+        "purple": "7700ff",
+        "hot_pink": "ff0088"
+      }
+    },
+    {
+      "id": "neosynth-drive",
+      "name": "Neosynth Drive",
+      "family": "neosynth",
+      "colors": {
+        "bg": "040b18",
+        "panel": "091d3a",
+        "line": "1e5f87",
+        "acid_green": "45ff9a",
+        "cyan": "28c7ff",
+        "purple": "4d38d9",
+        "hot_pink": "ff3d9e"
+      }
+    },
+    {
+      "id": "neosynth-flare",
+      "name": "Neosynth Flare",
+      "family": "neosynth",
+      "colors": {
+        "bg": "050011",
+        "panel": "130036",
+        "line": "2d0075",
+        "acid_green": "66ff00",
+        "cyan": "00eeff",
+        "purple": "bb00ff",
+        "hot_pink": "ff0066"
+      }
+    },
+    {
+      "id": "neosynth-flux",
+      "name": "Neosynth Flux",
+      "family": "neosynth",
+      "colors": {
+        "bg": "031513",
+        "panel": "07302b",
+        "line": "197263",
+        "acid_green": "b6ff38",
+        "cyan": "20f5d0",
+        "purple": "7138d9",
+        "hot_pink": "ff45c8"
+      }
+    },
+    {
+      "id": "neosynth-glow",
+      "name": "Neosynth Glow",
+      "family": "neosynth",
+      "colors": {
+        "bg": "10051b",
+        "panel": "281047",
+        "line": "703b8d",
+        "acid_green": "a9ff70",
+        "cyan": "62f5ff",
+        "purple": "e24cff",
+        "hot_pink": "ff69c9"
+      }
+    },
+    {
+      "id": "neosynth-laser-grid",
+      "name": "Neosynth Laser Grid",
+      "family": "neosynth",
+      "colors": {
+        "bg": "07040d",
+        "panel": "16131c",
+        "line": "312f36",
+        "acid_green": "39ff14",
+        "cyan": "00ffff",
+        "purple": "9d4edd",
+        "hot_pink": "ff477e"
+      }
+    },
+    {
+      "id": "neosynth-nova",
+      "name": "Neosynth Nova",
+      "family": "neosynth",
+      "colors": {
+        "bg": "090414",
+        "panel": "170b2e",
+        "line": "341c5c",
+        "acid_green": "33ff44",
+        "cyan": "22ffff",
+        "purple": "8822ff",
+        "hot_pink": "ff22bb"
+      }
+    },
+    {
+      "id": "neosynth-plasma",
+      "name": "Neosynth Plasma",
+      "family": "neosynth",
+      "colors": {
+        "bg": "16021d",
+        "panel": "380649",
+        "line": "8c2ba7",
+        "acid_green": "73ffb8",
+        "cyan": "49d8ff",
+        "purple": "ff42ff",
+        "hot_pink": "ff3dce"
+      }
+    },
+    {
+      "id": "neosynth-pulse",
+      "name": "Neosynth Pulse",
+      "family": "neosynth",
+      "colors": {
+        "bg": "0a0510",
+        "panel": "180d26",
+        "line": "331d51",
+        "acid_green": "00ff8c",
+        "cyan": "00e5ff",
+        "purple": "8b00ff",
+        "hot_pink": "ff2a9d"
+      }
+    },
+    {
+      "id": "neosynth-spark",
+      "name": "Neosynth Spark",
+      "family": "neosynth",
+      "colors": {
+        "bg": "020814",
+        "panel": "071b38",
+        "line": "164f83",
+        "acid_green": "65ffdc",
+        "cyan": "21baff",
+        "purple": "3c5dff",
+        "hot_pink": "ff315d"
+      }
+    },
+    {
+      "id": "neosynth-wave",
+      "name": "Neosynth Wave",
+      "family": "neosynth",
+      "colors": {
+        "bg": "060d1d",
+        "panel": "0d2440",
+        "line": "205b88",
+        "acid_green": "7cff68",
+        "cyan": "35e6ff",
+        "purple": "6e3dce",
+        "hot_pink": "ff5ac8"
+      }
+    },
+    {
+      "id": "night-ops-array",
+      "name": "Night Ops Array",
+      "family": "night-ops",
+      "colors": {
+        "bg": "081508",
+        "panel": "10210f",
+        "line": "4c2443",
+        "acid_green": "6a6ff0",
+        "cyan": "ee63ad",
+        "purple": "dbc84d",
+        "hot_pink": "a1ee53"
+      }
+    },
+    {
+      "id": "night-ops-beacon",
+      "name": "Night Ops Beacon",
+      "family": "night-ops",
+      "colors": {
+        "bg": "061106",
+        "panel": "112410",
+        "line": "4c2440",
+        "acid_green": "8c6af0",
+        "cyan": "ee6386",
+        "purple": "c5db4d",
+        "hot_pink": "75ee53"
+      }
+    },
+    {
+      "id": "night-ops-cipher",
+      "name": "Night Ops Cipher",
+      "family": "night-ops",
+      "colors": {
+        "bg": "071308",
+        "panel": "0f210f",
+        "line": "4c243e",
+        "acid_green": "b26af0",
+        "cyan": "ee6863",
+        "purple": "9ddb4d",
+        "hot_pink": "53ee5e"
+      }
+    },
+    {
+      "id": "night-ops-delta",
+      "name": "Night Ops Delta",
+      "family": "night-ops",
+      "colors": {
+        "bg": "081509",
+        "panel": "102411",
+        "line": "4c243c",
+        "acid_green": "d86af0",
+        "cyan": "ee8f63",
+        "purple": "75db4d",
+        "hot_pink": "53ee89"
+      }
+    },
+    {
+      "id": "night-ops-echo",
+      "name": "Night Ops Echo",
+      "family": "night-ops",
+      "colors": {
+        "bg": "061108",
+        "panel": "0f2110",
+        "line": "4c243a",
+        "acid_green": "f06ae3",
+        "cyan": "eeb663",
+        "purple": "4ddb4d",
+        "hot_pink": "53eeb5"
+      }
+    },
+    {
+      "id": "night-ops-flux",
+      "name": "Night Ops Flux",
+      "family": "night-ops",
+      "colors": {
+        "bg": "07130a",
+        "panel": "102412",
+        "line": "4c2438",
+        "acid_green": "f06abd",
+        "cyan": "eedd63",
+        "purple": "4ddb75",
+        "hot_pink": "53eee1"
+      }
+    },
+    {
+      "id": "night-ops-ghost",
+      "name": "Night Ops Ghost",
+      "family": "night-ops",
+      "colors": {
+        "bg": "08150c",
+        "panel": "0f2112",
+        "line": "4c2435",
+        "acid_green": "f06a97",
+        "cyan": "d7ee63",
+        "purple": "4ddb9d",
+        "hot_pink": "53cfee"
+      }
+    },
+    {
+      "id": "night-ops-helix",
+      "name": "Night Ops Helix",
+      "family": "night-ops",
+      "colors": {
+        "bg": "06110a",
+        "panel": "102414",
+        "line": "4c2433",
+        "acid_green": "f06a71",
+        "cyan": "afee63",
+        "purple": "4ddbc5",
+        "hot_pink": "53a3ee"
+      }
+    },
+    {
+      "id": "night-ops-ion",
+      "name": "Night Ops Ion",
+      "family": "night-ops",
+      "colors": {
+        "bg": "07130c",
+        "panel": "0f2113",
+        "line": "4c2431",
+        "acid_green": "f08a6a",
+        "cyan": "88ee63",
+        "purple": "4dc8db",
+        "hot_pink": "5377ee"
+      }
+    },
+    {
+      "id": "plasma-core-alpha",
+      "name": "Plasma Core Alpha",
+      "family": "plasma-core",
+      "colors": {
+        "bg": "11060d",
+        "panel": "210f1a",
+        "line": "244c3e",
+        "acid_green": "f0e76a",
+        "cyan": "63ee9f",
+        "purple": "4d65db",
+        "hot_pink": "9b53ee"
+      }
+    },
+    {
+      "id": "plasma-core-arc",
+      "name": "Plasma Core Arc",
+      "family": "plasma-core",
+      "colors": {
+        "bg": "13070e",
+        "panel": "24101c",
+        "line": "244c40",
+        "acid_green": "d3f06a",
+        "cyan": "63eec6",
+        "purple": "5e4ddb",
+        "hot_pink": "c753ee"
+      }
+    },
+    {
+      "id": "plasma-core-array",
+      "name": "Plasma Core Array",
+      "family": "plasma-core",
+      "colors": {
+        "bg": "15080f",
+        "panel": "210f19",
+        "line": "244c42",
+        "acid_green": "adf06a",
+        "cyan": "63eeee",
+        "purple": "864ddb",
+        "hot_pink": "ee53e9"
+      }
+    },
+    {
+      "id": "plasma-core-beacon",
+      "name": "Plasma Core Beacon",
+      "family": "plasma-core",
+      "colors": {
+        "bg": "11060b",
+        "panel": "24101a",
+        "line": "244c45",
+        "acid_green": "87f06a",
+        "cyan": "63c6ee",
+        "purple": "ae4ddb",
+        "hot_pink": "ee53bd"
+      }
+    },
+    {
+      "id": "plasma-core-cipher",
+      "name": "Plasma Core Cipher",
+      "family": "plasma-core",
+      "colors": {
+        "bg": "13070c",
+        "panel": "210f18",
+        "line": "244c47",
+        "acid_green": "6af073",
+        "cyan": "639fee",
+        "purple": "d64ddb",
+        "hot_pink": "ee5391"
+      }
+    },
+    {
+      "id": "plasma-core-delta",
+      "name": "Plasma Core Delta",
+      "family": "plasma-core",
+      "colors": {
+        "bg": "15080c",
+        "panel": "241019",
+        "line": "244c49",
+        "acid_green": "6af099",
+        "cyan": "6378ee",
+        "purple": "db4db7",
+        "hot_pink": "ee5365"
+      }
+    },
+    {
+      "id": "plasma-core-echo",
+      "name": "Plasma Core Echo",
+      "family": "plasma-core",
+      "colors": {
+        "bg": "110609",
+        "panel": "210f16",
+        "line": "244c4b",
+        "acid_green": "6af0bf",
+        "cyan": "7563ee",
+        "purple": "db4d8f",
+        "hot_pink": "ee6d53"
+      }
+    },
+    {
+      "id": "plasma-core-flux",
+      "name": "Plasma Core Flux",
+      "family": "plasma-core",
+      "colors": {
+        "bg": "13070a",
+        "panel": "241018",
+        "line": "244a4c",
+        "acid_green": "6af0e5",
+        "cyan": "9d63ee",
+        "purple": "db4d67",
+        "hot_pink": "ee9953"
+      }
+    },
+    {
+      "id": "plasma-core-ghost",
+      "name": "Plasma Core Ghost",
+      "family": "plasma-core",
+      "colors": {
+        "bg": "15080a",
+        "panel": "210f15",
+        "line": "24484c",
+        "acid_green": "6ad6f0",
+        "cyan": "c463ee",
+        "purple": "db5b4d",
+        "hot_pink": "eec553"
+      }
+    },
+    {
+      "id": "plasma-core-helix",
+      "name": "Plasma Core Helix",
+      "family": "plasma-core",
+      "colors": {
+        "bg": "110608",
+        "panel": "241016",
+        "line": "24454c",
+        "acid_green": "6ab0f0",
+        "cyan": "eb63ee",
+        "purple": "db834d",
+        "hot_pink": "ebee53"
+      }
+    },
+    {
+      "id": "plasma-core-ion",
+      "name": "Plasma Core Ion",
+      "family": "plasma-core",
+      "colors": {
+        "bg": "130708",
+        "panel": "210f14",
+        "line": "24434c",
+        "acid_green": "6a8af0",
+        "cyan": "ee63c9",
+        "purple": "dbab4d",
+        "hot_pink": "c0ee53"
+      }
+    },
+    {
+      "id": "plasma-core-vector",
+      "name": "Plasma Core Vector",
+      "family": "plasma-core",
+      "colors": {
+        "bg": "150808",
+        "panel": "241015",
+        "line": "24414c",
+        "acid_green": "716af0",
+        "cyan": "ee63a1",
+        "purple": "dbd44d",
+        "hot_pink": "94ee53"
+      }
+    },
+    {
+      "id": "arctic-relay",
+      "name": "Arctic Relay",
+      "family": "signal-cities",
+      "colors": {
+        "bg": "07131b",
+        "panel": "102531",
+        "line": "2d5667",
+        "acid_green": "8dffd2",
+        "cyan": "b7f3ff",
+        "purple": "6c9dff",
+        "hot_pink": "73c8ff"
+      }
+    },
+    {
+      "id": "biochrome",
+      "name": "Biochrome",
+      "family": "signal-cities",
+      "colors": {
+        "bg": "07120d",
+        "panel": "102319",
+        "line": "31583b",
+        "acid_green": "aaff45",
+        "cyan": "51e6c0",
+        "purple": "9d69d8",
+        "hot_pink": "ff68b1"
+      }
+    },
+    {
+      "id": "deep-ocean",
+      "name": "Deep Ocean",
+      "family": "signal-cities",
+      "colors": {
+        "bg": "041018",
+        "panel": "09202d",
+        "line": "1c536c",
+        "acid_green": "64e6b0",
+        "cyan": "35d9ff",
+        "purple": "496bd0",
+        "hot_pink": "e84caa"
+      }
+    },
+    {
+      "id": "lunar-eclipse",
+      "name": "Lunar Eclipse",
+      "family": "signal-cities",
+      "colors": {
+        "bg": "0a0714",
+        "panel": "171025",
+        "line": "3b2d59",
+        "acid_green": "b8a6ff",
+        "cyan": "9d8cff",
+        "purple": "6c4aa8",
+        "hot_pink": "e35cff"
+      }
+    },
+    {
+      "id": "rainline-district",
+      "name": "Rainline District",
+      "family": "signal-cities",
+      "colors": {
+        "bg": "090d18",
+        "panel": "111b2d",
+        "line": "28435f",
+        "acid_green": "65f7c3",
+        "cyan": "42c8ff",
+        "purple": "886cff",
+        "hot_pink": "ff4bba"
+      }
+    },
+    {
+      "id": "solar-flare",
+      "name": "Solar Flare",
+      "family": "signal-cities",
+      "colors": {
+        "bg": "160b08",
+        "panel": "28150e",
+        "line": "633524",
+        "acid_green": "e3ff69",
+        "cyan": "64dcda",
+        "purple": "b04b80",
+        "hot_pink": "ff5a55"
+      }
+    },
+    {
+      "id": "synth-industrial-alpha",
+      "name": "Synth Industrial Alpha",
+      "family": "synth-industrial",
+      "colors": {
+        "bg": "110e06",
+        "panel": "211c0f",
+        "line": "24264c",
+        "acid_green": "6af08a",
+        "cyan": "6388ee",
+        "purple": "db4dc8",
+        "hot_pink": "ee5377"
+      }
+    },
+    {
+      "id": "synth-industrial-arc",
+      "name": "Synth Industrial Arc",
+      "family": "synth-industrial",
+      "colors": {
+        "bg": "131007",
+        "panel": "241f10",
+        "line": "25244c",
+        "acid_green": "6af0b0",
+        "cyan": "6563ee",
+        "purple": "db4da0",
+        "hot_pink": "ee5b53"
+      }
+    },
+    {
+      "id": "synth-industrial-array",
+      "name": "Synth Industrial Array",
+      "family": "synth-industrial",
+      "colors": {
+        "bg": "151308",
+        "panel": "211d0f",
+        "line": "27244c",
+        "acid_green": "6af0d6",
+        "cyan": "8d63ee",
+        "purple": "db4d78",
+        "hot_pink": "ee8753"
+      }
+    },
+    {
+      "id": "synth-industrial-beacon",
+      "name": "Synth Industrial Beacon",
+      "family": "synth-industrial",
+      "colors": {
+        "bg": "110f06",
+        "panel": "242010",
+        "line": "29244c",
+        "acid_green": "6ae5f0",
+        "cyan": "b463ee",
+        "purple": "db4d50",
+        "hot_pink": "eeb353"
+      }
+    },
+    {
+      "id": "synth-industrial-cipher",
+      "name": "Synth Industrial Cipher",
+      "family": "synth-industrial",
+      "colors": {
+        "bg": "131207",
+        "panel": "211e0f",
+        "line": "2b244c",
+        "acid_green": "6abff0",
+        "cyan": "db63ee",
+        "purple": "db734d",
+        "hot_pink": "eedf53"
+      }
+    },
+    {
+      "id": "synth-industrial-delta",
+      "name": "Synth Industrial Delta",
+      "family": "synth-industrial",
+      "colors": {
+        "bg": "151508",
+        "panel": "242210",
+        "line": "2e244c",
+        "acid_green": "6a99f0",
+        "cyan": "ee63d9",
+        "purple": "db9b4d",
+        "hot_pink": "d2ee53"
+      }
+    },
+    {
+      "id": "synth-industrial-echo",
+      "name": "Synth Industrial Echo",
+      "family": "synth-industrial",
+      "colors": {
+        "bg": "111106",
+        "panel": "21200f",
+        "line": "30244c",
+        "acid_green": "6a73f0",
+        "cyan": "ee63b2",
+        "purple": "dbc34d",
+        "hot_pink": "a6ee53"
+      }
+    },
+    {
+      "id": "synth-industrial-flux",
+      "name": "Synth Industrial Flux",
+      "family": "synth-industrial",
+      "colors": {
+        "bg": "121307",
+        "panel": "242310",
+        "line": "32244c",
+        "acid_green": "876af0",
+        "cyan": "ee638a",
+        "purple": "cadb4d",
+        "hot_pink": "7aee53"
+      }
+    },
+    {
+      "id": "synth-industrial-ghost",
+      "name": "Synth Industrial Ghost",
+      "family": "synth-industrial",
+      "colors": {
+        "bg": "141508",
+        "panel": "21210f",
+        "line": "34244c",
+        "acid_green": "ad6af0",
+        "cyan": "ee6363",
+        "purple": "a2db4d",
+        "hot_pink": "53ee58"
+      }
+    },
+    {
+      "id": "synth-industrial-helix",
+      "name": "Synth Industrial Helix",
+      "family": "synth-industrial",
+      "colors": {
+        "bg": "0f1106",
+        "panel": "242410",
+        "line": "37244c",
+        "acid_green": "d36af0",
+        "cyan": "ee8a63",
+        "purple": "7adb4d",
+        "hot_pink": "53ee84"
+      }
+    },
+    {
+      "id": "synth-industrial-ion",
+      "name": "Synth Industrial Ion",
+      "family": "synth-industrial",
+      "colors": {
+        "bg": "101307",
+        "panel": "21210f",
+        "line": "39244c",
+        "acid_green": "f06ae7",
+        "cyan": "eeb263",
+        "purple": "52db4d",
+        "hot_pink": "53eeb0"
+      }
+    },
+    {
+      "id": "synth-industrial-vector",
+      "name": "Synth Industrial Vector",
+      "family": "synth-industrial",
+      "colors": {
+        "bg": "121508",
+        "panel": "232410",
+        "line": "3b244c",
+        "acid_green": "f06ac1",
+        "cyan": "eed963",
+        "purple": "4ddb71",
+        "hot_pink": "53eedc"
+      }
+    },
+    {
+      "id": "synthwave-arcade",
+      "name": "Synthwave Arcade",
+      "family": "synthwave",
+      "colors": {
+        "bg": "09071e",
+        "panel": "17134a",
+        "line": "4b4ca1",
+        "acid_green": "d5ff4f",
+        "cyan": "35bfff",
+        "purple": "754dff",
+        "hot_pink": "ff4fd8"
+      }
+    },
+    {
+      "id": "synthwave-cassette",
+      "name": "Synthwave Cassette",
+      "family": "synthwave",
+      "colors": {
+        "bg": "1b0d1c",
+        "panel": "34203a",
+        "line": "76506e",
+        "acid_green": "baff68",
+        "cyan": "60d7ce",
+        "purple": "8d3f9d",
+        "hot_pink": "ff5b9e"
+      }
+    },
+    {
+      "id": "synthwave-cruise",
+      "name": "Synthwave Cruise",
+      "family": "synthwave",
+      "colors": {
+        "bg": "10152b",
+        "panel": "202d4d",
+        "line": "536a88",
+        "acid_green": "b7f26b",
+        "cyan": "5cf1e5",
+        "purple": "5745a8",
+        "hot_pink": "ff668f"
+      }
+    },
+    {
+      "id": "synthwave-delorean",
+      "name": "Synthwave Delorean",
+      "family": "synthwave",
+      "colors": {
+        "bg": "111820",
+        "panel": "1d303b",
+        "line": "4e7381",
+        "acid_green": "8affd1",
+        "cyan": "65f5ff",
+        "purple": "536a86",
+        "hot_pink": "ff668c"
+      }
+    },
+    {
+      "id": "synthwave-horizon",
+      "name": "Synthwave Horizon",
+      "family": "synthwave",
+      "colors": {
+        "bg": "0b081c",
+        "panel": "1a1533",
+        "line": "392f66",
+        "acid_green": "a6e22e",
+        "cyan": "66d9ef",
+        "purple": "ae81ff",
+        "hot_pink": "f92672"
+      }
+    },
+    {
+      "id": "synthwave-miami",
+      "name": "Synthwave Miami",
+      "family": "synthwave",
+      "colors": {
+        "bg": "050b14",
+        "panel": "101c30",
+        "line": "253d61",
+        "acid_green": "39ff14",
+        "cyan": "00e5ff",
+        "purple": "9370db",
+        "hot_pink": "ff69b4"
+      }
+    },
+    {
+      "id": "synthwave-nightrun",
+      "name": "Synthwave Nightrun",
+      "family": "synthwave",
+      "colors": {
+        "bg": "04040a",
+        "panel": "10101c",
+        "line": "252538",
+        "acid_green": "00ff88",
+        "cyan": "00bbff",
+        "purple": "7700ff",
+        "hot_pink": "ff0055"
+      }
+    },
+    {
+      "id": "synthwave-outrun",
+      "name": "Synthwave Outrun",
+      "family": "synthwave",
+      "colors": {
+        "bg": "0a0011",
+        "panel": "19002b",
+        "line": "3c005e",
+        "acid_green": "11ff44",
+        "cyan": "00eeee",
+        "purple": "bb00ff",
+        "hot_pink": "ff0077"
+      }
+    },
+    {
+      "id": "synthwave-palm",
+      "name": "Synthwave Palm",
+      "family": "synthwave",
+      "colors": {
+        "bg": "090412",
+        "panel": "180e2b",
+        "line": "36215e",
+        "acid_green": "00fa9a",
+        "cyan": "00ffff",
+        "purple": "8a2be2",
+        "hot_pink": "ff1493"
+      }
+    },
+    {
+      "id": "synthwave-retro",
+      "name": "Synthwave Retro",
+      "family": "synthwave",
+      "colors": {
+        "bg": "100a1c",
+        "panel": "201533",
+        "line": "422f61",
+        "acid_green": "00ffcc",
+        "cyan": "00ced1",
+        "purple": "800080",
+        "hot_pink": "ff0066"
+      }
+    },
+    {
+      "id": "synthwave-sunset",
+      "name": "Synthwave Sunset",
+      "family": "synthwave",
+      "colors": {
+        "bg": "0d071a",
+        "panel": "1a1130",
+        "line": "3a2663",
+        "acid_green": "1df29f",
+        "cyan": "4cc9f0",
+        "purple": "7209b7",
+        "hot_pink": "ff007f"
+      }
+    },
+    {
+      "id": "synthwave-vinyl",
+      "name": "Synthwave Vinyl",
+      "family": "synthwave",
+      "colors": {
+        "bg": "100914",
+        "panel": "251332",
+        "line": "56306b",
+        "acid_green": "72e89d",
+        "cyan": "54bed0",
+        "purple": "6f3194",
+        "hot_pink": "e94388"
+      }
+    },
+    {
+      "id": "terminal-ghost-alpha",
+      "name": "Terminal Ghost Alpha",
+      "family": "terminal-ghost",
+      "colors": {
+        "bg": "060911",
+        "panel": "0f1421",
+        "line": "4c4b24",
+        "acid_green": "f06acd",
+        "cyan": "eecd63",
+        "purple": "4ddb65",
+        "hot_pink": "53eecf"
+      }
+    },
+    {
+      "id": "terminal-ghost-arc",
+      "name": "Terminal Ghost Arc",
+      "family": "terminal-ghost",
+      "colors": {
+        "bg": "070a13",
+        "panel": "101524",
+        "line": "4a4c24",
+        "acid_green": "f06aa7",
+        "cyan": "e7ee63",
+        "purple": "4ddb8d",
+        "hot_pink": "53e1ee"
+      }
+    },
+    {
+      "id": "terminal-ghost-array",
+      "name": "Terminal Ghost Array",
+      "family": "terminal-ghost",
+      "colors": {
+        "bg": "080a15",
+        "panel": "0f1321",
+        "line": "484c24",
+        "acid_green": "f06a81",
+        "cyan": "bfee63",
+        "purple": "4ddbb5",
+        "hot_pink": "53b5ee"
+      }
+    },
+    {
+      "id": "terminal-ghost-beacon",
+      "name": "Terminal Ghost Beacon",
+      "family": "terminal-ghost",
+      "colors": {
+        "bg": "060711",
+        "panel": "101424",
+        "line": "464c24",
+        "acid_green": "f07a6a",
+        "cyan": "98ee63",
+        "purple": "4dd8db",
+        "hot_pink": "5389ee"
+      }
+    },
+    {
+      "id": "terminal-ghost-cipher",
+      "name": "Terminal Ghost Cipher",
+      "family": "terminal-ghost",
+      "colors": {
+        "bg": "070813",
+        "panel": "0f1121",
+        "line": "434c24",
+        "acid_green": "f0a06a",
+        "cyan": "71ee63",
+        "purple": "4db0db",
+        "hot_pink": "535eee"
+      }
+    },
+    {
+      "id": "terminal-ghost-delta",
+      "name": "Terminal Ghost Delta",
+      "family": "terminal-ghost",
+      "colors": {
+        "bg": "080815",
+        "panel": "101224",
+        "line": "414c24",
+        "acid_green": "f0c66a",
+        "cyan": "63ee7c",
+        "purple": "4d88db",
+        "hot_pink": "7553ee"
+      }
+    },
+    {
+      "id": "terminal-ghost-echo",
+      "name": "Terminal Ghost Echo",
+      "family": "terminal-ghost",
+      "colors": {
+        "bg": "070611",
+        "panel": "0f1021",
+        "line": "3f4c24",
+        "acid_green": "f0ec6a",
+        "cyan": "63eea4",
+        "purple": "4d60db",
+        "hot_pink": "a153ee"
+      }
+    },
+    {
+      "id": "terminal-ghost-flux",
+      "name": "Terminal Ghost Flux",
+      "family": "terminal-ghost",
+      "colors": {
+        "bg": "080713",
+        "panel": "101124",
+        "line": "3d4c24",
+        "acid_green": "cff06a",
+        "cyan": "63eecb",
+        "purple": "624ddb",
+        "hot_pink": "cc53ee"
+      }
+    },
+    {
+      "id": "terminal-ghost-ghost",
+      "name": "Terminal Ghost Ghost",
+      "family": "terminal-ghost",
+      "colors": {
+        "bg": "0a0815",
+        "panel": "0f0f21",
+        "line": "3b4c24",
+        "acid_green": "a9f06a",
+        "cyan": "63e9ee",
+        "purple": "8a4ddb",
+        "hot_pink": "ee53e4"
+      }
+    },
+    {
+      "id": "terminal-ghost-helix",
+      "name": "Terminal Ghost Helix",
+      "family": "terminal-ghost",
+      "colors": {
+        "bg": "080611",
+        "panel": "111024",
+        "line": "384c24",
+        "acid_green": "83f06a",
+        "cyan": "63c2ee",
+        "purple": "b34ddb",
+        "hot_pink": "ee53b8"
+      }
+    },
+    {
+      "id": "terminal-ghost-ion",
+      "name": "Terminal Ghost Ion",
+      "family": "terminal-ghost",
+      "colors": {
+        "bg": "0a0713",
+        "panel": "100f21",
+        "line": "364c24",
+        "acid_green": "6af078",
+        "cyan": "639aee",
+        "purple": "db4ddb",
+        "hot_pink": "ee538c"
+      }
+    },
+    {
+      "id": "terminal-ghost-vector",
+      "name": "Terminal Ghost Vector",
+      "family": "terminal-ghost",
+      "colors": {
+        "bg": "0c0815",
+        "panel": "121024",
+        "line": "344c24",
+        "acid_green": "6af09e",
+        "cyan": "6373ee",
+        "purple": "db4db3",
+        "hot_pink": "ee5360"
+      }
+    },
+    {
+      "id": "tokyo-city",
+      "name": "Tokyo City",
+      "family": "tokyo",
+      "colors": {
+        "bg": "090b18",
+        "panel": "14162a",
+        "line": "373556",
+        "acid_green": "9cff57",
+        "cyan": "35d9ff",
+        "purple": "9b6cff",
+        "hot_pink": "ff3e9e"
+      }
+    },
+    {
+      "id": "tokyo-sky",
+      "name": "Tokyo Sky",
+      "family": "tokyo",
+      "colors": {
+        "bg": "07121f",
+        "panel": "0d2030",
+        "line": "28516c",
+        "acid_green": "83ffd3",
+        "cyan": "64e8ff",
+        "purple": "8b8cff",
+        "hot_pink": "ff72c8"
+      }
+    }
+  ]
+}

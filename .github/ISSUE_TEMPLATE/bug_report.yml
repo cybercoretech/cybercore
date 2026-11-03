@@ -1,0 +1,57 @@
+name: Bug report
+description: Report a reproducible problem in Cybercore.
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Do not include credentials, personal data, private repository content, or machine-specific paths.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the observed behavior and the expected result.
+      placeholder: "Expected ..., but ..."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Provide the smallest public-safe steps or code sample that demonstrates the problem.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Cybercore version
+      description: Include the crate version, Git revision, or release tag.
+      placeholder: "0.8.2"
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Affected surface
+      options:
+        - Core crate
+        - Theme engine
+        - CLI
+        - Updater
+        - TUI
+        - Control Panel
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Share only non-sensitive details such as OS, Rust version, and feature flags.
+      placeholder: "OS: ...\nRust: ...\nFeatures: ..."

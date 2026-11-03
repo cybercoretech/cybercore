@@ -12,3 +12,7 @@ not removed.
 Theme quality checks cover schema validity, rendering, contrast, appearance
 variants, and shared component compatibility. Theme Studio is the authoring
 surface; products consume the resulting public contracts.
+
+Open the [public Cybercore Theme Chooser](../theme-chooser.html) to browse
+families, search the catalog, and preview palette swatches in a separate
+surface.
