@@ -46,6 +46,12 @@ jobs:
       - name: Check formatting
         run: cargo fmt --all -- --check
 
+      - name: Verify generated theme chooser catalog
+        if: github.event_name == 'pull_request'
+        run: |
+          python tools/generate-public-theme-chooser.py
+          git diff --exit-code -- docs/theme-chooser-data.json
+
       - name: Generate GitHub Wiki gateway
         run: |
           python tools/generate-github-wiki.py --output "$RUNNER_TEMP/cybercore-wiki"

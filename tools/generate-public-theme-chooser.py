@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 THEMES = ROOT / "schema" / "themes"
 OUT_DATA = ROOT / "docs" / "theme-chooser-data.json"
 
-PRIVATE_FAMILIES = {"omarchy-live"}
+PRIVATE_FAMILIES = set()
 
 
 def display_name(value: str) -> str:
@@ -31,17 +31,21 @@ def main() -> None:
                 "name": display_name(path.stem),
                 "family": family,
                 "colors": {
-                    key: palette[key]
+                    key: (palette.get("border") if key == "line" and "line" not in palette else palette[key])
                     for key in (
                         "bg",
+                        "white",
+                        "acid_green",
+                        "hot_pink",
+                        "purple",
+                        "cyan",
+                        "orange",
+                        "red",
                         "panel",
                         "line",
-                        "acid_green",
-                        "cyan",
-                        "purple",
-                        "hot_pink",
+                        "muted",
                     )
-                    if key in palette
+                    if key in palette or (key == "line" and "border" in palette)
                 },
             }
         )
