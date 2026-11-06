@@ -3,15 +3,18 @@
  * One registry for every Cybercore site, served by the org site:
  *   <dataRoot>/cybergrid.json                    families → theme names
  *   <dataRoot>/themes/<family>/<name>.json       11-slot palettes
+ *   <dataRoot>/mashups.json                      the 12 signature mashups shared by
+ *                                                every site (surfaces from `base`,
+ *                                                neons from `accent`)
  * On top of that:
- *   - SITE.mashups: signature blends (surfaces from `base`, neons from `accent`)
  *   - lab blends:   "mix:<base>:<accent>", built in the Mashup Lab and shareable by URL
  * The choice is stored under `cybercore-theme`, the same key the project sites use.
  * Anything that wants the colours listens for the `cc:theme` event.
  */
 (() => {
   const root = document.documentElement;
-  const SITE = window.SITE || { mashups: [] };
+  const SITE = window.SITE || {};
+  SITE.mashups = [];
   const DATA = (SITE.dataRoot || '/data').replace(/\/$/, '');
   const STORE = 'cybercore-theme';
   const SLOTS = ['bg', 'white', 'panel', 'line', 'muted', 'acid_green', 'hot_pink', 'purple', 'cyan', 'orange', 'red'];
@@ -36,7 +39,11 @@
   const cache = {};
 
   /* ---------- registry ---------- */
-  const familyOf = name => Object.keys(families).find(f => families[f].includes(name));
+  // kitty:<name> = classic terminal palettes from <dataRoot>/kitty-themes.json,
+  // used only as signature-mashup ingredients (never listed on their own).
+  let kittyThemes = {};
+  const kittyOf = name => typeof name === 'string' && name.startsWith('kitty:') ? kittyThemes[name.slice(6)] : null;
+  const familyOf = name => (kittyOf(name) ? 'kitty' : Object.keys(families).find(f => families[f].includes(name)));
   const allNames = () => Object.values(families).flat();
   const mashOf = id => SITE.mashups.find(m => m.id === id);
   const parseMix = id => {
@@ -51,12 +58,23 @@
 
   async function palette(name) {
     if (cache[name]) return cache[name];
+    if (kittyOf(name)) return (cache[name] = normalise(kittyOf(name)));
     const family = familyOf(name);
     if (!family) throw new Error(`unknown theme ${name}`);
     const res = await fetch(`${DATA}/themes/${family}/${name}.json`);
     if (!res.ok) throw new Error(`${name}: HTTP ${res.status}`);
-    return (cache[name] = await res.json());
+    return (cache[name] = normalise(await res.json()));
   }
+  // Registry palettes use the 20-role format (border/surface); keep the 11 slots filled.
+  function normalise(raw) {
+    const p = { ...raw };
+    p.line ||= p.border; p.panel ||= p.surface; p.white ||= p.text_primary;
+    SLOTS.forEach(k => { if (!/^[0-9a-f]{6}$/i.test(p[k] || '')) p[k] = FALLBACK[k]; });
+    return p;
+  }
+  // Fixed identity colours for the original families; any other family gets a stable hue.
+  const FAMILY_COLORS = { mashup: ['#ff2bd6', '#00f0ff'], 'cybercore-tech': ['#39ff33', '#00e5ff'], cyberdyne: ['#ff1f3d', '#ff7a00'], cyberpunk: ['#ff0055', '#bf00ff'], default: ['#7dcfff', '#bb9af7'], dystopian: ['#d4e157', '#e65100'], neosynth: ['#00ff8c', '#ff2a9d'], synthwave: ['#4cc9f0', '#ff007f'] };
+  const familyColors = f => { if (FAMILY_COLORS[f]) return FAMILY_COLORS[f]; const h = [...f].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7) % 360; return [`hsl(${h} 95% 62%)`, `hsl(${(h + 150) % 360} 95% 66%)`]; };
   function blend(base, accent) {
     const out = { ...accent };
     SURFACE.forEach(k => { out[k] = base[k]; });
@@ -159,14 +177,17 @@
       if (!items.length) return;
       const h = document.createElement('div');
       const gid = `${list.id || 'tl' + (++listSeq)}-g-${family}`;
+      const [fa, fb] = familyColors(family);
       h.className = 'theme-group-label'; h.dataset.family = family; h.id = gid; h.setAttribute('aria-hidden', 'true');
-      h.innerHTML = `<svg aria-hidden="true"><use href="#fam-${family}"/></svg>${LABELS[family] || family.toUpperCase()}<em>${items.length}</em>`;
+      h.style.cssText = `--fa:${fa};--fb:${fb}`;
+      h.innerHTML = `<svg aria-hidden="true"><use href="#fam-${family}"/></svg>${LABELS[family] || display(family)}<em>${items.length}</em>`;
       list.append(h);
       items.forEach((name, i) => {
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'theme-option'; b.setAttribute('role', 'option');
         b.setAttribute('aria-selected', 'false'); b.setAttribute('aria-describedby', gid); b.tabIndex = -1;
         b.dataset.value = name; b.dataset.family = family; b.dataset.tone = i % 2 ? 'alt' : 'base';
+        b.style.cssText = `--fa:${fa};--fb:${fb}`;
         b.innerHTML = `<span>${labelOf(name)}</span><span class="dots"></span>`;
         b.addEventListener('click', ev => onPick(name, ev));
         list.append(b);
@@ -174,9 +195,24 @@
       });
     });
   }
-  // swatch dots fill in as palettes arrive (preloadAll)
+  // Swatch dots load as options scroll into view (never all 612 up front).
   const pendingDots = [];
-  function dotsLater(btn, name) { pendingDots.push([btn, name]); }
+  const dotObservers = new Map();
+  function dotsLater(btn, name) {
+    pendingDots.push([btn, name]);
+    const list = btn.parentElement;
+    if (!dotObservers.has(list)) {
+      dotObservers.set(list, new IntersectionObserver(entries => entries.forEach(async e => {
+        if (!e.isIntersecting) return;
+        dotObservers.get(list).unobserve(e.target);
+        try {
+          const p = await resolve(e.target.dataset.value);
+          e.target.querySelector('.dots').innerHTML = ['acid_green', 'hot_pink', 'cyan'].map(k => `<i style="background:#${p[k]}"></i>`).join('');
+        } catch { /* leave empty */ }
+      }), { root: list, rootMargin: '120px 0px' }));
+    }
+    dotObservers.get(list).observe(btn);
+  }
   function flushDots() {
     pendingDots.forEach(([btn, name]) => {
       const p = cache[name] || (blendOf(name) && cache[blendOf(name).base] && cache[blendOf(name).accent] && blend(cache[blendOf(name).base], cache[blendOf(name).accent]));
@@ -229,6 +265,7 @@
     const total = SITE.mashups.length + allNames().length;
     const f = $('#themeFilter'); if (f) f.placeholder = `Filter ${total} themes…`;
     $$('[data-theme-count]').forEach(el => { el.textContent = allNames().length; });
+    $$('[data-cc-theme-count]').forEach(el => { el.textContent = total; });
   }
 
   /* ---------- 02: matrix ---------- */
@@ -294,7 +331,9 @@
   async function updateLab() {
     const [b, a] = await Promise.all([palette(lab.base), palette(lab.accent)]).catch(() => [FALLBACK, FALLBACK]);
     const p = blend(b, a);
-    const prev = $('#labPreview'); writeVars(prev, p);
+    const prev = $('#labPreview');
+    if (!prev) return; // this page has no Mashup Lab
+    writeVars(prev, p);
     const m = SITE.mashups.find(x => x.base === lab.base && x.accent === lab.accent);
     $('#labRecipe').textContent = m ? `${m.label} · ${display(lab.base)} × ${display(lab.accent)}` : `${display(lab.base)} × ${display(lab.accent)}`;
     $('#labSwatches').innerHTML = SLOTS.map(k => `<i data-k="${k} #${p[k]}" style="background:#${p[k]}"></i>`).join('');
@@ -340,8 +379,15 @@
   }
   async function boot() {
     try {
-      const schema = await (await fetch(`${DATA}/cybergrid.json`)).json();
+      const optional = (file, empty) => fetch(`${DATA}/${file}`).then(r => (r.ok ? r.json() : empty)).catch(() => empty);
+      const [schema, shared, kitty] = await Promise.all([
+        fetch(`${DATA}/cybergrid.json`).then(r => r.json()),
+        optional('mashups.json', { mashups: [] }),
+        optional('kitty-themes.json', { themes: {} })
+      ]);
       families = schema.families || {};
+      kittyThemes = kitty.themes || {};
+      SITE.mashups = (shared.mashups || []).filter(m => familyOf(m.base) && familyOf(m.accent));
     } catch (e) {
       console.warn('theme registry offline', e);
       $('#themeLabel').textContent = 'Registry offline';
