@@ -17,7 +17,7 @@ path = "src/main.rs"
 
 [dependencies]
 axum = "0.7"
-cybercore = { version = "0.8.2", path = ".." }
+cybercore = { version = "0.8.3", path = ".." }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "time"] }

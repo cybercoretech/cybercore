@@ -1,5 +1,5 @@
 {
-  "count": 554,
+  "count": 600,
   "themes": [
     {
       "id": "alien-alpha",
@@ -1727,6 +1727,222 @@
         "panel": "232628",
         "line": "3c3a3f",
         "muted": "7e5541"
+      }
+    },
+    {
+      "id": "cybercore-tech-circuit-dawn",
+      "name": "Cybercore Tech Circuit Dawn",
+      "family": "cybercore-tech",
+      "colors": {
+        "bg": "0d0b15",
+        "white": "e1c1da",
+        "acid_green": "2dd5ff",
+        "hot_pink": "ffc90e",
+        "purple": "e51847",
+        "cyan": "5300f9",
+        "orange": "33f900",
+        "red": "daf509",
+        "panel": "1a1924",
+        "line": "363443",
+        "muted": "8b8a95"
+      }
+    },
+    {
+      "id": "cybercore-tech-command-green",
+      "name": "Cybercore Tech Command Green",
+      "family": "cybercore-tech",
+      "colors": {
+        "bg": "09080f",
+        "white": "e1ccc1",
+        "acid_green": "7739ff",
+        "hot_pink": "35ff1a",
+        "purple": "e3cd28",
+        "cyan": "ff0691",
+        "orange": "06ffe7",
+        "red": "1af14b",
+        "panel": "16151f",
+        "line": "32303e",
+        "muted": "807f8b"
+      }
+    },
+    {
+      "id": "cybercore-tech-ghost-protocol",
+      "name": "Cybercore Tech Ghost Protocol",
+      "family": "cybercore-tech",
+      "colors": {
+        "bg": "050509",
+        "white": "e1c1d3",
+        "acid_green": "3dabfb",
+        "hot_pink": "fafa1f",
+        "purple": "de2d2e",
+        "cyan": "900bfa",
+        "orange": "0bfa0f",
+        "red": "a7ed1f",
+        "panel": "12111a",
+        "line": "2e2c39",
+        "muted": "807f8b"
+      }
+    },
+    {
+      "id": "cybercore-tech-hex-vector",
+      "name": "Cybercore Tech Hex Vector",
+      "family": "cybercore-tech",
+      "colors": {
+        "bg": "09080f",
+        "white": "e1c1e1",
+        "acid_green": "20fffa",
+        "hot_pink": "ff8d01",
+        "purple": "d51c6f",
+        "cyan": "1a00ec",
+        "orange": "65ec00",
+        "red": "e4ce0e",
+        "panel": "16151f",
+        "line": "32303e",
+        "muted": "807f8b"
+      }
+    },
+    {
+      "id": "cybercore-tech-iron-neural",
+      "name": "Cybercore Tech Iron Neural",
+      "family": "cybercore-tech",
+      "colors": {
+        "bg": "0d0b15",
+        "white": "e1c1c4",
+        "acid_green": "203eff",
+        "hot_pink": "8fff01",
+        "purple": "da6c17",
+        "cyan": "eb00ec",
+        "orange": "00ec6d",
+        "red": "39e909",
+        "panel": "1a1924",
+        "line": "363443",
+        "muted": "807f8b"
+      }
+    },
+    {
+      "id": "cybercore-tech-lumen-stack",
+      "name": "Cybercore Tech Lumen Stack",
+      "family": "cybercore-tech",
+      "colors": {
+        "bg": "09080f",
+        "white": "e1c1cc",
+        "acid_green": "4688ff",
+        "hot_pink": "d0ff27",
+        "purple": "e45933",
+        "cyan": "ca13ff",
+        "orange": "13ff4b",
+        "red": "80f226",
+        "panel": "16151f",
+        "line": "32303e",
+        "muted": "8b8a95"
+      }
+    },
+    {
+      "id": "cybercore-tech-neon-forge",
+      "name": "Cybercore Tech Neon Forge",
+      "family": "cybercore-tech",
+      "colors": {
+        "bg": "050509",
+        "white": "c5c1e1",
+        "acid_green": "24fb38",
+        "hot_pink": "fa0658",
+        "purple": "9521d0",
+        "cyan": "05b5e7",
+        "orange": "e7a005",
+        "red": "df1412",
+        "panel": "12111a",
+        "line": "2e2c39",
+        "muted": "807f8b"
+      }
+    },
+    {
+      "id": "cybercore-tech-orbital-link",
+      "name": "Cybercore Tech Orbital Link",
+      "family": "cybercore-tech",
+      "colors": {
+        "bg": "050509",
+        "white": "dac1e1",
+        "acid_green": "4afbd0",
+        "hot_pink": "fb702b",
+        "purple": "e038a9",
+        "cyan": "1831fa",
+        "orange": "abfa18",
+        "red": "edae2b",
+        "panel": "12111a",
+        "line": "2e2c39",
+        "muted": "8b8a95"
+      }
+    },
+    {
+      "id": "cybercore-tech-plasma-node",
+      "name": "Cybercore Tech Plasma Node",
+      "family": "cybercore-tech",
+      "colors": {
+        "bg": "050509",
+        "white": "e1c5c1",
+        "acid_green": "4331fb",
+        "hot_pink": "61fa12",
+        "purple": "db9c22",
+        "cyan": "f405bf",
+        "orange": "05f4a8",
+        "red": "13eb14",
+        "panel": "12111a",
+        "line": "2e2c39",
+        "muted": "8b8a95"
+      }
+    },
+    {
+      "id": "cybercore-tech-quantum-grid",
+      "name": "Cybercore Tech Quantum Grid",
+      "family": "cybercore-tech",
+      "colors": {
+        "bg": "0d0b15",
+        "white": "d3c1e1",
+        "acid_green": "39ffa3",
+        "hot_pink": "ff331a",
+        "purple": "e823d3",
+        "cyan": "0659ff",
+        "orange": "dfff06",
+        "red": "f67b15",
+        "panel": "1a1924",
+        "line": "363443",
+        "muted": "807f8b"
+      }
+    },
+    {
+      "id": "cybercore-tech-signal-core",
+      "name": "Cybercore Tech Signal Core",
+      "family": "cybercore-tech",
+      "colors": {
+        "bg": "09080f",
+        "white": "ccc1e1",
+        "acid_green": "2dff6e",
+        "hot_pink": "ff0e29",
+        "purple": "ca1de0",
+        "cyan": "008af9",
+        "orange": "f9e100",
+        "red": "f0420e",
+        "panel": "16151f",
+        "line": "32303e",
+        "muted": "8b8a95"
+      }
+    },
+    {
+      "id": "cybercore-tech",
+      "name": "Cybercore Tech",
+      "family": "cybercore-tech",
+      "colors": {
+        "bg": "09080f",
+        "white": "f0f0f2",
+        "acid_green": "39ff33",
+        "hot_pink": "ff147f",
+        "purple": "8a22e2",
+        "cyan": "00e5ff",
+        "orange": "ff9000",
+        "red": "f1142d",
+        "panel": "16151f",
+        "line": "32303e",
+        "muted": "807f8b"
       }
     },
     {
@@ -3692,6 +3908,42 @@
       }
     },
     {
+      "id": "cyborg-chrome-sentinel",
+      "name": "Cyborg Chrome Sentinel",
+      "family": "cyborg",
+      "colors": {
+        "bg": "05080c",
+        "white": "aea5fd",
+        "acid_green": "5afb52",
+        "hot_pink": "fb404b",
+        "purple": "d66cfc",
+        "cyan": "638dfc",
+        "orange": "f9fb4e",
+        "red": "fb884e",
+        "panel": "0e1622",
+        "line": "2a3b50",
+        "muted": "849ab4"
+      }
+    },
+    {
+      "id": "cyborg-neural-ghost",
+      "name": "Cyborg Neural Ghost",
+      "family": "cyborg",
+      "colors": {
+        "bg": "080c12",
+        "white": "c1a3ff",
+        "acid_green": "5cff79",
+        "hot_pink": "ff6649",
+        "purple": "fa76ff",
+        "cyan": "6d75ff",
+        "orange": "d7ff58",
+        "red": "ffb458",
+        "panel": "111a28",
+        "line": "2a3b50",
+        "muted": "90a4bb"
+      }
+    },
+    {
       "id": "cyborg-neural-link",
       "name": "Cyborg Neural Link",
       "family": "cyborg",
@@ -3707,6 +3959,24 @@
         "panel": "0e1b25",
         "line": "2d5665",
         "muted": "78a6b3"
+      }
+    },
+    {
+      "id": "cyborg-servo-ash",
+      "name": "Cyborg Servo Ash",
+      "family": "cyborg",
+      "colors": {
+        "bg": "0b1018",
+        "white": "d6a3ff",
+        "acid_green": "68ffa5",
+        "hot_pink": "ff9755",
+        "purple": "ff82e8",
+        "cyan": "9079ff",
+        "orange": "b8ff64",
+        "red": "ffdc64",
+        "panel": "141e2e",
+        "line": "2a3b50",
+        "muted": "849ab4"
       }
     },
     {
@@ -3746,6 +4016,42 @@
       }
     },
     {
+      "id": "cyborg-synthetic-void",
+      "name": "Cyborg Synthetic Void",
+      "family": "cyborg",
+      "colors": {
+        "bg": "05080c",
+        "white": "e9a5fd",
+        "acid_green": "78fcca",
+        "hot_pink": "fcc165",
+        "purple": "fd91d1",
+        "cyan": "b689fd",
+        "orange": "a0fc74",
+        "red": "fcfc74",
+        "panel": "0e1622",
+        "line": "2a3b50",
+        "muted": "90a4bb"
+      }
+    },
+    {
+      "id": "cyborg-titanium-orbit",
+      "name": "Cyborg Titanium Orbit",
+      "family": "cyborg",
+      "colors": {
+        "bg": "080c12",
+        "white": "fea3ff",
+        "acid_green": "4fffe4",
+        "hot_pink": "ffdd3c",
+        "purple": "ff69a1",
+        "cyan": "c160ff",
+        "orange": "5cff4b",
+        "red": "d8ff4b",
+        "panel": "111a28",
+        "line": "2a3b50",
+        "muted": "849ab4"
+      }
+    },
+    {
       "id": "cyborg-titanium-pulse",
       "name": "Cyborg Titanium Pulse",
       "family": "cyborg",
@@ -3779,6 +4085,24 @@
         "panel": "121729",
         "line": "354463",
         "muted": "8291b4"
+      }
+    },
+    {
+      "id": "cyborg-wired-signal",
+      "name": "Cyborg Wired Signal",
+      "family": "cyborg",
+      "colors": {
+        "bg": "0b1018",
+        "white": "ffa3eb",
+        "acid_green": "5cf4ff",
+        "hot_pink": "f6ff49",
+        "purple": "ff768a",
+        "cyan": "e76dff",
+        "orange": "58ff6c",
+        "red": "b5ff58",
+        "panel": "141e2e",
+        "line": "2a3b50",
+        "muted": "90a4bb"
       }
     },
     {
@@ -4880,6 +5204,42 @@
       }
     },
     {
+      "id": "dystopian-frontier-blackout",
+      "name": "Dystopian Frontier Blackout",
+      "family": "dystopian-frontier",
+      "colors": {
+        "bg": "0b0907",
+        "white": "d9e7bc",
+        "acid_green": "4dc052",
+        "hot_pink": "cb8b44",
+        "purple": "60302e",
+        "cyan": "536cac",
+        "orange": "bdcf32",
+        "red": "caa035",
+        "panel": "1b1411",
+        "line": "4a3128",
+        "muted": "a38a76"
+      }
+    },
+    {
+      "id": "dystopian-frontier-broken-sun",
+      "name": "Dystopian Frontier Broken Sun",
+      "family": "dystopian-frontier",
+      "colors": {
+        "bg": "110d0b",
+        "white": "cfe8ba",
+        "acid_green": "52c771",
+        "hot_pink": "d3b04a",
+        "purple": "603c2e",
+        "cyan": "5b60b0",
+        "orange": "a0d638",
+        "red": "d2c93a",
+        "panel": "211814",
+        "line": "50352b",
+        "muted": "ab9482"
+      }
+    },
+    {
       "id": "dystopian-frontier-cracked-sky",
       "name": "Dystopian Frontier Cracked Sky",
       "family": "dystopian-frontier",
@@ -4916,6 +5276,42 @@
       }
     },
     {
+      "id": "dystopian-frontier-dustline",
+      "name": "Dystopian Frontier Dustline",
+      "family": "dystopian-frontier",
+      "colors": {
+        "bg": "17110f",
+        "white": "c4eab8",
+        "acid_green": "58cf92",
+        "hot_pink": "dad550",
+        "purple": "644930",
+        "cyan": "7164b4",
+        "orange": "84dd3e",
+        "red": "c0d940",
+        "panel": "271c17",
+        "line": "50352b",
+        "muted": "a38a76"
+      }
+    },
+    {
+      "id": "dystopian-frontier-exile",
+      "name": "Dystopian Frontier Exile",
+      "family": "dystopian-frontier",
+      "colors": {
+        "bg": "0b0907",
+        "white": "bce7bc",
+        "acid_green": "6acaae",
+        "hot_pink": "bed462",
+        "purple": "6d5c34",
+        "cyan": "8a6db9",
+        "orange": "6ed651",
+        "red": "a1d253",
+        "panel": "1b1411",
+        "line": "4a3128",
+        "muted": "ab9482"
+      }
+    },
+    {
       "id": "dystopian-frontier-fallow-city",
       "name": "Dystopian Frontier Fallow City",
       "family": "dystopian-frontier",
@@ -4934,6 +5330,24 @@
       }
     },
     {
+      "id": "dystopian-frontier-iron-wind",
+      "name": "Dystopian Frontier Iron Wind",
+      "family": "dystopian-frontier",
+      "colors": {
+        "bg": "110d0b",
+        "white": "bae8c3",
+        "acid_green": "49c4bc",
+        "hot_pink": "95d040",
+        "purple": "605d2e",
+        "cyan": "8953ac",
+        "orange": "2dd42e",
+        "red": "6ecf30",
+        "panel": "211814",
+        "line": "50352b",
+        "muted": "a38a76"
+      }
+    },
+    {
       "id": "dystopian-frontier-red-quarantine",
       "name": "Dystopian Frontier Red Quarantine",
       "family": "dystopian-frontier",
@@ -4949,6 +5363,24 @@
         "panel": "281316",
         "line": "5c2d34",
         "muted": "a47c7f"
+      }
+    },
+    {
+      "id": "dystopian-frontier-scarcity",
+      "name": "Dystopian Frontier Scarcity",
+      "family": "dystopian-frontier",
+      "colors": {
+        "bg": "17110f",
+        "white": "b8eacd",
+        "acid_green": "4eb8cc",
+        "hot_pink": "7bd745",
+        "purple": "59602e",
+        "cyan": "a25bb0",
+        "orange": "33db59",
+        "red": "50d735",
+        "panel": "271c17",
+        "line": "50352b",
+        "muted": "ab9482"
       }
     },
     {
@@ -6860,6 +7292,60 @@
       }
     },
     {
+      "id": "night-ops-lattice",
+      "name": "Night Ops Lattice",
+      "family": "night-ops",
+      "colors": {
+        "bg": "050e05",
+        "white": "e1c1c2",
+        "acid_green": "eb5ce5",
+        "hot_pink": "46e8a3",
+        "purple": "4ad342",
+        "cyan": "e8a656",
+        "orange": "5e51ec",
+        "red": "34a9e6",
+        "panel": "0d1b0c",
+        "line": "46213e",
+        "muted": "ab73a6"
+      }
+    },
+    {
+      "id": "night-ops-mirage",
+      "name": "Night Ops Mirage",
+      "family": "night-ops",
+      "colors": {
+        "bg": "081508",
+        "white": "e1c7c1",
+        "acid_green": "ef64cb",
+        "hot_pink": "4dedcd",
+        "purple": "48da60",
+        "cyan": "edcc5d",
+        "orange": "8759f0",
+        "red": "3b88eb",
+        "panel": "10210f",
+        "line": "4c2443",
+        "muted": "b380ae"
+      }
+    },
+    {
+      "id": "night-ops-sentinel",
+      "name": "Night Ops Sentinel",
+      "family": "night-ops",
+      "colors": {
+        "bg": "0b1c0b",
+        "white": "e1cec1",
+        "acid_green": "f46db2",
+        "hot_pink": "55eff2",
+        "purple": "4ee087",
+        "cyan": "f2f165",
+        "orange": "af62f5",
+        "red": "4368f1",
+        "panel": "132712",
+        "line": "522748",
+        "muted": "ab73a6"
+      }
+    },
+    {
       "id": "omarchy-cyber-synth-bitrate",
       "name": "Omarchy Cyber Synth Bitrate",
       "family": "omarchy-cyber-synth",
@@ -7217,6 +7703,60 @@
         "panel": "0f0f0f",
         "line": "2b2b2b",
         "muted": "949494"
+      }
+    },
+    {
+      "id": "omarchy-aurora",
+      "name": "Omarchy Aurora",
+      "family": "omarchy-live",
+      "colors": {
+        "bg": "07090d",
+        "white": "e8bae1",
+        "acid_green": "38ffe4",
+        "hot_pink": "e8ff24",
+        "purple": "ff4724",
+        "cyan": "be00f9",
+        "orange": "51ff8b",
+        "red": "a0ff47",
+        "panel": "16181c",
+        "line": "313336",
+        "muted": "5b6e86"
+      }
+    },
+    {
+      "id": "omarchy-grid",
+      "name": "Omarchy Grid",
+      "family": "omarchy-live",
+      "colors": {
+        "bg": "0a0d13",
+        "white": "eab8d7",
+        "acid_green": "44efff",
+        "hot_pink": "bcff30",
+        "purple": "ff7f30",
+        "cyan": "fc06ff",
+        "orange": "5dffb7",
+        "red": "80ff53",
+        "panel": "1a1c21",
+        "line": "35383b",
+        "muted": "53647a"
+      }
+    },
+    {
+      "id": "omarchy-terminal",
+      "name": "Omarchy Terminal",
+      "family": "omarchy-live",
+      "colors": {
+        "bg": "040608",
+        "white": "e4bce6",
+        "acid_green": "2ffbb2",
+        "hot_pink": "fae01c",
+        "purple": "fa1c29",
+        "cyan": "7f05e7",
+        "orange": "48fb5c",
+        "red": "c3fb3e",
+        "panel": "121417",
+        "line": "2d2e31",
+        "muted": "53647a"
       }
     },
     {
@@ -7757,6 +8297,114 @@
         "panel": "111b2d",
         "line": "28435f",
         "muted": "7890aa"
+      }
+    },
+    {
+      "id": "signal-cities-blackout",
+      "name": "Signal Cities Blackout",
+      "family": "signal-cities",
+      "colors": {
+        "bg": "07050d",
+        "white": "fdaaa5",
+        "acid_green": "fd959b",
+        "hot_pink": "fbb04d",
+        "purple": "965048",
+        "cyan": "fc7c8a",
+        "orange": "aefc5b",
+        "red": "84d034",
+        "panel": "130d1f",
+        "line": "362951",
+        "muted": "9b90b4"
+      }
+    },
+    {
+      "id": "signal-cities-cascade",
+      "name": "Signal Cities Cascade",
+      "family": "signal-cities",
+      "colors": {
+        "bg": "0a0714",
+        "white": "ffbda3",
+        "acid_green": "ffafa0",
+        "hot_pink": "ffdb56",
+        "purple": "a46648",
+        "cyan": "ff9386",
+        "orange": "92ff65",
+        "red": "68d73a",
+        "panel": "171025",
+        "line": "362951",
+        "muted": "9f94b7"
+      }
+    },
+    {
+      "id": "signal-cities-horizon",
+      "name": "Signal Cities Horizon",
+      "family": "signal-cities",
+      "colors": {
+        "bg": "0d091b",
+        "white": "ffd1a3",
+        "acid_green": "ffc7a3",
+        "hot_pink": "fdff62",
+        "purple": "b18147",
+        "cyan": "ffb692",
+        "orange": "7cff71",
+        "red": "4bde40",
+        "panel": "1b132b",
+        "line": "362951",
+        "muted": "9b90b4"
+      }
+    },
+    {
+      "id": "signal-cities-nightline",
+      "name": "Signal Cities Nightline",
+      "family": "signal-cities",
+      "colors": {
+        "bg": "07050d",
+        "white": "fde5a5",
+        "acid_green": "fddba5",
+        "hot_pink": "dcfc72",
+        "purple": "ae9a57",
+        "cyan": "fdd4a1",
+        "orange": "81fc93",
+        "red": "53d767",
+        "panel": "130d1f",
+        "line": "362951",
+        "muted": "9f94b7"
+      }
+    },
+    {
+      "id": "signal-cities-overwatch",
+      "name": "Signal Cities Overwatch",
+      "family": "signal-cities",
+      "colors": {
+        "bg": "0a0714",
+        "white": "fffaa3",
+        "acid_green": "ffed93",
+        "hot_pink": "acff49",
+        "purple": "9b9a44",
+        "cyan": "ffe179",
+        "orange": "58ff96",
+        "red": "2fd56d",
+        "panel": "171025",
+        "line": "362951",
+        "muted": "9b90b4"
+      }
+    },
+    {
+      "id": "signal-cities-transit",
+      "name": "Signal Cities Transit",
+      "family": "signal-cities",
+      "colors": {
+        "bg": "0d091b",
+        "white": "f0ffa3",
+        "acid_green": "faffa0",
+        "hot_pink": "8cff56",
+        "purple": "93a843",
+        "cyan": "ffff86",
+        "orange": "65ffc0",
+        "red": "35dc98",
+        "panel": "1b132b",
+        "line": "362951",
+        "muted": "9f94b7"
       }
     },
     {
@@ -9722,6 +10370,60 @@
       }
     },
     {
+      "id": "tokyo-afterglow",
+      "name": "Tokyo Afterglow",
+      "family": "tokyo",
+      "colors": {
+        "bg": "0c0e1f",
+        "white": "dcffa3",
+        "acid_green": "d251ff",
+        "hot_pink": "38ffba",
+        "purple": "b7ff66",
+        "cyan": "ff752f",
+        "orange": "4790ff",
+        "red": "3ffff8",
+        "panel": "171930",
+        "line": "302f4c",
+        "muted": "9798b5"
+      }
+    },
+    {
+      "id": "tokyo-arc",
+      "name": "Tokyo Arc",
+      "family": "tokyo",
+      "colors": {
+        "bg": "0c0e1f",
+        "white": "a3ffa7",
+        "acid_green": "ff44b3",
+        "hot_pink": "2bbbff",
+        "purple": "59ff6f",
+        "cyan": "feff22",
+        "orange": "6e3aff",
+        "red": "327eff",
+        "panel": "171930",
+        "line": "302f4c",
+        "muted": "8b8cac"
+      }
+    },
+    {
+      "id": "tokyo-circuit",
+      "name": "Tokyo Circuit",
+      "family": "tokyo",
+      "colors": {
+        "bg": "090b18",
+        "white": "f0ffa3",
+        "acid_green": "a544ff",
+        "hot_pink": "2bff86",
+        "purple": "d6ff59",
+        "cyan": "ff3c22",
+        "orange": "3ab5ff",
+        "red": "32ffca",
+        "panel": "14162a",
+        "line": "302f4c",
+        "muted": "8b8cac"
+      }
+    },
+    {
       "id": "tokyo-city",
       "name": "Tokyo City",
       "family": "tokyo",
@@ -9737,6 +10439,132 @@
         "panel": "14162a",
         "line": "373556",
         "muted": "8b8cac"
+      }
+    },
+    {
+      "id": "tokyo-lantern",
+      "name": "Tokyo Lantern",
+      "family": "tokyo",
+      "colors": {
+        "bg": "060811",
+        "white": "c8fda5",
+        "acid_green": "f661fc",
+        "hot_pink": "48fbe5",
+        "purple": "9ffc75",
+        "cyan": "fba83f",
+        "orange": "5774fc",
+        "red": "4fdcfb",
+        "panel": "111324",
+        "line": "302f4c",
+        "muted": "8b8cac"
+      }
+    },
+    {
+      "id": "tokyo-midnight",
+      "name": "Tokyo Midnight",
+      "family": "tokyo",
+      "colors": {
+        "bg": "090b18",
+        "white": "ffd0a3",
+        "acid_green": "516bff",
+        "hot_pink": "67ff38",
+        "purple": "ffbf66",
+        "cyan": "ff2fa1",
+        "orange": "47ffca",
+        "red": "3fff4d",
+        "panel": "14162a",
+        "line": "302f4c",
+        "muted": "9798b5"
+      }
+    },
+    {
+      "id": "tokyo-neon",
+      "name": "Tokyo Neon",
+      "family": "tokyo",
+      "colors": {
+        "bg": "060811",
+        "white": "fdbda5",
+        "acid_green": "488afb",
+        "hot_pink": "8cfb2f",
+        "purple": "fc965c",
+        "cyan": "fb26ca",
+        "orange": "3efb9a",
+        "red": "53fb36",
+        "panel": "111324",
+        "line": "302f4c",
+        "muted": "8b8cac"
+      }
+    },
+    {
+      "id": "tokyo-pulse",
+      "name": "Tokyo Pulse",
+      "family": "tokyo",
+      "colors": {
+        "bg": "060811",
+        "white": "a5fdbd",
+        "acid_green": "fc5493",
+        "hot_pink": "3c94fb",
+        "purple": "69fc9d",
+        "cyan": "cefb33",
+        "orange": "a14afb",
+        "red": "425efb",
+        "panel": "111324",
+        "line": "302f4c",
+        "muted": "9798b5"
+      }
+    },
+    {
+      "id": "tokyo-rain",
+      "name": "Tokyo Rain",
+      "family": "tokyo",
+      "colors": {
+        "bg": "0c0e1f",
+        "white": "ffe5a3",
+        "acid_green": "695dff",
+        "hot_pink": "47ff44",
+        "purple": "ffe372",
+        "cyan": "ff3b7c",
+        "orange": "53fff4",
+        "red": "4bff81",
+        "panel": "171930",
+        "line": "302f4c",
+        "muted": "8b8cac"
+      }
+    },
+    {
+      "id": "tokyo-shibuya",
+      "name": "Tokyo Shibuya",
+      "family": "tokyo",
+      "colors": {
+        "bg": "060811",
+        "white": "fdf8a5",
+        "acid_green": "976dfc",
+        "hot_pink": "55fc77",
+        "purple": "f9fc82",
+        "cyan": "fb4c5e",
+        "orange": "63e4fc",
+        "red": "5bfcae",
+        "panel": "111324",
+        "line": "302f4c",
+        "muted": "9798b5"
+      }
+    },
+    {
+      "id": "tokyo-signal",
+      "name": "Tokyo Signal",
+      "family": "tokyo",
+      "colors": {
+        "bg": "090b18",
+        "white": "b3ffa3",
+        "acid_green": "ff6ae4",
+        "hot_pink": "51eeff",
+        "purple": "8aff7f",
+        "cyan": "ffd748",
+        "orange": "6760ff",
+        "red": "58bbff",
+        "panel": "14162a",
+        "line": "302f4c",
+        "muted": "9798b5"
       }
     },
     {
