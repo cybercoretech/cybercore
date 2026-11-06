@@ -39,7 +39,11 @@
   const cache = {};
 
   /* ---------- registry ---------- */
-  const familyOf = name => Object.keys(families).find(f => families[f].includes(name));
+  // kitty:<name> = classic terminal palettes from <dataRoot>/kitty-themes.json,
+  // used only as signature-mashup ingredients (never listed on their own).
+  let kittyThemes = {};
+  const kittyOf = name => typeof name === 'string' && name.startsWith('kitty:') ? kittyThemes[name.slice(6)] : null;
+  const familyOf = name => (kittyOf(name) ? 'kitty' : Object.keys(families).find(f => families[f].includes(name)));
   const allNames = () => Object.values(families).flat();
   const mashOf = id => SITE.mashups.find(m => m.id === id);
   const parseMix = id => {
@@ -54,6 +58,7 @@
 
   async function palette(name) {
     if (cache[name]) return cache[name];
+    if (kittyOf(name)) return (cache[name] = normalise(kittyOf(name)));
     const family = familyOf(name);
     if (!family) throw new Error(`unknown theme ${name}`);
     const res = await fetch(`${DATA}/themes/${family}/${name}.json`);
@@ -374,11 +379,14 @@
   }
   async function boot() {
     try {
-      const [schema, shared] = await Promise.all([
+      const optional = (file, empty) => fetch(`${DATA}/${file}`).then(r => (r.ok ? r.json() : empty)).catch(() => empty);
+      const [schema, shared, kitty] = await Promise.all([
         fetch(`${DATA}/cybergrid.json`).then(r => r.json()),
-        fetch(`${DATA}/mashups.json`).then(r => (r.ok ? r.json() : { mashups: [] })).catch(() => ({ mashups: [] }))
+        optional('mashups.json', { mashups: [] }),
+        optional('kitty-themes.json', { themes: {} })
       ]);
       families = schema.families || {};
+      kittyThemes = kitty.themes || {};
       SITE.mashups = (shared.mashups || []).filter(m => familyOf(m.base) && familyOf(m.accent));
     } catch (e) {
       console.warn('theme registry offline', e);
