@@ -2,7 +2,18 @@
 
 All notable changes to `cybercore` are documented in this file.
 
-## 🚢 Unreleased
+## 🚢 [0.8.3] - 2026-11-06
+
+### 🐛 Fixed
+- The embedded theme catalog parses again. 300 palettes from the 20-role
+  migration had lost the `line` slot, so `schema::load()` panicked
+  ("missing field `line`") and 3 tests failed on `main`.
+
+### ✨ Changed
+- Synced `schema/themes` with the org registry: 600 palettes in 50 families,
+  adding the `cybercore-tech` family and 34 themes that were only on the
+  sites. Palettes keep the 20-role format, with `line` restored.
+
 
 ### 🔹 Added
 

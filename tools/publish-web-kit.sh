@@ -18,6 +18,9 @@ mkdir -p "$VERSION_DIR" "$DIST/data"
 "$ROOT/tools/build-web-kit.sh" "$VERSION_DIR"
 cp "$ROOT/web/cybercore.js" "$VERSION_DIR/cybercore.js"
 cp "$ROOT/../../web/cybercore-tech.github.io/kit/contact.js" "$DIST/contact.js"
+# The universal theme chooser lives in the org kit; ship the same files.
+cp "$ROOT/../../web/cybercore-tech.github.io/kit/chooser.js" "$DIST/chooser.js"
+cp "$ROOT/../../web/cybercore-tech.github.io/kit/chooser.css" "$DIST/chooser.css"
 cp -a "$REGISTRY_ROOT"/. "$DIST/data/"
 
 KIT_VERSION="$(jq -r '.kit_version' "$VERSION_DIR/webkit.json")"
@@ -37,11 +40,12 @@ jq -n \
     distribution: {
       versioned_assets: "v1/",
       contact_component: "contact.js",
+      theme_chooser: "chooser.js",
       registry_snapshot: $registry_root,
       checksum_file: "checksums-sha256.txt"
     }
   }' > "$DIST/build.json"
 
-(cd "$DIST" && find contact.js v1 data -type f -print0 | sort -z | xargs -0 sha256sum > checksums-sha256.txt)
+(cd "$DIST" && find contact.js chooser.js chooser.css v1 data -type f -print0 | sort -z | xargs -0 sha256sum > checksums-sha256.txt)
 
 printf 'Cybercore Web Kit published at %s (source %s)\n' "$WEB_KIT_REPO" "$SOURCE_REV"

@@ -1,10 +1,10 @@
-use cybercore_updater::{
-    Engine, Event, Inspection, Manifest, RepositoryReport, Task, TaskStatus, ThemeReport,
-};
 use crossterm::{
     event::{self, Event as Input, KeyCode},
     execute,
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
+};
+use cybercore_updater::{
+    Engine, Event, Inspection, Manifest, RepositoryReport, Task, TaskStatus, ThemeReport,
 };
 use ratatui::{
     backend::CrosstermBackend,
@@ -45,9 +45,10 @@ impl Action {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let root = PathBuf::from(env::var("CYBERCORE_ROOT").unwrap_or_else(|_| {
-        "/home/raven/Devspace/Cybercore/framework/cybercore".into()
-    }));
+    let root = PathBuf::from(
+        env::var("CYBERCORE_ROOT")
+            .unwrap_or_else(|_| "/home/raven/Devspace/Cybercore/framework/cybercore".into()),
+    );
     let engine = Engine::new(
         Manifest::load(root.join("tools/cybercore-consumers.json"))?,
         &root,
@@ -82,7 +83,10 @@ fn run(
     let mut pending: Option<Action> = None;
     let mut first_github_url = None;
     if let Ok(history) = engine.history() {
-        logs.push(format!("History loaded: {} recorded operations.", history.len()));
+        logs.push(format!(
+            "History loaded: {} recorded operations.",
+            history.len()
+        ));
     }
     refresh_inspection(engine, &mut inspections, &mut statuses, &mut logs);
 
@@ -90,13 +94,20 @@ fn run(
         terminal.draw(|frame| {
             let vertical = Layout::default()
                 .direction(Direction::Vertical)
-                .constraints([Constraint::Length(3), Constraint::Min(10), Constraint::Length(9)])
+                .constraints([
+                    Constraint::Length(3),
+                    Constraint::Min(10),
+                    Constraint::Length(9),
+                ])
                 .split(frame.area());
             let ready = statuses.values().filter(|s| s.as_str() == "READY").count();
             let attention = statuses.len().saturating_sub(ready);
             let selected_count = selected.iter().filter(|value| **value).count();
             let title = if let Some(action) = pending {
-                format!("CYBERCORE // UPDATE CONTROL  |  CONFIRM: {} [Y/N]", action.label())
+                format!(
+                    "CYBERCORE // UPDATE CONTROL  |  CONFIRM: {} [Y/N]",
+                    action.label()
+                )
             } else {
                 format!(
                     "CYBERCORE // UPDATE CONTROL  |  {} ready  {} attention  {} selected",
@@ -106,11 +117,15 @@ fn run(
             frame.render_widget(
                 Paragraph::new(title)
                     .block(Block::default().borders(Borders::ALL))
-                    .style(Style::default().fg(if pending.is_some() {
-                        Color::Yellow
-                    } else {
-                        Color::Cyan
-                    }).add_modifier(Modifier::BOLD)),
+                    .style(
+                        Style::default()
+                            .fg(if pending.is_some() {
+                                Color::Yellow
+                            } else {
+                                Color::Cyan
+                            })
+                            .add_modifier(Modifier::BOLD),
+                    ),
                 vertical[0],
             );
 
@@ -124,17 +139,27 @@ fn run(
                 .map(|(index, task)| {
                     let marker = if selected[index] { "[x]" } else { "[ ]" };
                     let pointer = if index == cursor { ">" } else { " " };
-                    let status = statuses.get(&task.name).map(String::as_str).unwrap_or("UNKNOWN");
+                    let status = statuses
+                        .get(&task.name)
+                        .map(String::as_str)
+                        .unwrap_or("UNKNOWN");
                     Line::from(vec![
-                        Span::styled(pointer, if index == cursor {
-                            Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD)
-                        } else {
-                            Style::default().fg(Color::DarkGray)
-                        }),
+                        Span::styled(
+                            pointer,
+                            if index == cursor {
+                                Style::default()
+                                    .fg(Color::Cyan)
+                                    .add_modifier(Modifier::BOLD)
+                            } else {
+                                Style::default().fg(Color::DarkGray)
+                            },
+                        ),
                         Span::styled(
                             marker,
                             if selected[index] {
-                                Style::default().fg(Color::Magenta).add_modifier(Modifier::BOLD)
+                                Style::default()
+                                    .fg(Color::Magenta)
+                                    .add_modifier(Modifier::BOLD)
                             } else {
                                 Style::default().fg(Color::DarkGray)
                             },
@@ -173,7 +198,11 @@ fn run(
 
             frame.render_widget(
                 Paragraph::new(logs.iter().map(|log| log_line(log)).collect::<Vec<_>>())
-                    .block(Block::default().title("Activity / logs  ([ ] scroll, Home/End jump)").borders(Borders::ALL))
+                    .block(
+                        Block::default()
+                            .title("Activity / logs  ([ ] scroll, Home/End jump)")
+                            .borders(Borders::ALL),
+                    )
                     .scroll((log_offset, 0)),
                 vertical[2],
             );
@@ -247,7 +276,10 @@ fn run(
                 _ => {}
             }
             trim_logs(&mut logs);
-            if !matches!(key.code, KeyCode::Char('[') | KeyCode::PageUp | KeyCode::Home) {
+            if !matches!(
+                key.code,
+                KeyCode::Char('[') | KeyCode::PageUp | KeyCode::Home
+            ) {
                 log_offset = logs.len().saturating_sub(7) as u16;
             }
         }
@@ -260,7 +292,10 @@ fn github_report(engine: &Engine, logs: &mut Vec<String>, first_url: &mut Option
     *first_url = None;
     for repo in engine.github_report() {
         let dirty = if repo.dirty { "DIRTY" } else { "CLEAN" };
-        logs.push(format!("GITHUB {} [{}] branch={}", repo.repository, dirty, repo.branch));
+        logs.push(format!(
+            "GITHUB {} [{}] branch={}",
+            repo.repository, dirty, repo.branch
+        ));
         if let Some(error) = repo.error {
             logs.push(format!("GITHUB {} error: {}", repo.repository, error));
         }
@@ -309,7 +344,11 @@ fn repository_report(engine: &Engine, logs: &mut Vec<String>) {
 }
 
 fn append_repository_report(report: &RepositoryReport, logs: &mut Vec<String>) {
-    let state = if report.status.is_empty() { "CLEAN" } else { "DIRTY" };
+    let state = if report.status.is_empty() {
+        "CLEAN"
+    } else {
+        "DIRTY"
+    };
     logs.push(format!(
         "REPO {} [{}] branch={} commit={}",
         report.source.display(),
@@ -320,7 +359,12 @@ fn append_repository_report(report: &RepositoryReport, logs: &mut Vec<String>) {
     if !report.diff_stat.is_empty() {
         logs.push(format!("REPO diff: {}", report.diff_stat));
     }
-    logs.extend(report.status.iter().map(|line| format!("REPO change: {line}")));
+    logs.extend(
+        report
+            .status
+            .iter()
+            .map(|line| format!("REPO change: {line}")),
+    );
 }
 
 fn append_theme_report(report: &ThemeReport, logs: &mut Vec<String>) {
@@ -337,7 +381,10 @@ fn append_theme_report(report: &ThemeReport, logs: &mut Vec<String>) {
         report.extra_managed.len()
     ));
     if !report.missing_managed.is_empty() {
-        logs.push(format!("THEMES missing: {}", report.missing_managed.join(", ")));
+        logs.push(format!(
+            "THEMES missing: {}",
+            report.missing_managed.join(", ")
+        ));
     }
     if !report.extra_managed.is_empty() {
         logs.push(format!("THEMES extra: {}", report.extra_managed.join(", ")));
@@ -413,9 +460,7 @@ fn log_line(log: &str) -> Line<'static> {
     let (prefix, rest) = log.split_once(' ').unwrap_or((log, ""));
     let style = match prefix {
         "OK" | "READY" => status_style("OK"),
-        "RUN" | "RUNNING" | "PLANNED" | "PLAN" | "INSPECT" => {
-            Style::default().fg(Color::Yellow)
-        }
+        "RUN" | "RUNNING" | "PLANNED" | "PLAN" | "INSPECT" => Style::default().fg(Color::Yellow),
         "BLOCKED" | "FAILED" | "ATTENTION" => status_style("FAILED"),
         "HELP:" => Style::default().fg(Color::Magenta),
         _ => Style::default().fg(Color::Gray),
@@ -428,7 +473,11 @@ fn log_line(log: &str) -> Line<'static> {
 }
 
 fn yes_no(value: bool) -> &'static str {
-    if value { "yes" } else { "no" }
+    if value {
+        "yes"
+    } else {
+        "no"
+    }
 }
 
 fn plan_tasks(
@@ -487,7 +536,12 @@ fn execute_action(
 }
 
 fn selected_names(tasks: &[Task], selected: &[bool]) -> Vec<String> {
-    tasks.iter().enumerate().filter(|(i, _)| selected[*i]).map(|(_, task)| task.name.clone()).collect()
+    tasks
+        .iter()
+        .enumerate()
+        .filter(|(i, _)| selected[*i])
+        .map(|(_, task)| task.name.clone())
+        .collect()
 }
 
 fn refresh_inspection(
@@ -501,7 +555,12 @@ fn refresh_inspection(
     statuses.clear();
     let mut attention = 0;
     for item in items {
-        let status = if item.diagnostics.is_empty() { "READY" } else { attention += 1; "ATTENTION" };
+        let status = if item.diagnostics.is_empty() {
+            "READY"
+        } else {
+            attention += 1;
+            "ATTENTION"
+        };
         statuses.insert(item.name.clone(), status.into());
         logs.push(format!("INSPECT {:<27} {status}", item.name));
         inspections.insert(item.name.clone(), item);
