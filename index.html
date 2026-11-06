@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Oxanium:wght@400;500;600;700&family=Share+Tech+Mono&display=swap">
   <link rel="stylesheet" href="assets/css/master.css?v=20261023-3">
   <link rel="stylesheet" href="assets/css/site-family.css?v=20261023-1">
-  <link rel="stylesheet" href="assets/css/master-family.css?v=20261023-7">
+  <link rel="stylesheet" href="assets/css/master-family.css?v=20261105-1">
   <script>
     window.SITE = {
       dataRoot: 'https://cybercoretech.github.io/data',
@@ -33,8 +33,8 @@
       ]
     };
   </script>
-  <script src="assets/js/engine.js?v=0.9.10" defer></script>
-  <script src="assets/js/fx.js?v=20261023-2" defer></script>
+  <script src="assets/js/engine.js?v=0.9.11" defer></script>
+  <script src="assets/js/fx.js?v=20261105-1" defer></script>
 </head>
 <body>
   <div class="boot" id="boot"><div class="boot-inner"><img class="boot-mark" src="assets/img/mark.svg" alt=""><ul class="boot-log" id="bootLog"></ul><div class="boot-bar"><i id="bootBar"></i></div></div></div>
@@ -43,45 +43,47 @@
   <div class="fx-progress" aria-hidden="true"><i id="progress"></i></div>
   <div class="fx-flash" id="flash" aria-hidden="true"></div>
   <header class="top">
-    <a class="brand" href="#top"><img class="brand-mark" src="assets/img/mark.svg" alt=""><span class="brand-name">CYBERCORE<small>THEME SYSTEM / FRAMEWORK</small></span></a>
-    <nav class="nav" aria-label="Primary">
-      <a href="#why">CONTRACT</a><a href="#packs">MATRIX</a><a href="#usage">LAB</a><a href="#crates">STUDIO</a><a href="#ecosystem">📡 SIGNAL</a><a href="#packs">PIPELINE</a><a href="#why">TOKENS</a><a href="#usage">GRID</a><a href="#usage">INSTALL</a>
-    <a href="docs.html">MASTER DOCS ↗</a></nav>
+    <a class="brand" href="#top"><img class="brand-mark" src="assets/img/mark.svg" alt=""><span class="brand-name">Cybercore<small>Theme system / framework</small></span></a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="primaryNav">Menu</button>
+    <nav class="nav" id="primaryNav" aria-label="Primary">
+      <a href="#why">Model</a><a href="#crates">Crates</a><a href="#packs">Packs</a><a href="#usage">Usage</a><a href="#ecosystem">Control plane</a><a href="docs.html">Master docs ↗</a>
+    </nav>
     <div class="theme-picker" id="picker">
       <button class="theme-button" id="themeButton" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="themeMenu" title="Theme (T)">
-        <i class="theme-swatch" aria-hidden="true"></i><span id="themeLabel">LOADING…</span><span class="theme-chevron" aria-hidden="true">⌄</span>
+        <i class="theme-swatch" aria-hidden="true"></i><span id="themeLabel">Loading…</span><span class="theme-chevron" aria-hidden="true">⌄</span>
       </button>
       <div class="theme-menu" id="themeMenu" hidden>
-        <div class="theme-search"><input id="themeFilter" type="search" placeholder="FILTER THEMES…" aria-label="Filter themes" autocomplete="off" spellcheck="false"></div>
+        <div class="theme-search"><input id="themeFilter" type="search" placeholder="Filter themes…" aria-label="Filter themes" autocomplete="off" spellcheck="false"></div>
         <div class="theme-list" id="themeList" role="listbox" aria-label="Theme"></div>
       </div>
     </div>
-    <button class="icon-btn" id="shuffle" type="button" title="Random theme (R)" aria-label="Random theme">⚄</button>
+    <button class="icon-btn" id="shuffle" type="button" title="Random theme (R)" aria-label="Random theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><circle cx="8.5" cy="8.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1.1" fill="currentColor" stroke="none"/></svg></button>
   </header>
+  <p class="sr-only" id="copyStatus" role="status"></p>
 
   <main id="top">
     <section class="hero">
       <canvas class="hero-canvas" id="synth" aria-hidden="true"></canvas><div class="hero-vignette" aria-hidden="true"></div>
       <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow"><i></i> CYBERCORE SYSTEMS FRAMEWORK / v0.8.1</p>
+        <p class="eyebrow"><i></i> Cybercore systems framework / v0.8.1</p>
         <h1>The shared core<br><em>under the grid.</em></h1>
         <p class="intro">A Rust-first source of truth for themes, design tokens, filesystem paths, portable resources, and the tools that use them.</p>
-        <div class="hero-actions cta"><a class="btn primary" href="#usage">START USING CYBERCORE</a><a class="btn" href="https://github.com/cybercoretech/cybercore">VIEW SOURCE ↗</a></div>
-        <div class="hero-facts"><span><b>312</b> source themes</span><span><b>4</b> modular crates</span><span><b>8</b> official packs</span></div>
+        <div class="hero-actions cta"><a class="btn primary" href="#usage">Start using Cybercore</a><a class="btn" href="https://github.com/cybercoretech/cybercore">View source ↗</a></div>
+        <div class="hero-facts"><span><b data-theme-count>600</b> source themes</span><span><b data-crate-count>7</b> Rust crates</span><span><b data-pack-count>8</b> official packs</span></div>
       </div>
       <div class="contract-card">
-        <div class="card-top"><span>CANONICAL CONTRACT</span><b>SCHEMA ONLINE</b></div>
+        <div class="card-top"><span>Canonical contract</span><b>Schema online</b></div>
         <h2>One JSON.<br><strong>Every consumer.</strong></h2>
         <p>CYBERGRID is readable by Rust, QML, CSS, HTTP clients, and downstream Cybercore projects.</p>
         <div class="contract-flow"><span>cybergrid.json</span><i>→</i><span>crates</span><i>→</i><span>packs</span><i>→</i><span>apps</span></div>
-        <a href="https://cybercoretech.github.io/data/cybergrid.json">OPEN THE CANONICAL SCHEMA ↗</a>
+        <a href="https://cybercoretech.github.io/data/cybergrid.json">Open the canonical schema ↗</a>
       </div>
       </div>
     </section>
 
     <section class="section shell" id="why">
-      <div class="section-heading"><p class="eyebrow">01 / THE MODEL</p><h2>Understand the<br><em>layers.</em></h2><p>Cybercore keeps the shared contract separate from the tools that consume it. Start at the source, then choose the distribution path that fits your project.</p></div>
+      <div class="section-heading"><p class="eyebrow">01 / The model</p><h2>Understand the<br><em>layers.</em></h2><p>Cybercore keeps the shared contract separate from the tools that consume it. Start at the source, then choose the distribution path that fits your project.</p></div>
       <div class="layers">
         <article><span>01</span><h3>Schema</h3><p>Palette, theme metadata, tokens, and canonical paths in readable JSON.</p><code>schema/cybergrid.json</code></article>
         <article><span>02</span><h3>Crates</h3><p>Typed Rust contracts for loading, validating, composing, and publishing resources.</p><code>cargo add cybercore-core</code></article>
@@ -91,105 +93,77 @@
     </section>
 
     <section class="section shell" id="crates">
-      <div class="section-heading split"><div><p class="eyebrow">02 / RUST CRATES</p><h2>Install the<br><em>contracts.</em></h2></div><a class="text-link" href="https://crates.io/search?q=cybercore">BROWSE ALL ON CRATES.IO ↗</a></div>
+      <div class="section-heading split"><div><p class="eyebrow">02 / Rust crates</p><h2>Install the<br><em>contracts.</em></h2></div><a class="text-link" href="https://crates.io/search?q=cybercore">Browse all on crates.io ↗</a></div>
       <div class="crate-list" data-crate-list>
-        <a href="https://crates.io/crates/cybercore-core"><b>cybercore-core</b><span>Shared schemas, theme documents, paths, validation, and pack metadata.</span><button type="button" data-copy="cargo add cybercore-core">cargo add cybercore-core</button></a>
-        <a href="https://crates.io/crates/cybercore-effects"><b>cybercore-effects</b><span>Governed motion recipes, fallbacks, and reduced-motion adapters.</span><button type="button" data-copy="cargo add cybercore-effects">cargo add cybercore-effects</button></a>
-        <a href="https://crates.io/crates/cybercore-components"><b>cybercore-components</b><span>Reusable UI contracts and shared component styles.</span><button type="button" data-copy="cargo add cybercore-components">cargo add cybercore-components</button></a>
-        <a href="https://crates.io/crates/cybercore-publish"><b>cybercore-publish</b><span>Dry-run release plans for packs and Web Kit consumers.</span><button type="button" data-copy="cargo add cybercore-publish">cargo add cybercore-publish</button></a>
-        <a href="https://crates.io/crates/cybercore-theme-studio"><b>cybercore-theme-studio</b><span>Local theme creation, preview, validation, and export.</span><button type="button" data-copy="cargo add cybercore-theme-studio">cargo add cybercore-theme-studio</button></a>
-        <a href="https://crates.io/crates/cybercore-theme-wasm"><b>cybercore-theme-wasm</b><span>Browser bindings for the Cybercore theme engine.</span><button type="button" data-copy="cargo add cybercore-theme-wasm">cargo add cybercore-theme-wasm</button></a>
-        <a href="https://crates.io/crates/cybercore-agent"><b>cybercore-agent</b><span>Bounded outbound heartbeat connector for Mission Control.</span><button type="button" data-copy="cargo add cybercore-agent">cargo add cybercore-agent</button></a>
+        <div class="crate"><a href="https://crates.io/crates/cybercore-core"><b>cybercore-core</b></a><span>Shared schemas, theme documents, paths, validation, and pack metadata.</span><button type="button" data-copy="cargo add cybercore-core" aria-label="Copy: cargo add cybercore-core">cargo add cybercore-core</button></div>
+        <div class="crate"><a href="https://crates.io/crates/cybercore-effects"><b>cybercore-effects</b></a><span>Governed motion recipes, fallbacks, and reduced-motion adapters.</span><button type="button" data-copy="cargo add cybercore-effects" aria-label="Copy: cargo add cybercore-effects">cargo add cybercore-effects</button></div>
+        <div class="crate"><a href="https://crates.io/crates/cybercore-components"><b>cybercore-components</b></a><span>Reusable UI contracts and shared component styles.</span><button type="button" data-copy="cargo add cybercore-components" aria-label="Copy: cargo add cybercore-components">cargo add cybercore-components</button></div>
+        <div class="crate"><a href="https://crates.io/crates/cybercore-publish"><b>cybercore-publish</b></a><span>Dry-run release plans for packs and Web Kit consumers.</span><button type="button" data-copy="cargo add cybercore-publish" aria-label="Copy: cargo add cybercore-publish">cargo add cybercore-publish</button></div>
+        <div class="crate"><a href="https://crates.io/crates/cybercore-theme-studio"><b>cybercore-theme-studio</b></a><span>Local theme creation, preview, validation, and export.</span><button type="button" data-copy="cargo add cybercore-theme-studio" aria-label="Copy: cargo add cybercore-theme-studio">cargo add cybercore-theme-studio</button></div>
+        <div class="crate"><a href="https://crates.io/crates/cybercore-theme-wasm"><b>cybercore-theme-wasm</b></a><span>Browser bindings for the Cybercore theme engine.</span><button type="button" data-copy="cargo add cybercore-theme-wasm" aria-label="Copy: cargo add cybercore-theme-wasm">cargo add cybercore-theme-wasm</button></div>
+        <div class="crate"><a href="https://crates.io/crates/cybercore-agent"><b>cybercore-agent</b></a><span>Bounded outbound heartbeat connector for Mission Control.</span><button type="button" data-copy="cargo add cybercore-agent" aria-label="Copy: cargo add cybercore-agent">cargo add cybercore-agent</button></div>
       </div>
     </section>
 
     <section class="section shell" id="packs">
-      <div class="section-heading split"><div><p class="eyebrow">03 / RESOURCE PACKS</p><h2>Portable by<br><em>design.</em></h2></div><a class="text-link" href="https://github.com/cybercoretech/cybercore-packs">OPEN PACK REGISTRY ↗</a></div>
+      <div class="section-heading split"><div><p class="eyebrow">03 / Resource packs</p><h2>Portable by<br><em>design.</em></h2></div><a class="text-link" href="https://github.com/cybercoretech/cybercore-packs">Open pack registry ↗</a></div>
       <p class="section-lede">Official packs are installed project-locally, locked to exact versions, and verified against their declared SHA-256 payloads.</p>
-      <div class="pack-table">
-        <div class="pack-row pack-head"><span>PACK</span><span>WHAT IT CONTAINS</span><span>VERSION</span><span></span></div>
-        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/themes"><b>cybercore.themes</b><span>Palette families and theme documents</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.themes@1.0.0">COPY</button></a>
-        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/effects"><b>cybercore.effects</b><span>Motion recipes and reduced-motion CSS</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.effects@1.0.0">COPY</button></a>
-        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/components"><b>cybercore.components</b><span>Reusable UI contracts and styles</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.components@1.0.0">COPY</button></a>
-        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/cyberdark-wallpapers"><b>cybercore.cyberdark-wallpapers</b><span>CyberDark governed wallpapers</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.cyberdark-wallpapers@1.0.0">COPY</button></a>
-        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/snippets"><b>cybercore.snippets</b><span>Installable code patterns with provenance</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.snippets@1.0.0">COPY</button></a>
-        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/fonts"><b>cybercore.fonts</b><span>Typography resources and license metadata</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.fonts@1.0.0">COPY</button></a>
-        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/svg-assets"><b>cybercore.svg-assets</b><span>Governed SVG visual assets</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.svg-assets@1.0.0">COPY</button></a>
-        <a class="pack-row" href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/web-templates"><b>cybercore.web-templates</b><span>Starter templates for Web Kit consumers</span><span>1.0.0</span><button type="button" data-copy="cybercore-control pack install cybercore.web-templates@1.0.0">COPY</button></a>
+      <div class="pack-table" role="table" aria-label="Official resource packs">
+        <div class="pack-row pack-head" role="row"><span role="columnheader">Pack</span><span role="columnheader">What it contains</span><span role="columnheader">Version</span><span class="pack-cmd" role="columnheader">Install</span></div>
+        <div class="pack-row" role="row"><span role="cell"><a href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/themes"><b>cybercore.themes</b></a></span><span role="cell">Palette families and theme documents</span><span role="cell">1.0.0</span><span class="pack-cmd" role="cell"><button type="button" data-copy="cybercore-control pack install cybercore.themes@1.0.0" aria-label="Copy install command for cybercore.themes">Copy</button></span></div>
+        <div class="pack-row" role="row"><span role="cell"><a href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/effects"><b>cybercore.effects</b></a></span><span role="cell">Motion recipes and reduced-motion CSS</span><span role="cell">1.0.0</span><span class="pack-cmd" role="cell"><button type="button" data-copy="cybercore-control pack install cybercore.effects@1.0.0" aria-label="Copy install command for cybercore.effects">Copy</button></span></div>
+        <div class="pack-row" role="row"><span role="cell"><a href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/components"><b>cybercore.components</b></a></span><span role="cell">Reusable UI contracts and styles</span><span role="cell">1.0.0</span><span class="pack-cmd" role="cell"><button type="button" data-copy="cybercore-control pack install cybercore.components@1.0.0" aria-label="Copy install command for cybercore.components">Copy</button></span></div>
+        <div class="pack-row" role="row"><span role="cell"><a href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/cyberdark-wallpapers"><b>cybercore.cyberdark-wallpapers</b></a></span><span role="cell">CyberDark governed wallpapers</span><span role="cell">1.0.0</span><span class="pack-cmd" role="cell"><button type="button" data-copy="cybercore-control pack install cybercore.cyberdark-wallpapers@1.0.0" aria-label="Copy install command for cybercore.cyberdark-wallpapers">Copy</button></span></div>
+        <div class="pack-row" role="row"><span role="cell"><a href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/snippets"><b>cybercore.snippets</b></a></span><span role="cell">Installable code patterns with provenance</span><span role="cell">1.0.0</span><span class="pack-cmd" role="cell"><button type="button" data-copy="cybercore-control pack install cybercore.snippets@1.0.0" aria-label="Copy install command for cybercore.snippets">Copy</button></span></div>
+        <div class="pack-row" role="row"><span role="cell"><a href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/fonts"><b>cybercore.fonts</b></a></span><span role="cell">Typography resources and license metadata</span><span role="cell">1.0.0</span><span class="pack-cmd" role="cell"><button type="button" data-copy="cybercore-control pack install cybercore.fonts@1.0.0" aria-label="Copy install command for cybercore.fonts">Copy</button></span></div>
+        <div class="pack-row" role="row"><span role="cell"><a href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/svg-assets"><b>cybercore.svg-assets</b></a></span><span role="cell">Governed SVG visual assets</span><span role="cell">1.0.0</span><span class="pack-cmd" role="cell"><button type="button" data-copy="cybercore-control pack install cybercore.svg-assets@1.0.0" aria-label="Copy install command for cybercore.svg-assets">Copy</button></span></div>
+        <div class="pack-row" role="row"><span role="cell"><a href="https://github.com/cybercoretech/cybercore-packs/tree/main/packs/cybercore/web-templates"><b>cybercore.web-templates</b></a></span><span role="cell">Starter templates for Web Kit consumers</span><span role="cell">1.0.0</span><span class="pack-cmd" role="cell"><button type="button" data-copy="cybercore-control pack install cybercore.web-templates@1.0.0" aria-label="Copy install command for cybercore.web-templates">Copy</button></span></div>
       </div>
     </section>
 
     <section class="section shell" id="usage">
-      <div class="section-heading"><p class="eyebrow">04 / HOW TO USE IT</p><h2>From zero to<br><em>shared surface.</em></h2><p>Use the core crate in a Rust project, install a governed pack into the current workspace, or read the canonical schema from another runtime.</p></div>
+      <div class="section-heading"><p class="eyebrow">04 / How to use it</p><h2>From zero to<br><em>shared surface.</em></h2><p>Use the core crate in a Rust project, install a governed pack into the current workspace, or read the canonical schema from another runtime.</p></div>
       <div class="usage-grid">
-        <div class="usage-card"><span>RUST PROJECT</span><h3>Embed the contracts</h3><pre><code>cargo add cybercore-core
+        <div class="usage-card"><span>Rust project</span><h3>Embed the contracts</h3><pre><code>cargo add cybercore-core
 
 use cybercore_core::theme::ThemeCatalog;
 
-let themes = ThemeCatalog::load()?;</code></pre><a href="https://docs.rs/cybercore-core">READ THE API ↗</a></div>
-        <div class="usage-card"><span>RESOURCE INSTALL</span><h3>Install and verify a pack</h3><pre><code>cargo install --git \
+let themes = ThemeCatalog::load()?;</code></pre><a href="https://docs.rs/cybercore-core">Read the API ↗</a></div>
+        <div class="usage-card"><span>Resource install</span><h3>Install and verify a pack</h3><pre><code>cargo install --git \
   https://github.com/cybercoretech/cybercore-packs \
   --package cybercore-pack
 
 cybercore-control pack install cybercore.themes@1.0.0
-cybercore-control pack verify</code></pre><a href="https://github.com/cybercoretech/cybercore-packs#readme">READ THE PACK GUIDE ↗</a></div>
-        <div class="usage-card"><span>OTHER RUNTIMES</span><h3>Read the same JSON</h3><pre><code>GET /data/cybergrid.json
+cybercore-control pack verify</code></pre><a href="https://github.com/cybercoretech/cybercore-packs#readme">Read the pack guide ↗</a></div>
+        <div class="usage-card"><span>Other runtimes</span><h3>Read the same JSON</h3><pre><code>GET /data/cybergrid.json
 
 // QML / C++
 QJsonDocument::fromJson(bytes)
 
 /* CSS consumers */
-var(--cyan)</code></pre><a href="https://github.com/cybercoretech/cybercore/tree/main/web">VIEW THE WEB KIT ↗</a></div>
+var(--cyan)</code></pre><a href="https://github.com/cybercoretech/cybercore/tree/main/web">View the Web Kit ↗</a></div>
       </div>
     </section>
 
     <section class="control-callout shell" id="ecosystem">
-      <div><p class="eyebrow">WHEN YOU NEED GOVERNANCE</p><h2>Move from source<br><em>to control.</em></h2><p>The Control Plane is the operational companion: explore resources, validate compatibility, compose site profiles, and prepare deliberate publish plans.</p></div>
-      <a class="btn primary" href="https://cybercoretech.github.io/cybercore-control-plane/">OPEN THE CONTROL PLANE ↗</a>
+      <div><p class="eyebrow">When you need governance</p><h2>Move from source<br><em>to control.</em></h2><p>The Control Plane is the operational companion: explore resources, validate compatibility, compose site profiles, and prepare deliberate publish plans.</p></div>
+      <a class="btn primary" href="https://cybercoretech.github.io/cybercore-control-plane/">Open the Control Plane ↗</a>
     </section>
   </main>
   <footer class="foot master-foot">
     <div class="wrap">
-      <div class="master-foot-grid">
-        <section>
-          <p class="master-foot-kicker cyan">DIRECT CONTACT</p>
-          <a class="master-foot-email" href="mailto:dev@cybercoretech.net">dev@cybercoretech.net</a>
-          <small>CYBERCORETECH.NET / DIRECT INBOX</small>
-          <p class="master-foot-kicker orange">SECURITY</p>
-          <a class="master-foot-email" href="mailto:security@cybercoretech.net">security@cybercoretech.net</a>
-          <small>VULNERABILITY REPORTS · PLEASE DO NOT OPEN A PUBLIC ISSUE</small>
-          <p class="master-foot-kicker pink">CONTRIBUTORS</p>
-          <a class="master-foot-email" href="mailto:contributors@cybercoretech.net">contributors@cybercoretech.net</a>
-          <small>OPEN-SOURCE COLLABORATION / PRIVATE APPLICATIONS</small>
-          <a class="master-foot-link" href="https://github.com/cybercoretech/cybercore/issues">VIEW ROLES / APPLY ↗</a>
-        </section>
-        <section>
-          <p class="master-foot-kicker pink">SIGNAL CHANNELS</p>
-          <a class="master-foot-home" href="https://cybercoretech.net/"><b>◉ HOME BASE</b><strong>cybercoretech.net</strong><small>THE OFFICIAL CYBERCORE TECH WEBSITE</small><i>→</i></a>
-          <div class="master-foot-links">
-            <a href="https://github.com/cybercoretech/cybercore">GH&nbsp; GITHUB / CYBERCORE ↗</a>
-            <a href="https://discord.com/">DC&nbsp; DISCORD / CYBERCORE ↗</a>
-            <a href="https://dev.to/">DV&nbsp; DEV.TO / CYBERCORE-TECH ↗</a>
-            <a href="https://www.reddit.com/r/cybercore_sh/">RD&nbsp; REDDIT / CYBERCORE_SH ↗</a>
-            <a href="https://codeberg.org/">CB&nbsp; CODEBERG / DARKSTARDEV ↗</a>
-            <a href="https://github.com/cybercoretech/cybercore/issues">!?&nbsp; ISSUES / CYBERCORE-CORE ↗</a>
-          </div>
-        </section>
-        <section>
-          <p class="master-foot-kicker cyan">SUPPORT THE WORK</p>
-          <a class="master-foot-support" href="https://www.buymeacoffee.com/">◉ &nbsp; BUY ME A COFFEE ↗</a>
-          <a class="master-foot-support" href="https://www.paypal.com/">PP &nbsp; DONATE WITH PAYPAL ↗</a>
-          <a class="master-foot-support" href="https://github.com/sponsors/cybercoretech">GH &nbsp; GITHUB SPONSORS ↗</a>
-          <small>MIT licensed · <a href="https://cybercoretech.net/">cybercoretech.net</a></small>
-        </section>
-      </div>
+      <!-- Shared Cybercore Tech contact block: cybercoretech.github.io/kit/contact.js + data/contact.json. Edit contact details there, not here. -->
+      <section class="cc-contact-band" aria-label="Contact Cybercore Tech">
+        <cybercore-contact repo="cybercore" bare><a href="mailto:dev@cybercoretech.net">dev@cybercoretech.net</a> · <a href="mailto:security@cybercoretech.net">security@cybercoretech.net</a> · <a href="https://discord.gg/vBMcK5wAx">Discord</a> · <a href="https://buymeacoffee.com/cybercoretech">Buy Me a Coffee</a></cybercore-contact>
+      </section>
       <div class="foot-row">
-        <a class="brand" href="#top"><img class="brand-mark" src="assets/img/mark.svg" alt=""><span class="brand-name">CYBERCORE<small>MIT · Copyright (c) 2026 Cybercore Tech</small></span></a>
+        <a class="brand" href="#top"><img class="brand-mark" src="assets/img/mark.svg" alt=""><span class="brand-name">Cybercore<small>MIT · Copyright (c) 2026 Cybercore Tech</small></span></a>
         <p class="keys"><kbd>T</kbd> themes <kbd>R</kbd> random <kbd>[</kbd><kbd>]</kbd> cycle <kbd>↑↑↓↓←→←→BA</kbd> overdrive</p>
-        <nav class="foot-links"><a href="https://cybercoretech.github.io/">CYBERCORE TECH</a><a href="https://cybercoretech.net/">CYBERCORETECH.NET</a><a href="https://github.com/cybercoretech/cybercore-packs">PACKS</a><a href="https://cybercoretech.github.io/cybercore-control-plane/">CONTROL PLANE</a><a href="https://docs.rs/cybercore-core">DOCS.RS</a></nav>
+        <nav class="foot-links" aria-label="Footer"><a href="docs.html">Master docs</a><a href="https://cybercoretech.github.io/">Cybercore Tech</a><a href="https://cybercoretech.net/">cybercoretech.net</a><a href="https://github.com/cybercoretech/cybercore-packs">Packs</a><a href="https://cybercoretech.github.io/cybercore-control-plane/">Control plane</a><a href="https://docs.rs/cybercore-core">docs.rs</a></nav>
       </div>
     </div>
   </footer>
-  <script src="assets/js/master.js?v=20261023-2"></script>
+  <script type="module" src="https://cybercoretech.github.io/kit/contact.js"></script>
+  <script src="assets/js/master.js?v=20261105-1"></script>
 </body>
 </html>

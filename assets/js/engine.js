@@ -144,6 +144,13 @@
 
   /* ---------- dropdown menus (header + lab) ---------- */
   const groups = () => [['mashup', SITE.mashups.map(m => m.id)]].concat(Object.entries(families));
+  let listSeq = 0;
+  // Roving tabindex: the listbox is one Tab stop (the selected option); arrows move within it.
+  function markSelected(list, id) {
+    const opts = [...list.querySelectorAll('.theme-option')];
+    opts.forEach(o => { const on = o.dataset.value === id; o.setAttribute('aria-selected', String(on)); o.tabIndex = on ? 0 : -1; });
+    if (!opts.some(o => o.tabIndex === 0) && opts[0]) opts[0].tabIndex = 0;
+  }
   function buildList(list, { onPick, include = () => true, withMashups = true }) {
     list.innerHTML = '';
     groups().forEach(([family, names]) => {
@@ -151,12 +158,14 @@
       const items = names.filter(include);
       if (!items.length) return;
       const h = document.createElement('div');
-      h.className = 'theme-group-label'; h.dataset.family = family;
+      const gid = `${list.id || 'tl' + (++listSeq)}-g-${family}`;
+      h.className = 'theme-group-label'; h.dataset.family = family; h.id = gid; h.setAttribute('aria-hidden', 'true');
       h.innerHTML = `<svg aria-hidden="true"><use href="#fam-${family}"/></svg>${LABELS[family] || family.toUpperCase()}<em>${items.length}</em>`;
       list.append(h);
       items.forEach((name, i) => {
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'theme-option'; b.setAttribute('role', 'option');
+        b.setAttribute('aria-selected', 'false'); b.setAttribute('aria-describedby', gid); b.tabIndex = -1;
         b.dataset.value = name; b.dataset.family = family; b.dataset.tone = i % 2 ? 'alt' : 'base';
         b.innerHTML = `<span>${labelOf(name)}</span><span class="dots"></span>`;
         b.addEventListener('click', ev => onPick(name, ev));
@@ -191,6 +200,8 @@
       if (e.key === 'Escape') { close(); button.focus(); }
       else if (e.key === 'ArrowDown') { e.preventDefault(); (opts[i + 1] || opts[0])?.focus(); }
       else if (e.key === 'ArrowUp') { e.preventDefault(); (i <= 0 ? filter || opts.at(-1) : opts[i - 1])?.focus(); }
+      else if (e.key === 'Home' && i >= 0) { e.preventDefault(); opts[0]?.focus(); }
+      else if (e.key === 'End' && i >= 0) { e.preventDefault(); opts.at(-1)?.focus(); }
       else if (e.key === 'Enter' && document.activeElement === filter && opts[0]) { e.preventDefault(); opts[0].click(); }
     });
     if (filter) filter.addEventListener('input', () => runFilter(list, filter.value));
@@ -207,7 +218,7 @@
     if (lastHead) lastHead.hidden = !any;
   }
   function syncMenus(id) {
-    $$('#themeList .theme-option').forEach(o => o.setAttribute('aria-selected', String(o.dataset.value === id)));
+    const list = $('#themeList'); if (list) markSelected(list, id);
   }
 
   let header;
@@ -216,7 +227,7 @@
     buildList(list, { onPick: (name, ev) => { apply(name, { origin: originOf(ev) }); header.close(); setTimeout(() => $('#themeButton').focus({ preventScroll: true })); } });
     header = wireMenu($('#themeButton'), $('#themeMenu'), list, $('#themeFilter'));
     const total = SITE.mashups.length + allNames().length;
-    const f = $('#themeFilter'); if (f) f.placeholder = `FILTER ${total} THEMES…`;
+    const f = $('#themeFilter'); if (f) f.placeholder = `Filter ${total} themes…`;
     $$('[data-theme-count]').forEach(el => { el.textContent = allNames().length; });
   }
 
@@ -260,7 +271,7 @@
   function buildLab() {
     $$('.dd').forEach(dd => {
       const role = dd.dataset.dd;
-      dd.innerHTML = `<button type="button" aria-haspopup="listbox" aria-expanded="false"><span></span><span class="dots"></span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></button><div class="theme-menu" hidden><div class="theme-search"><input type="search" placeholder="FILTER…" aria-label="Filter ${role} themes" autocomplete="off" spellcheck="false"></div><div class="theme-list" role="listbox"></div></div>`;
+      dd.innerHTML = `<button type="button" aria-haspopup="listbox" aria-expanded="false"><span></span><span class="dots"></span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></button><div class="theme-menu" hidden><div class="theme-search"><input type="search" placeholder="Filter…" aria-label="Filter ${role} themes" autocomplete="off" spellcheck="false"></div><div class="theme-list" role="listbox"></div></div>`;
       const [btn, menu] = dd.children; const list = menu.querySelector('.theme-list');
       let ctl;
       buildList(list, { withMashups: false, onPick: name => { lab[role] = name; ctl.close(); updateLab(); } });
@@ -293,7 +304,7 @@
       const src = role === 'base' ? b : a;
       d.btn.querySelector('span').textContent = display(lab[role]);
       d.btn.querySelector('.dots').innerHTML = (role === 'base' ? ['bg', 'panel', 'white'] : ['acid_green', 'hot_pink', 'cyan']).map(k => `<i style="background:#${src[k]};outline:1px solid #${src.line}"></i>`).join('');
-      d.list.querySelectorAll('.theme-option').forEach(o => o.setAttribute('aria-selected', String(o.dataset.value === lab[role])));
+      markSelected(d.list, lab[role]);
     });
   }
   const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -333,7 +344,7 @@
       families = schema.families || {};
     } catch (e) {
       console.warn('theme registry offline', e);
-      $('#themeLabel').textContent = 'REGISTRY OFFLINE';
+      $('#themeLabel').textContent = 'Registry offline';
       paint('cybercore-tech', FALLBACK);
       return;
     }

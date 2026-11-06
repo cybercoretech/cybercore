@@ -34,10 +34,10 @@
     root.classList.add('booting');
     const log = $('#bootLog'), bar = $('#bootBar'), el = $('#boot');
     const lines = [
-      'CYBERCORE BIOS v0.5.0 <b>OK</b>',
+      'CYBERCORE BIOS <b>OK</b>',
       'mount schema/cybergrid.json <b>OK</b>',
-      'load families: cyberdyne · synthwave · neosynth · cyberpunk · dystopian · classics',
-      'decrypt 81 palettes × 11 slots <b>OK</b>',
+      'load theme families from the canonical catalog <b>OK</b>',
+      'decrypt palettes <b>OK</b>',
       'link tokens · components · paths <b>OK</b>',
       'neural net <em>ONLINE</em>. welcome, operator.'
     ];
