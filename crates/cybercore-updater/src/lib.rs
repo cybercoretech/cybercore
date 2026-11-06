@@ -1,8 +1,6 @@
 use serde::Deserialize;
 use std::{
-    fs,
-    fmt,
-    io,
+    fmt, fs, io,
     path::{Path, PathBuf},
     process::{Command, Stdio},
 };
@@ -205,7 +203,10 @@ impl Engine {
             .map(|item| {
                 let source = self.resolve(&item.source);
                 let installed_binary = Some(expand_home(&item.install));
-                let service_active = item.service.as_ref().map(|service| self.service_active(service));
+                let service_active = item
+                    .service
+                    .as_ref()
+                    .map(|service| self.service_active(service));
                 let mut diagnostics = Vec::new();
                 if !source.is_dir() {
                     diagnostics.push(format!("missing source: {}", source.display()));
@@ -215,11 +216,17 @@ impl Engine {
                 if !installed_binary.as_ref().is_some_and(|path| path.is_file()) {
                     diagnostics.push(format!(
                         "installed binary missing: {}",
-                        installed_binary.as_ref().expect("consumer install path").display()
+                        installed_binary
+                            .as_ref()
+                            .expect("consumer install path")
+                            .display()
                     ));
                 }
                 if service_active == Some(false) {
-                    diagnostics.push(format!("service inactive: {}", item.service.as_deref().unwrap_or_default()));
+                    diagnostics.push(format!(
+                        "service inactive: {}",
+                        item.service.as_deref().unwrap_or_default()
+                    ));
                 }
                 Inspection {
                     name: item.name.clone(),
@@ -263,7 +270,7 @@ impl Engine {
         names: &[String],
         mut emit: impl FnMut(Event),
     ) -> Vec<(String, TaskStatus)> {
-        self.run(names, true, |event| emit(event))
+        self.run(names, true, &mut emit)
     }
 
     pub fn restart_services(
@@ -360,17 +367,27 @@ impl Engine {
     }
 
     pub fn theme_report(&self) -> ThemeReport {
-        let canonical = self.root.join("../../web/cybercore-tech.github.io/data/themes");
+        let canonical = self
+            .root
+            .join("../../web/cybercore-tech.github.io/data/themes");
         let builtin = self.root.join("schema/themes");
         let local = expand_home("~/.config/cybercore/themes");
         let canonical_ids = json_stems(&canonical);
         let builtin_ids = json_stems(&builtin);
         let local_ids = json_stems(&local);
         let mashups = [
-            "cc-chrome-horizon", "cc-skynet-plasma", "cc-midnight-mainframe",
-            "cc-judgment-grid", "cc-dracula-tokyo", "cc-catppuccin-nord",
-            "cc-gruvbox-monokai", "cc-onyx-material", "cc-kanagawa-rose",
-            "cc-evernight-fox", "cc-solarized-ayu", "cc-oxide-vesper",
+            "cc-chrome-horizon",
+            "cc-skynet-plasma",
+            "cc-midnight-mainframe",
+            "cc-judgment-grid",
+            "cc-dracula-tokyo",
+            "cc-catppuccin-nord",
+            "cc-gruvbox-monokai",
+            "cc-onyx-material",
+            "cc-kanagawa-rose",
+            "cc-evernight-fox",
+            "cc-solarized-ayu",
+            "cc-oxide-vesper",
         ];
         let expected: std::collections::HashSet<_> = canonical_ids
             .difference(&builtin_ids)
@@ -385,7 +402,6 @@ impl Engine {
             missing_managed: expected.difference(&local_ids).cloned().collect(),
             extra_managed: local_ids.difference(&expected).cloned().collect(),
         }
-
     }
 
     pub fn repository_report(&self) -> Vec<RepositoryReport> {
@@ -501,13 +517,28 @@ impl Engine {
     ) -> TaskStatus {
         let source = self.resolve(&item.source);
         if !source.is_dir() {
-            return self.finish(item.name.clone(), TaskStatus::Blocked, format!("missing source: {}", source.display()), emit);
+            return self.finish(
+                item.name.clone(),
+                TaskStatus::Blocked,
+                format!("missing source: {}", source.display()),
+                emit,
+            );
         }
         if let Err(error) = self.check_worktree(&source, &item.allowed_dirty) {
-            return self.finish(item.name.clone(), TaskStatus::Blocked, error.to_string(), emit);
+            return self.finish(
+                item.name.clone(),
+                TaskStatus::Blocked,
+                error.to_string(),
+                emit,
+            );
         }
         if !apply {
-            return self.finish(item.name.clone(), TaskStatus::Planned, "ready to build and install".into(), emit);
+            return self.finish(
+                item.name.clone(),
+                TaskStatus::Planned,
+                "ready to build and install".into(),
+                emit,
+            );
         }
         emit(Event {
             task: item.name.clone(),
@@ -519,8 +550,17 @@ impl Engine {
             .map(|contents| contents.contains("cybercore"))
             .unwrap_or(false)
         {
-            if let Err(error) = self.command(&source, "cargo", &["update".into(), "-p".into(), "cybercore".into()]) {
-                return self.finish(item.name.clone(), TaskStatus::Failed, error.to_string(), emit);
+            if let Err(error) = self.command(
+                &source,
+                "cargo",
+                &["update".into(), "-p".into(), "cybercore".into()],
+            ) {
+                return self.finish(
+                    item.name.clone(),
+                    TaskStatus::Failed,
+                    error.to_string(),
+                    emit,
+                );
             }
         }
         let mut args = vec![
@@ -535,43 +575,87 @@ impl Engine {
             args.push(item.features.join(","));
         }
         if let Err(error) = self.command(&source, "cargo", &args) {
-            return self.finish(item.name.clone(), TaskStatus::Failed, error.to_string(), emit);
+            return self.finish(
+                item.name.clone(),
+                TaskStatus::Failed,
+                error.to_string(),
+                emit,
+            );
         }
         let target = self.target_directory(&source);
         let binary = target.join("release").join(&item.binary);
         if !binary.is_file() {
-            return self.finish(item.name.clone(), TaskStatus::Failed, format!("missing binary: {}", binary.display()), emit);
+            return self.finish(
+                item.name.clone(),
+                TaskStatus::Failed,
+                format!("missing binary: {}", binary.display()),
+                emit,
+            );
         }
         let destination = expand_home(&item.install);
         if let Err(error) = install_binary(&binary, &destination) {
-            return self.finish(item.name.clone(), TaskStatus::Failed, error.to_string(), emit);
+            return self.finish(
+                item.name.clone(),
+                TaskStatus::Failed,
+                error.to_string(),
+                emit,
+            );
         }
         if let Some(service) = &item.service {
-            if let Err(error) = self.command(&source, "systemctl", &["--user".into(), "restart".into(), service.clone()]) {
-                return self.finish(item.name.clone(), TaskStatus::Failed, error.to_string(), emit);
+            if let Err(error) = self.command(
+                &source,
+                "systemctl",
+                &["--user".into(), "restart".into(), service.clone()],
+            ) {
+                return self.finish(
+                    item.name.clone(),
+                    TaskStatus::Failed,
+                    error.to_string(),
+                    emit,
+                );
             }
         }
-        self.finish(item.name.clone(), TaskStatus::Succeeded, format!("installed {}", destination.display()), emit)
+        self.finish(
+            item.name.clone(),
+            TaskStatus::Succeeded,
+            format!("installed {}", destination.display()),
+            emit,
+        )
     }
 
-    fn run_sync(
-        &self,
-        item: &SyncTask,
-        apply: bool,
-        emit: &mut impl FnMut(Event),
-    ) -> TaskStatus {
+    fn run_sync(&self, item: &SyncTask, apply: bool, emit: &mut impl FnMut(Event)) -> TaskStatus {
         let source = self.resolve(&item.source);
         if !source.is_dir() {
-            return self.finish(item.name.clone(), TaskStatus::Blocked, format!("missing source: {}", source.display()), emit);
+            return self.finish(
+                item.name.clone(),
+                TaskStatus::Blocked,
+                format!("missing source: {}", source.display()),
+                emit,
+            );
         }
         if let Err(error) = self.check_worktree(&source, &item.allowed_dirty) {
-            return self.finish(item.name.clone(), TaskStatus::Blocked, error.to_string(), emit);
+            return self.finish(
+                item.name.clone(),
+                TaskStatus::Blocked,
+                error.to_string(),
+                emit,
+            );
         }
         if !apply {
-            return self.finish(item.name.clone(), TaskStatus::Planned, "ready to synchronize".into(), emit);
+            return self.finish(
+                item.name.clone(),
+                TaskStatus::Planned,
+                "ready to synchronize".into(),
+                emit,
+            );
         }
         if item.command.is_empty() {
-            return self.finish(item.name.clone(), TaskStatus::Failed, "empty sync command".into(), emit);
+            return self.finish(
+                item.name.clone(),
+                TaskStatus::Failed,
+                "empty sync command".into(),
+                emit,
+            );
         }
         emit(Event {
             task: item.name.clone(),
@@ -579,11 +663,21 @@ impl Engine {
             message: "synchronizing".into(),
         });
         let error = self
-            .command(&source, &item.command[0], &item.command[1..].to_vec())
+            .command(&source, &item.command[0], &item.command[1..])
             .err();
         match error {
-            Some(error) => self.finish(item.name.clone(), TaskStatus::Failed, error.to_string(), emit),
-            None => self.finish(item.name.clone(), TaskStatus::Succeeded, "synchronized".into(), emit),
+            Some(error) => self.finish(
+                item.name.clone(),
+                TaskStatus::Failed,
+                error.to_string(),
+                emit,
+            ),
+            None => self.finish(
+                item.name.clone(),
+                TaskStatus::Succeeded,
+                "synchronized".into(),
+                emit,
+            ),
         }
     }
 
@@ -613,11 +707,24 @@ impl Engine {
 
     fn check_worktree(&self, source: &Path, allowed: &[String]) -> Result<(), Error> {
         let output = Command::new("git")
-            .args(["-C", &source.to_string_lossy(), "status", "--porcelain", "--untracked-files=all"])
+            .args([
+                "-C",
+                &source.to_string_lossy(),
+                "status",
+                "--porcelain",
+                "--untracked-files=all",
+            ])
             .output()?;
-        for line in String::from_utf8_lossy(&output.stdout).lines().filter(|line| !line.is_empty()) {
+        for line in String::from_utf8_lossy(&output.stdout)
+            .lines()
+            .filter(|line| !line.is_empty())
+        {
             let path = Path::new(line.get(3..).unwrap_or_default());
-            if !allowed.iter().map(Path::new).any(|item| path == item || path.starts_with(item)) {
+            if !allowed
+                .iter()
+                .map(Path::new)
+                .any(|item| path == item || path.starts_with(item))
+            {
                 return Err(Error::DirtyWorktree(source.to_path_buf()));
             }
         }
@@ -687,10 +794,24 @@ impl Engine {
             .unwrap_or_default()
             .into_iter()
             .map(|pr| {
-                let number = pr.get("number").and_then(|value| value.as_i64()).unwrap_or_default();
-                let title = pr.get("title").and_then(|value| value.as_str()).unwrap_or("untitled").to_string();
-                let url = pr.get("url").and_then(|value| value.as_str()).unwrap_or("").to_string();
-                let draft = pr.get("isDraft").and_then(|value| value.as_bool()).unwrap_or(false);
+                let number = pr
+                    .get("number")
+                    .and_then(|value| value.as_i64())
+                    .unwrap_or_default();
+                let title = pr
+                    .get("title")
+                    .and_then(|value| value.as_str())
+                    .unwrap_or("untitled")
+                    .to_string();
+                let url = pr
+                    .get("url")
+                    .and_then(|value| value.as_str())
+                    .unwrap_or("")
+                    .to_string();
+                let draft = pr
+                    .get("isDraft")
+                    .and_then(|value| value.as_bool())
+                    .unwrap_or(false);
                 let author = pr
                     .get("author")
                     .and_then(|value| value.get("login"))
@@ -784,7 +905,10 @@ fn json_stems(path: &Path) -> std::collections::HashSet<String> {
         let path = entry.path();
         if path.is_dir() {
             ids.extend(json_stems(&path));
-        } else if path.extension().is_some_and(|extension| extension == "json") {
+        } else if path
+            .extension()
+            .is_some_and(|extension| extension == "json")
+        {
             if let Some(stem) = path.file_stem().and_then(|stem| stem.to_str()) {
                 ids.insert(stem.to_string());
             }

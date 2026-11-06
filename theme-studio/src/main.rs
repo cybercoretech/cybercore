@@ -15,13 +15,13 @@ use cybercore::theme::{
 use futures_util::stream::{self, Stream};
 use serde::Deserialize;
 use serde_json::{json, Value};
-use tower_http::services::ServeDir;
 use std::{
     convert::Infallible,
     net::SocketAddr,
     sync::{Mutex, OnceLock},
     time::{Duration, Instant, SystemTime, UNIX_EPOCH},
 };
+use tower_http::services::ServeDir;
 
 mod connectors;
 
@@ -261,11 +261,7 @@ fn count_field(resources: &[Value], field: &str) -> Value {
 }
 
 fn percentage(value: usize, total: usize) -> usize {
-    if total == 0 {
-        0
-    } else {
-        value.saturating_mul(100) / total
-    }
+    value.saturating_mul(100).checked_div(total).unwrap_or(0)
 }
 
 fn unix_timestamp() -> u64 {
@@ -536,13 +532,11 @@ fn platform_for_site(id: &str) -> &'static str {
     }
 }
 
-fn site_status(missing: &[&str], starter: bool) -> &'static str {
-    if !missing.is_empty() {
-        "MISSING RESOURCES"
-    } else if starter {
+fn site_status(missing: &[&str], _starter: bool) -> &'static str {
+    if missing.is_empty() {
         "READY"
     } else {
-        "READY"
+        "MISSING RESOURCES"
     }
 }
 

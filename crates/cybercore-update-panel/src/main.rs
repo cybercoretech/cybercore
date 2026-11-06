@@ -56,9 +56,10 @@ struct ServiceRequest {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let root = PathBuf::from(env::var("CYBERCORE_ROOT").unwrap_or_else(|_| {
-        "/home/raven/Devspace/Cybercore/framework/cybercore".into()
-    }));
+    let root = PathBuf::from(
+        env::var("CYBERCORE_ROOT")
+            .unwrap_or_else(|_| "/home/raven/Devspace/Cybercore/framework/cybercore".into()),
+    );
     let manifest = Manifest::load(root.join("tools/cybercore-consumers.json"))?;
     let state = AppState {
         engine: Arc::new(Engine::new(manifest, root)),
@@ -198,9 +199,7 @@ async fn fleet(State(state): State<AppState>) -> Json<Vec<FleetView>> {
                 source_exists: item.source_exists,
                 worktree_clean: item.worktree_clean,
                 service: item.service,
-                installed_binary: item
-                    .installed_binary
-                    .map(|path| path.display().to_string()),
+                installed_binary: item.installed_binary.map(|path| path.display().to_string()),
                 service_active: item.service_active,
                 diagnostics: item.diagnostics,
             })
@@ -212,10 +211,8 @@ async fn repair(
     State(state): State<AppState>,
     Json(request): Json<ApplyRequest>,
 ) -> impl IntoResponse {
-    let result = tokio::task::spawn_blocking(move || {
-        state.engine.repair(&request.names, |_| {})
-    })
-    .await;
+    let result =
+        tokio::task::spawn_blocking(move || state.engine.repair(&request.names, |_| {})).await;
     match result {
         Ok(results) => Json(ApplyResponse {
             results: results
@@ -239,17 +236,15 @@ async fn repair(
         )
             .into_response(),
     }
-
 }
 
 async fn restart_services(
     State(state): State<AppState>,
     Json(request): Json<ServiceRequest>,
 ) -> impl IntoResponse {
-    let result = tokio::task::spawn_blocking(move || {
-        state.engine.restart_services(&request.names, |_| {})
-    })
-    .await;
+    let result =
+        tokio::task::spawn_blocking(move || state.engine.restart_services(&request.names, |_| {}))
+            .await;
     task_response(result, "service restart")
 }
 
@@ -257,10 +252,8 @@ async fn rollback(
     State(state): State<AppState>,
     Json(request): Json<ServiceRequest>,
 ) -> impl IntoResponse {
-    let result = tokio::task::spawn_blocking(move || {
-        state.engine.rollback(&request.names, |_| {})
-    })
-    .await;
+    let result =
+        tokio::task::spawn_blocking(move || state.engine.rollback(&request.names, |_| {})).await;
     task_response(result, "rollback")
 }
 
@@ -297,10 +290,8 @@ async fn apply(
     State(state): State<AppState>,
     Json(request): Json<ApplyRequest>,
 ) -> impl IntoResponse {
-    let result = tokio::task::spawn_blocking(move || {
-        state.engine.run(&request.names, true, |_| {})
-    })
-    .await;
+    let result =
+        tokio::task::spawn_blocking(move || state.engine.run(&request.names, true, |_| {})).await;
     match result {
         Ok(results) => Json(ApplyResponse {
             results: results
@@ -330,10 +321,8 @@ async fn plan(
     State(state): State<AppState>,
     Json(request): Json<ApplyRequest>,
 ) -> impl IntoResponse {
-    let result = tokio::task::spawn_blocking(move || {
-        state.engine.run(&request.names, false, |_| {})
-    })
-    .await;
+    let result =
+        tokio::task::spawn_blocking(move || state.engine.run(&request.names, false, |_| {})).await;
     match result {
         Ok(results) => Json(ApplyResponse {
             results: results
