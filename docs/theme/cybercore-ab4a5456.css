@@ -1,3 +1,4 @@
+/* mdBook sets html { font-size: 62.5% }, so 1rem here is 10px, not 16px. */
 .navy {
   --sidebar-target-width: 296px;
   --page-padding: 15px;
@@ -65,7 +66,7 @@
 
 .navy .menu-title {
   color: #c6ff45;
-  font: 700 .7rem "JetBrains Mono", ui-monospace, monospace;
+  font: 700 1.12rem "JetBrains Mono", ui-monospace, monospace;
   letter-spacing: .16em;
   text-transform: uppercase;
   text-shadow: 0 0 14px #c6ff4540;
@@ -82,8 +83,9 @@
   padding: 16px 8px 14px;
   color: #c6ff45;
   content: "✳  CYBERCORE MASTER DOCUMENTATION";
-  font: 700 .78rem "JetBrains Mono", ui-monospace, monospace;
-  letter-spacing: .1em;
+  font: 700 1.1rem "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: .06em;
+  white-space: nowrap;
   text-transform: uppercase;
 }
 
@@ -98,7 +100,7 @@
   border-radius: 2px;
   color: #22e6ff;
   background: #0d1422;
-  font: 700 .75rem "JetBrains Mono", ui-monospace, monospace;
+  font: 700 1.2rem "JetBrains Mono", ui-monospace, monospace;
   letter-spacing: .1em;
   text-transform: uppercase;
 }
@@ -115,7 +117,7 @@
 .navy .sidebar .chapter li a {
   display: block;
   padding: 7px 10px;
-  font: 500 .84rem/1.35 "JetBrains Mono", ui-monospace, monospace;
+  font: 500 1.35rem/1.35 "JetBrains Mono", ui-monospace, monospace;
   letter-spacing: .04em;
 }
 
@@ -138,14 +140,14 @@
 }
 
 .navy h1 {
-  font-size: 2.5rem;
+  font-size: 4rem;
   text-shadow: 0 0 22px #22e6ff1f;
 }
 
 .navy .content p,
 .navy .content li,
 .navy .content td {
-  font-size: 1rem;
+  font-size: 1.6rem;
 }
 
 .navy h2 {
@@ -212,6 +214,23 @@
   }
 
   .navy h1 {
-    font-size: 2rem;
+    font-size: 3.2rem;
+  }
+}
+
+/* Touch screens: menu-bar icons and list links at least 24px tall to tap. */
+@media (pointer: coarse) {
+  .navy .menu-bar .icon-button,
+  .navy .menu-bar .right-buttons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    min-height: 32px;
+  }
+
+  .navy .content li > a {
+    display: inline-block;
+    padding-block: 4px;
   }
 }
