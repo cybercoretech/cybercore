@@ -23,6 +23,11 @@
   </style>
   <link rel="stylesheet" href="https://cybercoretech.github.io/kit/chooser.css">
   <script>window.SITE = { themeVars: { white: ["--white", "--fg"] } };</script>
+<style id="cc-mobile-first">
+  /* Mobile first: phones and tablets get 11px minimum text and 24px touch targets; desktop is unchanged. */
+  @media (max-width: 1024px) { .topbar-tools a, .eyebrow, .count { font-size: 11px; } }
+  @media (pointer: coarse) { .topbar-tools a { display: inline-flex; align-items: center; min-height: 24px; } }
+</style>
 </head>
 <body>
   <header class="topbar"><div class="brand">✳ CYBERCORE THEME CHOOSER</div><div class="topbar-tools"><cybercore-theme-chooser shuffle hotkeys></cybercore-theme-chooser><a href="./docs.html">MASTER DOCS ↗</a></div></header>
