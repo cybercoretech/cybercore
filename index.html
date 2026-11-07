@@ -22,6 +22,27 @@
   </script>
   <script src="assets/js/engine.js?v=0.9.12" defer></script>
   <script src="assets/js/fx.js?v=20261105-1" defer></script>
+  <style id="cc-mobile-first">
+/* Mobile floor (phones + tablets): readable text and finger-sized targets.
+   Generated per range from what renders under 11px / 24px; desktop untouched. */
+@media (pointer: coarse) {
+  div.contract-card > a,
+  a.text-link,
+  div.usage-card > a,
+  nav.foot-links > a,
+  div.crate > button { min-height: 24px; min-width: 24px; }
+  span > a { display: inline-flex; align-items: center; min-height: 24px; min-width: 24px; }
+}
+/* Layout fixes: phones and tablets only; laptops and desktops untouched. */
+@media (max-width: 1024px) {
+  /* Mobile first: nothing may make the page wider than the screen.
+     Grid/flex columns may shrink below their widest line; code scrolls in place. */
+  pre { max-width: 100%; overflow-x: auto; }
+  img, video { max-width: 100%; height: auto; }
+  /* Long paths and URLs in inline code may break anywhere instead of widening the page. */
+  :not(pre) > code { overflow-wrap: anywhere; }
+}
+  </style>
 </head>
 <body>
   <div class="boot" id="boot"><div class="boot-inner"><img class="boot-mark" src="assets/img/mark.svg" alt=""><ul class="boot-log" id="bootLog"></ul><div class="boot-bar"><i id="bootBar"></i></div></div></div>
