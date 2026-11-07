@@ -2,6 +2,24 @@
 
 All notable changes to `cybercore` are documented in this file.
 
+## 🚢 [0.8.4] - 2026-11-07
+
+### ✨ Changed
+- Recolored four theme families that were near copies of other families, so
+  every family in the chooser now looks distinct. Each palette was
+  hue-rotated as a whole (contrast kept at 3:1 or better); theme IDs and
+  family names are unchanged:
+  - `synth-industrial` +45° (was a copy of `cyberdark-industrial`)
+  - `dark-skylines` +240° (was a copy of `cyberdark-industrial`)
+  - `cyberdark-ops` +155° (was a copy of `cyberdark-grid`)
+  - `terminal-ghost` +200° (was a copy of `cyberdark-grid`)
+- The embedded catalog and `docs/theme-chooser-data.json` match the org
+  registry that every Cybercore site reads live.
+
+### 🐛 Fixed
+- The workspace builds on Rust 1.85 again (MSRV); rustfmt and clippy
+  (`-D warnings`) are clean. No behaviour change.
+
 ## 🚢 [0.8.3] - 2026-11-06
 
 ### 🐛 Fixed
