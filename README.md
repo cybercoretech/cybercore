@@ -49,6 +49,11 @@ Everything else in this repo is a typed loader for that one file, not
 an owner of the data. **Edit the JSON. Never hand-edit palette values
 or paths anywhere else.**
 
+The same rule covers the web: the org site's kit and theme data, the
+cybercore-web-kit mirror and the official `cybercore.*` packs are all
+generated from this repository and arrive as sync PRs. See
+[docs/distribution.md](docs/distribution.md) for what to edit where.
+
 ## ✨ Tool status (feature `status`) — since v0.6.0
 
 Every Cybercore tool can publish one JSON status snapshot for the TUI hub and
@@ -104,11 +109,12 @@ original `cybercore` crate remains the compatibility source of truth:
 | [`cybercore-components`](https://crates.io/crates/cybercore-components) | Shared component styles and behavior contracts |
 | [`cybercore-publish`](https://crates.io/crates/cybercore-publish) | Dry-run publish plans and consumer packaging contracts |
 
-Resource packs live in `packs/` and use immutable manifests with compatibility,
-provenance, licensing, accessibility, performance, preview, and checksum
-metadata. Current packs include Cybercore Effects and CyberDark Wallpapers;
-Fonts, SVGs, Snippets, Components, and Themes have governed family scaffolds
-ready for their first resources.
+Pack sources live in `packs/`; `packs/packs.json` lists the eight official
+packs (themes, effects, components, CyberDark wallpapers, snippets, fonts,
+SVG assets and web templates). `tools/export-distribution.py packs` builds
+them, with checksums and registry entries, into
+[cybercore-packs](https://github.com/cybercoretech/cybercore-packs), whose
+sync workflow opens a PR whenever a source changes.
 
 Before publishing a crate, run `cargo publish --dry-run -p <crate>`. Publish
 dependencies in order: `cybercore-core`, `cybercore-effects` and

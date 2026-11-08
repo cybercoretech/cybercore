@@ -1,0 +1,34 @@
+/* Cybercore font pack: self-hosted @font-face rules.
+ * Paths are relative to this file. All fonts are SIL Open Font License 1.1;
+ * each family's OFL.txt sits next to its font file. */
+@font-face {
+  font-family: "Oxanium";
+  src: url("oxanium/Oxanium-Variable.ttf") format("truetype");
+  font-weight: 200 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Orbitron";
+  src: url("orbitron/Orbitron-Variable.ttf") format("truetype");
+  font-weight: 400 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Audiowide";
+  src: url("audiowide/Audiowide-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Share Tech Mono";
+  src: url("sharetechmono/ShareTechMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --cc-font-display: "Oxanium", system-ui, sans-serif;
+  --cc-font-headline: "Orbitron", "Oxanium", system-ui, sans-serif;
+  --cc-font-logo: "Audiowide", "Orbitron", system-ui, sans-serif;
+  --cc-font-mono: "Share Tech Mono", ui-monospace, monospace;
+}

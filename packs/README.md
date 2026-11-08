@@ -20,17 +20,18 @@ packs/
   cybercore-themes/
 ```
 
-The remaining families are scaffolded and accept the same immutable
-`manifest.json` contract:
+`packs.json` lists the eight official packs and their version floors.
+`tools/export-distribution.py packs <cybercore-packs checkout>` turns these
+sources (plus `schema/`, `web/`, `css/` and `assets/`) into the published
+`cybercore.*` packs; see `docs/distribution.md`. Hand-written sources:
 
-```text
-packs/cybercore-fonts/
-packs/cybercore-svgs/
-packs/cybercore-snippets/
-packs/cybercore-components/
-packs/cybercore-themes/
-```
+| Folder | Pack |
+| --- | --- |
+| `cybercore-effects/` | standalone effects for `cybercore.effects` |
+| `cybercore-images/cyberdark-wallpapers/` | `cybercore.cyberdark-wallpapers` |
+| `cybercore-snippets/` | `cybercore.snippets` (index: `snippets.json`) |
+| `cybercore-fonts/` | `cybercore.fonts` (index: `fonts.json`) |
+| `cybercore-web-templates/` | `cybercore.web-templates` |
 
-Pack families are intentionally kept in this repository until they need
-independent ownership, release cadence, or asset storage. Each family can be
-published independently without creating another GitHub repository.
+Themes, components and SVG assets are generated from `schema/`, `css/` +
+`web/chooser.*` and `assets/`; their folders here only hold a README.

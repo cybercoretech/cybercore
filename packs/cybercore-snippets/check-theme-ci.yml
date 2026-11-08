@@ -1,0 +1,19 @@
+# .github/workflows/theme-check.yml: fail a PR when a theme has weak contrast.
+name: Theme check
+on:
+  pull_request:
+    paths: ["themes/**/*.json"]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo install cybercore --locked --bin cybercore-theme
+      - name: Check every theme (dark and light contrast)
+        run: |
+          for theme in themes/**/*.json; do
+            cybercore-theme check --strict "$theme"
+          done

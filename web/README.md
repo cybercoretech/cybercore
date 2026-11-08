@@ -47,10 +47,13 @@ arbitrary CSS or JavaScript.
 
 ## ✨ Distribution
 
-`tools/build-web-kit.sh` copies the canonical runtime, tokens, components,
+`tools/export-distribution.py org` (see `docs/distribution.md`) copies the canonical runtime, tokens, components,
 effect styles, and Web Kit schema into the Cybercore Tech Pages `kit/`
 directory. Consumers use the versioned Pages URL rather than copying
 `app.js` into each repository.
 
 The generated directory is intentionally static and dependency-free so it
 works on GitHub Pages, local previews, and offline mirrors.
+
+The universal theme chooser (`chooser.js`, `chooser.css`) also lives here and
+is published to `kit/chooser.*` on the org site.

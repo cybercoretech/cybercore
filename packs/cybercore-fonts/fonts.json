@@ -1,0 +1,42 @@
+{
+  "format": "cybercore-font-index",
+  "stylesheet": "fonts.css",
+  "fonts": [
+    {
+      "family": "Oxanium",
+      "role": "display",
+      "weights": "200 800",
+      "files": ["oxanium/Oxanium-Variable.ttf"],
+      "license": "OFL-1.1",
+      "license_file": "oxanium/OFL.txt",
+      "source": "https://github.com/google/fonts/tree/main/ofl/oxanium"
+    },
+    {
+      "family": "Orbitron",
+      "role": "headline",
+      "weights": "400 900",
+      "files": ["orbitron/Orbitron-Variable.ttf"],
+      "license": "OFL-1.1",
+      "license_file": "orbitron/OFL.txt",
+      "source": "https://github.com/google/fonts/tree/main/ofl/orbitron"
+    },
+    {
+      "family": "Audiowide",
+      "role": "logo",
+      "weights": "400",
+      "files": ["audiowide/Audiowide-Regular.ttf"],
+      "license": "OFL-1.1",
+      "license_file": "audiowide/OFL.txt",
+      "source": "https://github.com/google/fonts/tree/main/ofl/audiowide"
+    },
+    {
+      "family": "Share Tech Mono",
+      "role": "mono",
+      "weights": "400",
+      "files": ["sharetechmono/ShareTechMono-Regular.ttf"],
+      "license": "OFL-1.1",
+      "license_file": "sharetechmono/OFL.txt",
+      "source": "https://github.com/google/fonts/tree/main/ofl/sharetechmono"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+<!-- Cybercore Web Kit: tokens, components, effects and the theme runtime.
+     All files are served live from the org site; updates reach every page. -->
+<link rel="stylesheet" href="https://cybercoretech.github.io/kit/v1/tokens.css">
+<link rel="stylesheet" href="https://cybercoretech.github.io/kit/v1/components.css">
+<link rel="stylesheet" href="https://cybercoretech.github.io/kit/v1/effects.css">
+<script>
+  window.SITE = Object.assign(window.SITE || {}, {
+    web: {
+      motion: "full", // "reduced" or "none" also honour prefers-reduced-motion
+      effects: { "scanline": { "intensity": 0.25 }, "grid-glow": { "opacity": 0.35 } }
+    }
+  });
+</script>
+<script src="https://cybercoretech.github.io/kit/v1/cybercore.js"></script>
+
+<!-- Elements opt in to allowlisted recipes from schema/webkit.json -->
+<section data-cc-effect="scanline">
+  <article data-cc-component="detail-dialog">…</article>
+</section>
