@@ -1,0 +1,14 @@
+{
+  "format": "cybercore-snippet-index",
+  "snippets": [
+    { "id": "web.chooser-navbar", "file": "chooser-navbar.html", "language": "html", "title": "Theme chooser in a navbar", "description": "Load the universal theme chooser and place it in the site navbar." },
+    { "id": "web.site-theme-vars", "file": "site-theme-vars.js", "language": "javascript", "title": "Map palette slots to site variables", "description": "window.SITE options: site label, default theme and themeVars mapping." },
+    { "id": "web.kit-runtime", "file": "kit-runtime.html", "language": "html", "title": "Web Kit runtime and effects", "description": "Tokens, components, effect recipes and the cybercore.js runtime from the live kit." },
+    { "id": "web.theme-colors", "file": "theme-colors.css", "language": "css", "title": "Style with the active theme", "description": "CSS that follows the visitor's theme through the palette custom properties." },
+    { "id": "rust.cargo-dependency", "file": "cargo-dependency.toml", "language": "toml", "title": "Cargo dependency", "description": "Depend on cybercore from crates.io, with the optional feature sets." },
+    { "id": "rust.load-theme", "file": "load-theme.rs", "language": "rust", "title": "Load a theme in Rust", "description": "Read the active theme and look up any theme and its family." },
+    { "id": "rust.publish-status", "file": "publish-status.rs", "language": "rust", "title": "Publish tool status", "description": "Write an atomic status snapshot with metrics, events and actions." },
+    { "id": "ci.theme-check", "file": "check-theme-ci.yml", "language": "yaml", "title": "Theme contrast check in CI", "description": "GitHub Actions job that runs cybercore-theme check --strict on every theme." },
+    { "id": "shell.install-pack", "file": "install-pack.sh", "language": "bash", "title": "Install Cybercore packs", "description": "Install the pack CLI and add official packs to a project." }
+  ]
+}

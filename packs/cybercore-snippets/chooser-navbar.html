@@ -1,0 +1,14 @@
+<!-- Cybercore theme chooser in a site navbar.
+     Put the two tags in <head> and the element inside the navbar itself,
+     never inside a hamburger/collapsible menu. New themes appear on their own:
+     the chooser reads the live catalog from the org site. -->
+<link rel="stylesheet" href="https://cybercoretech.github.io/kit/chooser.css">
+<script type="module" src="https://cybercoretech.github.io/kit/chooser.js"></script>
+
+<nav class="site-nav">
+  <a class="brand" href="./">My Tool</a>
+  <a href="#features">Features</a>
+  <a href="#install">Install</a>
+  <!-- compact: swatch only under 560px; match: copy the nav link typography -->
+  <cybercore-theme-chooser shuffle compact match=".site-nav a:not(.brand)"></cybercore-theme-chooser>
+</nav>

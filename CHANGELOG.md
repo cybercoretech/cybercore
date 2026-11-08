@@ -2,6 +2,29 @@
 
 All notable changes to `cybercore` are documented in this file.
 
+## 🚧 Unreleased
+
+### ✨ Added
+- One source for every published copy. `tools/export-distribution.py`
+  generates the org site's kit and theme data and the eight official
+  `cybercore.*` packs from this repository; sync workflows in the org site,
+  cybercore-web-kit and cybercore-packs open a PR when anything changes.
+  See `docs/distribution.md`.
+- Real pack contents: all 600 themes and the signature mashups, effect
+  recipes, components and the theme chooser, OFL fonts with `fonts.css`,
+  copy-ready snippets (compile-checked in CI), SVG assets and a landing-page
+  template.
+- `Distribution export` CI: exports must build, be deterministic and pass the
+  org registry rules.
+
+### ✨ Changed
+- The universal theme chooser (`web/chooser.*`), signature mashups and
+  terminal palettes (`schema/mashups.json`, `schema/kitty-themes.json`) now
+  live here instead of the org site.
+- `schema/cybergrid.json` lists all 50 families in the chooser's curated
+  order (the crate still derives families from `schema/themes`).
+- `tools/publish-web-kit.sh` mirrors the live org kit exactly, and works in CI.
+
 ## 🚢 [0.8.4] - 2026-11-07
 
 ### ✨ Changed

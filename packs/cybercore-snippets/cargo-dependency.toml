@@ -1,0 +1,10 @@
+# Cargo.toml: depend on the Cybercore theme engine from crates.io.
+# Never use a local path dependency in a published repo; CI cannot see it.
+[dependencies]
+cybercore = "0.8"
+
+# Browser / in-memory consumers (no theme persistence on disk):
+# cybercore = { version = "0.8", default-features = false }
+
+# Tool status contract (atomic per-tool status JSON):
+# cybercore = { version = "0.8", features = ["status"] }

@@ -1,0 +1,78 @@
+name: Distribution export
+
+# cybercore is the source for the org site's kit and theme data, the
+# cybercore-web-kit mirror and the official cybercore.* packs. This checks
+# that every export still builds, is deterministic and is internally
+# consistent before a change reaches main. The repositories that publish the
+# files pull them with their own sync workflows.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "schema/**"
+      - "web/**"
+      - "css/**"
+      - "assets/**"
+      - "packs/**"
+      - "tools/export-distribution.py"
+      - "tools/publish-web-kit.sh"
+      - "tools/open-sync-pr.sh"
+      - ".github/workflows/distribution.yml"
+  pull_request:
+    paths:
+      - "schema/**"
+      - "web/**"
+      - "css/**"
+      - "assets/**"
+      - "packs/**"
+      - "tools/export-distribution.py"
+      - "tools/publish-web-kit.sh"
+      - "tools/open-sync-pr.sh"
+      - ".github/workflows/distribution.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    name: Export org site and packs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check scripts
+        run: |
+          bash -n tools/publish-web-kit.sh tools/open-sync-pr.sh packs/cybercore-snippets/install-pack.sh
+          cp web/chooser.js "$RUNNER_TEMP/chooser.mjs" && node --check "$RUNNER_TEMP/chooser.mjs"
+          node --check web/cybercore.js
+          node --check packs/cybercore-snippets/site-theme-vars.js
+
+      - name: Export (deterministic, checksums verified)
+        run: python3 tools/export-distribution.py check
+
+      - name: Validate org registry rules on the export
+        run: |
+          site="$RUNNER_TEMP/org"
+          mkdir -p "$site/tools"
+          python3 tools/export-distribution.py org "$site" > /dev/null
+          curl -fsSL https://raw.githubusercontent.com/cybercoretech/cybercoretech.github.io/main/tools/validate-themes.py -o "$site/tools/validate-themes.py"
+          python3 "$site/tools/validate-themes.py"
+
+  snippets:
+    name: Compile Rust snippets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build snippets against this crate
+        run: |
+          cp packs/cybercore-snippets/load-theme.rs examples/snippet_load_theme.rs
+          cp packs/cybercore-snippets/publish-status.rs examples/snippet_publish_status.rs
+          cargo run --quiet --example snippet_load_theme
+          cargo build --quiet --example snippet_publish_status --features status

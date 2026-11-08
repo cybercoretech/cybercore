@@ -1,0 +1,19 @@
+/* Style a page with the active Cybercore theme.
+ * The chooser writes the palette to these custom properties on <html>, so
+ * every rule below follows the visitor's theme. Give each a fallback. */
+body {
+  background: var(--bg, #09080f);
+  color: var(--white, #f0f0f2);
+}
+.panel {
+  background: var(--panel, #16151f);
+  border: 1px solid var(--line, #32303e);
+}
+.muted { color: var(--muted, #807f8b); }
+a, .accent { color: var(--cyan, #00e5ff); }
+.button-primary {
+  background: var(--acid, #39ff33);
+  color: var(--bg, #09080f);
+}
+.badge-alert { color: var(--red, #f1142d); }
+:focus-visible { outline: 2px solid var(--purple, #8a22e2); outline-offset: 2px; }

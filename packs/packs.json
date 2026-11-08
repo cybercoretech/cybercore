@@ -1,0 +1,85 @@
+{
+  "comment": "Official cybercore.* packs. tools/export-distribution.py packs builds each one from the sources named in its payload function and writes it to cybercore-packs. 'version' is the floor: an unchanged payload keeps its published version, a changed one gets the next patch version.",
+  "packs": [
+    {
+      "id": "cybercore.themes",
+      "kind": "theme-pack",
+      "version": "1.1.0",
+      "resource_prefix": "themes",
+      "title": "Cybercore Themes",
+      "description": "Every CYBERGRID theme (600 palettes in 50 families) as one catalog, plus the 12 signature mashups and the classic terminal palettes they use. Source: schema/themes, schema/mashups.json, schema/kitty-themes.json.",
+      "license": "MIT",
+      "compatibility": { "cybercore": ">=0.8.4", "control_plane": ">=0.1.0", "web_kit": ">=1.0.0" }
+    },
+    {
+      "id": "cybercore.effects",
+      "kind": "effects-pack",
+      "version": "1.1.0",
+      "resource_prefix": "effect",
+      "title": "Cybercore Effects",
+      "description": "Web Kit effect styles and recipes (scanline, grid glow, telemetry pulse) with motion profiles, plus standalone effects such as the HUD scanline with static and reduced-motion fallbacks.",
+      "license": "MIT",
+      "compatibility": { "control_plane": ">=0.1.0", "web_kit": ">=1.0.0" }
+    },
+    {
+      "id": "cybercore.components",
+      "kind": "components-pack",
+      "version": "1.1.0",
+      "resource_prefix": "component",
+      "title": "Cybercore Components",
+      "description": "Design tokens, the shared component stylesheet (buttons, cards, navigation, alerts, forms, focus) and the universal theme chooser element.",
+      "license": "MIT",
+      "compatibility": { "control_plane": ">=0.1.0", "web_kit": ">=1.0.0" }
+    },
+    {
+      "id": "cybercore.cyberdark-wallpapers",
+      "kind": "wallpaper-pack",
+      "version": "1.1.0",
+      "resource_prefix": "wallpaper",
+      "title": "CyberDark Wallpapers",
+      "description": "4K SVG desktop wallpapers with an index and the theme-to-wallpaper assignments from cybergrid.json.",
+      "license": "MIT",
+      "compatibility": { "control_plane": ">=0.1.0" }
+    },
+    {
+      "id": "cybercore.snippets",
+      "kind": "snippet-pack",
+      "version": "1.1.0",
+      "resource_prefix": "snippet",
+      "title": "Cybercore Snippets",
+      "description": "Copy-ready snippets: theme chooser embed, site variable mapping, Web Kit runtime, themed CSS, Rust theme loading and status publishing, CI theme checks and pack installs.",
+      "license": "MIT",
+      "compatibility": { "cybercore": ">=0.8.0", "control_plane": ">=0.1.0" }
+    },
+    {
+      "id": "cybercore.fonts",
+      "kind": "font-pack",
+      "version": "1.1.0",
+      "resource_prefix": "font",
+      "title": "Cybercore Fonts",
+      "description": "Self-hosted OFL fonts used across Cybercore (Oxanium, Orbitron, Audiowide, Share Tech Mono) with licenses and a ready @font-face stylesheet.",
+      "license": "OFL-1.1",
+      "compatibility": { "control_plane": ">=0.1.0", "web_kit": ">=1.0.0" }
+    },
+    {
+      "id": "cybercore.svg-assets",
+      "kind": "svg-pack",
+      "version": "1.1.0",
+      "resource_prefix": "asset",
+      "title": "Cybercore SVG Assets",
+      "description": "Cybercore logos, wordmarks, headers, social card, divider and the app icon at every size, with an index of titles.",
+      "license": "MIT",
+      "compatibility": { "control_plane": ">=0.1.0", "web_kit": ">=1.0.0" }
+    },
+    {
+      "id": "cybercore.web-templates",
+      "kind": "template-pack",
+      "version": "1.1.0",
+      "resource_prefix": "template",
+      "title": "Cybercore Web Templates",
+      "description": "Dependency-free HTML page templates wired to the live Cybercore kit and theme chooser.",
+      "license": "MIT",
+      "compatibility": { "control_plane": ">=0.1.0", "web_kit": ">=1.0.0" }
+    }
+  ]
+}

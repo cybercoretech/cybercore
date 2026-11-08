@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "description": "Signature mashups shared by every Cybercore site: surfaces (bg, white, panel, line, muted) from `base`, neons from `accent`. Each side is a theme id from cybergrid.json, or kitty:<name> from kitty-themes.json.",
+  "mashups": [
+    { "id": "cc-chrome-horizon", "label": "Chrome Horizon", "base": "cyberdyne-steel", "accent": "synthwave-outrun" },
+    { "id": "cc-skynet-plasma", "label": "Skynet Plasma", "base": "cyberdyne-skynet", "accent": "neosynth-plasma" },
+    { "id": "cc-midnight-mainframe", "label": "Midnight Mainframe", "base": "synthwave-sunset", "accent": "cyberpunk-neon" },
+    { "id": "cc-judgment-grid", "label": "Judgment Grid", "base": "cyberdyne-judgment", "accent": "neosynth-laser-grid" },
+    { "id": "cc-dracula-tokyo", "label": "Dracula // Tokyo Night", "base": "kitty:dracula", "accent": "kitty:tokyo-night" },
+    { "id": "cc-catppuccin-nord", "label": "Catppuccin // Nord", "base": "kitty:catppuccin-mocha", "accent": "kitty:nord" },
+    { "id": "cc-gruvbox-monokai", "label": "Gruvbox // Monokai", "base": "kitty:gruvbox-dark", "accent": "kitty:monokai-pro" },
+    { "id": "cc-onyx-material", "label": "One Dark // Material Ocean", "base": "kitty:one-dark", "accent": "kitty:material-ocean" },
+    { "id": "cc-kanagawa-rose", "label": "Kanagawa // Rose Pine", "base": "kitty:kanagawa-wave", "accent": "kitty:rose-pine-moon" },
+    { "id": "cc-evernight-fox", "label": "Everforest // Nightfox", "base": "kitty:everforest-dark", "accent": "kitty:nightfox" },
+    { "id": "cc-solarized-ayu", "label": "Solarized // Ayu", "base": "kitty:solarized-dark", "accent": "kitty:ayu" },
+    { "id": "cc-oxide-vesper", "label": "Oxocarbon // Vesper", "base": "kitty:oxocarbon", "accent": "kitty:vesper" }
+  ]
+}
