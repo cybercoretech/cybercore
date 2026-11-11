@@ -160,6 +160,31 @@ class BrandPayloadTest(unittest.TestCase):
         self.assertNotIn("--cc-<slot>", readme)
         self.assertIn("svg/<group>/<name>.svg", readme)
 
+    # --- I3: web-kit mirror ships kit/brand ---------------------------------
+
+    @unittest.skipUnless(shutil.which("jq") and shutil.which("rsync"), "needs jq and rsync")
+    def test_publish_web_kit_copies_and_checksums_brand(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            org, web_kit = Path(tmp, "org"), Path(tmp, "web-kit")
+            org.mkdir()
+            ED.export_org(org)
+            (org / "kit/contact.js").write_text("// contact\n")
+            web_kit.mkdir()
+            env = {**os.environ, "CYBERCORE_ORG_SITE": str(org), "CYBERCORE_WEB_KIT_REPO": str(web_kit)}
+            subprocess.run(["bash", str(ROOT / "tools/publish-web-kit.sh")], env=env, check=True,
+                           capture_output=True)
+            dist = web_kit / "dist"
+            self.assertTrue((dist / "brand/brand.json").is_file())
+            self.assertTrue((dist / "brand/svg/logo/symbol.svg").is_file())
+            sums = (dist / "checksums-sha256.txt").read_text()
+            self.assertIn("  brand/brand.json\n", sums)
+            self.assertIn("  brand/svg/logo/symbol.svg\n", sums)
+            # A brand file removed from the org kit disappears from the mirror.
+            (org / "kit/brand/svg/logo/symbol.svg").unlink()
+            subprocess.run(["bash", str(ROOT / "tools/publish-web-kit.sh")], env=env, check=True,
+                           capture_output=True)
+            self.assertFalse((dist / "brand/svg/logo/symbol.svg").exists())
+
     # --- I4: svg-assets content lives in brand group `site` ------------------
 
     def test_every_svg_asset_has_a_site_brand_asset(self):
