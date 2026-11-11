@@ -33,6 +33,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA = ROOT / "schema"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import brand_theme  # noqa: E402
 PACK_SOURCES = ROOT / "packs"
 
 # Web Kit file mapping (same as tools/build-web-kit.sh).
@@ -57,6 +59,7 @@ KIND_BY_SUFFIX = {
     ".js": "javascript",
     ".json": "index",
     ".svg": "svg",
+    ".png": "png",
     ".ttf": "font",
     ".woff2": "font",
     ".html": "html-template",
@@ -339,6 +342,82 @@ def payload_web_templates() -> dict[str, bytes]:
     return payload_tree(PACK_SOURCES / "cybercore-web-templates")
 
 
+BRAND_GROUPS = {
+    "logos": "logo", "marks": "mark", "icons": "icon", "projects": "project", "tiles": "tile",
+    "headers": "header", "cards": "card", "identity": "identity", "avatars": "avatar",
+}
+
+BRAND_README = """# Cybercore Brand Kit
+
+Logos, marks, icons, project icons, tiles, headers, cards, identity and avatars.
+
+- `svg/<group>/<name>.svg` recolours by role: every brand colour is a CSS variable
+  (`var(--cc-<slot>, <original>)`), so the file follows a theme and falls back to the source colours.
+- `fixed/<group>/<name>.svg` is the unmodified source.
+- `png/<group>/<name>.png` are raster exports.
+- `brand.json` lists every asset with its group, title, files and project.
+"""
+
+
+def payload_brand() -> dict[str, bytes]:
+    source = PACK_SOURCES / "cybercore-brand"
+    palette = brand_theme.load_palette(source / "palette.json")
+    projects = load_json(source / "projects.json")["projects"]
+    by_icon = {Path(p["icon"]).as_posix(): p for p in projects}
+    files: dict[str, bytes] = {"README.md": BRAND_README.encode()}
+    assets = []
+
+    for folder, group in BRAND_GROUPS.items():
+        directory = source / folder
+        svgs: dict[str, dict] = {}
+        pngs: list[tuple[str, str]] = []
+        for path in sorted(directory.glob("*")):
+            if path.suffix == ".svg":
+                data = path.read_bytes()
+                name = path.stem
+                files[f"fixed/{group}/{name}.svg"] = data
+                files[f"svg/{group}/{name}.svg"] = brand_theme.themeable_svg(
+                    data.decode(), palette).encode()
+                title = svg_title(data, name)
+                project = None
+                if group == "project":
+                    entry = by_icon.get(f"{folder}/{path.name}")
+                    if entry is None:
+                        raise ExportError(f"projects.json has no entry for {folder}/{path.name}")
+                    title, project = entry["title"], entry["repo"]
+                svgs[name] = {
+                    "id": f"{group}.{name}", "group": group, "name": name, "title": title,
+                    "svg": f"svg/{group}/{name}.svg", "fixed": f"fixed/{group}/{name}.svg",
+                    "png": [], "project": project,
+                }
+            elif path.suffix == ".png":
+                files[f"png/{group}/{path.stem}.png"] = path.read_bytes()
+                pngs.append((path.stem, f"png/{group}/{path.stem}.png"))
+        standalone: dict[str, dict] = {}
+        for stem, rel in pngs:
+            base = re.sub(r"-\d+$", "", stem)
+            target = svgs.get(stem) or svgs.get(base)
+            if target is None:
+                target = standalone.setdefault(stem, {
+                    "id": f"{group}.{stem}", "group": group, "name": stem, "title": stem,
+                    "svg": None, "fixed": None, "png": [], "project": None,
+                })
+            target["png"].append(rel)
+        for asset in [*svgs.values(), *standalone.values()]:
+            asset["png"].sort(key=lambda r: (int(m.group(1)) if (m := re.search(r"-(\d+)\.png$", r)) else 0, r))
+            assets.append(asset)
+
+    missing = {p["repo"] for p in projects} - {a["project"] for a in assets if a["project"]}
+    if missing:
+        raise ExportError(f"projects.json lists repos without an icon: {sorted(missing)}")
+    assets.sort(key=lambda a: a["id"])
+    files["brand.json"] = dump_json({
+        "format": "cybercore-brand-index", "version": 1,
+        "slots": list(brand_theme.BRAND_SLOTS), "assets": assets,
+    })
+    return files
+
+
 PAYLOADS = {
     "themes": payload_themes,
     "effects": payload_effects,
@@ -348,6 +427,7 @@ PAYLOADS = {
     "fonts": payload_fonts,
     "svg-assets": payload_svg_assets,
     "web-templates": payload_web_templates,
+    "brand": payload_brand,
 }
 
 

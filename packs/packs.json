@@ -67,7 +67,7 @@
       "version": "1.1.0",
       "resource_prefix": "asset",
       "title": "Cybercore SVG Assets",
-      "description": "Cybercore logos, wordmarks, headers, social card, divider and the app icon at every size, with an index of titles.",
+      "description": "Cybercore logos, wordmarks, headers, social card, divider and the app icon at every size, with an index of titles. Superseded by cybercore.brand; kept for existing consumers.",
       "license": "MIT",
       "compatibility": { "control_plane": ">=0.1.0", "web_kit": ">=1.0.0" }
     },
@@ -80,6 +80,16 @@
       "description": "Dependency-free HTML page templates wired to the live Cybercore kit and theme chooser.",
       "license": "MIT",
       "compatibility": { "control_plane": ">=0.1.0", "web_kit": ">=1.0.0" }
+    },
+    {
+      "id": "cybercore.brand",
+      "kind": "brand-pack",
+      "version": "1.0.0",
+      "resource_prefix": "brand",
+      "title": "Cybercore Brand Kit",
+      "description": "Cybercore logos, marks, app icons, project icons and tiles, headers, social cards, identity art and avatars, as theme-aware SVGs (recoloured by role) with fixed-colour sources and PNG exports.",
+      "license": "MIT",
+      "compatibility": { "web_kit": ">=1.0.0", "control_plane": ">=0.1.0" }
     }
   ]
 }

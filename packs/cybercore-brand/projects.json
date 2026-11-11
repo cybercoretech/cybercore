@@ -3,357 +3,357 @@
   "projects": [
     {
       "repo": ".github",
-      "title": "Github",
+      "title": ".github",
       "icon": "projects/github.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "CyberAuth",
-      "title": "Cyberauth",
+      "title": "CyberAuth",
       "icon": "projects/cyberauth.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/CyberAuth/assets/favicon.svg"
     },
     {
       "repo": "CyberWinDiagnostics",
-      "title": "Cyberwindiagnostics",
+      "title": "CyberWinDiagnostics",
       "icon": "projects/cyberwindiagnostics.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/CyberWinDiagnostics/assets/favicon.svg"
     },
     {
       "repo": "DaemonHall",
-      "title": "Daemonhall",
+      "title": "DaemonHall",
       "icon": "projects/daemonhall.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/DaemonHall/assets/favicon.svg"
     },
     {
       "repo": "DarkwaveCode",
-      "title": "Darkwavecode",
+      "title": "DarkwaveCode",
       "icon": "projects/darkwavecode.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "NeonCoffinVideo",
-      "title": "Neoncoffinvideo",
+      "title": "NeonCoffinVideo",
       "icon": "projects/neoncoffinvideo.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "aetherscope",
-      "title": "Aetherscope",
+      "title": "aetherscope",
       "icon": "projects/aetherscope.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/aetherscope/"
     },
     {
       "repo": "agentforge",
-      "title": "Agentforge",
+      "title": "agentforge",
       "icon": "projects/agentforge.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "apexdaemon",
-      "title": "ApexDaemon command node",
+      "title": "apexdaemon",
       "icon": "projects/apexdaemon.svg",
       "tile": "tiles/apexdaemon.svg",
       "upstream": "https://cybercoretech.github.io/apexdaemon/assets/logo-command-node.svg"
     },
     {
       "repo": "argus",
-      "title": "Argus",
+      "title": "argus",
       "icon": "projects/argus.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "chronicle",
-      "title": "Chronicle",
+      "title": "chronicle",
       "icon": "projects/chronicle.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/chronicle/assets/mark.svg"
     },
     {
       "repo": "cybercore",
-      "title": "Cybercore",
+      "title": "cybercore",
       "icon": "projects/cybercore.svg",
       "tile": "tiles/cybercore.svg",
       "upstream": "https://cybercoretech.github.io/cybercore/assets/img/favicon.svg"
     },
     {
       "repo": "cybercore-mission-control",
-      "title": "Cybercore Mission Control",
+      "title": "cybercore-mission-control",
       "icon": "projects/cybercore-mission-control.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "cybercoretech.github.io",
-      "title": "Cybercore symbol",
+      "title": "cybercoretech.github.io",
       "icon": "projects/cybercoretech-github-io.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "cyberdeck",
-      "title": "Cyberdeck",
+      "title": "cyberdeck",
       "icon": "projects/cyberdeck.svg",
       "tile": "tiles/cyberdeck.svg",
       "upstream": "https://cybercoretech.github.io/cyberdeck/assets/brand/cyberdeck-favicon.svg"
     },
     {
       "repo": "cyberdeck-hub",
-      "title": "Cyberdeck Hub",
+      "title": "cyberdeck-hub",
       "icon": "projects/cyberdeck-hub.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "cyberdesk",
-      "title": "Cyberdesk",
+      "title": "cyberdesk",
       "icon": "projects/cyberdesk.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/cyberdesk/assets/mark.svg"
     },
     {
       "repo": "cyberfleet",
-      "title": "Cyberfleet",
+      "title": "cyberfleet",
       "icon": "projects/cyberfleet.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "cybermeta",
-      "title": "Cybermeta",
+      "title": "cybermeta",
       "icon": "projects/cybermeta.svg",
       "tile": "tiles/cybermeta.svg",
       "upstream": "https://cybercoretech.github.io/cybermeta/assets/icon.svg"
     },
     {
       "repo": "cybermeta-android-app",
-      "title": "Cybermeta Android App",
+      "title": "cybermeta-android-app",
       "icon": "projects/cybermeta-android-app.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/cybermeta-android-app/assets/icon.svg"
     },
     {
       "repo": "cybernote",
-      "title": "Cybernote",
+      "title": "cybernote",
       "icon": "projects/cybernote.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "cybernote-android-app",
-      "title": "Cybernote Android App",
+      "title": "cybernote-android-app",
       "icon": "projects/cybernote-android-app.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "cyberplug",
-      "title": "Cyberplug",
+      "title": "cyberplug",
       "icon": "projects/cyberplug.svg",
       "tile": "tiles/cyberplug.svg",
       "upstream": "https://cybercoretech.github.io/cyberplug/assets/brand/cyberplug-favicon.svg"
     },
     {
       "repo": "cyberplug-bar-widget",
-      "title": "Cyberplug Bar Widget",
+      "title": "cyberplug-bar-widget",
       "icon": "projects/cyberplug-bar-widget.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "cyberterm",
-      "title": "Cyberterm",
+      "title": "cyberterm",
       "icon": "projects/cyberterm.svg",
       "tile": "tiles/cyberterm.svg",
       "upstream": "https://cybercoretech.github.io/cyberterm/assets/brand/cyberterm-favicon.svg"
     },
     {
       "repo": "cybervault",
-      "title": "Cybervault",
+      "title": "cybervault",
       "icon": "projects/cybervault.svg",
       "tile": "tiles/cybervault.svg",
       "upstream": "https://cybercoretech.github.io/cybervault/"
     },
     {
       "repo": "cybervault-android-app",
-      "title": "Cybervault Android App",
+      "title": "cybervault-android-app",
       "icon": "projects/cybervault-android-app.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "cyberwatch",
-      "title": "Cyberwatch",
+      "title": "cyberwatch",
       "icon": "projects/cyberwatch.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "diagprint",
-      "title": "Diagprint",
+      "title": "diagprint",
       "icon": "projects/diagprint.svg",
       "tile": "tiles/diagprint.svg",
       "upstream": "https://cybercoretech.github.io/diagprint/assets/img/favicon.svg"
     },
     {
       "repo": "dockspace",
-      "title": "Dockspace",
+      "title": "dockspace",
       "icon": "projects/dockspace.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/dockspace/assets/dockspace-mark.svg"
     },
     {
       "repo": "fdroid",
-      "title": "Fdroid",
+      "title": "fdroid",
       "icon": "projects/fdroid.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/fdroid/repo/icons/icon.png"
     },
     {
       "repo": "ferraxis",
-      "title": "Ferraxis mark",
+      "title": "ferraxis",
       "icon": "projects/ferraxis.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/ferraxis/assets/ferraxis-mark.svg"
     },
     {
       "repo": "gateflow",
-      "title": "Gateflow",
+      "title": "gateflow",
       "icon": "projects/gateflow.svg",
       "tile": "tiles/gateflow.svg",
       "upstream": null
     },
     {
       "repo": "ghostframe",
-      "title": "Ghostframe",
+      "title": "ghostframe",
       "icon": "projects/ghostframe.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/ghostframe/assets/ghostframe.svg"
     },
     {
       "repo": "ghostport",
-      "title": "Ghostport",
+      "title": "ghostport",
       "icon": "projects/ghostport.svg",
       "tile": "tiles/ghostport.svg",
       "upstream": "https://cybercoretech.github.io/ghostport/"
     },
     {
       "repo": "hermes",
-      "title": "Hermes",
+      "title": "hermes",
       "icon": "projects/hermes.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/hermes/assets/hermes-watch-mark.png"
     },
     {
       "repo": "holodrive",
-      "title": "Holodrive",
+      "title": "holodrive",
       "icon": "projects/holodrive.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/holodrive/static/favicon.svg"
     },
     {
       "repo": "holodrive-android-app",
-      "title": "Holodrive Android App",
+      "title": "holodrive-android-app",
       "icon": "projects/holodrive-android-app.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/holodrive-android-app/assets/favicon.svg"
     },
     {
       "repo": "keysmith",
-      "title": "Keysmith",
+      "title": "keysmith",
       "icon": "projects/keysmith.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/keysmith/"
     },
     {
       "repo": "nightwatch-android-app",
-      "title": "Nightwatch Android App",
+      "title": "nightwatch-android-app",
       "icon": "projects/nightwatch-android-app.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "nightwatchd",
-      "title": "Nightwatchd",
+      "title": "nightwatchd",
       "icon": "projects/nightwatchd.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "omniscient",
-      "title": "Omniscient",
+      "title": "omniscient",
       "icon": "projects/omniscient.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "sentrygrid",
-      "title": "Sentrygrid",
+      "title": "sentrygrid",
       "icon": "projects/sentrygrid.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/sentrygrid/"
     },
     {
       "repo": "sigilward",
-      "title": "Sigilward",
+      "title": "sigilward",
       "icon": "projects/sigilward.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "signalwarden",
-      "title": "Signalwarden",
+      "title": "signalwarden",
       "icon": "projects/signalwarden.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/signalwarden/assets/favicon.svg?v=2"
     },
     {
       "repo": "undertow",
-      "title": "Undertow",
+      "title": "undertow",
       "icon": "projects/undertow.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "vdb-rs",
-      "title": "Vdb Rs",
+      "title": "vdb-rs",
       "icon": "projects/vdb-rs.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/vdb-rs/assets/vdb-mark.svg"
     },
     {
       "repo": "vexlang",
-      "title": "VexLang Grid mark",
+      "title": "vexlang",
       "icon": "projects/vexlang.svg",
       "tile": null,
       "upstream": "https://cybercoretech.github.io/vexlang/assets/vex-mark-grid.svg"
     },
     {
       "repo": "vortexwall",
-      "title": "Vortexwall",
+      "title": "vortexwall",
       "icon": "projects/vortexwall.svg",
       "tile": "tiles/vortexwall.svg",
       "upstream": "https://cybercoretech.github.io/vortexwall/"
     },
     {
       "repo": "workratereport",
-      "title": "Workratereport",
+      "title": "workratereport",
       "icon": "projects/workratereport.svg",
       "tile": null,
       "upstream": null
     },
     {
       "repo": "wraithflow",
-      "title": "Wraithflow",
+      "title": "wraithflow",
       "icon": "projects/wraithflow.svg",
       "tile": "tiles/wraithflow.svg",
       "upstream": "https://cybercoretech.github.io/wraithflow/assets/wraithflow-favicon.svg"
