@@ -27,34 +27,42 @@ export function sanitizeSvg(markup) {
 
 // Decision predicates. The parser hands these already-decoded values, so
 // character references and tab/newline splitting are handled by the parser.
+// Decisions use local names and namespaces, never the prefix a file chose.
+const SVG_NS = 'http://www.w3.org/2000/svg';
+
 export function isUnsafeUrl(value) {
   // eslint-disable-next-line no-control-regex
-  return /^javascript:/i.test(String(value ?? '').replace(/[\u0000-\u0020]/g, ''));
+  return /^(?:javascript|vbscript|data):/i.test(String(value ?? '').replace(/[\u0000- ]/g, ''));
 }
 
-export function isUnsafeAttribute(name, value) {
-  const n = String(name).toLowerCase();
+export function isUnsafeAttribute(localName, value) {
+  const n = String(localName).toLowerCase();
   if (n.startsWith('on')) return true;
-  return (n === 'href' || n === 'xlink:href') && isUnsafeUrl(value);
+  return (n === 'href' || n === 'src' || n === 'srcdoc' || n === 'data') && isUnsafeUrl(value);
 }
 
-export function isUnsafeElement(localName, attributeNameValue) {
+export function isUnsafeElement(namespaceURI, localName, attributeNameValue) {
+  if (namespaceURI !== SVG_NS) return true;
   const n = String(localName).toLowerCase();
   if (n === 'script' || n === 'foreignobject') return true;
-  if (n === 'set' || n === 'animate' || n === 'animatetransform') {
-    const a = String(attributeNameValue ?? '').trim().toLowerCase();
-    return a === 'href' || a === 'xlink:href';
+  if (n === 'set' || n === 'animate' || n === 'animatetransform' || n === 'animatemotion') {
+    const a = String(attributeNameValue ?? '').split(':').pop().trim().toLowerCase();
+    return a === 'href';
   }
   return false;
+}
+
+export function isSvgRoot(el) {
+  return !!el && el.namespaceURI === SVG_NS && el.localName === 'svg';
 }
 
 // Removes unsafe elements and attributes from a parsed tree, in place.
 export function cleanSvgTree(el) {
   for (const attr of Array.from(el.attributes)) {
-    if (isUnsafeAttribute(attr.name, attr.value)) el.removeAttribute(attr.name);
+    if (isUnsafeAttribute(attr.localName, attr.value)) el.removeAttribute(attr.name);
   }
   for (const child of Array.from(el.children)) {
-    if (isUnsafeElement(child.localName, child.getAttribute('attributeName'))) child.remove();
+    if (isUnsafeElement(child.namespaceURI, child.localName, child.getAttribute('attributeName'))) child.remove();
     else cleanSvgTree(child);
   }
 }
@@ -63,8 +71,7 @@ export function cleanSvgTree(el) {
 function parseSvg(markup) {
   const doc = new DOMParser().parseFromString(markup, 'image/svg+xml');
   const root = doc.documentElement;
-  if (!root || doc.getElementsByTagName('parsererror').length || root.localName !== 'svg') return null;
-  if (isUnsafeElement(root.localName, null)) return null;
+  if (!root || doc.getElementsByTagName('parsererror').length || !isSvgRoot(root)) return null;
   cleanSvgTree(root);
   return root;
 }

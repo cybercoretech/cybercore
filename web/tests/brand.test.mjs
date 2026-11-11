@@ -31,42 +31,61 @@ test('defineBrandElement is side-effect free without a registry and defines once
   assert.ok(defined.has('cybercore-brand'));
 });
 
-import { isUnsafeUrl, isUnsafeAttribute, isUnsafeElement, cleanSvgTree } from '../brand.js';
+import { isUnsafeUrl, isUnsafeAttribute, isUnsafeElement, isSvgRoot, cleanSvgTree } from '../brand.js';
+
+const SVG = 'http://www.w3.org/2000/svg';
+const XHTML = 'http://www.w3.org/1999/xhtml';
 
 test('isUnsafeUrl catches decoded obfuscations', () => {
-  for (const bad of ['javascript:x()', 'JaVaScRiPt:x()', '  javascript:x()', '\x01javascript:x()', 'java\tscript:x()', 'java\nscr ipt:x()', '\x00j a\x1fvascript:x()'])
+  for (const bad of ['javascript:x()', 'JaVaScRiPt:x()', '  javascript:x()', '\x01javascript:x()', 'java\tscript:x()', 'java\nscr ipt:x()', '\x00j a\x1fvascript:x()',
+    'data:text/html,<script>', ' DATA:text/html,x', 'vbscript:x', 'vb\tscript:x'])
     assert.equal(isUnsafeUrl(bad), true, JSON.stringify(bad));
   for (const ok of ['#a', 'https://cybercoretech.net/x', 'svg/logo.svg', '', 'javascripty', null, undefined])
     assert.equal(isUnsafeUrl(ok), false, String(ok));
 });
 
-test('isUnsafeAttribute flags handlers and javascript hrefs only', () => {
+test('isUnsafeAttribute decides on the local name, any namespace prefix', () => {
   assert.equal(isUnsafeAttribute('onload', 'x()'), true);
   assert.equal(isUnsafeAttribute('OnClick', 'x()'), true);
   assert.equal(isUnsafeAttribute('href', 'javascript:x()'), true);
-  assert.equal(isUnsafeAttribute('xlink:href', ' JavaScript:x()'), true);
-  assert.equal(isUnsafeAttribute('XLINK:HREF', 'java\tscript:x()'), true);
+  assert.equal(isUnsafeAttribute('HREF', ' JavaScript:x()'), true);
+  assert.equal(isUnsafeAttribute('href', 'data:image/svg+xml,x'), true);
+  for (const n of ['src', 'srcdoc', 'data']) assert.equal(isUnsafeAttribute(n, 'javascript:x()'), true, n);
   assert.equal(isUnsafeAttribute('href', '#a'), false);
   assert.equal(isUnsafeAttribute('fill', 'var(--cc-brand-bg, #000)'), false);
   assert.equal(isUnsafeAttribute('x', '1'), false);
 });
 
-test('isUnsafeElement flags script, foreignObject and href animation', () => {
-  assert.equal(isUnsafeElement('script', null), true);
-  assert.equal(isUnsafeElement('SCRIPT', null), true);
-  assert.equal(isUnsafeElement('foreignObject', null), true);
-  assert.equal(isUnsafeElement('foreignobject', null), true);
-  for (const el of ['set', 'animate', 'animateTransform'])
-    for (const a of ['href', 'xlink:href', ' HREF ', 'XLink:Href'])
-      assert.equal(isUnsafeElement(el, a), true, `${el} ${a}`);
-  assert.equal(isUnsafeElement('animate', 'fill'), false);
-  assert.equal(isUnsafeElement('set', null), false);
-  assert.equal(isUnsafeElement('rect', null), false);
+test('isUnsafeElement allows only SVG-namespace elements and blocks script/animation of href', () => {
+  assert.equal(isUnsafeElement(SVG, 'rect', null), false);
+  assert.equal(isUnsafeElement(XHTML, 'iframe', null), true);
+  assert.equal(isUnsafeElement(XHTML, 'rect', null), true);
+  assert.equal(isUnsafeElement(null, 'rect', null), true);
+  assert.equal(isUnsafeElement(SVG, 'script', null), true);
+  assert.equal(isUnsafeElement(SVG, 'SCRIPT', null), true);
+  assert.equal(isUnsafeElement(SVG, 'foreignObject', null), true);
+  for (const el of ['set', 'animate', 'animateTransform', 'animateMotion'])
+    for (const a of ['href', 'xlink:href', ' HREF ', 'XLink:Href', 'x:href', 'a:b:href'])
+      assert.equal(isUnsafeElement(SVG, el, a), true, `${el} ${a}`);
+  assert.equal(isUnsafeElement(SVG, 'animate', 'fill'), false);
+  assert.equal(isUnsafeElement(SVG, 'animate', 'x:fill'), false);
+  assert.equal(isUnsafeElement(SVG, 'set', null), false);
+});
+
+test('isSvgRoot requires the SVG namespace', () => {
+  assert.equal(isSvgRoot({ namespaceURI: SVG, localName: 'svg' }), true);
+  assert.equal(isSvgRoot({ namespaceURI: XHTML, localName: 'svg' }), false);
+  assert.equal(isSvgRoot({ namespaceURI: SVG, localName: 'g' }), false);
+  assert.equal(isSvgRoot(null), false);
 });
 
 test('cleanSvgTree walks a tree using only the predicates', () => {
-  const mk = (name, attrs = {}, kids = []) => {
-    const el = { localName: name, children: [], attributes: Object.entries(attrs).map(([name, value]) => ({ name, value })),
+  const attrList = attrs => Object.entries(attrs).map(([name, value]) => {
+    const [pre, local] = name.includes(':') ? name.split(':') : [null, name];
+    return { name, localName: local, namespaceURI: pre === 'x' ? 'http://www.w3.org/1999/xlink' : null, value };
+  });
+  const mk = (name, attrs = {}, kids = [], ns = SVG) => {
+    const el = { localName: name, namespaceURI: ns, children: [], attributes: attrList(attrs),
       getAttribute: k => attrs[k] ?? null, removeAttribute(k) { this.attributes = this.attributes.filter(a => a.name !== k); },
       remove() { this.parent.children = this.parent.children.filter(c => c !== this); } };
     kids.forEach(k => { k.parent = el; el.children.push(k); });
@@ -74,8 +93,9 @@ test('cleanSvgTree walks a tree using only the predicates', () => {
   };
   const root = mk('svg', { onload: 'x()' }, [
     mk('script'), mk('rect', { x: '1', onclick: 'y()' }),
-    mk('a', { 'xlink:href': '\x01javascript:x()', href: '#a' }),
-    mk('set', { attributeName: 'href', to: 'javascript:x()' }), mk('g', {}, [mk('foreignObject')]),
+    mk('a', { 'x:href': '\x01javascript:x()', href: '#a' }),
+    mk('set', { attributeName: 'x:href', to: 'javascript:x()' }), mk('g', {}, [mk('foreignObject')]),
+    mk('iframe', { srcdoc: '<script>' }, [], XHTML),
   ]);
   cleanSvgTree(root);
   assert.deepEqual(root.children.map(c => c.localName), ['rect', 'a', 'g']);
