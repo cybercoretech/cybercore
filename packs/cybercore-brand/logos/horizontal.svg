@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="190" viewBox="0 0 900 190" role="img" aria-labelledby="title desc">
+  <title id="title">Cybercore</title><desc id="desc">Cybercore symbol and wordmark.</desc>
+  <defs><linearGradient id="word" x1="525" y1="0" x2="825" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#22E6FF"/><stop offset="1" stop-color="#48FF52"/></linearGradient></defs>
+  <g transform="translate(8 8) scale(.34)"><path fill="#08111B" d="M139 35h234l104 104v234L373 477H139L35 373V139z"/><path fill="none" stroke="#173043" stroke-width="8" d="M139 35h234l104 104v234L373 477H139L35 373V139z"/><path fill="none" stroke="#22E6FF" stroke-width="28" stroke-linecap="square" stroke-linejoin="miter" d="M359 111H169L111 169v174l58 58h190"/><path fill="none" stroke="#22E6FF" stroke-width="18" stroke-linecap="square" d="M315 191H205l-30 30v70l30 30h110"/><path fill="#48FF52" d="M265 236h119v40H265z"/><circle cx="397" cy="256" r="13" fill="#FF2D9E"/></g>
+  <text x="194" y="111" fill="#F3F6FA" font-family="Oxanium, Eurostile, Arial, sans-serif" font-size="76" font-weight="700" letter-spacing="2" dominant-baseline="middle">CYBER<tspan fill="url(#word)">CORE</tspan></text>
+  <path d="M199 151h420" stroke="#22E6FF" stroke-opacity=".48"/><text x="199" y="174" fill="#8B9BAA" font-family="monospace" font-size="15" letter-spacing="4">SYSTEMS ENGINEERING / SHARED CORE</text>
+</svg>

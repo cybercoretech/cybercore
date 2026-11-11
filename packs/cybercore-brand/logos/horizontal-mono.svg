@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="190" viewBox="0 0 900 190" role="img" aria-labelledby="title desc">
+  <title id="title">Cybercore monochrome</title><desc id="desc">Single-color Cybercore symbol and wordmark for print and constrained surfaces.</desc>
+  <g transform="translate(8 8) scale(.34)" fill="none" stroke="#F3F6FA" stroke-width="22"><path d="M139 35h234l104 104v234L373 477H139L35 373V139z"/><path d="M359 111H169L111 169v174l58 58h190"/><path d="M315 191H205l-30 30v70l30 30h110"/><path d="M265 256h119" stroke-width="38"/></g>
+  <text x="194" y="111" fill="#F3F6FA" font-family="Oxanium, Eurostile, Arial, sans-serif" font-size="76" font-weight="700" letter-spacing="2" dominant-baseline="middle">CYBERCORE</text>
+</svg>
