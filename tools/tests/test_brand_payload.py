@@ -2,6 +2,7 @@
 import importlib.util
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -75,6 +76,23 @@ class BrandPayloadTest(unittest.TestCase):
         self.assertEqual(b["compatibility"], {"web_kit": ">=1.0.0", "control_plane": ">=0.1.0"})
         self.assertIn("Superseded by cybercore.brand; kept for existing consumers.",
                       packs["cybercore.svg-assets"]["description"])
+
+    def test_export_org_writes_kit_brand(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            changed = ED.export_org(Path(tmp))
+            for rel in ("kit/brand.js", "kit/brand-vars.js", "kit/brand/brand.json", "kit/brand/svg/logo/symbol.svg"):
+                self.assertIn(rel, changed)
+            stale = Path(tmp, "kit/brand/svg/logo/old.svg")
+            stale.write_text("<svg/>")
+            self.assertIn("kit/brand/svg/logo/old.svg (removed)", ED.export_org(Path(tmp)))
+            self.assertEqual(ED.export_org(Path(tmp)), [])  # deterministic
+
+    def test_chooser_ships_brand_vars_everywhere(self):
+        if "from './brand-vars.js'" not in (ROOT / "web/chooser.js").read_text():
+            self.skipTest("chooser.js does not import brand-vars.js")
+        self.assertIn("brand-vars.js", ED.payload_components())
+        self.assertIn("brand-vars.js", ED.KIT_ROOT)
+        self.assertIn("kit/brand-vars.js", (ROOT / "tools/publish-web-kit.sh").read_text())
 
 
 if __name__ == "__main__":

@@ -5,6 +5,11 @@ All notable changes to `cybercore` are documented in this file.
 ## 🚧 Unreleased
 
 ### ✨ Added
+- `cybercore.brand` pack and theme-aware brand assets. SVGs are recoloured by
+  role through `--cc-brand-*` variables; the theme chooser sets them and the
+  `<cybercore-brand>` element (`web/brand.js`) inlines the marks after
+  stripping script. The org kit now ships `kit/brand.js`, `kit/brand-vars.js`
+  and `kit/brand/**`; `cybercore.svg-assets` stays published, superseded.
 - One source for every published copy. `tools/export-distribution.py`
   generates the org site's kit and theme data and the eight official
   `cybercore.*` packs from this repository; sync workflows in the org site,

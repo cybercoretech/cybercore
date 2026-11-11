@@ -16,6 +16,8 @@ on:
       - "assets/**"
       - "packs/**"
       - "tools/export-distribution.py"
+      - "tools/brand_theme.py"
+      - "tools/tests/**"
       - "tools/publish-web-kit.sh"
       - "tools/open-sync-pr.sh"
       - ".github/workflows/distribution.yml"
@@ -27,6 +29,8 @@ on:
       - "assets/**"
       - "packs/**"
       - "tools/export-distribution.py"
+      - "tools/brand_theme.py"
+      - "tools/tests/**"
       - "tools/publish-web-kit.sh"
       - "tools/open-sync-pr.sh"
       - ".github/workflows/distribution.yml"
@@ -52,6 +56,13 @@ jobs:
           cp web/chooser.js "$RUNNER_TEMP/chooser.mjs" && node --check "$RUNNER_TEMP/chooser.mjs"
           node --check web/cybercore.js
           node --check packs/cybercore-snippets/site-theme-vars.js
+          cp web/brand.js "$RUNNER_TEMP/brand.mjs" && node --check "$RUNNER_TEMP/brand.mjs"
+
+      - name: Python tests
+        run: python3 -m unittest discover -s tools/tests -v
+
+      - name: Web tests
+        run: node --test web/tests/
 
       - name: Export (deterministic, checksums verified)
         run: python3 tools/export-distribution.py check

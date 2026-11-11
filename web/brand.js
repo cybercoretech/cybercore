@@ -32,7 +32,10 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 
 export function isUnsafeUrl(value) {
   // eslint-disable-next-line no-control-regex
-  return /^(?:javascript|vbscript|data):/i.test(String(value ?? '').replace(/[\u0000- ]/g, ''));
+  const v = String(value ?? '').replace(/[\u0000- ]/g, '');
+  // Embedded raster images carry no script; every other data: URL stays blocked.
+  if (/^data:image\/(?:png|jpeg|gif|webp)[;,]/i.test(v)) return false;
+  return /^(?:javascript|vbscript|data):/i.test(v);
 }
 
 export function isUnsafeAttribute(localName, value) {

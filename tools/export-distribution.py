@@ -8,7 +8,8 @@ from it by this script, so a change made here reaches every consumer:
     export-distribution.py packs <packs-repo-root> # cybercore-packs
     export-distribution.py check                   # dry run into a temp dir
 
-`org` writes kit/v1/*, kit/chooser.*, data/themes/**, data/cybergrid.json,
+`org` writes kit/v1/*, kit/chooser.*, kit/brand.js, kit/brand-vars.js,
+kit/brand/** (brand.json + svg/**), data/themes/**, data/cybergrid.json,
 data/mashups.json and data/kitty-themes.json. It never touches org-owned
 files (kit/contact.js, data/contact.json, pages). The site's default theme
 (`active` in data/cybergrid.json) is kept as the org site has it.
@@ -48,6 +49,8 @@ KIT_V1 = {
 KIT_ROOT = {
     "chooser.js": ROOT / "web/chooser.js",
     "chooser.css": ROOT / "web/chooser.css",
+    "brand.js": ROOT / "web/brand.js",
+    "brand-vars.js": ROOT / "web/brand-vars.js",
 }
 DATA_FILES = {
     "mashups.json": SCHEMA / "mashups.json",
@@ -194,6 +197,21 @@ def export_org(target: Path) -> list[str]:
     for tid, (family, path) in themes.items():
         put(f"data/themes/{family}/{tid}.json", path.read_bytes())
 
+    brand = {k: v for k, v in payload_brand().items() if k == "brand.json" or k.startswith("svg/")}
+    brand_dir = target / "kit/brand"
+    if brand_dir.is_dir():
+        for stale in sorted(brand_dir.rglob("*")):
+            if stale.is_file():
+                rel = stale.relative_to(brand_dir).as_posix()
+                if rel not in brand:
+                    stale.unlink()
+                    changed.append(f"kit/brand/{rel} (removed)")
+        for empty in sorted(brand_dir.rglob("*"), reverse=True):
+            if empty.is_dir() and not any(empty.iterdir()):
+                empty.rmdir()
+    for rel, data in brand.items():
+        put(f"kit/brand/{rel}", data)
+
     grid_path = target / "data/cybergrid.json"
     active = None
     if grid_path.exists():
@@ -256,6 +274,7 @@ def payload_components() -> dict[str, bytes]:
         "components.css": (ROOT / "css/cybercomponents.css").read_bytes(),
         "chooser.js": (ROOT / "web/chooser.js").read_bytes(),
         "chooser.css": (ROOT / "web/chooser.css").read_bytes(),
+        "brand-vars.js": (ROOT / "web/brand-vars.js").read_bytes(),
         "components.json": dump_json({
             "format": "cybercore-component-index",
             "kit_version": webkit["kit_version"],

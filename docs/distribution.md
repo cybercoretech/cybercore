@@ -39,12 +39,37 @@ is open and is only pushed when its content changes.
 > → Allow GitHub Actions to create and approve pull requests**. Without it
 > the sync still pushes its branch and the run summary links to open the PR.
 
+## 🎨 Brand pack and kit
+
+`cybercore.brand` (`packs/cybercore-brand/`) holds the logos, icons, marks and
+project art. Recolouring is by role: each source colour maps to a slot, and
+the exported SVG uses `var(--cc-brand-<slot>, <original>)`. With no variables
+set it renders exactly as its source.
+
+Slots: `bg`, `white`, `panel`, `line`, `muted`, `acid-green`, `hot-pink`,
+`purple`, `cyan`, `orange`, `red` (`--cc-brand-bg`, ...). The theme chooser
+(`kit/chooser.js`, which imports `kit/brand-vars.js`) sets them from the active
+theme.
+
+```html
+<script type="module" src="/kit/brand.js"></script>
+<cybercore-brand name="logo.symbol" label="Cybercore"></cybercore-brand>
+```
+
+`<cybercore-brand>` fetches `kit/brand/brand.json` and `kit/brand/svg/...`,
+inlines the SVG so the variables apply, and never runs script from the markup.
+An `<img src="...svg">` cannot see page variables, so it keeps the original
+colours; use `fixed/` or `png/` files from the pack for those.
+`kit/brand/**` is written by `export_org` like the themes; stale files are
+removed. `cybercore.svg-assets` is superseded by `cybercore.brand` but stays
+published for existing consumers.
+
 ## 🧰 Tools
 
 | Command | What it does |
 | --- | --- |
-| `tools/export-distribution.py org <org-site>` | Writes kit/v1, kit/chooser.*, data/themes, data/cybergrid.json, data/mashups.json, data/kitty-themes.json. Removes palettes deleted here. Keeps the site's default theme (`active`) and org-owned files (contact, pages). |
-| `tools/export-distribution.py packs <packs-repo>` | Rebuilds the 8 official packs listed in `packs/packs.json`, their `pack.json` checksums and `registry/index.json`. Changed packs get the next patch version. |
+| `tools/export-distribution.py org <org-site>` | Writes kit/v1, kit/chooser.*, kit/brand.js, kit/brand-vars.js, kit/brand/**, data/themes, data/cybergrid.json, data/mashups.json, data/kitty-themes.json. Removes palettes deleted here. Keeps the site's default theme (`active`) and org-owned files (contact, pages). |
+| `tools/export-distribution.py packs <packs-repo>` | Rebuilds the 9 official packs listed in `packs/packs.json`, their `pack.json` checksums and `registry/index.json`. Changed packs get the next patch version. |
 | `tools/export-distribution.py check` | Dry run of both into a temp dir; fails on errors or non-deterministic output. |
 | `tools/publish-web-kit.sh` | Mirrors the org site's kit/ and data/ into cybercore-web-kit `dist/` with checksums. |
 | `tools/open-sync-pr.sh` | Shared by the sync workflows: commit to a sync branch, push if changed, open or refresh one PR. |
@@ -60,6 +85,7 @@ is open and is only pushed when its content changes.
 | Runtime, tokens, components, effects | `web/cybercore.js`, `css/`, `web/effects.css`, `schema/webkit.json` |
 | A pack's contents or version floor | `packs/<family>/`, `packs/packs.json` |
 | Logos and icons | `assets/` |
+| Theme-aware brand art | `packs/cybercore-brand/`, `tools/brand_theme.py`, `web/brand.js`, `web/brand-vars.js` |
 
 Do not edit the generated copies in the org site, cybercore-web-kit or
 cybercore-packs: the next sync PR would revert the change.

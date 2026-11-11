@@ -44,6 +44,13 @@ test('isUnsafeUrl catches decoded obfuscations', () => {
     assert.equal(isUnsafeUrl(ok), false, String(ok));
 });
 
+test('isUnsafeUrl allows only embedded raster data images', () => {
+  for (const ok of ['data:image/png;base64,iVBOR', 'DATA:image/JPEG;base64,/9j/', 'data:image/gif,GIF8', 'data:image/webp;base64,UklG', ' data:image/png;base64,AA', 'da\tta:image/png;base64,AA'])
+    assert.equal(isUnsafeUrl(ok), false, ok);
+  for (const bad of ['data:image/svg+xml;base64,PHN2Zz4=', 'data:image/svg+xml,<svg/>', 'data:text/html,<script>', 'data:', 'data:image/png', 'data:image/pngx;base64,AA', 'data:application/javascript,x', 'vbscript:x'])
+    assert.equal(isUnsafeUrl(bad), true, bad);
+});
+
 test('isUnsafeAttribute decides on the local name, any namespace prefix', () => {
   assert.equal(isUnsafeAttribute('onload', 'x()'), true);
   assert.equal(isUnsafeAttribute('OnClick', 'x()'), true);
