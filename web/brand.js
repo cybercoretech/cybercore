@@ -15,16 +15,6 @@ export function resolveAsset(index, name) {
   return assets.find(a => a && a.id === name) || null;
 }
 
-export function sanitizeSvg(markup) {
-  return String(markup)
-    .replace(/<script\b[\s\S]*?<\/script\s*>/gi, '')
-    .replace(/<script\b[^>]*\/>/gi, '')
-    .replace(/<foreignObject\b[\s\S]*?<\/foreignObject\s*>/gi, '')
-    .replace(/<foreignObject\b[^>]*\/>/gi, '')
-    .replace(/\son[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '')
-    .replace(/\s(?:xlink:)?href\s*=\s*(?:"\s*javascript:[^"]*"|'\s*javascript:[^']*'|\s*javascript:[^\s>]*)/gi, '');
-}
-
 // Decision predicates. The parser hands these already-decoded values, so
 // character references and tab/newline splitting are handled by the parser.
 // Decisions use local names and namespaces, never the prefix a file chose.
@@ -81,12 +71,42 @@ function parseSvg(markup) {
 
 const BASE = new URL('brand/', import.meta.url);
 let indexPromise = null;
-function loadIndex() {
+export function loadIndex() {
   indexPromise ||= fetch(new URL('brand.json', BASE)).then(r => {
     if (!r.ok) throw new Error(`brand.json: HTTP ${r.status}`);
     return r.json();
   });
+  // A failed load is forgotten so the next element retries.
+  indexPromise.catch(() => { indexPromise = null; });
   return indexPromise;
+}
+
+// One fetch per SVG URL, shared by every element and re-render; failures are forgotten.
+const svgTexts = new Map();
+export function loadSvgText(rel) {
+  const url = new URL(rel, BASE).href;
+  let p = svgTexts.get(url);
+  if (!p) {
+    p = fetch(url).then(r => {
+      if (!r.ok) throw new Error(`${rel}: HTTP ${r.status}`);
+      return r.text();
+    });
+    p.catch(() => { if (svgTexts.get(url) === p) svgTexts.delete(url); });
+    svgTexts.set(url, p);
+  }
+  return p;
+}
+
+// Sizes and labels the root <svg>. The file's own aria-labelledby/describedby
+// would override aria-label, so they are removed first. `size` sets the height
+// only; the width follows the viewBox.
+export function finishSvg(svg, { label, size } = {}) {
+  svg.removeAttribute('aria-labelledby');
+  svg.removeAttribute('aria-describedby');
+  if (size) { svg.removeAttribute('width'); svg.setAttribute('height', size); }
+  svg.setAttribute('role', 'img');
+  svg.setAttribute('aria-label', label);
+  return svg;
 }
 
 export function defineBrandElement(registry = globalThis.customElements) {
@@ -101,17 +121,15 @@ export function defineBrandElement(registry = globalThis.customElements) {
       this.replaceChildren();
       try {
         const asset = resolveAsset(await loadIndex(), name);
-        if (!asset || !asset.svg) { warn(`unknown brand asset "${name}"`); return; }
-        const res = await fetch(new URL(asset.svg, BASE));
-        if (!res.ok) throw new Error(`${asset.svg}: HTTP ${res.status}`);
-        const parsed = parseSvg(await res.text());
+        if (!asset) { warn(`unknown brand asset "${name}"`); return; }
+        if (!asset.svg) { warn(`brand asset ${name} has no SVG`); return; }
+        const parsed = parseSvg(await loadSvgText(asset.svg));
         if (token !== this._token) return;
         if (!parsed) { warn(`invalid svg for "${name}"`); return; }
-        const svg = document.importNode(parsed, true);
-        const size = this.getAttribute('size');
-        if (size) { svg.setAttribute('width', size); svg.setAttribute('height', size); }
-        svg.setAttribute('role', 'img');
-        svg.setAttribute('aria-label', this.getAttribute('label') || asset.title || name);
+        const svg = finishSvg(document.importNode(parsed, true), {
+          label: this.getAttribute('label') || asset.title || name,
+          size: this.getAttribute('size'),
+        });
         this.replaceChildren(svg);
       } catch (e) {
         warn(`could not load "${name}" (${e.message})`);

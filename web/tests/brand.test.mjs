@@ -1,25 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { resolveAsset, sanitizeSvg, defineBrandElement } from '../brand.js';
+import { resolveAsset, defineBrandElement, finishSvg, loadIndex, loadSvgText } from '../brand.js';
 
 test('resolveAsset returns null for unknown names', () => {
   const index = { assets: [{ id: 'logo.symbol', svg: 'svg/logo/symbol.svg', title: 'Cybercore' }] };
   assert.equal(resolveAsset(index, 'logo.symbol').svg, 'svg/logo/symbol.svg');
   assert.equal(resolveAsset(index, 'logo.nope'), null);
   assert.equal(resolveAsset(null, 'logo.symbol'), null);
-});
-
-test('sanitizeSvg strips active content', () => {
-  const out = sanitizeSvg('<svg onload="x()"><script>x()</script><a href="javascript:x()"><rect onclick="y()"/></a><foreignObject><p/></foreignObject></svg>');
-  for (const bad of ['<script', 'onload', 'onclick', 'javascript:', 'foreignObject']) assert.ok(!out.includes(bad), bad);
-  assert.ok(out.includes('<rect'));
-});
-
-test('sanitizeSvg strips xlink:href javascript and single-quoted handlers, keeps safe hrefs', () => {
-  const out = sanitizeSvg(`<svg><use xlink:href=" JavaScript:x()"/><g onclick='z()'/><use href="#a"/></svg>`);
-  assert.ok(!/javascript:/i.test(out));
-  assert.ok(!out.includes('onclick'));
-  assert.ok(out.includes('href="#a"'));
 });
 
 test('defineBrandElement is side-effect free without a registry and defines once', () => {
@@ -109,4 +96,70 @@ test('cleanSvgTree walks a tree using only the predicates', () => {
   assert.deepEqual(root.attributes, []);
   assert.deepEqual(root.children[1].attributes.map(a => a.name), ['href']);
   assert.deepEqual(root.children[2].children, []);
+});
+
+// A tiny stand-in for an Element with attribute storage.
+function fakeEl(attrs = {}) {
+  const map = new Map(Object.entries(attrs));
+  return {
+    getAttribute: k => (map.has(k) ? map.get(k) : null),
+    hasAttribute: k => map.has(k),
+    setAttribute: (k, v) => map.set(k, String(v)),
+    removeAttribute: k => map.delete(k),
+    attrs: map,
+  };
+}
+
+test('finishSvg drops aria-labelledby/describedby so the label attribute names the image', () => {
+  const svg = fakeEl({ role: 'img', 'aria-labelledby': 'logo-symbol-title logo-symbol-desc', 'aria-describedby': 'logo-symbol-desc', viewBox: '0 0 512 512' });
+  finishSvg(svg, { label: 'Cybercore' });
+  assert.equal(svg.getAttribute('aria-labelledby'), null);
+  assert.equal(svg.getAttribute('aria-describedby'), null);
+  assert.equal(svg.getAttribute('role'), 'img');
+  assert.equal(svg.getAttribute('aria-label'), 'Cybercore');
+});
+
+test('finishSvg size sets the height only so wide art keeps its aspect ratio', () => {
+  const svg = fakeEl({ width: '1200', height: '300', viewBox: '0 0 1200 300' });
+  finishSvg(svg, { label: 'x', size: '48' });
+  assert.equal(svg.getAttribute('height'), '48');
+  assert.equal(svg.getAttribute('width'), null);
+  const keep = fakeEl({ width: '1200', height: '300' });
+  finishSvg(keep, { label: 'x' });
+  assert.deepEqual([keep.getAttribute('width'), keep.getAttribute('height')], ['1200', '300']);
+});
+
+test('loadIndex forgets a failed load so the next element retries', async () => {
+  const real = globalThis.fetch;
+  let calls = 0;
+  try {
+    globalThis.fetch = async () => { calls++; return { ok: false, status: 503 }; };
+    await assert.rejects(loadIndex(), /503/);
+    globalThis.fetch = async () => { calls++; return { ok: true, json: async () => ({ assets: [] }) }; };
+    assert.deepEqual(await loadIndex(), { assets: [] });
+    assert.deepEqual(await loadIndex(), { assets: [] });
+    assert.equal(calls, 2);
+  } finally { globalThis.fetch = real; }
+});
+
+test('loadSvgText fetches each SVG URL once and retries after a failure', async () => {
+  const real = globalThis.fetch;
+  const seen = [];
+  try {
+    globalThis.fetch = async url => { seen.push(String(url)); return { ok: true, text: async () => '<svg/>' }; };
+    const [a, b] = await Promise.all([loadSvgText('svg/logo/symbol.svg'), loadSvgText('svg/logo/symbol.svg')]);
+    assert.equal(a, '<svg/>'); assert.equal(b, '<svg/>');
+    assert.equal(await loadSvgText('svg/logo/symbol.svg'), '<svg/>');
+    assert.equal(seen.length, 1);
+    assert.ok(seen[0].endsWith('/brand/svg/logo/symbol.svg'));
+    globalThis.fetch = async url => { seen.push(String(url)); return { ok: false, status: 404 }; };
+    await assert.rejects(loadSvgText('svg/logo/nope.svg'), /404/);
+    globalThis.fetch = async url => { seen.push(String(url)); return { ok: true, text: async () => '<svg id="2"/>' }; };
+    assert.equal(await loadSvgText('svg/logo/nope.svg'), '<svg id="2"/>');
+  } finally { globalThis.fetch = real; }
+});
+
+test('sanitizeSvg is gone (the render path is parseSvg + cleanSvgTree)', async () => {
+  const mod = await import('../brand.js');
+  assert.equal(mod.sanitizeSvg, undefined);
 });
