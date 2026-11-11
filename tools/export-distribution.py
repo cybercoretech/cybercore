@@ -197,7 +197,14 @@ def export_org(target: Path) -> list[str]:
     for tid, (family, path) in themes.items():
         put(f"data/themes/{family}/{tid}.json", path.read_bytes())
 
-    brand = {k: v for k, v in payload_brand().items() if k == "brand.json" or k.startswith("svg/")}
+    pack = payload_brand()
+    brand = {k: v for k, v in pack.items() if k.startswith("svg/")}
+    # The kit ships svg/** only, so its index does not list fixed/ or png/ files.
+    index = json.loads(pack["brand.json"])
+    for asset in index["assets"]:
+        asset.pop("fixed", None)
+        asset.pop("png", None)
+    brand["brand.json"] = dump_json(index)
     brand_dir = target / "kit/brand"
     if brand_dir.is_dir():
         for stale in sorted(brand_dir.rglob("*")):
@@ -366,16 +373,107 @@ BRAND_GROUPS = {
     "headers": "header", "cards": "card", "identity": "identity", "avatars": "avatar",
 }
 
-BRAND_README = """# Cybercore Brand Kit
-
-Logos, marks, icons, project icons, tiles, headers, cards, identity and avatars.
+BRAND_LAYOUT = """
+## Published layout
 
 - `svg/<group>/<name>.svg` recolours by role: every brand colour is a CSS variable
-  (`var(--cc-<slot>, <original>)`), so the file follows a theme and falls back to the source colours.
-- `fixed/<group>/<name>.svg` is the unmodified source.
+  (`var(--cc-brand-<slot>, <original>)`), so the file follows a theme and falls back to the source colours.
+- `fixed/<group>/<name>.svg` keeps the source colours.
 - `png/<group>/<name>.png` are raster exports.
 - `brand.json` lists every asset with its group, title, files and project.
+- Group `site` holds the former `cybercore.svg-assets` art (`site.<stem>`).
+- Element ids and embedded font names are prefixed per asset (`<group>-<name>-<id>`,
+  `cc-<group>-<name>-<font>`), so several assets can be inlined on one page.
 """
+
+# Per-asset isolation: inlined SVGs share the page's id space and @font-face
+# names, so every id and embedded font family is made unique per asset.
+_SVG_TAG = re.compile(r"<[A-Za-z][^<>]*>")
+_ID_ATTR = re.compile(r"""(\sid\s*=\s*)(["'])([^"']+)\2""")
+_HREF_LOCAL = re.compile(r"""(\s(?:xlink:)?href\s*=\s*)(["'])#([^"']+)\2""")
+_ARIA_IDS = re.compile(r"""(\saria-(?:labelledby|describedby)\s*=\s*)(["'])([^"']*)\2""")
+_URL_LOCAL = re.compile(r"""url\(\s*(["']?)#([^)"'\s]+)\1\s*\)""")
+_STYLE_BLOCK = re.compile(r"(<style\b[^>]*>)(.*?)(</style>)", re.S | re.I)
+_STYLE_ATTR = re.compile(r"""(\sstyle\s*=\s*)(["'])(.*?)\2""", re.S)
+_FAMILY_ATTR = re.compile(r"""(\sfont-family\s*=\s*)(["'])(.*?)\2""", re.S)
+_CSS_VALUE = r"""((?:[^;{}"']|"[^"]*"|'[^']*')*)"""
+_FAMILY_DECL = re.compile(r"(font-family\s*:\s*)" + _CSS_VALUE)
+_FONT_DECL = re.compile(r"((?<![\w-])font\s*:\s*)" + _CSS_VALUE)
+_FONT_FACE = re.compile(r"@font-face\s*\{[^{}]*\}")
+_FONT_SIZE_PREFIX = re.compile(
+    r"^(\s*(?:\S+\s+)*?[\d.]+(?:px|pt|pc|em|rem|ex|ch|%|vw|vh|vmin|vmax|cm|mm|in)(?:/\S+)?\s+)(.*)$", re.S)
+
+
+def _split_families(value: str) -> list[str]:
+    parts, current, quote = [], "", None
+    for ch in value:
+        if quote:
+            quote = None if ch == quote else quote
+        elif ch in "'\"":
+            quote = ch
+        elif ch == ",":
+            parts.append(current)
+            current = ""
+            continue
+        current += ch
+    return [*parts, current]
+
+
+def _rename_families(value: str, fonts: dict[str, str]) -> str:
+    out = []
+    for part in _split_families(value):
+        m = re.fullmatch(r"(\s*)(.*?)(\s*)", part, re.S)
+        raw = m.group(2)
+        quote = raw[0] if raw[:1] in ("'", '"') and raw.endswith(raw[0]) and len(raw) > 1 else ""
+        name = raw[1:-1] if quote else raw
+        new = fonts.get(name.strip().lower())
+        out.append(m.group(1) + (f"{quote}{new}{quote}" if new else raw) + m.group(3))
+    return ",".join(out)
+
+
+def _rename_font_shorthand(value: str, fonts: dict[str, str]) -> str:
+    m = _FONT_SIZE_PREFIX.match(value)
+    return m.group(1) + _rename_families(m.group(2), fonts) if m else value
+
+
+def _rename_css_fonts(css: str, fonts: dict[str, str]) -> str:
+    css = _FAMILY_DECL.sub(lambda m: m.group(1) + _rename_families(m.group(2), fonts), css)
+    return _FONT_DECL.sub(lambda m: m.group(1) + _rename_font_shorthand(m.group(2), fonts), css)
+
+
+def isolate_svg(svg: str, prefix: str) -> str:
+    """Prefix every id (and its references) and every embedded @font-face family."""
+    ids = {m.group(3): f"{prefix}-{m.group(3)}" for t in _SVG_TAG.findall(svg) for m in _ID_ATTR.finditer(t)}
+    fonts: dict[str, str] = {}
+    for block in _STYLE_BLOCK.finditer(svg):
+        for face in _FONT_FACE.findall(block.group(2)):
+            for decl in _FAMILY_DECL.finditer(face):
+                family = decl.group(2).strip().strip("'\"").strip()
+                slug = re.sub(r"[^a-z0-9]+", "-", family.lower()).strip("-")
+                fonts.setdefault(family.lower(), f"cc-{prefix}-{slug}")
+
+    def tag(m: re.Match) -> str:
+        t = _ID_ATTR.sub(lambda a: a.group(1) + a.group(2) + ids[a.group(3)] + a.group(2), m.group(0))
+        t = _HREF_LOCAL.sub(lambda a: a.group(1) + a.group(2) + "#" + ids.get(a.group(3), a.group(3)) + a.group(2), t)
+        t = _ARIA_IDS.sub(lambda a: a.group(1) + a.group(2) + re.sub(
+            r"\S+", lambda w: ids.get(w.group(0), w.group(0)), a.group(3)) + a.group(2), t)
+        if fonts:
+            t = _FAMILY_ATTR.sub(lambda a: a.group(1) + a.group(2) + _rename_families(a.group(3), fonts) + a.group(2), t)
+            t = _STYLE_ATTR.sub(lambda a: a.group(1) + a.group(2) + _rename_css_fonts(a.group(3), fonts) + a.group(2), t)
+        return t
+
+    out = _SVG_TAG.sub(tag, svg)
+    if fonts:
+        out = _STYLE_BLOCK.sub(lambda m: m.group(1) + _rename_css_fonts(m.group(2), fonts) + m.group(3), out)
+    return _URL_LOCAL.sub(lambda m: "url(%s#%s%s)" % (m.group(1), ids.get(m.group(2), m.group(2)), m.group(1)), out)
+
+
+def brand_sources(source: Path) -> list[tuple[str, str, list[Path]]]:
+    """(folder, group, files) for every brand group, plus the site art in assets/."""
+    groups = [(folder, group, sorted((source / folder).glob("*"))) for folder, group in BRAND_GROUPS.items()]
+    site = (sorted((ROOT / "assets").glob("*.svg")) + sorted((ROOT / "assets/icons").glob("*.svg"))
+            + sorted((ROOT / "assets/icons").glob("*.png")))
+    return [*groups, ("assets", "site", site)]
 
 
 def payload_brand() -> dict[str, bytes]:
@@ -383,20 +481,22 @@ def payload_brand() -> dict[str, bytes]:
     palette = brand_theme.load_palette(source / "palette.json")
     projects = load_json(source / "projects.json")["projects"]
     by_icon = {Path(p["icon"]).as_posix(): p for p in projects}
-    files: dict[str, bytes] = {"README.md": BRAND_README.encode()}
+    readme = (source / "README.md").read_text().rstrip("\n") + "\n" + BRAND_LAYOUT
+    files: dict[str, bytes] = {"README.md": readme.encode()}
     assets = []
 
-    for folder, group in BRAND_GROUPS.items():
-        directory = source / folder
+    for folder, group, paths in brand_sources(source):
         svgs: dict[str, dict] = {}
         pngs: list[tuple[str, str]] = []
-        for path in sorted(directory.glob("*")):
+        for path in paths:
             if path.suffix == ".svg":
                 data = path.read_bytes()
                 name = path.stem
-                files[f"fixed/{group}/{name}.svg"] = data
-                files[f"svg/{group}/{name}.svg"] = brand_theme.themeable_svg(
-                    data.decode(), palette).encode()
+                if f"svg/{group}/{name}.svg" in files:
+                    raise ExportError(f"duplicate brand asset {group}.{name}")
+                isolated = isolate_svg(data.decode(), f"{group}-{name}")
+                files[f"fixed/{group}/{name}.svg"] = isolated.encode()
+                files[f"svg/{group}/{name}.svg"] = brand_theme.themeable_svg(isolated, palette).encode()
                 title = svg_title(data, name)
                 project = None
                 if group == "project":

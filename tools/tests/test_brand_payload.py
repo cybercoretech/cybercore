@@ -1,6 +1,10 @@
 """Tests for the cybercore.brand payload and its pack registration."""
 import importlib.util
 import json
+import os
+import re
+import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -86,6 +90,106 @@ class BrandPayloadTest(unittest.TestCase):
             stale.write_text("<svg/>")
             self.assertIn("kit/brand/svg/logo/old.svg (removed)", ED.export_org(Path(tmp)))
             self.assertEqual(ED.export_org(Path(tmp)), [])  # deterministic
+
+    # --- I1: per-asset id and font isolation -------------------------------
+
+    def _svg_files(self, prefix):
+        return {rel: data.decode() for rel, data in ED.payload_brand().items()
+                if rel.startswith(prefix) and rel.endswith(".svg")}
+
+    def test_ids_never_repeat_across_exported_svgs(self):
+        for prefix in ("svg/", "fixed/"):
+            seen = {}
+            for rel, text in self._svg_files(prefix).items():
+                for m in re.finditer(r"""<[A-Za-z][^<>]*?\sid\s*=\s*(["'])([^"']+)\1""", text):
+                    self.assertNotIn(m.group(2), seen, f"{rel} repeats id {m.group(2)} from {seen.get(m.group(2))}")
+                    seen[m.group(2)] = rel
+
+    def test_every_local_reference_resolves_in_the_same_file(self):
+        for rel, text in self._svg_files("svg/").items():
+            ids = set(re.findall(r"""\sid\s*=\s*["']([^"']+)["']""", text))
+            refs = re.findall(r"""url\(\s*["']?#([^)"'\s]+)""", text)
+            refs += re.findall(r"""href\s*=\s*["']#([^"']+)["']""", text)
+            for attr in re.findall(r"""aria-(?:labelledby|describedby)\s*=\s*["']([^"']*)["']""", text):
+                refs += attr.split()
+            for ref in refs:
+                self.assertIn(ref, ids, f"{rel}: #{ref} does not resolve")
+            group, name = rel[4:-4].split("/")
+            for i in ids:
+                self.assertTrue(i.startswith(f"{group}-{name}-"), f"{rel}: id {i} is not prefixed")
+
+    def test_embedded_font_faces_use_asset_unique_families(self):
+        families = {}
+        for rel, text in {**self._svg_files("svg/"), **self._svg_files("fixed/")}.items():
+            for face in re.findall(r"@font-face\s*\{[^}]*\}", text):
+                fam = re.search(r"""font-family\s*:\s*(["']?)([^;"'}]+)\1""", face).group(2).strip()
+                self.assertTrue(fam.startswith("cc-"), f"{rel}: @font-face {fam!r} is not prefixed")
+                group, name = rel.split("/", 1)[1][:-4].split("/")
+                self.assertTrue(fam.startswith(f"cc-{group}-{name}-"), f"{rel}: {fam!r}")
+                families.setdefault(fam, set()).add(rel.split("/", 1)[1])
+        self.assertTrue(families, "no embedded fonts found")
+        for fam, rels in families.items():
+            self.assertEqual(len(rels), 1, f"{fam} declared by {rels}")
+
+    def test_isolated_fonts_are_used_where_they_were_declared(self):
+        files = self._svg_files("svg/")
+        core = files["svg/header/core.svg"]
+        neon = files.get("svg/site/header-neon.svg", "")
+        checks = [
+            ("core text rule", "text{font-family:'cc-header-core-jetbrains-mono',Consolas" in core),
+            ("core keeps no bare family", "'JetBrains Mono'" not in core),
+            ("neon JBM", 'font:500 17px cc-site-header-neon-jbm,"JetBrains Mono",monospace' in neon),
+            ("neon CP", "font:700 132px cc-site-header-neon-cp," in neon),
+        ]
+        self.assertEqual([name for name, ok in checks if not ok], [])
+
+    def test_sources_keep_their_original_ids(self):
+        src = (ROOT / "packs/cybercore-brand/logos/symbol.svg").read_text()
+        self.assertIn('id="edge"', src)
+        self.assertIn('aria-labelledby="title desc"', src)
+
+    # --- I2: published README ---------------------------------------------
+
+    def test_readme_keeps_usage_rules_and_real_variable_names(self):
+        readme = ED.payload_brand()["README.md"].decode()
+        source = (ROOT / "packs/cybercore-brand/README.md").read_text()
+        first_heading = next(line for line in source.splitlines() if line.startswith("#"))
+        self.assertTrue(readme.startswith(source))
+        self.assertIn(first_heading, readme)
+        self.assertIn("--cc-brand-", readme)
+        self.assertNotIn("--cc-<slot>", readme)
+        self.assertIn("svg/<group>/<name>.svg", readme)
+
+    # --- I4: svg-assets content lives in brand group `site` ------------------
+
+    def test_every_svg_asset_has_a_site_brand_asset(self):
+        index = json.loads(ED.payload_brand()["brand.json"])
+        by_id = {a["id"]: a for a in index["assets"]}
+        svg_assets = [rel for rel in ED.payload_svg_assets() if rel.endswith(".svg")]
+        self.assertEqual(len(svg_assets), 21)
+        for rel in svg_assets:
+            stem = Path(rel).stem
+            asset = by_id.get(f"site.{stem}")
+            self.assertIsNotNone(asset, rel)
+            self.assertEqual(asset["svg"], f"svg/site/{stem}.svg")
+            self.assertEqual(asset["fixed"], f"fixed/site/{stem}.svg")
+        self.assertEqual(by_id["site.cybercore-icon-32"]["png"], ["png/site/cybercore-icon-32.png"])
+        self.assertIn("site.cybercore-wordmark", by_id)
+
+    # --- M4: kit index only lists what the kit ships ------------------------
+
+    def test_kit_brand_json_lists_only_svg_files(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            ED.export_org(Path(tmp))
+            kit = json.loads(Path(tmp, "kit/brand/brand.json").read_text())
+            for a in kit["assets"]:
+                self.assertNotIn("fixed", a)
+                self.assertNotIn("png", a)
+                if a["svg"]:
+                    self.assertTrue(Path(tmp, "kit/brand", a["svg"]).is_file(), a["svg"])
+            self.assertIsNone({a["id"]: a for a in kit["assets"]}["identity.mark"]["svg"])
+            pack = json.loads(ED.payload_brand()["brand.json"])
+            self.assertIn("fixed", pack["assets"][0])
 
     def test_chooser_ships_brand_vars_everywhere(self):
         if "from './brand-vars.js'" not in (ROOT / "web/chooser.js").read_text():
