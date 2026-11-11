@@ -30,3 +30,56 @@ test('defineBrandElement is side-effect free without a registry and defines once
   defineBrandElement(reg); defineBrandElement(reg);
   assert.ok(defined.has('cybercore-brand'));
 });
+
+import { isUnsafeUrl, isUnsafeAttribute, isUnsafeElement, cleanSvgTree } from '../brand.js';
+
+test('isUnsafeUrl catches decoded obfuscations', () => {
+  for (const bad of ['javascript:x()', 'JaVaScRiPt:x()', '  javascript:x()', '\x01javascript:x()', 'java\tscript:x()', 'java\nscr ipt:x()', '\x00j a\x1fvascript:x()'])
+    assert.equal(isUnsafeUrl(bad), true, JSON.stringify(bad));
+  for (const ok of ['#a', 'https://cybercoretech.net/x', 'svg/logo.svg', '', 'javascripty', null, undefined])
+    assert.equal(isUnsafeUrl(ok), false, String(ok));
+});
+
+test('isUnsafeAttribute flags handlers and javascript hrefs only', () => {
+  assert.equal(isUnsafeAttribute('onload', 'x()'), true);
+  assert.equal(isUnsafeAttribute('OnClick', 'x()'), true);
+  assert.equal(isUnsafeAttribute('href', 'javascript:x()'), true);
+  assert.equal(isUnsafeAttribute('xlink:href', ' JavaScript:x()'), true);
+  assert.equal(isUnsafeAttribute('XLINK:HREF', 'java\tscript:x()'), true);
+  assert.equal(isUnsafeAttribute('href', '#a'), false);
+  assert.equal(isUnsafeAttribute('fill', 'var(--cc-brand-bg, #000)'), false);
+  assert.equal(isUnsafeAttribute('x', '1'), false);
+});
+
+test('isUnsafeElement flags script, foreignObject and href animation', () => {
+  assert.equal(isUnsafeElement('script', null), true);
+  assert.equal(isUnsafeElement('SCRIPT', null), true);
+  assert.equal(isUnsafeElement('foreignObject', null), true);
+  assert.equal(isUnsafeElement('foreignobject', null), true);
+  for (const el of ['set', 'animate', 'animateTransform'])
+    for (const a of ['href', 'xlink:href', ' HREF ', 'XLink:Href'])
+      assert.equal(isUnsafeElement(el, a), true, `${el} ${a}`);
+  assert.equal(isUnsafeElement('animate', 'fill'), false);
+  assert.equal(isUnsafeElement('set', null), false);
+  assert.equal(isUnsafeElement('rect', null), false);
+});
+
+test('cleanSvgTree walks a tree using only the predicates', () => {
+  const mk = (name, attrs = {}, kids = []) => {
+    const el = { localName: name, children: [], attributes: Object.entries(attrs).map(([name, value]) => ({ name, value })),
+      getAttribute: k => attrs[k] ?? null, removeAttribute(k) { this.attributes = this.attributes.filter(a => a.name !== k); },
+      remove() { this.parent.children = this.parent.children.filter(c => c !== this); } };
+    kids.forEach(k => { k.parent = el; el.children.push(k); });
+    return el;
+  };
+  const root = mk('svg', { onload: 'x()' }, [
+    mk('script'), mk('rect', { x: '1', onclick: 'y()' }),
+    mk('a', { 'xlink:href': '\x01javascript:x()', href: '#a' }),
+    mk('set', { attributeName: 'href', to: 'javascript:x()' }), mk('g', {}, [mk('foreignObject')]),
+  ]);
+  cleanSvgTree(root);
+  assert.deepEqual(root.children.map(c => c.localName), ['rect', 'a', 'g']);
+  assert.deepEqual(root.attributes, []);
+  assert.deepEqual(root.children[1].attributes.map(a => a.name), ['href']);
+  assert.deepEqual(root.children[2].children, []);
+});
