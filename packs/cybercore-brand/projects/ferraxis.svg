@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Ferraxis mark</title>
+  <desc id="desc">Three forged plates converge around an ember core.</desc>
+  <defs>
+    <linearGradient id="iron" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e2e8e9"/>
+      <stop offset=".28" stop-color="#667477"/>
+      <stop offset="1" stop-color="#131a1d"/>
+    </linearGradient>
+    <linearGradient id="copper" x1="0" y1="1" x2="1" y2="0">
+      <stop stop-color="#ff6c2f"/>
+      <stop offset=".55" stop-color="#ffae4a"/>
+      <stop offset="1" stop-color="#ffe7a1"/>
+    </linearGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="54" fill="#090d0f"/>
+  <circle cx="128" cy="128" r="94" fill="none" stroke="#2d3b3d" stroke-width="2"/>
+  <circle cx="128" cy="128" r="78" fill="none" stroke="#162124" stroke-width="1" stroke-dasharray="3 8"/>
+  <path d="M128 34 201 75v36l-73 42-73-42V75z" fill="#11191b" stroke="#334346" stroke-width="3"/>
+  <path d="m128 42 57 33-57 33-57-33z" fill="url(#iron)" stroke="#9fa9a9" stroke-width="3"/>
+  <path d="m71 85 57 33v72l-57-33z" fill="url(#copper)" stroke="#ff8841" stroke-width="3"/>
+  <path d="m185 85-57 33v72l57-33z" fill="url(#iron)" stroke="#46d5ed" stroke-width="3"/>
+  <path d="m128 101 24 14v28l-24 14-24-14v-28z" fill="#ff7330" opacity=".9" filter="url(#glow)"/>
+  <path d="m128 108 17 10v19l-17 10-17-10v-19z" fill="url(#copper)" stroke="#fff0b7" stroke-width="2"/>
+</svg>

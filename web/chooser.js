@@ -41,6 +41,8 @@
  * (null = leave that variable alone). Every change is also announced as a
  * `cc:theme` event on document with { id, palette }.
  */
+import { paintBrandVars } from './brand-vars.js';
+
 const KIT_DATA = new URL('../data/', import.meta.url).href;
 
 const SLOTS = ['bg', 'white', 'panel', 'line', 'muted', 'acid_green', 'hot_pink', 'purple', 'cyan', 'orange', 'red'];
@@ -263,6 +265,7 @@ function createStore() {
       if (!names || !p[slot]) continue;
       for (const name of [].concat(names)) { root.style.setProperty(name, `#${p[slot]}`); painted.push(name); }
     }
+    paintBrandVars(root.style, p, recolor, painted);
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.content = `#${p.bg}`;
   }

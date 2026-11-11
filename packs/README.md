@@ -18,9 +18,10 @@ packs/
   cybercore-snippets/
   cybercore-components/
   cybercore-themes/
+  cybercore-brand/
 ```
 
-`packs.json` lists the eight official packs and their version floors.
+`packs.json` lists the nine official packs and their version floors.
 `tools/export-distribution.py packs <cybercore-packs checkout>` turns these
 sources (plus `schema/`, `web/`, `css/` and `assets/`) into the published
 `cybercore.*` packs; see `docs/distribution.md`. Hand-written sources:
@@ -32,6 +33,7 @@ sources (plus `schema/`, `web/`, `css/` and `assets/`) into the published
 | `cybercore-snippets/` | `cybercore.snippets` (index: `snippets.json`) |
 | `cybercore-fonts/` | `cybercore.fonts` (index: `fonts.json`) |
 | `cybercore-web-templates/` | `cybercore.web-templates` |
+| `cybercore-brand/` | `cybercore.brand`: theme-aware logos, icons, marks and project art (see `docs/distribution.md`) |
 
 Themes, components and SVG assets are generated from `schema/`, `css/` +
 `web/chooser.*` and `assets/`; their folders here only hold a README.

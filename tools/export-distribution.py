@@ -8,7 +8,8 @@ from it by this script, so a change made here reaches every consumer:
     export-distribution.py packs <packs-repo-root> # cybercore-packs
     export-distribution.py check                   # dry run into a temp dir
 
-`org` writes kit/v1/*, kit/chooser.*, data/themes/**, data/cybergrid.json,
+`org` writes kit/v1/*, kit/chooser.*, kit/brand.js, kit/brand-vars.js,
+kit/brand/** (brand.json + svg/**), data/themes/**, data/cybergrid.json,
 data/mashups.json and data/kitty-themes.json. It never touches org-owned
 files (kit/contact.js, data/contact.json, pages). The site's default theme
 (`active` in data/cybergrid.json) is kept as the org site has it.
@@ -33,6 +34,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA = ROOT / "schema"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import brand_theme  # noqa: E402
 PACK_SOURCES = ROOT / "packs"
 
 # Web Kit file mapping (same as tools/build-web-kit.sh).
@@ -46,6 +49,8 @@ KIT_V1 = {
 KIT_ROOT = {
     "chooser.js": ROOT / "web/chooser.js",
     "chooser.css": ROOT / "web/chooser.css",
+    "brand.js": ROOT / "web/brand.js",
+    "brand-vars.js": ROOT / "web/brand-vars.js",
 }
 DATA_FILES = {
     "mashups.json": SCHEMA / "mashups.json",
@@ -57,6 +62,7 @@ KIND_BY_SUFFIX = {
     ".js": "javascript",
     ".json": "index",
     ".svg": "svg",
+    ".png": "png",
     ".ttf": "font",
     ".woff2": "font",
     ".html": "html-template",
@@ -191,6 +197,28 @@ def export_org(target: Path) -> list[str]:
     for tid, (family, path) in themes.items():
         put(f"data/themes/{family}/{tid}.json", path.read_bytes())
 
+    pack = payload_brand()
+    brand = {k: v for k, v in pack.items() if k.startswith("svg/")}
+    # The kit ships svg/** only, so its index does not list fixed/ or png/ files.
+    index = json.loads(pack["brand.json"])
+    for asset in index["assets"]:
+        asset.pop("fixed", None)
+        asset.pop("png", None)
+    brand["brand.json"] = dump_json(index)
+    brand_dir = target / "kit/brand"
+    if brand_dir.is_dir():
+        for stale in sorted(brand_dir.rglob("*")):
+            if stale.is_file():
+                rel = stale.relative_to(brand_dir).as_posix()
+                if rel not in brand:
+                    stale.unlink()
+                    changed.append(f"kit/brand/{rel} (removed)")
+        for empty in sorted(brand_dir.rglob("*"), reverse=True):
+            if empty.is_dir() and not any(empty.iterdir()):
+                empty.rmdir()
+    for rel, data in brand.items():
+        put(f"kit/brand/{rel}", data)
+
     grid_path = target / "data/cybergrid.json"
     active = None
     if grid_path.exists():
@@ -253,6 +281,7 @@ def payload_components() -> dict[str, bytes]:
         "components.css": (ROOT / "css/cybercomponents.css").read_bytes(),
         "chooser.js": (ROOT / "web/chooser.js").read_bytes(),
         "chooser.css": (ROOT / "web/chooser.css").read_bytes(),
+        "brand-vars.js": (ROOT / "web/brand-vars.js").read_bytes(),
         "components.json": dump_json({
             "format": "cybercore-component-index",
             "kit_version": webkit["kit_version"],
@@ -339,6 +368,203 @@ def payload_web_templates() -> dict[str, bytes]:
     return payload_tree(PACK_SOURCES / "cybercore-web-templates")
 
 
+BRAND_GROUPS = {
+    "logos": "logo", "marks": "mark", "icons": "icon", "projects": "project", "tiles": "tile",
+    "headers": "header", "cards": "card", "identity": "identity", "avatars": "avatar",
+}
+
+BRAND_LAYOUT = """
+## Published layout
+
+- `svg/<group>/<name>.svg` recolours by role: every brand colour is a CSS variable
+  (`var(--cc-brand-<slot>, <original>)`), so the file follows a theme and falls back to the source colours.
+- `fixed/<group>/<name>.svg` keeps the source colours.
+- `png/<group>/<name>.png` are raster exports.
+- `brand.json` lists every asset with its group, title, files and project.
+- Group `site` holds the former `cybercore.svg-assets` art (`site.<stem>`).
+- Element ids and embedded font names are prefixed per asset (`<group>-<name>-<id>`,
+  `cc-<group>-<name>-<font>`), so several assets can be inlined on one page.
+"""
+
+# Per-asset isolation: inlined SVGs share the page's id space and @font-face
+# names, so every id and embedded font family is made unique per asset.
+_SVG_TAG = re.compile(r"<[A-Za-z][^<>]*>")
+_ID_ATTR = re.compile(r"""(\sid\s*=\s*)(["'])([^"']+)\2""")
+_HREF_LOCAL = re.compile(r"""(\s(?:xlink:)?href\s*=\s*)(["'])#([^"']+)\2""")
+_ARIA_IDS = re.compile(r"""(\saria-(?:labelledby|describedby)\s*=\s*)(["'])([^"']*)\2""")
+_URL_LOCAL = re.compile(r"""url\(\s*(["']?)#([^)"'\s]+)\1\s*\)""")
+_STYLE_BLOCK = re.compile(r"(<style\b[^>]*>)(.*?)(</style>)", re.S | re.I)
+_STYLE_ATTR = re.compile(r"""(\sstyle\s*=\s*)(["'])(.*?)\2""", re.S)
+_FAMILY_ATTR = re.compile(r"""(\sfont-family\s*=\s*)(["'])(.*?)\2""", re.S)
+_CSS_VALUE = r"""((?:[^;{}"']|"[^"]*"|'[^']*')*)"""
+_FAMILY_DECL = re.compile(r"(font-family\s*:\s*)" + _CSS_VALUE)
+_FONT_DECL = re.compile(r"((?<![\w-])font\s*:\s*)" + _CSS_VALUE)
+_FONT_FACE = re.compile(r"@font-face\s*\{[^{}]*\}")
+_FONT_SIZE_PREFIX = re.compile(
+    r"^(\s*(?:\S+\s+)*?[\d.]+(?:px|pt|pc|em|rem|ex|ch|%|vw|vh|vmin|vmax|cm|mm|in)(?:/\S+)?\s+)(.*)$", re.S)
+
+
+def _split_families(value: str) -> list[str]:
+    parts, current, quote = [], "", None
+    for ch in value:
+        if quote:
+            quote = None if ch == quote else quote
+        elif ch in "'\"":
+            quote = ch
+        elif ch == ",":
+            parts.append(current)
+            current = ""
+            continue
+        current += ch
+    return [*parts, current]
+
+
+def _rename_families(value: str, fonts: dict[str, str]) -> str:
+    out = []
+    for part in _split_families(value):
+        m = re.fullmatch(r"(\s*)(.*?)(\s*)", part, re.S)
+        raw = m.group(2)
+        quote = raw[0] if raw[:1] in ("'", '"') and raw.endswith(raw[0]) and len(raw) > 1 else ""
+        name = raw[1:-1] if quote else raw
+        new = fonts.get(name.strip().lower())
+        out.append(m.group(1) + (f"{quote}{new}{quote}" if new else raw) + m.group(3))
+    return ",".join(out)
+
+
+def _rename_font_shorthand(value: str, fonts: dict[str, str]) -> str:
+    m = _FONT_SIZE_PREFIX.match(value)
+    return m.group(1) + _rename_families(m.group(2), fonts) if m else value
+
+
+def _rename_css_fonts(css: str, fonts: dict[str, str]) -> str:
+    css = _FAMILY_DECL.sub(lambda m: m.group(1) + _rename_families(m.group(2), fonts), css)
+    return _FONT_DECL.sub(lambda m: m.group(1) + _rename_font_shorthand(m.group(2), fonts), css)
+
+
+_CSS_PART = re.compile(r"(\s*@font-face\s*\{[^{}]*\})|([^{}]+)\{([^{}]*)\}", re.S)
+
+
+def _scope_css(css: str, prefix: str) -> str:
+    """Scope every selector outside @font-face to this asset; refuse any other at-rule."""
+    scope = f'[data-cc-asset="{prefix}"]'
+
+    def part(m: re.Match) -> str:
+        if m.group(1):
+            return m.group(1)
+        sel = m.group(2)
+        at = re.search(r"@[\w-]+", sel)
+        if at:
+            raise ExportError(f"{prefix}: <style> uses unsupported at-rule {at.group(0)}")
+        lead = re.match(r"\s*", sel).group(0)
+        scoped = ",".join(f"{scope} {one.strip()}" for one in sel.split(","))
+        return f"{lead}{scoped}{{{m.group(3)}}}"
+
+    out = _CSS_PART.sub(part, css)
+    rest = _CSS_PART.sub("", css)
+    at = re.search(r"@[\w-]+", rest)
+    if at:
+        raise ExportError(f"{prefix}: <style> uses unsupported at-rule {at.group(0)}")
+    return out
+
+
+def isolate_svg(svg: str, prefix: str) -> str:
+    """Prefix every id (and its references), every embedded @font-face family, and scope every <style> rule."""
+    ids = {m.group(3): f"{prefix}-{m.group(3)}" for t in _SVG_TAG.findall(svg) for m in _ID_ATTR.finditer(t)}
+    fonts: dict[str, str] = {}
+    for block in _STYLE_BLOCK.finditer(svg):
+        for face in _FONT_FACE.findall(block.group(2)):
+            for decl in _FAMILY_DECL.finditer(face):
+                family = decl.group(2).strip().strip("'\"").strip()
+                slug = re.sub(r"[^a-z0-9]+", "-", family.lower()).strip("-")
+                fonts.setdefault(family.lower(), f"cc-{prefix}-{slug}")
+
+    def tag(m: re.Match) -> str:
+        t = _ID_ATTR.sub(lambda a: a.group(1) + a.group(2) + ids[a.group(3)] + a.group(2), m.group(0))
+        t = _HREF_LOCAL.sub(lambda a: a.group(1) + a.group(2) + "#" + ids.get(a.group(3), a.group(3)) + a.group(2), t)
+        t = _ARIA_IDS.sub(lambda a: a.group(1) + a.group(2) + re.sub(
+            r"\S+", lambda w: ids.get(w.group(0), w.group(0)), a.group(3)) + a.group(2), t)
+        if fonts:
+            t = _FAMILY_ATTR.sub(lambda a: a.group(1) + a.group(2) + _rename_families(a.group(3), fonts) + a.group(2), t)
+            t = _STYLE_ATTR.sub(lambda a: a.group(1) + a.group(2) + _rename_css_fonts(a.group(3), fonts) + a.group(2), t)
+        return t
+
+    out = _SVG_TAG.sub(tag, svg)
+    out = _STYLE_BLOCK.sub(
+        lambda m: m.group(1) + _scope_css(_rename_css_fonts(m.group(2), fonts) if fonts else m.group(2), prefix) + m.group(3),
+        out)
+    out = re.sub(r"<svg\b", f'<svg data-cc-asset="{prefix}"', out, count=1)
+    return _URL_LOCAL.sub(lambda m: "url(%s#%s%s)" % (m.group(1), ids.get(m.group(2), m.group(2)), m.group(1)), out)
+
+
+def brand_sources(source: Path) -> list[tuple[str, str, list[Path]]]:
+    """(folder, group, files) for every brand group, plus the site art in assets/."""
+    groups = [(folder, group, sorted((source / folder).glob("*"))) for folder, group in BRAND_GROUPS.items()]
+    site = (sorted((ROOT / "assets").glob("*.svg")) + sorted((ROOT / "assets/icons").glob("*.svg"))
+            + sorted((ROOT / "assets/icons").glob("*.png")))
+    return [*groups, ("assets", "site", site)]
+
+
+def payload_brand() -> dict[str, bytes]:
+    source = PACK_SOURCES / "cybercore-brand"
+    palette = brand_theme.load_palette(source / "palette.json")
+    projects = load_json(source / "projects.json")["projects"]
+    by_icon = {Path(p["icon"]).as_posix(): p for p in projects}
+    readme = (source / "README.md").read_text().rstrip("\n") + "\n" + BRAND_LAYOUT
+    files: dict[str, bytes] = {"README.md": readme.encode()}
+    assets = []
+
+    for folder, group, paths in brand_sources(source):
+        svgs: dict[str, dict] = {}
+        pngs: list[tuple[str, str]] = []
+        for path in paths:
+            if path.suffix == ".svg":
+                data = path.read_bytes()
+                name = path.stem
+                if f"svg/{group}/{name}.svg" in files:
+                    raise ExportError(f"duplicate brand asset {group}.{name}")
+                isolated = isolate_svg(data.decode(), f"{group}-{name}")
+                files[f"fixed/{group}/{name}.svg"] = isolated.encode()
+                files[f"svg/{group}/{name}.svg"] = brand_theme.themeable_svg(isolated, palette).encode()
+                title = svg_title(data, name)
+                project = None
+                if group == "project":
+                    entry = by_icon.get(f"{folder}/{path.name}")
+                    if entry is None:
+                        raise ExportError(f"projects.json has no entry for {folder}/{path.name}")
+                    title, project = entry["title"], entry["repo"]
+                svgs[name] = {
+                    "id": f"{group}.{name}", "group": group, "name": name, "title": title,
+                    "svg": f"svg/{group}/{name}.svg", "fixed": f"fixed/{group}/{name}.svg",
+                    "png": [], "project": project,
+                }
+            elif path.suffix == ".png":
+                files[f"png/{group}/{path.stem}.png"] = path.read_bytes()
+                pngs.append((path.stem, f"png/{group}/{path.stem}.png"))
+        standalone: dict[str, dict] = {}
+        for stem, rel in pngs:
+            base = re.sub(r"-\d+$", "", stem)
+            target = svgs.get(stem) or svgs.get(base)
+            if target is None:
+                target = standalone.setdefault(stem, {
+                    "id": f"{group}.{stem}", "group": group, "name": stem, "title": stem,
+                    "svg": None, "fixed": None, "png": [], "project": None,
+                })
+            target["png"].append(rel)
+        for asset in [*svgs.values(), *standalone.values()]:
+            asset["png"].sort(key=lambda r: (int(m.group(1)) if (m := re.search(r"-(\d+)\.png$", r)) else 0, r))
+            assets.append(asset)
+
+    missing = {p["repo"] for p in projects} - {a["project"] for a in assets if a["project"]}
+    if missing:
+        raise ExportError(f"projects.json lists repos without an icon: {sorted(missing)}")
+    assets.sort(key=lambda a: a["id"])
+    files["brand.json"] = dump_json({
+        "format": "cybercore-brand-index", "version": 1,
+        "slots": list(brand_theme.BRAND_SLOTS), "assets": assets,
+    })
+    return files
+
+
 PAYLOADS = {
     "themes": payload_themes,
     "effects": payload_effects,
@@ -348,6 +574,7 @@ PAYLOADS = {
     "fonts": payload_fonts,
     "svg-assets": payload_svg_assets,
     "web-templates": payload_web_templates,
+    "brand": payload_brand,
 }
 
 

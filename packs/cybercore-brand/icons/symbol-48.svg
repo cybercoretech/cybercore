@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Cybercore symbol</title><desc id="desc">A segmented hexagonal C wrapped around a bright core signal.</desc>
+  <defs><linearGradient id="edge" x1="80" y1="80" x2="430" y2="430" gradientUnits="userSpaceOnUse"><stop stop-color="#22E6FF"/><stop offset=".58" stop-color="#22E6FF"/><stop offset="1" stop-color="#48FF52"/></linearGradient><filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="10" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <path fill="#08111B" d="M139 35h234l104 104v234L373 477H139L35 373V139z"/>
+  <path fill="none" stroke="#173043" stroke-width="8" d="M139 35h234l104 104v234L373 477H139L35 373V139z"/>
+  <path fill="none" stroke="url(#edge)" stroke-width="28" stroke-linecap="square" stroke-linejoin="miter" d="M359 111H169L111 169v174l58 58h190" filter="url(#glow)"/>
+  <path fill="none" stroke="url(#edge)" stroke-width="24" stroke-linecap="square" stroke-linejoin="miter" d="M359 111H169L111 169v174l58 58h190"/>
+  <path fill="none" stroke="#22E6FF" stroke-width="18" stroke-linecap="square" d="M315 191H205l-30 30v70l30 30h110"/>
+  <path fill="#48FF52" d="M265 236h119v40H265z"/>
+  <circle cx="397" cy="256" r="13" fill="#FF2D9E"/>
+</svg>

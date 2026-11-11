@@ -21,10 +21,12 @@ test -d "$WEB_KIT_REPO" || { echo "missing web-kit checkout: $WEB_KIT_REPO" >&2;
 ORG_REV="$(git -C "$ORG_SITE" log -1 --format=%H -- kit data 2>/dev/null || printf 'unknown')"
 ORG_DATE="$(git -C "$ORG_SITE" log -1 --format=%cI -- kit data 2>/dev/null || printf 'unknown')"
 
-rm -rf "$DIST/v1" "$DIST/data"
+rm -rf "$DIST/v1" "$DIST/data" "$DIST/brand"
 mkdir -p "$DIST/v1" "$DIST/data"
 cp -a "$ORG_SITE/kit/v1/." "$DIST/v1/"
-cp "$ORG_SITE/kit/contact.js" "$ORG_SITE/kit/chooser.js" "$ORG_SITE/kit/chooser.css" "$DIST/"
+cp "$ORG_SITE/kit/contact.js" "$ORG_SITE/kit/chooser.js" "$ORG_SITE/kit/chooser.css" "$ORG_SITE/kit/brand.js" "$ORG_SITE/kit/brand-vars.js" "$DIST/"
+# brand.js loads brand/brand.json and brand/svg/** relative to itself.
+cp -a "$ORG_SITE/kit/brand" "$DIST/"
 # Registry snapshot, without local backup files or the folder README.
 rsync -a --exclude="*.backup-*" --exclude="README.md" "$ORG_SITE/data/" "$DIST/data/"
 
@@ -51,6 +53,6 @@ jq -n \
     }
   }' > "$DIST/build.json"
 
-(cd "$DIST" && find contact.js chooser.js chooser.css v1 data -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum > checksums-sha256.txt)
+(cd "$DIST" && find contact.js chooser.js chooser.css brand.js brand-vars.js brand v1 data -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum > checksums-sha256.txt)
 
 printf 'Cybercore Web Kit mirrored into %s (org %s)\n' "$DIST" "$ORG_REV"

@@ -1,0 +1,31 @@
+{
+  "slots": {
+    "bg": "#08111B",
+    "white": "#F5F3FF",
+    "panel": "#1B1236",
+    "line": "#2A1E48",
+    "muted": "#9A8FC2",
+    "acid-green": "#48FF52",
+    "hot-pink": "#FF2D9E",
+    "purple": "#B44DFF",
+    "cyan": "#22E6FF",
+    "orange": "#FF6A1A",
+    "red": "#FF2158"
+  },
+  "colors": {
+    "#12E5DE": "cyan",
+    "#28E6F5": "cyan",
+    "#B6FF3C": "acid-green",
+    "#C6FF45": "acid-green",
+    "#0E091D": "bg",
+    "#080D14": "bg",
+    "#140D29": "panel",
+    "#173043": "line",
+    "#6D5F96": "muted",
+    "#8B9BAA": "muted",
+    "#A698C9": "muted",
+    "#F3F6FA": "white",
+    "#EDF6FF": "white"
+  },
+  "max_distance": 48
+}
