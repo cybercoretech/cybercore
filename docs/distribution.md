@@ -52,9 +52,14 @@ Slots: `bg`, `white`, `panel`, `line`, `muted`, `acid-green`, `hot-pink`,
 theme.
 
 ```html
-<script type="module" src="/kit/brand.js"></script>
-<cybercore-brand name="logo.symbol" label="Cybercore"></cybercore-brand>
+<script type="module" src="https://cybercoretech.github.io/kit/brand.js"></script>
+<cybercore-brand name="logo.symbol" size="48" label="Cybercore"></cybercore-brand>
 ```
+
+Project sites load the kit from the org site with that absolute URL (the org
+site itself may use `/kit/brand.js`). `size` sets the height; the width follows
+the artwork. Ids and embedded font names are prefixed per asset at export time,
+so any number of assets can share a page.
 
 `<cybercore-brand>` fetches `kit/brand/brand.json` and `kit/brand/svg/...`,
 inlines the SVG so the variables apply, and never runs script from the markup.
@@ -63,6 +68,14 @@ colours; use `fixed/` or `png/` files from the pack for those.
 `kit/brand/**` is written by `export_org` like the themes; stale files are
 removed. `cybercore.svg-assets` is superseded by `cybercore.brand` but stays
 published for existing consumers.
+
+Every `cybercore.svg-assets` file is the same file under brand group `site`
+(read in place from `assets/`, themed like the rest):
+
+| svg-assets file | brand asset |
+| --- | --- |
+| `<stem>.svg` (for example `cybercore-wordmark.svg`, `cybercore-hero.svg`, `header-neon.svg`, `logo-schema-seal.svg`) | `site.<stem>` (`site.cybercore-wordmark`, ...) |
+| `icons/cybercore-icon-<N>.svg` (+ `.png`) | `site.cybercore-icon-<N>` (PNG under `png/site/`) |
 
 ## 🧰 Tools
 

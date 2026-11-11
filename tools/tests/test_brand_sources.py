@@ -35,8 +35,10 @@ class BrandSourcesTest(unittest.TestCase):
                 self.assertTrue(p["upstream"].startswith("https://"))
 
     def test_no_private_or_third_party_content(self):
-        for path in B.rglob("*"):
-            if path.is_file() and path.suffix in {".svg", ".json", ".md"}:
+        tools = [p for p in (ROOT / "tools/brand").rglob("*") if p.suffix in {".mjs", ".sh", ".py"}]
+        self.assertTrue(tools)
+        for path in [*B.rglob("*"), *tools, ROOT / "tools/build_brand_avatars.py"]:
+            if path.is_file() and path.suffix in {".svg", ".json", ".md", ".mjs", ".sh", ".py"}:
                 text = path.read_text().lower()
                 for token in ("darkstardevx", "/home/raven", "darkbox", "blackbox", "dsdx.code@", "19244308+", "omarchy-logo", "hyprland"):
                     self.assertNotIn(token, text, f"{path}: {token}")
