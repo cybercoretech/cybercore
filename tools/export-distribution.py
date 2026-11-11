@@ -441,8 +441,34 @@ def _rename_css_fonts(css: str, fonts: dict[str, str]) -> str:
     return _FONT_DECL.sub(lambda m: m.group(1) + _rename_font_shorthand(m.group(2), fonts), css)
 
 
+_CSS_PART = re.compile(r"(\s*@font-face\s*\{[^{}]*\})|([^{}]+)\{([^{}]*)\}", re.S)
+
+
+def _scope_css(css: str, prefix: str) -> str:
+    """Scope every selector outside @font-face to this asset; refuse any other at-rule."""
+    scope = f'[data-cc-asset="{prefix}"]'
+
+    def part(m: re.Match) -> str:
+        if m.group(1):
+            return m.group(1)
+        sel = m.group(2)
+        at = re.search(r"@[\w-]+", sel)
+        if at:
+            raise ExportError(f"{prefix}: <style> uses unsupported at-rule {at.group(0)}")
+        lead = re.match(r"\s*", sel).group(0)
+        scoped = ",".join(f"{scope} {one.strip()}" for one in sel.split(","))
+        return f"{lead}{scoped}{{{m.group(3)}}}"
+
+    out = _CSS_PART.sub(part, css)
+    rest = _CSS_PART.sub("", css)
+    at = re.search(r"@[\w-]+", rest)
+    if at:
+        raise ExportError(f"{prefix}: <style> uses unsupported at-rule {at.group(0)}")
+    return out
+
+
 def isolate_svg(svg: str, prefix: str) -> str:
-    """Prefix every id (and its references) and every embedded @font-face family."""
+    """Prefix every id (and its references), every embedded @font-face family, and scope every <style> rule."""
     ids = {m.group(3): f"{prefix}-{m.group(3)}" for t in _SVG_TAG.findall(svg) for m in _ID_ATTR.finditer(t)}
     fonts: dict[str, str] = {}
     for block in _STYLE_BLOCK.finditer(svg):
@@ -463,8 +489,10 @@ def isolate_svg(svg: str, prefix: str) -> str:
         return t
 
     out = _SVG_TAG.sub(tag, svg)
-    if fonts:
-        out = _STYLE_BLOCK.sub(lambda m: m.group(1) + _rename_css_fonts(m.group(2), fonts) + m.group(3), out)
+    out = _STYLE_BLOCK.sub(
+        lambda m: m.group(1) + _scope_css(_rename_css_fonts(m.group(2), fonts) if fonts else m.group(2), prefix) + m.group(3),
+        out)
+    out = re.sub(r"<svg\b", f'<svg data-cc-asset="{prefix}"', out, count=1)
     return _URL_LOCAL.sub(lambda m: "url(%s#%s%s)" % (m.group(1), ids.get(m.group(2), m.group(2)), m.group(1)), out)
 
 

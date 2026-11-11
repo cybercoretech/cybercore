@@ -136,12 +136,39 @@ class BrandPayloadTest(unittest.TestCase):
         core = files["svg/header/core.svg"]
         neon = files.get("svg/site/header-neon.svg", "")
         checks = [
-            ("core text rule", "text{font-family:'cc-header-core-jetbrains-mono',Consolas" in core),
+            ("core text rule", "[data-cc-asset=\"header-core\"] text{font-family:'cc-header-core-jetbrains-mono',Consolas" in core),
             ("core keeps no bare family", "'JetBrains Mono'" not in core),
             ("neon JBM", 'font:500 17px cc-site-header-neon-jbm,"JetBrains Mono",monospace' in neon),
             ("neon CP", "font:700 132px cc-site-header-neon-cp," in neon),
         ]
         self.assertEqual([name for name, ok in checks if not ok], [])
+
+    def test_style_rules_are_scoped_to_their_own_asset(self):
+        checked = 0
+        for rel, text in {**self._svg_files("svg/"), **self._svg_files("fixed/")}.items():
+            group, name = rel.split("/", 1)[1][:-4].split("/")
+            scope = f'[data-cc-asset="{group}-{name}"]'
+            root = re.search(r"<svg\b[^>]*>", text).group(0)
+            self.assertIn(f'data-cc-asset="{group}-{name}"', root, f"{rel}: root lacks scope attribute")
+            for block in re.findall(r"<style\b[^>]*>(.*?)</style>", text, re.S | re.I):
+                css = re.sub(r"/\*.*?\*/", "", re.sub(r"@font-face\s*\{[^{}]*\}", "", block, flags=re.S), flags=re.S)
+                for sel, _body in re.findall(r"([^{}]+)\{([^{}]*)\}", css):
+                    for one in sel.split(","):
+                        checked += 1
+                        self.assertTrue(one.strip().startswith(scope + " "), f"{rel}: unscoped selector {one.strip()!r}")
+        self.assertGreater(checked, 20)
+
+    def test_style_at_rules_other_than_font_face_are_refused(self):
+        svg = '<svg xmlns="http://www.w3.org/2000/svg"><style>@media print{text{fill:red}}</style><text>x</text></svg>'
+        with self.assertRaises(ED.ExportError) as ctx:
+            ED.isolate_svg(svg, "tiles-x")
+        self.assertIn("@media", str(ctx.exception))
+
+    def test_font_face_only_style_is_left_unscoped(self):
+        svg = '<svg xmlns="http://www.w3.org/2000/svg"><style>@font-face{font-family:A;src:url(data:x)}</style></svg>'
+        out = ED.isolate_svg(svg, "tiles-x")
+        self.assertIn('data-cc-asset="tiles-x"', out)
+        self.assertIn("@font-face{font-family:cc-tiles-x-a;src:url(data:x)}", out)
 
     def test_sources_keep_their_original_ids(self):
         src = (ROOT / "packs/cybercore-brand/logos/symbol.svg").read_text()
